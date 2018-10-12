@@ -69,14 +69,10 @@ NOTE: When defining the scope of monitoring, Specific, Measureable, Achievable, 
    
 |===
 h|Specific | The areas for monitoring need to be clear and unambiguous.
-
 h|Measureable | A country needs to review its resources and capacity for the monitoring exercise. If the monitoring exercise is carried out for the first time, the country may be focused on a small number of strategically important procedures, products or trade routes for the monitoring exercise. Over time, with enhanced national capacity and experiences, more products and trade routes can be included for monitoring.
-
 h|Relevant  | The areas of monitoring need to be strategically important and relevant for a country.
-
 h|Time-bound | The time-frame and target dates for the monitoring exercises need to be clear to all stakeholders.
-
-|====
+|===
 
 The country may consider processes, products and/or trade routes and corridors when defining the scope of monitoring (as elaborated in sections <<scope-process>> through <<trade-routes-corridors>>, below).
 
@@ -84,7 +80,7 @@ The country may consider processes, products and/or trade routes and corridors w
 ==== Process
 Countries, whenever appropriate, are encouraged to adopt a whole-of-supply-chain approach for the scope of their monitoring exercises to ensure that the solutions identified for enhancing trade and transport facilitation are encompassing and comprehensive. To this end, the Buy-Ship-Pay model{blank}footnote:[This model is included in UNECE Recommendation n°18 Facilitation Measures Related to International Trade Procedures, available at http://www.unece.org/tradewelcome/un-centre-for-trade- facilitation-and-e-business-uncefact/outputs/cefactrecommendationsrec-index/list-of-trade-facilitation- recommendations-n-16-to-20.html (accessed 17 January 2017).] (as shown in <<Figure1>>) should be considered by the country when setting up the scope of monitoring. The scope of monitoring could cover the whole- of-supply-chain process (i.e. all of Buy-Ship-Pay) or, in some cases, the scope might be confined to selected processes in the Buy-Ship-Pay model, according to the priorities of the country.
 
-
+[[Figure1]]
 . UNECE Recommendation n°18 illustrates a simplified view of the international supply chain in the Buy-Ship-Pay model. The model identifies the key commercial, logistical, regulatory and payment procedures involved in the international supply chain. Source: http://tfig.unece.org/contents/buy-ship-pay-model.htm.
 image::figure1.png[]
 
@@ -120,6 +116,7 @@ Some necessary data will not be available from existing automated systems in a c
 It is recommended that countries utilize published instruments and existing tools and techniques for business process analysis. An example of this is the UNNExT _Business Process Analysis Guide to Simplify Trade Procedures_{blank}footnote:[For more information, refer to UNNExT, 2012, _Business Process Analysis Guide to Simplify Trade Procedures_, UNNExT. available at http://www.unescap.org/resources/business-process-analysis-guide- simplify-trade-procedures (accessed 2 January 2017).] which was developed to assist in the collection and analysis of data, the construction of databases and the generation of appropriate indicators.
 24. Other trade and transport facilitation monitoring methods such as Time-Cost- Distance (TCD){blank}footnote:[More information is available at http://www.unescap.org/resources/timecost-distance-methodology (accessed 14 December 2016).], Corridor Performance Measurement and Monitoring (CPMM){blank}footnote:[For more information, refer to ADB, _Central Asia Regional Economic Cooperation Corridor Performance Measurement and Monitoring: A Forward-Looking Retrospective_ (Manila, 2014). Available at https://www.adb.org/sites/default/files/publication/148731/carec-cpmm-forward-looking- retrospective.pdf (accessed 2 January 2017).] and WCO Time Release Studies (TRS) can also be utilized to supplement BPA. The complementary nature of BPA and other methods, collectively called BPA+, are described in <<Box1>>.
 
+[[Box1]]
 [IMPORTANT]
 . Business Process Analysis Plus (BPA+)
 ====
@@ -252,7 +249,7 @@ h| Export h| Import
 |===
 
 === Middle tier indicators
-3. Proposed middle tier indicators are shown in <<table_a2>>.
+Proposed middle tier indicators are shown in <<table_a2>>.
 
 [[table_a2]]
 .Proposed middle tier indicators

@@ -100,18 +100,11 @@ module Asciidoctor
 
       def doctype(node)
         d = node.attr("doctype")
-        unless %w{policy-and-procedures best-practices supporting-document report legal directives proposal standard}.include? d
-          warn "#{d} is not a legal document type: reverting to 'standard'"
-          d = "standard"
+        unless %w{plenary recommendation}.include? d
+          warn "#{d} is not a legal document type: reverting to 'recommendation'"
+          d = "recommendation"
         end
         d
-      end
-
-      def pdf_convert(filename)
-        url = "#{Dir.pwd}/#{filename}.html"
-        pdfjs = File.join(File.dirname(__FILE__), 'pdf.js')
-        system "export NODE_PATH=$(npm root --quiet -g);
-                node #{pdfjs} file://#{url} #{filename}.pdf"
       end
 
       def document(node)
@@ -124,7 +117,6 @@ module Asciidoctor
           File.open(filename, "w") { |f| f.write(ret) }
           html_converter(node).convert filename unless node.attr("nodoc")
           word_converter(node).convert filename unless node.attr("nodoc")
-          pdf_convert(filename.sub(/\.xml$/, "")) unless node.attr("nodoc")
         end
         @files_to_delete.each { |f| FileUtils.rm f }
         ret
@@ -185,6 +177,18 @@ module Asciidoctor
             end
           end
         end.join
+      end
+
+      def sections_cleanup(xmldoc)
+        super
+        xmldoc.xpath("//clause/p | //annex/p").each do |p|
+          cl = Nokogiri::XML::Node.new("clause", xmldoc)
+          cl["id"] = p["id"]
+          cl["inline-header"]="true" 
+          p["id"] = "_" + UUIDTools::UUID.random_create
+          p.replace(cl)
+          p.parent = cl
+        end
       end
     end
   end
