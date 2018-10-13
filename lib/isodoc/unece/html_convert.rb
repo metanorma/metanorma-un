@@ -90,19 +90,7 @@ module IsoDoc
 
       def i18n_init(lang, script)
         super
-        @annex_lbl = "Appendix"
-      end
-
-      def error_parse(node, out)
-        # catch elements not defined in ISO
-        case node.name
-        when "pre"
-          pre_parse(node, out)
-        when "keyword"
-          out.span node.text, **{ class: "keyword" }
-        else
-          super
-        end
+        @admonition_lbl = "Box"
       end
 
       def fileloc(loc)
@@ -146,10 +134,6 @@ module IsoDoc
         else
           div << term_defs_boilerplate_cont(source, term)
         end
-      end
-
-      def i18n_init(lang, script)
-        super
       end
 
       def fileloc(loc)
@@ -282,6 +266,53 @@ module IsoDoc
         end
       end
 
+      def sequential_admonition_names(clause)
+        i = 0
+        clause.xpath(ns(".//admonition")).each do |t|
+          i += 1
+          next if t["id"].nil? || t["id"].empty?
+          @anchors[t["id"]] = anchor_struct(i.to_s, nil, @admonition_lbl, "box")
+        end
+      end
+
+      def hierarchical_admonition_names(clause, num)
+        i = 0 
+        clause.xpath(ns(".//admonition")).each do |t|
+          i += 1
+          next if t["id"].nil? || t["id"].empty?
+          @anchors[t["id"]] = anchor_struct("#{num}.#{i}", nil, @admonition_lbl, "box")
+        end
+      end
+
+      def sequential_asset_names(clause)
+        super
+        sequential_admonition_names(clause)
+      end
+
+      def hierarchical_asset_names(clause, num)
+        super
+        hierarchical_admonition_names(clause, num)
+      end
+
+      def admonition_name_parse(node, div, name)
+        div.p **{ class: "FigureTitle", align: "center" } do |p|
+          p << l10n("#{@admonition_lbl} #{get_anchors[node['id']][:label]}")
+          if name
+            p << "&nbsp;&mdash; "
+            name.children.each { |n| parse(n, div) }
+          end
+        end
+      end
+
+      def admonition_parse(node, out)
+        name = node.at(ns("./name"))
+        out.div **{ class: "Admonition" } do |t|
+          admonition_name_parse(node, t, name) if name
+          node.children.each do |n|
+            parse(n, t) unless n.name == "name"
+          end
+        end
+      end
     end
   end
 end

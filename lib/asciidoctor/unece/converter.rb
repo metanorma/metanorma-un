@@ -190,6 +190,19 @@ module Asciidoctor
           p.parent = cl
         end
       end
+
+      def admonition(node)
+        return termnote(node) if in_terms?
+        return note(node) if node.attr("name") == "note"
+        noko do |xml|
+          xml.admonition **admonition_attrs(node) do |a|
+            unless node.title.nil?
+              a.name { |name| name << node.title }
+            end
+            wrap_in_para(node, a)
+          end
+        end.join("\n")
+      end
     end
   end
 end

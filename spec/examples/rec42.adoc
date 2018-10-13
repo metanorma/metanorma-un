@@ -37,6 +37,7 @@ This Recommendation is primarily focused on TTFMMs at the national level. Howeve
 
 === Benefits
 The adoption of a TTFMM will bring the following benefits to a country: 
+
 * Cost-effective and sustainable monitoring of trade and transport facilitation;
 * Reliable, systematic, consistent and harmonized data available for policymaking and modernization;
 * Enhanced national human capacity for trade and transport facilitation; and
