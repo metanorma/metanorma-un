@@ -1,9 +1,10 @@
-== Trade and Transport Facilitation Monitoring Mechanism
+= Trade and Transport Facilitation Monitoring Mechanism
 :doctype: Recommendation
 :docnumber: 42
 :tc: United Nations Centre for Trade Facilitation and Electronic Business (UN/CEFACT)
 :copyright-date: 2017
 
+[abstract]
 .Foreword
 It is my pleasure to introduce this new recommendation on monitoring the effectiveness of policies and procedures that facilitate trade and speed up international supply and value chains. Facilitating trade is one of the vectors to improving peoples’ lives and reducing inequalities. Using international standards and standard procedures creates a level playing field for all actors in both developed and developing economies.
 
@@ -224,6 +225,7 @@ ADB’s CAREC CPMM covers trade and transport facilitation performance in select
 [appendix]
 == An example of top- and middle-tier indicators under a TTFMM
 A country may consider developing the following indicators to monitor trade and transport facilitation. Each indicator can be associated with exports and/or imports. For each indicator, a comparison with historical data, if available, can be useful for assessing whether performance has improved or deteriorated.
+
 === Top tier indicators
 The indicators under the category “Product-specific indicators” in <<table_a1>> are derived from indicators under Trading Across Borders developed by the World Bank, available as of 14 December 2016 at:<http://www.doingbusiness.org/data/exploretopics/trading-across-borders#close>. At the same time, when done at a country-level these indicators should be determined on a product-by-product basis, for those products which the country has identified as being a priority (the World Bank tries to use the same products for all countries in order for data to be comparable).
 

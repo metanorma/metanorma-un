@@ -76,10 +76,6 @@ module IsoDoc
         return "#{MONTHS[m[:mo].to_sym]} #{m[:yr]}"
       end
 
-      def security(isoxml, _out)
-        security = isoxml.at(ns("//bibdata/security")) || return
-        set(:security, security.text)
-      end
     end
   end
 end
