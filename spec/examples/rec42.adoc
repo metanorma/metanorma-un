@@ -82,7 +82,7 @@ The country may consider processes, products and/or trade routes and corridors w
 Countries, whenever appropriate, are encouraged to adopt a whole-of-supply-chain approach for the scope of their monitoring exercises to ensure that the solutions identified for enhancing trade and transport facilitation are encompassing and comprehensive. To this end, the Buy-Ship-Pay model{blank}footnote:[This model is included in UNECE Recommendation n°18 Facilitation Measures Related to International Trade Procedures, available at http://www.unece.org/tradewelcome/un-centre-for-trade- facilitation-and-e-business-uncefact/outputs/cefactrecommendationsrec-index/list-of-trade-facilitation- recommendations-n-16-to-20.html (accessed 17 January 2017).] (as shown in <<Figure1>>) should be considered by the country when setting up the scope of monitoring. The scope of monitoring could cover the whole- of-supply-chain process (i.e. all of Buy-Ship-Pay) or, in some cases, the scope might be confined to selected processes in the Buy-Ship-Pay model, according to the priorities of the country.
 
 [[Figure1]]
-. UNECE Recommendation n°18 illustrates a simplified view of the international supply chain in the Buy-Ship-Pay model. The model identifies the key commercial, logistical, regulatory and payment procedures involved in the international supply chain. Source: http://tfig.unece.org/contents/buy-ship-pay-model.htm.
+.UNECE Recommendation n°18 illustrates a simplified view of the international supply chain in the Buy-Ship-Pay model. The model identifies the key commercial, logistical, regulatory and payment procedures involved in the international supply chain. Source: http://tfig.unece.org/contents/buy-ship-pay-model.htm.
 image::figure1.png[]
 
 ==== Products
@@ -94,7 +94,7 @@ When selecting products for monitoring, and whenever possible, one or more of th
 * The product should have a high frequency of shipments;
 * The product should have a high economic value to the country or region;
 * The trade process for the product should include common (or many) bottlenecks, a high number of agencies and/or inefficient procedures; and
-() The product should be relevant to the health, well-being and/or social cohesion of citizens.
+* The product should be relevant to the health, well-being and/or social cohesion of citizens.
 
 [[trade-routes-corridors]]
 ====  Trade routes and corridors{blank}footnote:[According to the World Bank, a trade and transport corridor is a coordinated bundle of transport and logistics infrastructure and services that facilitates trade and transport flows between major centers of economic activity. Source: Carruthers, Robin; Kunaka, Charles. 2014. Trade and transport corridor management toolkit. Washington DC; World Bank Group.]
@@ -119,7 +119,7 @@ It is recommended that countries utilize published instruments and existing tool
 
 [[Box1]]
 [IMPORTANT]
-. Business Process Analysis Plus (BPA+)
+.Business Process Analysis Plus (BPA+)
 ====
 Business Process Analysis was initially designed to document and evaluate an import/export process at a given point time and its relative simplicity. It also specifically includes a measurement of the time and cost of the complete range of procedures as one of the main outputs of the analysis. This combination makes it suitable as the basis/core of a trade facilitation monitoring and improvement system.
 
@@ -224,6 +224,7 @@ ADB’s CAREC CPMM covers trade and transport facilitation performance in select
 [[annex2]]
 [appendix]
 == An example of top- and middle-tier indicators under a TTFMM
+=== General
 A country may consider developing the following indicators to monitor trade and transport facilitation. Each indicator can be associated with exports and/or imports. For each indicator, a comparison with historical data, if available, can be useful for assessing whether performance has improved or deteriorated.
 
 === Top tier indicators

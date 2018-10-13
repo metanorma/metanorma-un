@@ -516,12 +516,6 @@ p.document-stage {
   list-style: none;
    }
 
-   ul li:before {
-    content: "—";
-    display: inline-block; width: 1em;
-    margin-left: -1.2em;
-  }
-
   ul li p:first-child {
     display: inline;
   }

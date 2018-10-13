@@ -49,14 +49,6 @@ module IsoDoc
         end
       end
 
-      def make_body2(body, docxml)
-        body.div **{ class: "WordSection2" } do |div2|
-          info docxml, div2
-          div2.p { |p| p << "&nbsp;" } # placeholder
-        end
-        section_break(body)
-      end
-
       def title(isoxml, _out)
         main = isoxml&.at(ns("//title[@language='en']"))&.text
         set_metadata(:doctitle, main)
