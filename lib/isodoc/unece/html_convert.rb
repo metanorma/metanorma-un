@@ -113,12 +113,6 @@ module IsoDoc
         docxml
       end
 
-      def annex_name_lbl(clause, num)
-        obl = l10n("(#{@inform_annex_lbl})")
-        obl = l10n("(#{@norm_annex_lbl})") if clause["obligation"] == "normative"
-        l10n("<b>#{@annex_lbl} #{num}</b> #{obl}")
-      end
-
       MIDDLE_CLAUSE = "//clause[parent::sections]".freeze
 
       def middle(isoxml, out)
@@ -278,6 +272,18 @@ module IsoDoc
           end
         end
       end
+
+    def inline_header_title(out, node, c1)
+      title = c1&.content || ""
+      out.span **{ class: "zzMoveToFollowing" } do |s|
+          if get_anchors[node['id']][:label]
+            s << "#{get_anchors[node['id']][:label]}. " unless @suppressheadingnumbers
+            insert_tab(s, 1)
+          end
+          s << "#{title} "
+      end
+    end
+
     end
   end
 end

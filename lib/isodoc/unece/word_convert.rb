@@ -83,10 +83,9 @@ module IsoDoc
       def annex_name(annex, name, div)
         div.h1 **{ class: "Annex" } do |t|
           t << "#{get_anchors[annex['id']][:label]} "
-          require "byebug"; byebug
           t.b do |b|
-          name&.children&.each { |c2| parse(c2, b) }
-        end
+            name&.children&.each { |c2| parse(c2, b) }
+          end
         end
       end
 
@@ -125,12 +124,6 @@ module IsoDoc
         docxml
       end
 
-      def annex_name_lbl(clause, num)
-        obl = l10n("(#{@inform_annex_lbl})")
-        obl = l10n("(#{@norm_annex_lbl})") if clause["obligation"] == "normative"
-        l10n("<b>#{@annex_lbl} #{num}</b> #{obl}")
-      end
-
       MIDDLE_CLAUSE = "//clause[parent::sections]".freeze
 
       def middle(isoxml, out)
@@ -167,8 +160,8 @@ module IsoDoc
       end
 
       def leaf_section(clause, lvl)
-          @paranumber += 1
-          @anchors[clause["id"]] = {label: @paranumber.to_s, xref: "paragraph #{@paranumber}", level: lvl, type: "paragraph" }
+        @paranumber += 1
+        @anchors[clause["id"]] = {label: @paranumber.to_s, xref: "paragraph #{@paranumber}", level: lvl, type: "paragraph" }
       end
 
       def annex_leaf_section(clause, num, lvl)
@@ -288,6 +281,17 @@ module IsoDoc
           node.children.each do |n|
             parse(n, t) unless n.name == "name"
           end
+        end
+      end
+
+      def inline_header_title(out, node, c1)
+        title = c1&.content || ""
+        out.span **{ class: "zzMoveToFollowing" } do |s|
+          if get_anchors[node['id']][:label]
+            s << "#{get_anchors[node['id']][:label]}. " unless @suppressheadingnumbers
+            insert_tab(s, 1)
+          end
+          s << "#{title} "
         end
       end
     end
