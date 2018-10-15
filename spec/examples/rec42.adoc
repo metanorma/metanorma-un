@@ -272,5 +272,5 @@ h| Export h| Import
 2+h| 1.3 Border crossing indicators
 h| Export h| Import
 | Average time for completion of *each export procedure for border crossing* | Average time for completion of *each import procedure for border crossing*
-2+h|*Change (%) compared with historical data:* for each indicator mentioned in this table, a comparison with historical data—if available—is recommended to assess whether performance has improved or deteriorated.
+2+|*Change (%) compared with historical data:* for each indicator mentioned in this table, a comparison with historical data—if available—is recommended to assess whether performance has improved or deteriorated.
 |===

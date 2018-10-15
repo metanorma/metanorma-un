@@ -66,7 +66,6 @@ module IsoDoc
       end
 
       def middle(isoxml, out)
-        middle_title(out)
         clause isoxml, out
         annex isoxml, out
         bibliography isoxml, out
@@ -147,6 +146,14 @@ module IsoDoc
         when 0 then num.to_s
         end
       end
+      
+      def annex_levelnumber(num, lvl)
+        case lvl % 3
+        when 0 then RomanNumerals.to_roman(num)
+        when 1 then ("A".ord + num - 1).chr
+        when 2 then num.to_s
+        end
+      end
 
       def leaf_section(clause, lvl)
         @paranumber += 1
@@ -198,7 +205,7 @@ module IsoDoc
         @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), type: "clause",
                                    xref: "#{@annex_lbl} #{num}", level: 1 }
         clause.xpath(ns("./clause")).each_with_index do |c, i|
-          annex_names1(c, "#{num}.#{levelnumber(i + 1, 2)}", 2)
+          annex_names1(c, "#{num}.#{annex_levelnumber(i + 1, 2)}", 2)
         end
         hierarchical_asset_names(clause, num)
       end
@@ -211,7 +218,7 @@ module IsoDoc
         @anchors[clause["id"]] = { label: leafnum, xref: "#{@annex_lbl} #{num}",
                                    level: level, type: "clause" }
         clause.xpath(ns("./clause")).each_with_index do |c, i|
-          annex_names1(c, "#{num}.#{levelnumber(i + 1, level + 1)}", level + 1)
+          annex_names1(c, "#{num}.#{annex_levelnumber(i + 1, level + 1)}", level + 1)
         end
       end
 
