@@ -37,7 +37,6 @@
         </optional>
         <choice>
           <ref name="image"/>
-          <ref name="pre"/>
           <oneOrMore>
             <ref name="subfigure"/>
           </oneOrMore>
@@ -61,10 +60,7 @@
         <optional>
           <ref name="tname"/>
         </optional>
-        <choice>
-          <ref name="image"/>
-          <ref name="pre"/>
-        </choice>
+        <ref name="image"/>
       </element>
     </define>
     <define name="status">
@@ -81,7 +77,6 @@
         </choice>
       </element>
     </define>
-    <!-- TextElement |= keyword -->
     <define name="TextElement">
       <choice>
         <text/>
@@ -100,25 +95,25 @@
         <ref name="hr"/>
         <ref name="pagebreak"/>
         <ref name="bookmark"/>
-        <ref name="keyword"/>
       </choice>
     </define>
     <define name="BibItemType" combine="choice">
       <choice>
-        <value>policy-and-procedures</value>
-        <value>best-practices</value>
-        <value>supporting-document</value>
-        <value>report</value>
-        <value>legal</value>
-        <value>directives</value>
-        <value>proposal</value>
-        <value>standard</value>
+        <value>recommendation</value>
+        <value>plenary</value>
       </choice>
     </define>
     <define name="editorialgroup">
       <element name="editorialgroup">
         <oneOrMore>
           <ref name="committee"/>
+        </oneOrMore>
+      </element>
+    </define>
+    <define name="sections">
+      <element name="sections">
+        <oneOrMore>
+          <ref name="clause"/>
         </oneOrMore>
       </element>
     </define>
@@ -172,46 +167,19 @@
       <zeroOrMore>
         <ref name="ics"/>
       </zeroOrMore>
-      <optional>
-        <ref name="security"/>
-      </optional>
     </define>
   </include>
   <define name="committee">
     <element name="committee">
-      <attribute name="type">
-        <choice>
-          <value>technical</value>
-          <value>provisional</value>
-        </choice>
-      </attribute>
-      <text/>
-    </element>
-  </define>
-  <define name="pre">
-    <element name="pre">
-      <text/>
-    </element>
-  </define>
-  <define name="keyword">
-    <element name="keyword">
-      <text/>
-    </element>
-  </define>
-  <define name="security">
-    <element name="security">
       <text/>
     </element>
   </define>
   <define name="unece-standard">
-    <element name="unece-standard">
+    <element name="rsd-standard">
       <ref name="bibdata"/>
       <optional>
         <ref name="version"/>
       </optional>
-      <zeroOrMore>
-        <ref name="termdocsource"/>
-      </zeroOrMore>
       <ref name="preface"/>
       <oneOrMore>
         <ref name="sections"/>
@@ -219,7 +187,6 @@
       <zeroOrMore>
         <ref name="annex"/>
       </zeroOrMore>
-      <ref name="bibliography"/>
     </element>
   </define>
 </grammar>
