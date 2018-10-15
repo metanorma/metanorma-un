@@ -65,6 +65,13 @@ module IsoDoc
         end
       end
 
+      def middle(isoxml, out)
+        middle_title(out)
+        clause isoxml, out
+        annex isoxml, out
+        bibliography isoxml, out
+      end
+
       def html_toc(docxml)
         docxml
       end
@@ -73,8 +80,8 @@ module IsoDoc
         div.h1 **{ class: "Annex" } do |t|
           t << "#{get_anchors[annex['id']][:label]} "
           t.b do |b|
-          name&.children&.each { |c2| parse(c2, b) }
-        end
+            name&.children&.each { |c2| parse(c2, b) }
+          end
         end
       end
 
@@ -115,13 +122,6 @@ module IsoDoc
 
       MIDDLE_CLAUSE = "//clause[parent::sections]".freeze
 
-      def middle(isoxml, out)
-        middle_title(out)
-        clause isoxml, out
-        annex isoxml, out
-        bibliography isoxml, out
-      end
-
       def initial_anchor_names(d)
         preface_names(d.at(ns("//foreword")))
         preface_names(d.at(ns("//introduction")))
@@ -149,8 +149,8 @@ module IsoDoc
       end
 
       def leaf_section(clause, lvl)
-          @paranumber += 1
-          @anchors[clause["id"]] = {label: @paranumber.to_s, xref: "paragraph #{@paranumber}", level: lvl, type: "paragraph" }
+        @paranumber += 1
+        @anchors[clause["id"]] = {label: @paranumber.to_s, xref: "paragraph #{@paranumber}", level: lvl, type: "paragraph" }
       end
 
       def annex_leaf_section(clause, num, lvl)
@@ -273,16 +273,42 @@ module IsoDoc
         end
       end
 
-    def inline_header_title(out, node, c1)
-      title = c1&.content || ""
-      out.span **{ class: "zzMoveToFollowing" } do |s|
+      def inline_header_title(out, node, c1)
+        title = c1&.content || ""
+        out.span **{ class: "zzMoveToFollowing" } do |s|
           if get_anchors[node['id']][:label]
             s << "#{get_anchors[node['id']][:label]}. " unless @suppressheadingnumbers
             insert_tab(s, 1)
           end
           s << "#{title} "
+        end
       end
-    end
+
+      def introduction(isoxml, out)
+        f = isoxml.at(ns("//introduction")) || return
+        page_break(out)
+        out.div **{ class: "Section3", id: f["id"] } do |div|
+          s.h1(**{ class: "IntroTitle" }) do |h1|
+            insert_tab(h1, 1)
+            h1 << @introduction_lbl
+          end
+          f.elements.each do |e|
+            parse(e, div) unless e.name == "title"
+          end
+        end
+      end
+
+      def foreword(isoxml, out)
+        f = isoxml.at(ns("//foreword")) || return
+        page_break(out)
+        out.div **attr_code(id: f["id"]) do |s|
+          s.h1(**{ class: "ForewordTitle" }) do |h1|
+            insert_tab(h1, 1)
+            h1 << @foreword_lbl 
+          end
+          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+        end
+      end
 
     end
   end

@@ -78,6 +78,40 @@ module IsoDoc
         from_xhtml(h1)
       end
 
+      ENDLINE = <<~END.freeze
+      <v:line id="_x0000_s1026"
+ alt="" style='position:absolute;left:0;text-align:left;z-index:251662848;
+ mso-wrap-edited:f;mso-width-percent:0;mso-height-percent:0;
+ mso-width-percent:0;mso-height-percent:0'
+ from="6.375cm,20.95pt" to="10.625cm,20.95pt"
+ strokeweight="1.5pt"/>
+      END
+
+      def end_line(_isoxml, out)
+        out.parent.add_child(ENDLINE)
+      end
+
+      def middle(isoxml, out)
+        middle_title(out)
+        clause isoxml, out
+        annex isoxml, out
+        bibliography isoxml, out
+        end_line(isoxml, out)
+      end
+
+      def clause_parse_title(node, div, c1, out)
+        if node["inline-header"] == "true"
+          inline_header_title(out, node, c1)
+        else
+          div.send "h#{get_anchors[node['id']][:level]}" do |h|
+            lbl = get_anchors[node['id']][:label]
+            h << "#{lbl}. " if lbl && !@suppressheadingnumbers
+            insert_tab(h, 1)
+            c1&.children&.each { |c2| parse(c2, h) }
+          end
+        end
+      end
+
       # SAME as html_convert.rb from here on, starting with annex_name
 
       def annex_name(annex, name, div)
@@ -125,13 +159,6 @@ module IsoDoc
       end
 
       MIDDLE_CLAUSE = "//clause[parent::sections]".freeze
-
-      def middle(isoxml, out)
-        middle_title(out)
-        clause isoxml, out
-        annex isoxml, out
-        bibliography isoxml, out
-      end
 
       def initial_anchor_names(d)
         preface_names(d.at(ns("//foreword")))
@@ -294,6 +321,33 @@ module IsoDoc
           s << "#{title} "
         end
       end
+
+           def introduction(isoxml, out)
+        f = isoxml.at(ns("//introduction")) || return
+        page_break(out)
+        out.div **{ class: "Section3", id: f["id"] } do |div|
+          s.h1(**{ class: "IntroTitle" }) do |h1|
+            insert_tab(h1, 1)
+            h1 << @introduction_lbl
+          end
+          f.elements.each do |e|
+            parse(e, div) unless e.name == "title"
+          end
+        end
+      end
+
+      def foreword(isoxml, out)
+        f = isoxml.at(ns("//foreword")) || return
+        page_break(out)
+        out.div **attr_code(id: f["id"]) do |s|
+          s.h1(**{ class: "ForewordTitle" }) do |h1|
+            insert_tab(h1, 1)
+            h1 << @foreword_lbl
+          end
+          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+        end
+      end
+
     end
   end
 end
