@@ -111,6 +111,40 @@ module IsoDoc
         end
       end
 
+      def introduction(isoxml, out)
+        f = isoxml.at(ns("//introduction")) || return
+        page_break(out)
+        out.div **{ class: "Section3", id: f["id"] } do |div|
+          s.p(**{ class: "IntroTitle" }) do |h1|
+            h1 << @introduction_lbl
+          end
+          f.elements.each do |e|
+            parse(e, div) unless e.name == "title"
+          end
+        end
+      end
+
+      def foreword(isoxml, out)
+        f = isoxml.at(ns("//foreword")) || return
+        page_break(out)
+        out.div **attr_code(id: f["id"]) do |s|
+          s.p(**{ class: "ForewordTitle" }) do |h1|
+            h1 << @foreword_lbl
+          end
+          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+        end
+      end
+
+      def word_preface(docxml)
+        super
+        return unless @wordintropage
+        preface_container = docxml.at("//div[@id = 'preface_container']")
+        foreword = docxml.at("//p[@class = 'ForewordTitle']/..")
+        intro = docxml.at("//p[@class = 'IntroTitle']/..")
+        foreword.parent = preface_container if foreword
+        intro.parent = preface_container if intro
+      end
+
       # SAME as html_convert.rb from here on, starting with annex_name
 
       def annex_name(annex, name, div)
@@ -185,7 +219,7 @@ module IsoDoc
         end
       end
 
-            def annex_levelnumber(num, lvl)
+      def annex_levelnumber(num, lvl)
         case lvl % 3
         when 0 then RomanNumerals.to_roman(num)
         when 1 then ("A".ord + num - 1).chr
@@ -328,34 +362,6 @@ module IsoDoc
           s << "#{title} "
         end
       end
-
-           def introduction(isoxml, out)
-        f = isoxml.at(ns("//introduction")) || return
-        page_break(out)
-        out.div **{ class: "Section3", id: f["id"] } do |div|
-          s.h1(**{ class: "IntroTitle" }) do |h1|
-            insert_tab(h1, 1)
-            h1 << @introduction_lbl
-          end
-          f.elements.each do |e|
-            parse(e, div) unless e.name == "title"
-          end
-        end
-      end
-
-      def foreword(isoxml, out)
-        f = isoxml.at(ns("//foreword")) || return
-        page_break(out)
-        out.div **attr_code(id: f["id"]) do |s|
-          s.h1(**{ class: "ForewordTitle" }) do |h1|
-            insert_tab(h1, 1)
-            h1 << @foreword_lbl
-          end
-          f.elements.each { |e| parse(e, s) unless e.name == "title" }
-        end
-      end
-
     end
   end
 end
-
