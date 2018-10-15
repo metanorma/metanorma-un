@@ -125,7 +125,7 @@ module Asciidoctor
       def validate(doc)
         content_validate(doc)
         schema_validate(formattedstr_strip(doc.dup),
-                        File.join(File.dirname(__FILE__), "rsd.rng"))
+                        File.join(File.dirname(__FILE__), "unece.rng"))
       end
 
       def literal(node)
@@ -188,6 +188,9 @@ module Asciidoctor
           p["id"] = "_" + UUIDTools::UUID.random_create
           p.replace(cl)
           p.parent = cl
+          while n = cl.next_element and n.name != "p"
+            n.parent = cl
+          end
         end
       end
 
