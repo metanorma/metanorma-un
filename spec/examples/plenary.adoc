@@ -1,12 +1,13 @@
 = Paperless Trade White Paper
-:title: Paperless Trade White Paper: How Does It Impact the Trade System
+:title: Paperless Trade White Paper
+:subtitle: How Does It Impact the Trade System
 :doctype: plenary
-:docnumber: 42
+:docnumber: GE.18-02016(E
 :committee: United Nations Centre for Trade Facilitation and Electronic Business (UN/CEFACT)
 :copyright-year: 2018
 :session: 24
 :session-date: Geneva, 30 April – 1 May 2018
-:agenda: Item 6 of the provisional agenda 
+:agenda-item: Item 6 of the provisional agenda 
 :collaborator: World Economic Forum
 :agenda-id: ECE/TRADE/C/CEFACT/2018/6
 :docnumber:    GE.18-02016(E)

@@ -48,6 +48,9 @@ module Asciidoctor
           xml.title **{ language: lang, format: "plain" } do |t|
             t << asciidoc_sub(node.attr("title"))
           end
+          xml.subtitle **{ language: lang, format: "plain" } do |t|
+            t << asciidoc_sub(node.attr("subtitle"))
+          end
         end
       end
 
@@ -71,14 +74,20 @@ module Asciidoctor
         end
       end
 
-      def metadata_security(node, xml)
-        security = node.attr("security") || return
-        xml.security security
+      def metadata_session(node, xml)
+        xml.session do |session|
+          session.number node.attr("session") if node.attr("session")
+          session.date node.attr("session-date") if node.attr("session-date")
+          session.agenda_item node.attr("agenda-item") if node.attr("agenda-item")
+          session.collaborator node.attr("collaborator") if node.attr("collaborator")
+          session.id node.attr("agenda-id") if node.attr("agenda-id")
+          session.distribution node.attr("distribution") if node.attr("distribution")
+        end
       end
 
       def metadata(node, xml)
         super
-        metadata_security(node, xml)
+        metadata_session(node, xml)
       end
 
       def title_validate(root)

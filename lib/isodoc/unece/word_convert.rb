@@ -35,12 +35,15 @@ module IsoDoc
         }
       end
 
-
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)
       end
 
       def make_body(xml, docxml)
+        if xml.at(ns("//bibdata[@type = 'plenary']")) && 
+            @wordcoverpage == html_doc_path("word_unece_titlepage.html")
+          @wordcoverpage = html_doc_path("word_unece_plenary_titlepage.html")
+        end
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72" }
         xml.body **body_attr do |body|
           make_body1(body, docxml)
@@ -139,9 +142,11 @@ module IsoDoc
         super
         return unless @wordintropage
         preface_container = docxml.at("//div[@id = 'preface_container']")
+        abstractbox = docxml.at("//div[@id = 'abstractbox']")
         foreword = docxml.at("//p[@class = 'ForewordTitle']/..")
         intro = docxml.at("//p[@class = 'IntroTitle']/..")
-        foreword.parent = preface_container if foreword
+        foreword.parent = (abstractbox || preface_container) if foreword
+        docxml&.at("//p[@class = 'ForewordTitle']")&.remove if abstractbox
         intro.parent = preface_container if intro
       end
 
