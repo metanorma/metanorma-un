@@ -11,7 +11,7 @@
 :collaborator: World Economic Forum
 :agenda-id: ECE/TRADE/C/CEFACT/2018/6
 :docnumber:    GE.18-02016(E)
-:published-date:  9 February 2018
+:revdate:  9 February 2018
 :language: English
 :distribution: General
 

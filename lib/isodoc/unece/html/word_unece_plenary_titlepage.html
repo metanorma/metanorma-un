@@ -21,10 +21,7 @@ style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",
 <p class=MsoNormal style='tab-stops:70.9pt 12.0cm'><span lang=EN-AU
 style='font-family:"Times New Roman",serif'><span style='mso-tab-count:1'>                        </span><span
 style='mso-tab-count:1'>                                                                                          </span></span><span
-lang=EN-AU style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ session_date }}<o:p></o:p></span></p>
-
-<p class=MsoNormal style='tab-stops:70.9pt 12.0cm'><span lang=EN-AU
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></p>
+lang=EN-AU style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ revdate }}<o:p></o:p></span></p>
 
 <p class=MsoNormal style='tab-stops:70.9pt 12.0cm'><span lang=EN-AU
 style='font-family:"Times New Roman",serif'><span style='mso-tab-count:2'>                                                                                                                 </span></span><span
@@ -34,7 +31,6 @@ lang=EN-AU style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times 
 <p class=MsoNormal style='tab-stops:70.9pt 12.0cm'><span lang=EN-AU
 style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></p>
 
-<p class=MsoNormal><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></p>
 
 <div style='mso-element:para-border-div;border:none;border-top:solid windowtext 2.25pt;
 padding:1.0pt 0cm 0cm 0cm'>
@@ -86,15 +82,16 @@ normal'><span lang=EN-AU style='font-size:16.0pt;mso-bidi-font-size:12.0pt;
 font-family:"Times New Roman",serif'>{{ doctitle }}<o:p></o:p></span></b></p>
 
 <p class=MsoNormal style='margin-left:70.9pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></b></p>
-
-<p class=MsoNormal style='margin-left:70.9pt'><b style='mso-bidi-font-weight:
 normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'>{{ docsubtitle }}<o:p></o:p></span></b></p>
 
-<p class=MsoNormal style='margin-left:70.9pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></b></p>
+{% if session_collaborator %}
+<b style='mso-bidi-font-weight:
+normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'>Developed
+in Collaboration with {{ session_collaborator }}<o:p></o:p></span></b>
+{% endif %}
 
-<p class=MsoNormal style='margin-left:70.9pt'><!--[if gte vml 1]><v:shapetype
+
+<p class=MsoNormal style='margin-left:70.9pt'><v:shapetype
  id="_x0000_t202" coordsize="21600,21600" o:spt="202" path="m,l,21600r21600,l21600,xe">
  <v:stroke joinstyle="miter"/>
  <v:path gradientshapeok="t" o:connecttype="rect"/>
@@ -177,38 +174,9 @@ AAAAAAAAxQQAAGRycy9kb3ducmV2LnhtbFBLBQYAAAAABAAEAPMAAADUBQAAAAA=
   </table>
   <![endif]></v:textbox>
  <w:wrap type="square"/>
-</v:shape><![endif]-->
+</v:shape>
 
-{% if session_collaborator %}
-<b style='mso-bidi-font-weight:
-normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'>Developed
-in Collaboration with {{ session_collaborator }}<o:p></o:p></span></b>
-{% endif %}
 </p>
-
-<p class=MsoNormal style='margin-left:70.9pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></b></p>
-
-<p class=MsoNormal style='margin-left:1.0cm;text-indent:-1.0cm'><i
-style='mso-bidi-font-style:normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></i></p>
-
-<p class=MsoNormal style='margin-left:1.0cm;text-indent:-1.0cm'><i
-style='mso-bidi-font-style:normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></i></p>
-
-<p class=MsoNormal style='margin-left:1.0cm;text-indent:-1.0cm'><i
-style='mso-bidi-font-style:normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></i></p>
-
-<p class=MsoNormal style='margin-left:1.0cm;text-indent:-1.0cm'><i
-style='mso-bidi-font-style:normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></i></p>
-
-<p class=MsoNormal style='margin-left:1.0cm;text-indent:-1.0cm'><i
-style='mso-bidi-font-style:normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></i></p>
-
-<p class=MsoNormal style='margin-left:1.0cm;text-indent:-1.0cm'><i
-style='mso-bidi-font-style:normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></i></p>
-
-<p class=MsoNormal style='margin-left:1.0cm;text-indent:-1.0cm'><i
-style='mso-bidi-font-style:normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></i></p>
 
 <p class=MsoNormal style='margin-left:1.0cm;text-indent:-1.0cm'><i
 style='mso-bidi-font-style:normal'><span lang=EN-AU style='font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></i></p>

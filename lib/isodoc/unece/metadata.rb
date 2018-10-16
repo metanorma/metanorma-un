@@ -23,14 +23,14 @@ module IsoDoc
       def author(isoxml, _out)
         tc = isoxml.at(ns("//bibdata/editorialgroup/committee"))
         set(:tc, tc.text) if tc
-        set(:session_number, isoxml&.at("//bibdata/session/number")&.text&.to_i&.
+        set(:session_number, isoxml&.at(ns("//bibdata/session/number"))&.text&.to_i&.
             localize&.to_rbnf_s("SpelloutRules", "spellout-ordinal")&.capitalize)
-        set(:session_date, isoxml&.at("//bibdata/session/date")&.text)
-        set(:session_agendaitem, isoxml&.at("//bibdata/session/agenda_item")&.text)
-        set(:session_collaborator, isoxml&.at("//bibdata/session/collaborator")&.text)
-        set(:session_id, isoxml&.at("//bibdata/session/id")&.text)
-        set(:session_distribution, isoxml&.at("//bibdata/session/distribution")&.text)
-        set(:language, isoxml&.at("//bibdata/language")&.text)
+        set(:session_date, isoxml&.at(ns("//bibdata/session/date"))&.text)
+        set(:session_agendaitem, isoxml&.at(ns("//bibdata/session/agenda_item"))&.text)
+        set(:session_collaborator, isoxml&.at(ns("//bibdata/session/collaborator"))&.text)
+        set(:session_id, isoxml&.at(ns("//bibdata/session/id"))&.text)
+        set(:session_distribution, isoxml&.at(ns("//bibdata/session/distribution"))&.text)
+        set(:language, isoxml&.at(ns("//bibdata/language"))&.text)
       end
 
       def docid(isoxml, _out)
