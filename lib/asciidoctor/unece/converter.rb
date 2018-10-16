@@ -197,7 +197,7 @@ module Asciidoctor
           p["id"] = "_" + UUIDTools::UUID.random_create
           p.replace(cl)
           p.parent = cl
-          while n = cl.next_element and n.name != "p"
+          while n = cl.next_element and !%w(p clause).include? n.name
             n.parent = cl
           end
         end

@@ -40,7 +40,6 @@ module IsoDoc
       end
 
       def make_body(xml, docxml)
-        require "byebug"; byebug
         if docxml.at(ns("//bibdata[@type = 'plenary']")) && 
             @wordcoverpage == html_doc_path("word_unece_titlepage.html")
           @wordcoverpage = html_doc_path("word_unece_plenary_titlepage.html")
@@ -246,16 +245,16 @@ module IsoDoc
 
       def section_names(clause, num, lvl)
         return num if clause.nil?
-        unless clause.at(ns("./clause | ./term  | ./terms | ./definitions"))
-          leaf_section(clause, lvl) and return
-        end
+        clause.at(ns("./clause | ./term  | ./terms | ./definitions")) or
+          leaf_section(clause, lvl) && return
         num = num + 1
         lbl = levelnumber(num, 1)
         @anchors[clause["id"]] =
           { label: lbl, xref: l10n("#{@clause_lbl} #{lbl}"), level: lvl, type: "clause" }
-        clause.xpath(ns("./clause | ./term  | ./terms | ./definitions")).
-          each_with_index do |c, i|
-          section_names1(c, "#{lbl}.#{levelnumber(i + 1, lvl + 1)}", lvl + 1)
+        i = 1
+        clause.xpath(ns("./clause | ./term  | ./terms | ./definitions")).each do |c|
+          section_names1(c, "#{lbl}.#{levelnumber(i, lvl + 1)}", lvl + 1)
+          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions"))
         end
         num
       end
@@ -267,9 +266,10 @@ module IsoDoc
         /\.(?<leafnum>[^.]+$)/ =~ num
         @anchors[clause["id"]] =
           { label: leafnum, level: level, xref: l10n("#{@clause_lbl} #{num}"), type: "clause" }
-        clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).
-          each_with_index do |c, i|
-          section_names1(c, "#{num}.#{levelnumber(i + 1, level + 1)}", level + 1)
+        i = 1
+        clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).each do |c|
+          section_names1(c, "#{num}.#{levelnumber(i, level + 1)}", level + 1)
+          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions"))
         end
       end
 
@@ -283,8 +283,10 @@ module IsoDoc
         end
         @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), type: "clause",
                                    xref: "#{@annex_lbl} #{num}", level: 1 }
-        clause.xpath(ns("./clause")).each_with_index do |c, i|
-          annex_names1(c, "#{num}.#{annex_levelnumber(i + 1, 2)}", 2)
+        i = 1
+        clause.xpath(ns("./clause")).each do |c|
+          annex_names1(c, "#{num}.#{annex_levelnumber(i, 2)}", 2)
+          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions"))
         end
         hierarchical_asset_names(clause, num)
       end
@@ -296,8 +298,10 @@ module IsoDoc
         /\.(?<leafnum>[^.]+$)/ =~ num
         @anchors[clause["id"]] = { label: leafnum, xref: "#{@annex_lbl} #{num}",
                                    level: level, type: "clause" }
-        clause.xpath(ns("./clause")).each_with_index do |c, i|
-          annex_names1(c, "#{num}.#{annex_levelnumber(i + 1, level + 1)}", level + 1)
+        i = 1
+        clause.xpath(ns("./clause")).each do |c|
+          annex_names1(c, "#{num}.#{annex_levelnumber(i, level + 1)}", level + 1)
+          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions"))
         end
       end
 
