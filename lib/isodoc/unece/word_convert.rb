@@ -40,7 +40,8 @@ module IsoDoc
       end
 
       def make_body(xml, docxml)
-        if xml.at(ns("//bibdata[@type = 'plenary']")) && 
+        require "byebug"; byebug
+        if docxml.at(ns("//bibdata[@type = 'plenary']")) && 
             @wordcoverpage == html_doc_path("word_unece_titlepage.html")
           @wordcoverpage = html_doc_path("word_unece_plenary_titlepage.html")
         end
@@ -154,7 +155,8 @@ module IsoDoc
 
       def annex_name(annex, name, div)
         div.h1 **{ class: "Annex" } do |t|
-          t << "#{get_anchors[annex['id']][:label]} "
+          t << "#{get_anchors[annex['id']][:label]}"
+          t.br
           t.b do |b|
             name&.children&.each { |c2| parse(c2, b) }
           end
