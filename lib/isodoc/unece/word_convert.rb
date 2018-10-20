@@ -40,10 +40,11 @@ module IsoDoc
       end
 
       def make_body(xml, docxml)
-        if docxml.at(ns("//bibdata[@type = 'plenary']")) && 
-            @wordcoverpage == html_doc_path("word_unece_titlepage.html")
+        plenary = docxml.at(ns("//bibdata[@type = 'plenary']"))
+        if plenary && @wordcoverpage == html_doc_path("word_unece_titlepage.html")
           @wordcoverpage = html_doc_path("word_unece_plenary_titlepage.html")
         end
+        @wordintropage = nil if plenary
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72" }
         xml.body **body_attr do |body|
           make_body1(body, docxml)
@@ -51,6 +52,16 @@ module IsoDoc
           make_body3(body, docxml)
         end
       end
+
+       def make_body2(body, docxml)
+      body.div **{ class: "WordSection2" } do |div2|
+        info docxml, div2
+        foreword docxml, div2
+        introduction docxml, div2
+        div2.p { |p| p << "&nbsp;" } # placeholder
+      end
+      section_break(body)
+    end
 
       def title(isoxml, _out)
         main = isoxml&.at(ns("//title[@language='en']"))&.text
@@ -69,7 +80,7 @@ module IsoDoc
       end
 
       def header_strip(h)
-        h = h.to_s.gsub(%r{<br/>}, " ").sub(/<\/?h[12][^>]*>/, "")
+        h = h.to_s.gsub(%r{<br/>}, " ").sub(/<\/?h[12][^>]*>/, "").gsub(/<\/?b>/, "")
         h1 = to_xhtml_fragment(h.dup)
         h1.traverse do |x|
           x.replace(" ") if x.name == "span" &&
@@ -140,14 +151,18 @@ module IsoDoc
 
       def word_preface(docxml)
         super
-        return unless @wordintropage
-        preface_container = docxml.at("//div[@id = 'preface_container']")
-        abstractbox = docxml.at("//div[@id = 'abstractbox']")
+        preface_container = docxml.at("//div[@id = 'preface_container']") # recommendation
+        abstractbox = docxml.at("//div[@id = 'abstractbox']") # plenary
         foreword = docxml.at("//p[@class = 'ForewordTitle']/..")
         intro = docxml.at("//p[@class = 'IntroTitle']/..")
         foreword.parent = (abstractbox || preface_container) if foreword
         docxml&.at("//p[@class = 'ForewordTitle']")&.remove if abstractbox
-        intro.parent = preface_container if intro
+        intro.parent = preface_container if intro && preface_container
+        if abstractbox && !intro
+          sect2 = docxml.at("//div[@class='WordSection2']")
+          sect2.next_element.remove # pagebreak
+          sect2.remove # pagebreak
+        end
       end
 
       # SAME as html_convert.rb from here on, starting with annex_name
