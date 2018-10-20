@@ -84,7 +84,6 @@ p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
         margin-right:0cm;
         margin-bottom:12.0pt;
         /* do not put in margin-left, it is specific to list level */
-        mso-add-space:auto;
         mso-pagination:widow-orphan;
         font-size:10.5pt;
         font-family:$bodyfont;
@@ -99,7 +98,6 @@ p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphC
         margin-right:0cm;
         margin-bottom:12.0pt;
         /* do not put in margin-left, it is specific to list level */
-        mso-add-space:auto;
         mso-pagination:widow-orphan;
         font-size:10.5pt;
         font-family:$bodyfont;
@@ -114,7 +112,6 @@ p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagrap
         margin-right:0cm;
         margin-bottom:12.0pt;
         /* do not put in margin-left, it is specific to list level */
-        mso-add-space:auto;
         mso-pagination:widow-orphan;
         font-size:10.5pt;
         font-family:$bodyfont;
@@ -129,7 +126,6 @@ p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxS
         margin-right:0cm;
         margin-bottom:12.0pt;
         /* do not put in margin-left, it is specific to list level */
-        mso-add-space:auto;
         mso-pagination:widow-orphan;
         font-size:10.5pt;
         font-family:$bodyfont;
@@ -937,61 +933,61 @@ p.Tablebody, li.Tablebody, div.Tablebody
 	mso-level-text:"%1\)";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:18.0pt;
+	margin-left:36.0pt;
 	text-indent:-18.0pt;}
 @list l2:level2
 	{mso-level-text:"%2\)";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:36.0pt;
+	margin-left:54.0pt;
 	text-indent:-18.0pt;}
 @list l2:level3
 	{mso-level-number-format:roman-lower;
 	mso-level-text:"%3\)";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:54.0pt;
+	margin-left:72.0pt;
 	text-indent:-18.0pt;}
 @list l2:level4
 	{mso-level-number-format:alpha-upper;
 	mso-level-text:"%4\)";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:72.0pt;
+	margin-left:90.0pt;
 	text-indent:-18.0pt;}
 @list l2:level5
 	{mso-level-number-format:roman-upper;
 	mso-level-text:"%5\)";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:90.0pt;
+	margin-left:108.0pt;
 	text-indent:-18.0pt;}
 @list l2:level6
 	{mso-level-number-format:alpha-lower;
 	mso-level-text:"%6\)";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:108.0pt;
+	margin-left:126.0pt;
 	text-indent:-18.0pt;}
 @list l2:level7
 	{mso-level-tab-stop:none;
 	mso-level-text:"%7\)";
 	mso-level-number-position:left;
-	margin-left:126.0pt;
+	margin-left:144.0pt;
 	text-indent:-18.0pt;}
 @list l2:level8
 	{mso-level-number-format:roman-lower;
 	mso-level-text:"%8\)";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:144.0pt;
+	margin-left:162.0pt;
 	text-indent:-18.0pt;}
 @list l2:level9
 	{mso-level-number-format:alpha-upper;
 	mso-level-text:"%9\)";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:162.0pt;
+	margin-left:180.0pt;
 	text-indent:-18.0pt;}
 /* Unordered list */
 @list l3
@@ -1003,63 +999,63 @@ p.Tablebody, li.Tablebody, div.Tablebody
 	mso-level-text:•;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:18.0pt;
+	margin-left:36.0pt;
 	text-indent:-18.0pt;}
 @list l3:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:•;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:36.0pt;
+	margin-left:54.0pt;
 	text-indent:-18.0pt;}
 @list l3:level3
 	{mso-level-number-format:bullet;
 	mso-level-text:•;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:54.0pt;
+	margin-left:72.0pt;
 	text-indent:-18.0pt;}
 @list l3:level4
 	{mso-level-number-format:bullet;
 	mso-level-text:•;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:72.0pt;
+	margin-left:90.0pt;
 	text-indent:-18.0pt;}
 @list l3:level5
 	{mso-level-number-format:bullet;
 	mso-level-text:•;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:90.0pt;
+	margin-left:108.0pt;
 	text-indent:-18.0pt;}
 @list l3:level6
 	{mso-level-number-format:bullet;
 	mso-level-text:•;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:108.0pt;
+	margin-left:126.0pt;
 	text-indent:-18.0pt;}
 @list l3:level7
 	{mso-level-number-format:bullet;
 	mso-level-text:•;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:126.0pt;
+	margin-left:144.0pt;
 	text-indent:-18.0pt;}
 @list l3:level8
 	{mso-level-number-format:bullet;
 	mso-level-text:•;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:144.0pt;
+	margin-left:162.0pt;
 	text-indent:-18.0pt;}
 @list l3:level9
 	{mso-level-number-format:bullet;
 	mso-level-text:•;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
-	margin-left:162.0pt;
+	margin-left:180.0pt;
 	text-indent:-18.0pt;}
 
 table.MsoNormalTable
@@ -1073,6 +1069,8 @@ table.MsoNormalTable
 	mso-para-margin:0cm;
 	mso-para-margin-bottom:.0001pt;
 	mso-pagination:widow-orphan;
+        mso-table-anchor-vertical:paragraph;
+        mso-table-bspace:12.0pt;
 	font-size:10.0pt;
 	font-family:$bodyfont;}
 br.section

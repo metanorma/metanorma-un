@@ -43,6 +43,8 @@ module IsoDoc
           dn = "#{dn}(#{abbr})" unless abbr.empty?
         end
         set(:docnumber, dn)
+        type = isoxml&.at(ns("//bibdata/@type"))&.value
+        set(:formatted_docnumber, type == "recommendation" ? "Recommendation No. #{dn}" : dn)
       end
 
       def status_print(status)
