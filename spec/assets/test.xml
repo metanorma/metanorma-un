@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<acme-standard xmlns="https://open.ribose.com/standards/acme">
+<unece-standard xmlns="https://open.ribose.com/standards/unece">
 <bibdata type="standard">
   
   
   <contributor>
     <role type="author"/>
     <organization>
-      <name>Acme</name>
+      <name>UNECE</name>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>Acme</name>
+      <name>UNECE</name>
     </organization>
   </contributor>
   <language>en</language>
@@ -22,7 +22,7 @@
     <from>2018</from>
     <owner>
       <organization>
-        <name>Acme</name>
+        <name>UNECE</name>
       </organization>
     </owner>
   </copyright>
@@ -33,4 +33,4 @@
 <sections>
   <p id="_c2226864-b317-42c3-959b-6037851e4f44">Test</p>
 </sections>
-</acme-standard>
+</unece-standard>

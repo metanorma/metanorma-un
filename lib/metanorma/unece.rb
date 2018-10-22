@@ -5,7 +5,7 @@ module Metanorma
 
     ORGANIZATION_NAME_SHORT = "UNECE"
     ORGANIZATION_NAME_LONG = "United Nations Economic Commission for Europe"
-    DOCUMENT_NAMESPACE = "https://open.ribose.com/standards/acme"
+    DOCUMENT_NAMESPACE = "https://open.ribose.com/standards/unece"
 
   end
 end
