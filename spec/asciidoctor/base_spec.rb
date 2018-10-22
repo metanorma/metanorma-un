@@ -189,8 +189,8 @@ RSpec.describe Asciidoctor::Unece do
 
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\.Sourcecode[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
-    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Overpass", sans-serif;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "Overpass", sans-serif;]m)
+    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Roboto", sans-serif;]m)
+    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "Roboto", sans-serif;]m)
   end
 
   it "uses Chinese fonts" do

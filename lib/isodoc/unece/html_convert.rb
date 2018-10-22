@@ -19,8 +19,8 @@ module IsoDoc
 
       def default_fonts(options)
         {
-          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Overpass",sans-serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Overpass",sans-serif'),
+          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Roboto",sans-serif'),
+          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif'),
           monospacefont: '"Space Mono",monospace'
         }
       end
@@ -48,7 +48,7 @@ module IsoDoc
 
     <!--Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
     <!--Font awesome import for the link icon-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
@@ -173,7 +173,7 @@ module IsoDoc
         when 0 then num.to_s
         end
       end
-      
+
       def annex_levelnumber(num, lvl)
         case lvl % 3
         when 0 then RomanNumerals.to_roman(num)
@@ -269,7 +269,7 @@ module IsoDoc
       end
 
       def hierarchical_admonition_names(clause, num)
-        i = 0 
+        i = 0
         clause.xpath(ns(".//admonition")).each do |t|
           i += 1
           next if t["id"].nil? || t["id"].empty?

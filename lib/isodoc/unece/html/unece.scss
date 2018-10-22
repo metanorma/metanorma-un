@@ -1,3 +1,21 @@
+
+/* http://www.un.org/styleguide/ color */
+$un-blue: #00ADEF;
+
+/* http://www.un.org/styleguide/ label text */
+$un-label: #4D4D4D;
+
+/* http://www.un.org/styleguide/ brand-bar */
+$un-gray: #f2f2f2;
+
+$un-black: #000;
+
+/* http://www.un.org/styleguide/ p */
+$un-text: #333;
+
+/* RT: I made this up */
+$un-link: #00ADEF;
+
 p.Sourcecode, li.Sourcecode, div.Sourcecode, pre.Sourcecode, pre
 	{mso-style-unhide:no;
 	mso-style-qformat:yes;
@@ -589,17 +607,17 @@ dt
 .coverpage_docstage
     {text-align:center;
     font-size:30.0pt;
-    color:#485094;}
+    color:$un-link;}
 div.coverpage_warning
     {mso-element:para-border-div;
-    border:solid windowtext 1.0pt #485094;
+    border:solid windowtext 1.0pt $un-link;
     mso-border-alt:solid windowtext .5pt;
-    padding:1.0pt 4.0pt 1.0pt 4.0pt #485094;
+    padding:1.0pt 4.0pt 1.0pt 4.0pt $un-link;
     font-size:10.0pt;
     margin-left:4.25pt;
     margin-right:4.25pt}
 .coverpage_warning
-    {color:#485094;
+    {color:$un-link;
     font-size:10.0pt;}
 
     a.TableFootnoteRef

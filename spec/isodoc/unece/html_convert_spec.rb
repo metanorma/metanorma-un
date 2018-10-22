@@ -452,7 +452,7 @@ RSpec.describe IsoDoc::Unece do
     expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to output
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
-    expect(html).to match(%r{Overpass})
+    expect(html).to match(%r{Roboto})
   end
 
 end
