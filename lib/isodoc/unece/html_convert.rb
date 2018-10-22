@@ -19,8 +19,16 @@ module IsoDoc
 
       def default_fonts(options)
         {
-          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Roboto",sans-serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif'),
+          bodyfont: (
+            options[:script] == "Hans" ?
+              '"SimSun",serif' :
+              '"Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif'
+          ),
+          headerfont: (
+            options[:script] == "Hans" ?
+              '"SimHei",sans-serif' :
+              '"Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif'
+          ),
           monospacefont: '"Space Mono",monospace'
         }
       end
