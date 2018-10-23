@@ -65,12 +65,33 @@ module IsoDoc
       end
 
       def make_body(xml, docxml)
+        plenary = docxml.at(ns("//bibdata[@type = 'plenary']"))
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72", "xml:lang": "EN-US", class: "container" }
+        @htmlintropage = nil if plenary
         xml.body **body_attr do |body|
           make_body1(body, docxml)
           make_body2(body, docxml)
           make_body3(body, docxml)
         end
+      end
+
+      def html_preface(docxml)
+        super
+=begin
+        preface_container = docxml.at("//div[@id = 'preface_container']") # recommendation
+        abstractbox = docxml.at("//div[@id = 'abstractbox']") # plenary
+        foreword = docxml.at("//p[@class = 'ForewordTitle']/..")
+        intro = docxml.at("//p[@class = 'IntroTitle']/..")
+        foreword.parent = (abstractbox || preface_container) if foreword
+        docxml&.at("//p[@class = 'ForewordTitle']")&.remove if abstractbox
+        intro.parent = preface_container if intro && preface_container
+        if abstractbox && !intro
+          sect2 = docxml.at("//div[@class='WordSection2']")
+          sect2.next_element.remove # pagebreak
+          sect2.remove # pagebreak
+        end
+=end
+        docxml
       end
 
       def middle(isoxml, out)
@@ -83,7 +104,7 @@ module IsoDoc
         docxml
       end
 
-            def introduction(isoxml, out)
+      def introduction(isoxml, out)
         f = isoxml.at(ns("//introduction")) || return
         page_break(out)
         out.div **{ class: "Section3", id: f["id"] } do |div|
@@ -102,7 +123,7 @@ module IsoDoc
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
           s.h1(**{ class: "ForewordTitle" }) do |h1|
-            insert_tab(h1, 1)
+            #insert_tab(h1, 1)
             h1 << @foreword_lbl
           end
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
