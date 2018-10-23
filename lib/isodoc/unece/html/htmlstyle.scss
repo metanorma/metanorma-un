@@ -125,6 +125,9 @@ table {
 /* http://www.un.org/styleguide/ color */
 $un-blue: #00ADEF;
 
+/* http://www.99colors.net/name/united-nations-blue */
+$un-classic-blue: #5b92e5;
+
 /* http://www.un.org/styleguide/ label text */
 $un-label: #4D4D4D;
 
@@ -235,13 +238,13 @@ main {
 }
 
 #toc ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 #toc li {
-    padding: 5px 10px;
+  padding: 5px 10px;
 }
 
 #toc a {
@@ -255,19 +258,20 @@ main {
 }
 
 #toc .h2 {
-    padding-left: 30px;
+  padding-left: 30px;
 }
 
 #toc .h3 {
-    padding-left: 50px;
+  padding-left: 50px;
 }
 
 #toc .toc-active a {
-    color: white;
+  color: white;
 }
 
-#toc .toc-active, #toc li:hover {
-  background: $un-blue;
+#toc .toc-active,
+#toc li:hover {
+  background: linear-gradient(280deg, $un-blue, $un-classic-blue);
   box-shadow: inset -5px 0px 10px -5px $un-blue!important;
 }
 
@@ -579,10 +583,6 @@ ul, ol {
   margin-left: 1.2em;
 }
 
-ul  li {
-  list-style: none;
-}
-
 ul li p:first-child {
   display: inline;
 }
@@ -602,6 +602,13 @@ ul li:first-child {
 #toc li:before {
   content: " ";
   display: none;
+}
+
+main ul li {
+  list-style-type: disc;
+  list-style-position: outside;
+  margin-bottom: 0.5em;
+  margin-left: 1em;
 }
 
 
@@ -834,7 +841,7 @@ h2 p {
 }
 
 .wrapper-top {
-  background: linear-gradient(200deg, #5b92e5, $un-blue);
+  background: linear-gradient(85deg, $un-blue, $un-classic-blue);
   color: #ffffff;
   padding: 2em 0;
   width: 100%;
