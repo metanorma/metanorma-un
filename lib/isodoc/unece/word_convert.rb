@@ -56,6 +56,7 @@ module IsoDoc
       def make_body2(body, docxml)
         body.div **{ class: "WordSection2" } do |div2|
           info docxml, div2
+          abstract docxml, div2
           foreword docxml, div2
           introduction docxml, div2
           div2.p { |p| p << "&nbsp;" } # placeholder
@@ -155,10 +156,12 @@ module IsoDoc
         abstractbox = docxml.at("//div[@id = 'abstractbox']") # plenary
         foreword = docxml.at("//p[@class = 'ForewordTitle']/..")
         intro = docxml.at("//p[@class = 'IntroTitle']/..")
-        foreword.parent = (abstractbox || preface_container) if foreword
-        docxml&.at("//p[@class = 'ForewordTitle']")&.remove if abstractbox
+        abstract = docxml.at("//p[@class = 'AbstractTitle']/..")
+        abstract.parent = (abstractbox || preface_container) if abstract
+        docxml&.at("//p[@class = 'AbstractTitle']")&.remove if abstractbox
+        foreword.parent = preface_container if foreword && preface_container
         intro.parent = preface_container if intro && preface_container
-        if abstractbox && !intro
+        if abstractbox && !intro && !foreword
           sect2 = docxml.at("//div[@class='WordSection2']")
           sect2.next_element.remove # pagebreak
           sect2.remove # pagebreak
@@ -386,6 +389,15 @@ module IsoDoc
             insert_tab(s, 1)
           end
           s << "#{title} "
+        end
+      end
+
+            def abstract(isoxml, out)
+        f = isoxml.at(ns("//abstract")) || return
+        page_break(out)
+        out.div **attr_code(id: f["id"]) do |s|
+          s.p(**{ class: "AbstractTitle" }) { |h1| h1 << "Summary" }
+          f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
     end

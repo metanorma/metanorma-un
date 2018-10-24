@@ -15,6 +15,7 @@
 :distribution: General
 
 [abstract]
+== Summary
 In 2017, the World Economic Forum approached UN/CEFACT in order to create a guide on Paperless Trade which might help countries to understand and implement specific provisions of the World Trade Organization’s Trade Facilitation Agreement, specifically article 10 on Formalities connected with importation and exportation (10.2, 10.3 and 10.4) as well as article 7 on Release and clearance of goods (7.1 and 7.2).
 
 This White Paper provides a brief history on standardization of electronic business processes, especially within UN/CEFACT; the basics, benefits and challenges in electronic business processes; the governance of paperless trade; and future evolutions.
