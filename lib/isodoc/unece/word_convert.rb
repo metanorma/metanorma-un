@@ -12,6 +12,7 @@ module IsoDoc
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
+        @toc = options[:toc]
         FileUtils.cp html_doc_path('logo.jpg'), "logo.jpg"
       end
 
@@ -37,6 +38,7 @@ module IsoDoc
 
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)
+        @meta.set(:toc, @toc)
       end
 
       def make_body(xml, docxml)
@@ -44,7 +46,7 @@ module IsoDoc
         if plenary && @wordcoverpage == html_doc_path("word_unece_titlepage.html")
           @wordcoverpage = html_doc_path("word_unece_plenary_titlepage.html")
         end
-        @wordintropage = nil if plenary
+        @wordintropage = nil if plenary && !@toc
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72" }
         xml.body **body_attr do |body|
           make_body1(body, docxml)
@@ -128,8 +130,8 @@ module IsoDoc
 
       def introduction(isoxml, out)
         f = isoxml.at(ns("//introduction")) || return
-        page_break(out)
         out.div **{ class: "Section3", id: f["id"] } do |div|
+          page_break(out)
           s.p(**{ class: "IntroTitle" }) do |h1|
             h1 << @introduction_lbl
           end
@@ -141,8 +143,8 @@ module IsoDoc
 
       def foreword(isoxml, out)
         f = isoxml.at(ns("//foreword")) || return
-        page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
+          page_break(out)
           s.p(**{ class: "ForewordTitle" }) do |h1|
             h1 << @foreword_lbl
           end
@@ -158,10 +160,16 @@ module IsoDoc
         intro = docxml.at("//p[@class = 'IntroTitle']/..")
         abstract = docxml.at("//p[@class = 'AbstractTitle']/..")
         abstract.parent = (abstractbox || preface_container) if abstract
+        abstractbox and abstract.xpath("./br").each do |a|
+          a.remove if /page-break-before:always/.match(a["style"])
+        end
         docxml&.at("//p[@class = 'AbstractTitle']")&.remove if abstractbox
         foreword.parent = preface_container if foreword && preface_container
         intro.parent = preface_container if intro && preface_container
-        if abstractbox && !intro && !foreword
+        if preface_container && (foreword || intro)
+          preface_container.at("./div/br").remove # remove initial page break
+        end
+        if abstractbox && !intro && !foreword && !@toc
           sect2 = docxml.at("//div[@class='WordSection2']")
           sect2.next_element.remove # pagebreak
           sect2.remove # pagebreak
@@ -392,10 +400,10 @@ module IsoDoc
         end
       end
 
-            def abstract(isoxml, out)
+      def abstract(isoxml, out)
         f = isoxml.at(ns("//abstract")) || return
-        page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
+          page_break(out)
           s.p(**{ class: "AbstractTitle" }) { |h1| h1 << "Summary" }
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end

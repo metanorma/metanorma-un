@@ -44,6 +44,7 @@ module IsoDoc
 
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)
+        @meta.set(:toc, @toc)
       end
 
       def html_head
@@ -67,7 +68,7 @@ module IsoDoc
       def make_body(xml, docxml)
         plenary = docxml.at(ns("//bibdata[@type = 'plenary']"))
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72", "xml:lang": "EN-US", class: "container" }
-        @htmlintropage = nil if plenary
+        #@htmlintropage = nil if plenary
         xml.body **body_attr do |body|
           make_body1(body, docxml)
           make_body2(body, docxml)
@@ -75,16 +76,16 @@ module IsoDoc
         end
       end
 
-          def make_body3(body, docxml)
-      body.div **{ class: "main-section" } do |div3|
-        abstract docxml, div3
-        foreword docxml, div3
-        introduction docxml, div3
-        middle docxml, div3
-        footnotes div3
-        comments div3
+      def make_body3(body, docxml)
+        body.div **{ class: "main-section" } do |div3|
+          abstract docxml, div3
+          foreword docxml, div3
+          introduction docxml, div3
+          middle docxml, div3
+          footnotes div3
+          comments div3
+        end
       end
-    end
 
       def html_preface(docxml)
         super
@@ -104,7 +105,7 @@ module IsoDoc
           sect2.remove # pagebreak
         end
 =end
-docxml
+        docxml
       end
 
       def middle(isoxml, out)

@@ -157,6 +157,14 @@ module Asciidoctor
         return
       end
 
+      def html_extract_attributes(node)
+        super.merge(toc: node.attributes.has_key?("toc"))
+      end
+
+      def doc_extract_attributes(node)
+        super.merge(toc: node.attributes.has_key?("toc"))
+      end
+
       def html_converter(node)
         IsoDoc::Unece::HtmlConvert.new(html_extract_attributes(node))
       end

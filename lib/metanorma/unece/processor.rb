@@ -21,6 +21,15 @@ module Metanorma
         "Metanorma::Unece #{Metanorma::Unece::VERSION}"
       end
 
+      def extract_options(file)
+        head = file.sub(/\n\n.*$/m, "\n")
+        /\n(?<toc>:toc:)/ =~ head
+        new_options = {
+          toc: defined?(toc)
+        }.reject { |_, val| val.nil? }
+        super.merge(new_options)
+      end
+
       def input_to_isodoc(file, filename)
         Metanorma::Input::Asciidoc.new.process(file, filename, @asciidoctor_backend)
       end
