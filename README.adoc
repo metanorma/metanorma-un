@@ -163,6 +163,9 @@ plenary:: UNECE Plenary document
 `:language:` :: The language of the document (only `en` for now)  (mandatory)
 `:script:` :: The language of the document (only `Latn` for now)  (mandatory)
 
+`:toc:` :: Include table of contents in Word output. (Table of contents is alwasys included in
+HTML output.)
+
 NOTE: The attribute `:draft:`, if present, includes review notes in the XML output;
 these are otherwise suppressed.
 
