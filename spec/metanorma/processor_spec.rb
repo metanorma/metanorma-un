@@ -42,6 +42,7 @@ RSpec.describe Metanorma::Unece::Processor do
 
   it "generates HTML from IsoDoc XML" do
     FileUtils.rm_f "test.xml"
+    FileUtils.rm_f "test.html"
     input = <<~"INPUT"
     <unece-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
@@ -70,6 +71,48 @@ RSpec.describe Metanorma::Unece::Processor do
       gsub(%r{</main>.*}m, "</main>")
     ).to be_equivalent_to output
 
+  end
+
+    it "generates DOC from IsoDoc XML" do
+    FileUtils.rm_f "test.xml"
+    FileUtils.rm_f "test.doc"
+    input = <<~"INPUT"
+    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <sections>
+    <clause id="D" obligation="normative">
+         <title>Scope</title>
+         <p id="E">Text</p>
+       </clause>
+        </sections>
+    </unece-standard>
+    INPUT
+
+    output = <<~"OUTPUT"
+   <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+     <div id="D">
+       <h1>1.&#xA0; Scope</h1>
+       <p id="E">Text</p>
+     </div>
+   </main>
+    OUTPUT
+
+    processor.output(input, "test.doc", :doc)
+
+    expect(File.read("test.doc", encoding: "utf-8")).to include '<div class="WordSection3"><div><a name="D" id="D"></a><h1>1.<span style="mso-tab-count:1">&#xA0; </span>Scope</h1><p class="MsoNormal"><a name="E" id="E"></a>Text</p></div>'
+
+  end
+
+
+  it "parses :toc document attribute" do
+    FileUtils.rm_f "test.xml"
+      expect(Hash[Metanorma::Unece::Input::Asciidoc.new().extract_options(<<~"INPUT").sort].to_s + "\n").to eq <<~"OUTPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :toc:
+    INPUT
+    {:datauriimage=>true, :toc=>"local-variable"}
+    OUTPUT
   end
 
 end

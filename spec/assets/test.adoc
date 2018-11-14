@@ -12,5 +12,6 @@ Author
 :wordcoverpage: spec/assets/wordcoverpage.html
 :wordintropage: spec/assets/wordintropage.html
 :header: spec/assets/header.html
+:toc:
 
 Test
