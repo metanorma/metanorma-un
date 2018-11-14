@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <unece-standard xmlns="https://open.ribose.com/standards/unece">
-<bibdata type="standard">
+<bibdata type="recommendation">
   
+  <subtitle language="en" format="text/plain"/>
   
   <contributor>
     <role type="author"/>
@@ -29,8 +30,9 @@
   <editorialgroup>
     <committee/>
   </editorialgroup>
+  <session/>
 </bibdata>
 <sections>
-  <p id="_c2226864-b317-42c3-959b-6037851e4f44">Test</p>
+  <p id="_5baeea88-5cc9-4aff-9efa-38b7f1089c38">Test</p>
 </sections>
 </unece-standard>

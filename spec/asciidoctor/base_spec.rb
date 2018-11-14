@@ -9,7 +9,7 @@ RSpec.describe Asciidoctor::Unece do
     FileUtils.cd "../.."
     expect(File.exist?("spec/examples/rfc6350.doc")).to be true
     expect(File.exist?("spec/examples/rfc6350.html")).to be true
-    expect(File.exist?("spec/examples/rfc6350.pdf")).to be true
+    expect(File.exist?("spec/examples/rfc6350.pdf")).to be false
   end
 
   it "processes a blank document" do
@@ -75,14 +75,20 @@ RSpec.describe Asciidoctor::Unece do
       :iteration: 3
       :language: en
       :title: Main Title
-      :security: Client Confidential
+      :subtitle: Subtitle
+      :session: Session
+      :session-date: 2000-01-01
+      :agenda-item: 123
+      :collaborator: WHO
+      :agenda-id: WHO 1
+      :distribution: publid
     INPUT
-
     output = <<~"OUTPUT"
     <?xml version="1.0" encoding="UTF-8"?>
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
-<bibdata type="standard">
-  <title language="en" format="plain">Main Title</title>
+<bibdata type="recommendation">
+  <title language="en" format="text/plain">Main Title</title>
+  <subtitle language="en" format="text/plain">Subtitle</title>
   <docidentifier>1000</docidentifier>
   <contributor>
     <role type="author"/>
@@ -111,7 +117,14 @@ RSpec.describe Asciidoctor::Unece do
     <committee type="A">TC</committee>
     <committee type="B">TC1</committee>
   </editorialgroup>
-  <security>Client Confidential</security>
+  <session>
+  <number>Session</number>
+  <date>2000-01-01</date>
+  <agenda-item>123</agenda-item>
+  <collaborator>WHO</collaborator>
+  <id>WHO 1</id>
+  <distribution>publid</distribution>
+</session>
 </bibdata><version>
   <edition>2</edition>
   <revision-date>2000-01-01</revision-date>
@@ -167,7 +180,7 @@ RSpec.describe Asciidoctor::Unece do
          <title>Foreword</title>
          <p id="_">This is a preamble</p>
        </foreword></preface><sections>
-       <clause id="_" obligation="normative">
+       <clause id="_"  inline-header="false" obligation="normative">
          <title>Section 1</title>
        </clause></sections>
        </unece-standard>
@@ -189,8 +202,8 @@ RSpec.describe Asciidoctor::Unece do
 
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\.Sourcecode[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
-    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Roboto", sans-serif;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "Roboto", sans-serif;]m)
+    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Roboto]m)
+    expect(html).to match(%r[h1, h2, h3, h4, h5, h6, \.h2Annex \{[^}]+font-family: "Roboto]m)
   end
 
   it "uses Chinese fonts" do
@@ -208,7 +221,7 @@ RSpec.describe Asciidoctor::Unece do
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\.Sourcecode[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "SimSun", serif;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "SimHei", sans-serif;]m)
+    expect(html).to match(%r[h1, h2, h3, h4, h5, h6, \.h2Annex \{[^}]+font-family: "SimHei", sans-serif;]m)
   end
 
   it "uses specified fonts" do
@@ -229,7 +242,7 @@ RSpec.describe Asciidoctor::Unece do
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\.Sourcecode[^{]+\{[^{]+font-family: Andale Mono;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: Zapf Chancery;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: Comic Sans;]m)
+    expect(html).to match(%r[h1, h2, h3, h4, h5, h6, \.h2Annex \{[^}]+font-family: Comic Sans;]m)
   end
 
   it "processes inline_quoted formatting" do
@@ -273,7 +286,7 @@ RSpec.describe Asciidoctor::Unece do
 
   it "uses user-specified HTML stylesheets" do
     FileUtils.rm_f "spec/assets/test.html"
-    system "metanorma -t unece -r metanorma-unece spec/assets/test.adoc"
+    system "metanorma -t unece spec/assets/test.adoc"
 
     html = File.read("spec/assets/test.html", encoding: "utf-8")
     expect(html).to match(%r[I am an HTML stylesheet])
@@ -284,7 +297,7 @@ RSpec.describe Asciidoctor::Unece do
 
   it "uses user-specified Word stylesheets" do
     FileUtils.rm_f "spec/assets/test.doc"
-    system "metanorma -t unece -r metanorma-unece spec/assets/test.adoc"
+    system "metanorma -t unece spec/assets/test.adoc"
 
     html = File.read("spec/assets/test.doc", encoding: "utf-8")
     expect(html).to match(%r[I am a Word stylesheet])

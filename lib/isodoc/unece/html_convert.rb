@@ -135,8 +135,7 @@ module IsoDoc
         f = isoxml.at(ns("//introduction")) || return
         page_break(out)
         out.div **{ class: "Section3", id: f["id"] } do |div|
-          s.h1(**{ class: "IntroTitle" }) do |h1|
-            #insert_tab(h1, 1)
+          div.h1(**{ class: "IntroTitle" }) do |h1|
             h1 << @introduction_lbl
           end
           f.elements.each do |e|
@@ -150,7 +149,6 @@ module IsoDoc
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
           s.h1(**{ class: "ForewordTitle" }) do |h1|
-            #insert_tab(h1, 1)
             h1 << @foreword_lbl
           end
           f.elements.each { |e| parse(e, s) unless e.name == "title" }

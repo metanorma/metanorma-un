@@ -52,8 +52,9 @@ HDR
 BLANK_HDR = <<~"HDR"
        <?xml version="1.0" encoding="UTF-8"?>
        <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
-       <bibdata type="standard">
+       <bibdata type="recommendation">
 
+         <subtitle language="en" format="text/plain"/>
 
          <contributor>
            <role type="author"/>
@@ -67,12 +68,11 @@ BLANK_HDR = <<~"HDR"
              <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
            </organization>
          </contributor>
-
          <language>en</language>
          <script>Latn</script>
 
          <copyright>
-           <from>#{Time.new.year}</from>
+           <from>#{Date.today.year}</from>
            <owner>
              <organization>
                <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
@@ -82,6 +82,7 @@ BLANK_HDR = <<~"HDR"
          <editorialgroup>
            <committee/>
          </editorialgroup>
+         <session/>
        </bibdata>
 HDR
 

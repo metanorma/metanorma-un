@@ -16,7 +16,7 @@ RSpec.describe Metanorma::Unece::Processor do
 
   it "registers output formats against metanorma" do
     output = <<~"OUTPUT"
-    [[:doc, "doc"], [:html, "html"], [:pdf, "pdf"], [:xml, "xml"]]
+    [[:doc, "doc"], [:html, "html"], [:xml, "xml"]]
     OUTPUT
 
     expect(processor.output_formats.sort.to_s).to be_equivalent_to output
@@ -37,33 +37,29 @@ RSpec.describe Metanorma::Unece::Processor do
 </unece-standard>
     OUTPUT
 
-    expect(processor.input_to_isodoc(input)).to be_equivalent_to output
+    expect(processor.input_to_isodoc(input, nil)).to be_equivalent_to output
   end
 
   it "generates HTML from IsoDoc XML" do
     FileUtils.rm_f "test.xml"
     input = <<~"INPUT"
     <unece-standard xmlns="http://riboseinc.com/isoxml">
-      <sections>
-        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
-          <term id="J">
-            <preferred>Term2</preferred>
-          </term>
-        </terms>
-      </sections>
+    <sections>
+    <clause id="D" obligation="normative">
+         <title>Scope</title>
+         <p id="E">Text</p>
+       </clause>
+        </sections>
     </unece-standard>
     INPUT
 
     output = <<~"OUTPUT"
-    <main class="main-section">
-      <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-      <p class="zzSTDTitle1"></p>
-      <div id="H">
-        <h1>1.&#xA0; Terms and definitions</h1>
-        <p>For the purposes of this document, the following terms and definitions apply.</p>
-        <h2 class="TermNum" id="J">1.1&#xA0;<p class="Terms" style="text-align:left;">Term2</p></h2>
-      </div>
-    </main>
+   <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+     <div id="D">
+       <h1>1.&#xA0; Scope</h1>
+       <p id="E">Text</p>
+     </div>
+   </main>
     OUTPUT
 
     processor.output(input, "test.html", :html)

@@ -2,6 +2,7 @@
 Author
 :docfile: test.adoc
 :novalid:
+:doctype: recommendation
 :htmlstylesheet: spec/assets/htmlstylesheet.scss
 :htmlcoverpage: spec/assets/htmlcoverpage.html
 :htmlintropage: spec/assets/htmlintropage.html

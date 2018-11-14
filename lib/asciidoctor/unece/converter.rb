@@ -45,10 +45,10 @@ module Asciidoctor
 
       def title(node, xml)
         ["en"].each do |lang|
-          xml.title **{ language: lang, format: "plain" } do |t|
+          xml.title **{ language: lang, format: "text/plain" } do |t|
             t << asciidoc_sub(node.attr("title"))
           end
-          xml.subtitle **{ language: lang, format: "plain" } do |t|
+          xml.subtitle **{ language: lang, format: "text/plain" } do |t|
             t << asciidoc_sub(node.attr("subtitle"))
           end
         end

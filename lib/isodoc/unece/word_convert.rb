@@ -103,7 +103,7 @@ module IsoDoc
         f = isoxml.at(ns("//introduction")) || return
         out.div **{ class: "Section3", id: f["id"] } do |div|
           page_break(out)
-          s.p(**{ class: "IntroTitle" }) do |h1|
+          div.p(**{ class: "IntroTitle" }) do |h1|
             h1 << @introduction_lbl
           end
           f.elements.each do |e|
