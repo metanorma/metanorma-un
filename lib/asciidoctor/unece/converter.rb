@@ -152,13 +152,6 @@ module Asciidoctor
         end
       end
 
-      def sections_cleanup(x)
-        super
-        x.xpath("//*[@inline-header]").each do |h|
-          h.delete("inline-header")
-        end
-      end
-
       def style(n, t)
         return
       end

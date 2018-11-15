@@ -138,6 +138,118 @@ RSpec.describe Asciidoctor::Unece do
     expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to output
   end
 
+   it "processes committee-draft" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :docnumber: 1000
+      :status: committee-draft
+    INPUT
+    expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
+           <unece-standard xmlns="https://open.ribose.com/standards/unece">
+       <bibdata type="recommendation">
+
+         <subtitle language="en" format="text/plain"/>
+         <docidentifier>1000(cd)</docidentifier>
+         <docnumber>1000</docnumber>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>UNECE</name>
+           </organization>
+         </contributor>
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <name>UNECE</name>
+           </organization>
+         </contributor>
+         <language>en</language>
+         <script>Latn</script>
+         <status format="plain">committee-draft</status>
+         <copyright>
+           <from>2018</from>
+           <owner>
+             <organization>
+               <name>UNECE</name>
+             </organization>
+           </owner>
+         </copyright>
+         <editorialgroup>
+           <committee/>
+         </editorialgroup>
+         <session/>
+       </bibdata>
+       <sections/>
+       </unece-standard>
+    OUTPUT
+   end
+
+   it "processes draft-standard" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :docnumber: 1000
+      :status: draft-standard
+    INPUT
+    expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
+    <unece-standard xmlns="https://open.ribose.com/standards/unece">
+<bibdata type="recommendation">
+
+  <subtitle language="en" format="text/plain"/>
+  <docidentifier>1000(d)</docidentifier>
+  <docnumber>1000</docnumber>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>UNECE</name>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>UNECE</name>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <status format="plain">draft-standard</status>
+  <copyright>
+    <from>2018</from>
+    <owner>
+      <organization>
+        <name>UNECE</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <committee/>
+  </editorialgroup>
+  <session/>
+</bibdata>
+<sections/>
+</unece-standard>
+    OUTPUT
+   end
+
+   it "warns when type used other than recommendation or plenary" do
+     expect { Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true) }.to output(/is not a legal document type/).to_stderr
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :docnumber: 1000
+      :doctype: cheese
+     INPUT
+   end
+
   it "processes figures" do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
@@ -167,24 +279,115 @@ RSpec.describe Asciidoctor::Unece do
     expect(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
   end
 
-  it "strips inline header" do
+  it "processes abstracts" do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
-      This is a preamble
 
-      == Section 1
+      Preamble
+
+      [abstract]
+      == Section
+      Abstract
     INPUT
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-             <preface><foreword obligation="informative">
-         <title>Foreword</title>
-         <p id="_">This is a preamble</p>
-       </foreword></preface><sections>
-       <clause id="_"  inline-header="false" obligation="normative">
-         <title>Section 1</title>
-       </clause></sections>
+    <preface><abstract id="_">
+  <p id="_">Abstract</p>
+</abstract><foreword obligation="informative">
+  <title>Foreword</title>
+  <p id="_">Preamble</p>
+</foreword></preface><sections>
+</sections>
+</unece-standard>
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
+  end
+
+  it "processes notes" do
+      expect(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true))).to be_equivalent_to <<~"OUTPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      
+      [NOTE]
+      .The United Nations Centre for Trade Facilitation and e-Business
+      ====
+      Only use paddy or parboiled rice for the determination of husked rice yield.
+      ====
+      INPUT
+      #{BLANK_HDR}
+       <sections>
+         <note id="_">
+         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+       </note>
+       </sections>
        </unece-standard>
+      OUTPUT
+    end
+
+
+  it "processes simple admonitions with Asciidoc names" do
+      expect(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true))).to be_equivalent_to <<~"OUTPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      
+      [IMPORTANT]
+      .The United Nations Centre for Trade Facilitation and e-Business
+      ====
+      Only use paddy or parboiled rice for the determination of husked rice yield.
+      ====
+      INPUT
+      #{BLANK_HDR}
+       <sections>
+         <admonition id="_" type="important">
+         <name>The United Nations Centre for Trade Facilitation and e-Business</name>
+         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+       </admonition>
+       </sections>
+       </unece-standard>
+
+      OUTPUT
+    end
+
+
+  it "adds paragraph numbering" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+
+      == Section 1
+      Para 1
+
+      * A
+      * B
+      * C
+
+      Para 2
+
+      [appendix]
+      == Annex
+      Para 3
+
+      Para 4
+    INPUT
+
+    output = <<~"OUTPUT"
+    #{BLANK_HDR}
+    <sections><clause id="_" inline-header="false" obligation="normative"><title>Section 1</title><clause id="_" inline-header="true" obligation="normative"><p id="_">Para 1</p><ul id="_">
+         <li>
+           <p id="_">A</p>
+         </li>
+         <li>
+           <p id="_">B</p>
+         </li>
+         <li>
+           <p id="_">C</p>
+         </li>
+       </ul></clause>
+
+       <clause id="_" inline-header="true" obligation="normative"><p id="_">Para 2</p></clause></clause>
+       </sections><annex id="_" inline-header="false" obligation="normative"><title>Annex</title><clause id="_" inline-header="true" obligation="normative"><p id="_">Para 3</p></clause>
+       <clause id="_" inline-header="true" obligation="normative"><p id="_">Para 4</p></clause></annex>
+       </unece-standard>
+
     OUTPUT
 
     expect(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
