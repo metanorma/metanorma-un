@@ -87,6 +87,8 @@ BLANK_HDR = <<~"HDR"
 HDR
 
 HTML_HDR = <<~"HDR"
+        <html>
+        <head/>
            <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
            <div class="title-section">
              <p>&#160;</p>

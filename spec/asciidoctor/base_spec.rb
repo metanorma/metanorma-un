@@ -89,7 +89,8 @@ RSpec.describe Asciidoctor::Unece do
 <bibdata type="recommendation">
   <title language="en" format="text/plain">Main Title</title>
   <subtitle language="en" format="text/plain">Subtitle</title>
-  <docidentifier>1000</docidentifier>
+  <docidentifier>1000(wd)</docidentifier>
+  <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
     <organization>

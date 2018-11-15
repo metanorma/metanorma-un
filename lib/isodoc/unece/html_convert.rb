@@ -125,7 +125,7 @@ module IsoDoc
           div.send "h#{get_anchors[node['id']][:level]}" do |h|
             lbl = get_anchors[node['id']][:label]
             h << "#{lbl}. " if lbl && !@suppressheadingnumbers
-            insert_tab(h, 1)
+            insert_tab(h, 1) if lbl && !@suppressheadingnumbers
             c1&.children&.each { |c2| parse(c2, h) }
           end
         end
@@ -165,39 +165,14 @@ module IsoDoc
         end
       end
 
-      def pre_parse(node, out)
-        out.pre node.text # content.gsub(/</, "&lt;").gsub(/>/, "&gt;")
-      end
-
-      def term_defs_boilerplate(div, source, term, preface)
-        if source.empty? && term.nil?
-          div << @no_terms_boilerplate
-        else
-          div << term_defs_boilerplate_cont(source, term)
-        end
-      end
-
       def i18n_init(lang, script)
         super
         @admonition_lbl = "Box"
+        @abstract_lbl = "Summary"
       end
 
       def fileloc(loc)
         File.join(File.dirname(__FILE__), loc)
-      end
-
-      def cleanup(docxml)
-        super
-        term_cleanup(docxml)
-      end
-
-      def term_cleanup(docxml)
-        docxml.xpath("//p[@class = 'Terms']").each do |d|
-          h2 = d.at("./preceding-sibling::*[@class = 'TermNum'][1]")
-          h2.add_child("&nbsp;")
-          h2.add_child(d.remove)
-        end
-        docxml
       end
 
       MIDDLE_CLAUSE = "//clause[parent::sections]".freeze
@@ -281,6 +256,7 @@ module IsoDoc
       end
 
       def annex_names(clause, num)
+        hierarchical_asset_names(clause, num)
         unless clause.at(ns("./clause | ./term  | ./terms | ./definitions"))
           annex_leaf_section(clause, num, 1) and return
         end
@@ -291,7 +267,6 @@ module IsoDoc
           annex_names1(c, "#{num}.#{annex_levelnumber(i, 2)}", 2)
           i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions"))
         end
-        hierarchical_asset_names(clause, num)
       end
 
       def annex_names1(clause, num, level)
@@ -381,7 +356,7 @@ module IsoDoc
         f = isoxml.at(ns("//abstract")) || return
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          s.h1(**{ class: "AbstractTitle" }) { |h1| h1 << "Summary" }
+          s.h1(**{ class: "AbstractTitle" }) { |h1| h1 << @abstract_lbl }
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end

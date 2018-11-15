@@ -34,14 +34,7 @@ module IsoDoc
       end
 
       def docid(isoxml, _out)
-        docnumber = isoxml.at(ns("//bibdata/docidentifier"))
-        docstatus = isoxml.at(ns("//bibdata/status"))
-        dn = docnumber&.text
-        if docstatus
-          set(:status, status_print(docstatus.text))
-          abbr = status_abbr(docstatus.text)
-          dn = "#{dn}(#{abbr})" unless abbr.empty?
-        end
+        dn = isoxml.at(ns("//bibdata/docidentifier"))&.text
         set(:docnumber, dn)
         type = isoxml&.at(ns("//bibdata/@type"))&.value
         set(:formatted_docnumber, type == "recommendation" ? "Recommendation No. #{dn}" : dn)

@@ -59,7 +59,13 @@ module Asciidoctor
       end
 
       def metadata_id(node, xml)
-        xml.docidentifier { |i| i << node.attr("docnumber") }
+        dn = node.attr("docnumber")
+        if docstatus = node.attr("status")
+          abbr = IsoDoc::Unece::Metadata.new("en", "Latn", {}).status_abbr(docstatus)
+          dn = "#{dn}(#{abbr})" unless abbr.empty?
+        end
+        xml.docidentifier { |i| i << dn }
+        xml.docnumber { |i| i << node.attr("docnumber") }
       end
 
       def metadata_copyright(node, xml)

@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe IsoDoc::Unece do
 
   it "processes default metadata, recommendation" do
-    csdc = IsoDoc::Unece::HtmlConvert.new({toc: true})
+    csdc = IsoDoc::Unece::WordConvert.new({toc: true})
     input = <<~"INPUT"
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
 <bibdata type="recommendation">
@@ -47,7 +47,7 @@ RSpec.describe IsoDoc::Unece do
     INPUT
 
     output = <<~"OUTPUT"
-        {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"Recommendation No. 1000", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :language=>"en", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_agendaitem=>nil, :session_collaborator=>nil, :session_date=>nil, :session_distribution=>nil, :session_id=>nil, :session_number=>nil, :status=>"Working Draft", :tc=>"TC", :toc=>nil, :updateddate=>"XXX", :wg=>"XXXX"}
+        {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"Recommendation No. 1000", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :language=>"en", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_agendaitem=>nil, :session_collaborator=>nil, :session_date=>nil, :session_distribution=>nil, :session_id=>nil, :session_number=>nil, :status=>"Working Draft", :tc=>"TC", :toc=>true, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -55,7 +55,7 @@ RSpec.describe IsoDoc::Unece do
   end
 
     it "processes default metadata, plenary" do
-    csdc = IsoDoc::Unece::HtmlConvert.new({toc: true})
+    csdc = IsoDoc::Unece::WordConvert.new({toc: true})
     input = <<~"INPUT"
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
 <bibdata type="plenary">
@@ -107,7 +107,7 @@ RSpec.describe IsoDoc::Unece do
     INPUT
 
     output = <<~"OUTPUT"
-        {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"1000(wd)", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :language=>"en", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_agendaitem=>"5", :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_distribution=>"public", :session_id=>"WHO-UNECE-01", :session_number=>"Third", :status=>"Working Draft", :tc=>"TC", :toc=>nil, :updateddate=>"XXX", :wg=>"XXXX"}
+        {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"1000(wd)", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :language=>"en", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_agendaitem=>"5", :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_distribution=>"public", :session_id=>"WHO-UNECE-01", :session_number=>"Third", :status=>"Working Draft", :tc=>"TC", :toc=>true, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -189,77 +189,49 @@ RSpec.describe IsoDoc::Unece do
     INPUT
 
     output = <<~"OUTPUT"
-        #{HTML_HDR}
-                     <br/>
+           <div class="WordSection3">
              <div>
-               <h1 class="AbstractTitle">Summary</h1>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="AbstractTitle">Summary</p>
                <p id="AA">This is an abstract</p>
              </div>
-             <br/>
              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="ForewordTitle">Foreword</p>
                <p id="A">This is a preamble</p>
              </div>
-             <br/>
              <div class="Section3" id="B">
-               <h1 class="IntroTitle">Introduction</h1>
-               <div id="C"><h2>Introduction Subsection</h2>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="IntroTitle">Introduction</p>
+               <div id="C"><h2><span style="mso-tab-count:1">&#160; </span>Introduction Subsection</h2>
 
           </div>
              </div>
-             <div id="D">
-               <h1>1.&#160; Scope</h1>
-               <p id="E">Text</p>
-             </div>
-             <div id="M">
-               <h1>II.&#160; Clause 4</h1>
-               <div id="N"><h2>2. &#160; Introduction</h2>
-
-          </div>
-               <div id="O"><h2>A. &#160; Clause 4.2</h2>
-
-            <div id="O1"><h3>1. &#160; Clause 4.2.1</h3>
-
-            <div id="O11"><h4>3. &#160; Clause 4 Leaf</h4>
-
-            </div>
-            </div>
-          </div>
-             </div>
-             <br/>
-             <div id="P" class="Section3">
-               <h1 class="Annex">
-                 <b>Annex I</b>
-                 <br/>
-                 <b>Annex</b>
-               </h1>
-               <div id="Q"><h2>1. &#160; Annex A.1</h2>
-
-            <div id="Q1"><h3>I. &#160; Annex A.1a</h3>
-
-            <div id="Q11"><h4>1. &#160; Annex A Leaf</h4>
-
-            </div>
-            </div>
-          </div>
-          </div>
-<br/>
-<div id="U" class="Section3">
-  <h1 class="Annex">1<br/><b>Terminal annex</b></h1>
-             </div>
-             <br/>
-             <div>
-               <h1 class="Section3">Bibliography</h1>
-               <div>
-                 <h2 class="Section3">Bibliography Subsection</h2>
-               </div>
-             </div>
+             <p>&#160;</p>
            </div>
-         </body>
-       </html>
+           <br clear="all" class="section"/>
+           <div class="WordSection3"><div id="D"><h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1><p id="E">Text</p></div><div id="M"><h1>II.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1><div id="N"><h2>2. <span style="mso-tab-count:1">&#160; </span>Introduction</h2>
+
+          </div><div id="O"><h2>A. <span style="mso-tab-count:1">&#160; </span>Clause 4.2</h2>
+
+            <div id="O1"><h3>1. <span style="mso-tab-count:1">&#160; </span>Clause 4.2.1</h3>
+
+            <div id="O11"><h4>3. <span style="mso-tab-count:1">&#160; </span>Clause 4 Leaf</h4>
+
+            </div>
+            </div>
+          </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div id="P" class="Section3"><h1 class="Annex"><b>Annex I</b><br/><b>Annex</b></h1><div id="Q"><h2>1. <span style="mso-tab-count:1">&#160; </span>Annex A.1</h2>
+
+            <div id="Q1"><h3>I. <span style="mso-tab-count:1">&#160; </span>Annex A.1a</h3>
+
+            <div id="Q11"><h4>1. <span style="mso-tab-count:1">&#160; </span>Annex A Leaf</h4>
+
+            </div>
+            </div>
+          </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div id="U" class="Section3"><h1 class="Annex">1<br/><b>Terminal annex</b></h1></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div><h1 class="Section3">Bibliography</h1><div><h2 class="Section3">Bibliography Subsection</h2></div></div>
     OUTPUT
 
-    expect(IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true)).to be_equivalent_to output
+    expect(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '')).to be_equivalent_to output
 end
 
   it "processes cross-references to section names" do
@@ -361,40 +333,40 @@ end
     INPUT
 
     output = <<~"OUTPUT"
-    <div>
-    <h1 class="ForewordTitle">Foreword</h1>
-        <p>
-     <a href="#A">Foreword</a>
-     <a href="#B">Introduction</a>
-     <a href="#C">Introduction Subsection</a>
-     <a href="#AA">AA</a>
-     <a href="#H">H</a>
-     <a href="#I">I</a>
-     <a href="#J">J</a>
-     <a href="#K">K</a>
-     <a href="#D">paragraph 1</a>
-     <a href="#E">E</a>
-     <a href="#M">Clause II</a>
-     <a href="#N">paragraph 2</a>
-     <a href="#O">Clause II.A</a>
-     <a href="#O1">Clause II.A.1</a>
-     <a href="#O11">paragraph 3</a>
-     <a href="#P">Annex I</a>
-     <a href="#Q">Annex I.1</a>
-     <a href="#Q1">Annex I.1.I</a>
-     <a href="#Q11">paragraph I.1.I.A.1</a>
-     <a href="#U">paragraph II.1</a>
-     <a href="#R">R</a>
-     <a href="#S">S</a>
-     <a href="#T">T</a>
-    </p>
-    </div>
+             <div id="A">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="ForewordTitle">Foreword</p>
+               <p>
+            <a href="#A">Foreword</a>
+            <a href="#B">Introduction</a>
+            <a href="#C">Introduction Subsection</a>
+            <a href="#AA">AA</a>
+            <a href="#H">H</a>
+            <a href="#I">I</a>
+            <a href="#J">J</a>
+            <a href="#K">K</a>
+            <a href="#D">paragraph 1</a>
+            <a href="#E">E</a>
+            <a href="#M">Clause II</a>
+            <a href="#N">paragraph 2</a>
+            <a href="#O">Clause II.A</a>
+            <a href="#O1">Clause II.A.1</a>
+            <a href="#O11">paragraph 3</a>
+            <a href="#P">Annex I</a>
+            <a href="#Q">Annex I.1</a>
+            <a href="#Q1">Annex I.1.I</a>
+            <a href="#Q11">paragraph I.1.I.A.1</a>
+            <a href="#U">paragraph II.1</a>
+            <a href="#R">R</a>
+            <a href="#S">S</a>
+            <a href="#T">T</a>
+           </p>
+             </div>
     OUTPUT
 
-    expect(IsoDoc::Unece::HtmlConvert.new({}).
+    expect(IsoDoc::Unece::WordConvert.new({}).
            convert("test", input, true).
-           sub(%r{^.*<h1 class="ForewordTitle">}m, '<div><h1 class="ForewordTitle">').
-           sub(%r{</div>.*$}m, '</div>')
+           sub(%r{^.*<div id="A">}m, '<div id="A">').sub(%r{<div class="Section3".*$}m, '')
           ).to be_equivalent_to output
 end
 
@@ -460,85 +432,43 @@ end
     INPUT
 
     output = <<~"OUTPUT"
-        #{HTML_HDR}
-             <br/>
+           <div class="WordSection3">
              <div>
-               <h1 class="AbstractTitle">Summary</h1>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="AbstractTitle">Summary</p>
                <p id="AA">This is an abstract</p>
              </div>
-             <br/>
              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="ForewordTitle">Foreword</p>
                <p id="A">This is a preamble</p>
              </div>
-             <br/>
              <div class="Section3" id="B">
-               <h1 class="IntroTitle">Introduction</h1>
-               <div id="C"><h2>Introduction Subsection</h2>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="IntroTitle">Introduction</p>
+               <div id="C"><h2><span style="mso-tab-count:1">&#160; </span>Introduction Subsection</h2>
 
           </div>
              </div>
-             <div id="D">
-               <h1>Scope</h1>
-               <p id="E">Text</p>
-             </div>
-             <div id="M">
-               <h1>Clause 4</h1>
-               <div id="N"><h2>Introduction</h2>
+             <p>&#160;</p>
+           </div>
+           <br clear="all" class="section"/>
+           <div class="WordSection3"><div id="D"><h1>Scope</h1><p id="E">Text</p></div><div id="M"><h1>Clause 4</h1><div id="N"><h2><span style="mso-tab-count:1">&#160; </span>Introduction</h2>
 
-          </div>
-               <div id="O"><h2>Clause 4.2</h2>
+          </div><div id="O"><h2><span style="mso-tab-count:1">&#160; </span>Clause 4.2</h2>
 
-          </div>
-             </div>
-             <br/>
-             <div id="P" class="Section3">
-               <h1 class="Annex">
-                 <b>Annex I</b>
-                 <br/>
-                 <b>Annex</b>
-               </h1>
-               <div id="Q"><h2>Annex A.1</h2>
+          </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div id="P" class="Section3"><h1 class="Annex"><b>Annex I</b><br/><b>Annex</b></h1><div id="Q"><h2><span style="mso-tab-count:1">&#160; </span>Annex A.1</h2>
 
-            <div id="Q1"><h3>Annex A.1a</h3>
+            <div id="Q1"><h3><span style="mso-tab-count:1">&#160; </span>Annex A.1a</h3>
 
             </div>
-          </div>
-             </div>
-             <br/>
-             <div>
-               <h1 class="Section3">Bibliography</h1>
-               <div>
-                 <h2 class="Section3">Bibliography Subsection</h2>
-               </div>
-             </div>
-           </div>
+          </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div><h1 class="Section3">Bibliography</h1><div><h2 class="Section3">Bibliography Subsection</h2></div></div>
+       </div>
          </body>
        </html>
         OUTPUT
-    expect(IsoDoc::Unece::HtmlConvert.new({suppressheadingnumbers: true}).convert("test", input, true)).to be_equivalent_to output
+    expect(IsoDoc::Unece::WordConvert.new({suppressheadingnumbers: true}).convert("test", input, true).sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '')).to be_equivalent_to output
     end
-
-it "injects JS into blank html" do
-  system "rm -f test.html"
-  input = <<~"INPUT"
-    = Document title
-    Author
-    :docfile: test.adoc
-    :novalid:
-  INPUT
-
-  output = <<~"OUTPUT"
-  #{BLANK_HDR}
-<sections/>
-</unece-standard>
-  OUTPUT
-
-  expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to output
-  html = File.read("test.html", encoding: "utf-8")
-  expect(html).to match(%r{jquery\.min\.js})
-  expect(html).to match(%r{Roboto})
-end
 
 it "processes admonitions" do
   input = <<~"INPUT"
@@ -579,46 +509,28 @@ it "processes admonitions" do
   INPUT
 
   output = <<~"OUTPUT"
-  #{HTML_HDR}
-               <div id="A">
-               <h1>1.&#160; </h1>
-               <div class="Admonition"><p class="FigureTitle" align="center">Box 1&#160;&#8212; First Box</p>
+         <div class="WordSection3"><div id="A"><h1>1.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="FigureTitle" align="center">Box 1&#160;&#8212; First Box</p>
 
              <p id="C">paragraph</p>
-           </div>
-             </div>
-             <div id="A1">
-               <h1>2.&#160; </h1>
-               <div class="Admonition"><p class="FigureTitle" align="center">Box 2&#160;&#8212; Second Box</p>
+           </div></div><div id="A1"><h1>2.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="FigureTitle" align="center">Box 2&#160;&#8212; Second Box</p>
 
              <p id="C1">paragraph</p>
-           </div>
-             </div>
-             <br/>
-             <div id="D" class="Section3">
-               <h1 class="Annex">1<br/><b>First Annex</b></h1>
-               <div class="Admonition"><p class="FigureTitle" align="center">Box I.1&#160;&#8212; Third Box</p>
+           </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div id="D" class="Section3"><h1 class="Annex">1<br/><b>First Annex</b></h1><div class="Admonition"><p class="FigureTitle" align="center">Box I.1&#160;&#8212; Third Box</p>
 
              <p id="F">paragraph</p>
-           </div>
-             </div>
-             <br/>
-             <div id="D1" class="Section3">
-               <h1 class="Annex">1<br/><b>Second Annex</b></h1>
-               <div class="Admonition"><p class="FigureTitle" align="center">Box II.1&#160;&#8212; Fourth Box</p>
+           </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div id="D1" class="Section3"><h1 class="Annex">1<br/><b>Second Annex</b></h1><div class="Admonition"><p class="FigureTitle" align="center">Box II.1&#160;&#8212; Fourth Box</p>
 
              <p id="F1">paragraph</p>
-           </div>
-             </div>
-           </div>
+           </div></div>
+       </div>
          </body>
        </html>
   OUTPUT
-    expect(IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true)).to be_equivalent_to output
+    expect(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '')).to be_equivalent_to output
 end
 
     it "processes inline section headers" do
-    expect(IsoDoc::Unece::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+      expect(IsoDoc::Unece::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '')).to be_equivalent_to <<~"OUTPUT"
       <unece-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
        <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
@@ -631,25 +543,20 @@ end
        </sections>
       </unece-standard>
     INPUT
-  #{HTML_HDR}
-             <div id="M">
-               <h1>I.&#160; Clause 4</h1>
-               <div id="N"><h2>1. &#160; Introduction</h2>
+           <div class="WordSection3"><div id="M"><h1>I.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1><div id="N"><h2>1. <span style="mso-tab-count:1">&#160; </span>Introduction</h2>
 
-        </div>
-               <div id="O"><span class="zzMoveToFollowing">2. &#160; Clause 4.2 </span>
+        </div><div id="O"><span class="zzMoveToFollowing">2. <span style="mso-tab-count:1">&#160; </span>Clause 4.2 </span>
 
-        </div>
-             </div>
-           </div>
+        </div></div>
+       </div>
          </body>
        </html>
 OUTPUT
     end
 
 
-  it "does not switch plenary title page in HTML" do
-        csdc = IsoDoc::Unece::HtmlConvert.new({toc: true})
+  it "uses plenary title page in DOC for plenaries" do
+    FileUtils.rm_f("test.doc")
     input = <<~"INPUT"
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
 <bibdata type="plenary">
@@ -658,9 +565,43 @@ OUTPUT
   <sections/>
   </unece-standard>
 INPUT
-IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true)
-  html = File.read("test.html", encoding: "utf-8")
-  expect(html).not_to include "<div class=MsoNormal id='abstractbox'"
+IsoDoc::Unece::WordConvert.new(toc: true).convert("test", input, false)
+  html = File.read("test.doc", encoding: "utf-8")
+  expect(html).to include '<a name="abstractbox" id="abstractbox">'
+  expect(html).to include 'class="zzContents"'
+  end
+
+  it "removes intro page page in DOC for plenaries with no ToC" do
+    FileUtils.rm_f("test.doc")
+    input = <<~"INPUT"
+<unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
+<bibdata type="plenary">
+  <title language="en" format="plain">Main Title</title>
+  </bibdata>
+  <sections/>
+  </unece-standard>
+INPUT
+IsoDoc::Unece::WordConvert.new(toc: false).convert("test", input, false)
+  html = File.read("test.doc", encoding: "utf-8")
+  expect(html).to include '<a name="abstractbox" id="abstractbox">'
+  expect(html).not_to include 'class="zzContents"'
+  end
+
+
+  it "does not used plenary title page in DOC for recommendations" do
+    FileUtils.rm_f("test.doc")
+    input = <<~"INPUT"
+<unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
+<bibdata type="recommendation">
+  <title language="en" format="plain">Main Title</title>
+  </bibdata>
+  <sections/>
+  </unece-standard>
+INPUT
+IsoDoc::Unece::WordConvert.new(toc: true).convert("test", input, false)
+  html = File.read("test.doc", encoding: "utf-8")
+  expect(html).not_to include '<a name="abstractbox" id="abstractbox">'
+  expect(html).to include 'preface_container'
   end
 
   it "processes bibliography" do
@@ -688,16 +629,178 @@ IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true)
 </unece-standard>
 INPUT
   output = <<~"OUTPUT"
-  #{HTML_HDR}
-        <div>
-        <h1>1.&#160; </h1>
-        <a href="#ISO712">ISO 712</a>
-      </div>
-    </div>
-  </body>
-</html>
+<div class="WordSection3"><div><h1>1.<span style="mso-tab-count:1">&#160; </span></h1><a href="#ISO712">ISO 712</a></div>  
+</div>
   OUTPUT
-    expect(IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true)).to be_equivalent_to output
+  expect(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).
+         sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').
+         sub(%r{<v:line.*$}m, '')).to be_equivalent_to output
   end
+
+  it "processes plenary preface" do
+    FileUtils.rm_f("test.doc")
+    input = <<~"INPUT"
+    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata type="plenary"/>
+      <preface>
+      <foreword obligation="informative">
+         <title>Foreword</title>
+         <p id="A">This is a preamble</p>
+       </foreword>
+        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+         <title>Introduction Subsection</title>
+       </clause>
+       </introduction>
+       <abstract obligation="informative">
+       <p id="AA">This is an abstract</o>
+       </abstract>
+       <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+         <title>Normal Terms</title>
+         <term id="J">
+         <preferred>Term2</preferred>
+       </term>
+       </terms>
+       <definitions id="K">
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       </clause>
+        </preface><sections>
+INPUT
+        IsoDoc::Unece::WordConvert.new({}).convert("test", input, false)
+          html = File.read("test.doc", encoding: "utf-8")
+          section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(%r{<div class="WordSection2">.*$}m, "")
+          section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(%r{<div class="WordSection3">.*$}m, "")
+          expect(section1).to include "This is an abstract"
+          expect(section2).to be_equivalent_to <<~"OUTPUT"
+          <div class="WordSection2">
+
+      <div>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+        <p class="ForewordTitle">Foreword</p>
+        <p class="MsoNormal"><a name="A" id="A"></a>This is a preamble</p>
+      </div>
+      <div class="Section3"><a name="B" id="B"></a>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+        <p class="IntroTitle">Introduction</p>
+        <div><a name="C" id="C"></a><p class="h2Annex"><span style="mso-tab-count:1">&#xA0; </span>Introduction Subsection</p>
+
+   </div>
+      </div>
+      <p class="MsoNormal">&#xA0;</p>
+    </div>
+    <br clear="all" class="section"/>
+          OUTPUT
+
+    end
+
+  it "removes WordSection2 if empty" do
+        FileUtils.rm_f("test.doc")
+    input = <<~"INPUT"
+    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata type="plenary"/>
+      <preface>
+        </preface><sections>
+INPUT
+        IsoDoc::Unece::WordConvert.new({}).convert("test", input, false)
+          html = File.read("test.doc", encoding: "utf-8")
+          expect(html).not_to include '<div class="WordSection2"'
+  end
+
+  it "does not removes WordSection2 if no preface but ToC" do
+        FileUtils.rm_f("test.doc")
+    input = <<~"INPUT"
+    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata type="plenary"/>
+      <preface>
+        </preface><sections>
+INPUT
+        IsoDoc::Unece::WordConvert.new({toc: true}).convert("test", input, false)
+          html = File.read("test.doc", encoding: "utf-8")    
+          expect(html).to include '<div class="WordSection2"'
+  end
+
+  it "processes recommendation preface" do
+    FileUtils.rm_f("test.doc")
+    input = <<~"INPUT"
+    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata type="recommendation"/>
+      <preface>
+      <foreword obligation="informative">
+         <title>Foreword</title>
+         <p id="A">This is a preamble</p>
+       </foreword>
+        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+         <title>Introduction Subsection</title>
+       </clause>
+       </introduction>
+       <abstract obligation="informative">
+       <p id="AA">This is an abstract</o>
+       </abstract>
+       <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+         <title>Normal Terms</title>
+         <term id="J">
+         <preferred>Term2</preferred>
+       </term>
+       </terms>
+       <definitions id="K">
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       </clause>
+        </preface><sections>
+INPUT
+        IsoDoc::Unece::WordConvert.new({}).convert("test", input, false)
+          html = File.read("test.doc", encoding: "utf-8")
+          section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(%r{<div class="WordSection2">.*$}m, "")
+          section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(%r{<div class="WordSection3">.*$}m, "")
+          expect(section1).not_to include "This is an abstract"
+          expect(section2).to be_equivalent_to <<~"OUTPUT"
+                 <div class="WordSection2">
+       <div>
+         <p class="MsoNormal"><b>Note</b>
+         </p><p class="MsoNormal">The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+
+
+
+         <p align="center" style="border:solid;" class="MsoNormal">ECE/TRADE/437</p>
+         <p align="center" class="MsoNormal">Copyright &#xA9; United Nations <br/>
+         All rights reserved worldwide<br/>
+         United Nations publication issued by the Economic Commission for Europe</p>
+
+       </div>
+
+       <div><a name="preface_container" id="preface_container"></a><div>
+
+               <p class="AbstractTitle">Summary</p>
+               <p class="MsoNormal"><a name="AA" id="AA"></a>This is an abstract</p>
+             </div><div>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="ForewordTitle">Foreword</p>
+               <p class="MsoNormal"><a name="A" id="A"></a>This is a preamble</p>
+             </div><div class="Section3"><a name="B" id="B"></a>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="IntroTitle">Introduction</p>
+               <div><a name="C" id="C"></a><p class="h2Annex"><span style="mso-tab-count:1">&#xA0; </span>Introduction Subsection</p>
+
+          </div>
+             </div></div>
+
+
+
+
+
+
+
+             <p class="MsoNormal">&#xA0;</p>
+           </div>
+           <br clear="all" class="section"/>
+          OUTPUT
+
+    end
 
 end
