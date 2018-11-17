@@ -291,7 +291,6 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
 
     output = <<~"OUTPUT"
-    #{BLANK_HDR}
     <preface><abstract id="_">
   <p id="_">Abstract</p>
 </abstract><foreword obligation="informative">
@@ -302,7 +301,7 @@ RSpec.describe Asciidoctor::Unece do
 </unece-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
+    expect(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)).sub(/^.*<preface/m, "<preface")).to be_equivalent_to output
   end
 
   it "processes notes" do

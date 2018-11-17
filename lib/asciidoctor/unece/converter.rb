@@ -227,21 +227,6 @@ module Asciidoctor
         abstract_parse(attrs, xml, node) && return if node.attr("style") == "abstract"
         super
       end
-
-      def abstract_parse(attrs, xml, node)
-        xml.abstract **attr_code(attrs) do |xml_section|
-          xml_section << node.content
-        end
-      end
-
-      def make_preface(x, s)
-        super
-        if x.at("//abstract")
-          preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
-          abstract = x.at("//abstract").remove
-          preface.prepend_child abstract.remove
-        end
-      end
     end
   end
 end

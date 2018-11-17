@@ -37,7 +37,7 @@ module IsoDoc
         dn = isoxml.at(ns("//bibdata/docidentifier"))&.text
         set(:docnumber, dn)
         type = isoxml&.at(ns("//bibdata/@type"))&.value
-        set(:formatted_docnumber, type == "recommendation" ? "Recommendation No. #{dn}" : dn)
+        set(:formatted_docnumber, type == "recommendation" ? "UN/CEFACT Recommendation #{dn}" : dn)
       end
 
       def status_print(status)
