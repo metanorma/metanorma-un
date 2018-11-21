@@ -146,7 +146,8 @@ tables etc, and automatically generating references and citations.
 === Common attributes
 
 The gem relies on Asciidoctor document attributes to provide necessary
-metadata about the document. These include:
+metadata about the document. The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
+gem documents the Asciidoctor document attributes common to all metanorma gems. These include:
 
 `:edition:`:: The document edition
 
@@ -203,20 +204,13 @@ these are otherwise suppressed.
 `:distribution:`:: Extent of distribution allowed. e.g. `General`
 
 [[model_additions]]
-== Asciidoctor model additions
+== Asciidoctor features specific to CSAND
 
-Refer also to https://github.com/riboseinc/metanorma-standoc/blob/master/README.adoc; this section lists additions specific only to metanorma-unece
+The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
+gem documents the customisations of Asciidoctor markup common to all metanorma gems.
+The following markup is specific to this gem:
 
 === Abstract
-
-A clause is recognised as an abstract if it is prefixed with the `[abstract]` style attribute:
-
-[source,asciidoctor]
---
-[abstract]
-== Summary
-In 2017, the World Economic Forum approached UN/CEFACT in order to create a guide on Paperless Trade which might help countries to understand and implement specific provisions of the World Trade Organization?~@~Ys Trade Facilitation Agreement, specifically article 10 on Formalities connected with importation and exportation (10.2, 10.3 and 10.4) as well as article 7 on Release and clearance of goods (7.1 and 7.2).
---
 
 Abstracts are moved to the front page in plenary documents. In recommendation documents, they appear in the document preface, before the foreword and introduction.
 
