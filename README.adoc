@@ -167,6 +167,15 @@ document identifier. The permitted types for UNECE are:
 --
 recommendation:: UNECE Recommendation
 plenary:: UNECE Plenary document
+addendum:: Addendum
+communication:: Communication
+corrigendum:: Corrigendum
+reissue:: Reissue (of something)
+agenda:: Documents relating to agendas of principal organs
+budgetary:: Documents relating to programme budget implications
+sec-gen-notes:: Notes by the Secretary-General
+expert-report:: Reports of intergovernmental and expert bodies
+resolution:: Resolutions and other formal decisions of United Nations organs
 --
 
 `:status:``:: The document status. The permitted types are: `proposal`,

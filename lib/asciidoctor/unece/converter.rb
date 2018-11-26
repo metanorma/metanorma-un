@@ -115,7 +115,8 @@ module Asciidoctor
 
       def doctype(node)
         d = node.attr("doctype")
-        unless %w{plenary recommendation}.include? d
+        unless %w{plenary recommendation addendum communication corrigendum reissue
+          agenda budgetary sec-gen-notes expert-report resolution}.include? d
           warn "#{d} is not a legal document type: reverting to 'recommendation'"
           d = "recommendation"
         end
