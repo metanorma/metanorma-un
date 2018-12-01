@@ -46,8 +46,11 @@
 
   <div class="coverpage-stage-block" >
     <p><span class="coverpage-maturity" id="{{ status | replace: ' ', '-' | downcase }}">{% if unpublished %}{{ status }}{% endif %}</span></p>
-{% if security %}
-<p><span class="coverpage-maturity">Classification: {{ security }}</span></p>
+{% if submissionlanguage %}
+<p><span class="coverpage-maturity">Original: {{ submissionlanguage | join: "/" }}</span></p>
+{% endif %}
+{% if language %}
+<p><span class="coverpage-maturity">{{ language | join: ", " }} only</span></p>
 {% endif %}
 </div>
 

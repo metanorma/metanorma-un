@@ -1,5 +1,6 @@
 require "isodoc"
 require "twitter_cldr"
+require "iso-639"
 
 module IsoDoc
   module Unece
@@ -20,6 +21,15 @@ module IsoDoc
         set(:docsubtitle, main)
       end
 
+      def extract_languages(nodeset)
+        lgs = []
+        nodeset.each do |l|
+          l && ISO_639&.find(l.text)&.english_name &&
+            lgs << ISO_639.find(l.text).english_name 
+        end
+        lgs.map { |l| l == "Spanish; Castilian" ? "Spanish" : l }
+      end
+
       def author(isoxml, _out)
         tc = isoxml.at(ns("//bibdata/editorialgroup/committee"))
         set(:tc, tc.text) if tc
@@ -30,7 +40,12 @@ module IsoDoc
         set(:session_collaborator, isoxml&.at(ns("//bibdata/session/collaborator"))&.text)
         set(:session_id, isoxml&.at(ns("//bibdata/session/id"))&.text)
         set(:session_distribution, isoxml&.at(ns("//bibdata/session/distribution"))&.text)
-        set(:language, isoxml&.at(ns("//bibdata/language"))&.text)
+        lgs = extract_languages(isoxml.xpath(ns("//bibdata/language")))
+        lgs = [] if lgs.sort == %w(English French Arabic Chinese German Spanish).sort
+        slgs = extract_languages(isoxml.xpath(ns("//bibdata/submissionlanguage")))
+        lgs = [] if slgs.size == 1
+        set(:language, lgs) unless lgs.empty?
+        set(:submissionlanguage, slgs) unless slgs.empty?
       end
 
       def docid(isoxml, _out)

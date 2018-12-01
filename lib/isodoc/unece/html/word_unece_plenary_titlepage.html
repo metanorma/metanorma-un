@@ -23,10 +23,18 @@ style='font-family:"Times New Roman",serif'><span style='mso-tab-count:1'>   
 style='mso-tab-count:1'>                                                                                          </span></span><span
 lang=EN-AU style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ revdate }}<o:p></o:p></span></p>
 
+{% if submissionlanguage %}
 <p class=MsoNormal style='tab-stops:70.9pt 12.0cm'><span lang=EN-AU
 style='font-family:"Times New Roman",serif'><span style='mso-tab-count:2'>                                                                                                                 </span></span><span
 lang=EN-AU style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>Original:
-{{ language }}<o:p></o:p></span></p>
+{{ submissionlanguage | join: "/" }}<o:p></o:p></span></p>
+{% endif %}
+
+{% if language %}
+<p class=MsoNormal style='tab-stops:70.9pt 12.0cm'><span lang=EN-AU
+style='font-family:"Times New Roman",serif'><span style='mso-tab-count:2'>                                                                                                                 </span></span><span
+lang=EN-AU style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ language }} only<o:p></o:p></span></p>
+{% endif %}
 
 <p class=MsoNormal style='tab-stops:70.9pt 12.0cm'><span lang=EN-AU
 style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'><o:p>&nbsp;</o:p></span></p>

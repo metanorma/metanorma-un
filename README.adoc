@@ -185,8 +185,11 @@ resolution:: Resolutions and other formal decisions of United Nations organs
 `:committee:`:: The name of the relevant UNECE committee, for example,
   `United Nations Centre for Trade Facilitation and Electronic Business (UN/CEFACT)` (mandatory)
 
-`:language:` :: The language of the document (only `en` for now)  (mandatory)
-`:script:` :: The language of the document (only `Latn` for now)  (mandatory)
+`:language:` :: The language(s) of the document. This is the language in which the document
+has been issued, not the language(s) in which it has been submitted. ISO-639-1 codes are used
+for languages, and they are comma-delimited. If not specified, the six official languages of the
+UN are assumed: Arabic, Chinese, English, French, Russian and Spanish (`ar,zh,en,fr,ru,es`).
+`:script:` :: The script of the document
 
 `:toc:` :: Include table of contents in Word output. (Table of contents is always included in
 HTML output.)
@@ -194,11 +197,16 @@ HTML output.)
 NOTE: The attribute `:draft:`, if present, includes review notes in the XML output;
 these are otherwise suppressed.
 
+=== UN document-specific attributes
+
+`:
 
 === Recommendation specific attributes
 
 `:docnumber:`:: The document number if the document is a Recommendation. e.g. `42` for Recommendation 42, which happens to be the ultimate answer. (mandatory for Recommendation)
 
+`:submissionlanguage:`:: The language(s) in which the document was originally submitted.
+ISO-639-1 codes are used for languages, and they are comma-delimited. 
 
 === Plenary document specific attributes
 

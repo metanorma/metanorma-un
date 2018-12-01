@@ -91,6 +91,13 @@ module Asciidoctor
         end
       end
 
+      def metadata_language(node, xml)
+        languages = node&.attr("language")&.split(/,[ ]*/) || %w(ar ru en fr zh es)
+        languages.each { |l| xml.language l }
+        languages = node&.attr("submissionlanguage")&.split(/,[ ]*/) || []
+        languages.each { |l| xml.submissionlanguage l }
+      end
+
       def metadata(node, xml)
         super
         metadata_session(node, xml)

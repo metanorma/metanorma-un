@@ -23,6 +23,9 @@ RSpec.describe IsoDoc::Unece do
     </organization>
   </contributor>
   <language>en</language>
+  <language>fr</language>
+  <submissionlanguage>de</submissionlanguage>
+  <submissionlanguage>jp</submissionlanguage>
   <script>Latn</script>
   <status format="plain">working-draft</status>
   <copyright>
@@ -47,14 +50,14 @@ RSpec.describe IsoDoc::Unece do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"UN/CEFACT Recommendation 1000", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :language=>"en", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_agendaitem=>nil, :session_collaborator=>nil, :session_date=>nil, :session_distribution=>nil, :session_id=>nil, :session_number=>nil, :status=>"Working Draft", :tc=>"TC", :toc=>nil, :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"UN/CEFACT Recommendation 1000", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :language=>["English", "French"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_agendaitem=>nil, :session_collaborator=>nil, :session_date=>nil, :session_distribution=>nil, :session_id=>nil, :session_number=>nil, :status=>"Working Draft", :submissionlanguage=>["German"], :tc=>"TC", :toc=>nil, :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
     expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
 
-    it "processes default metadata, plenary" do
+    it "processes default metadata, plenary; six official UN languages" do
     csdc = IsoDoc::Unece::HtmlConvert.new({toc: true})
     input = <<~"INPUT"
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
@@ -75,6 +78,11 @@ RSpec.describe IsoDoc::Unece do
     </organization>
   </contributor>
   <language>en</language>
+  <language>de</language>
+  <language>ar</language>
+  <language>es</language>
+  <language>fr</language>
+  <language>zh</language>
   <script>Latn</script>
   <status format="plain">working-draft</status>
   <copyright>
@@ -107,7 +115,7 @@ RSpec.describe IsoDoc::Unece do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"1000(wd)", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :language=>"en", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_agendaitem=>"5", :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_distribution=>"public", :session_id=>"WHO-UNECE-01", :session_number=>"Third", :status=>"Working Draft", :tc=>"TC", :toc=>nil, :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"1000(wd)", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_agendaitem=>"5", :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_distribution=>"public", :session_id=>"WHO-UNECE-01", :session_number=>"Third", :status=>"Working Draft", :tc=>"TC", :toc=>nil, :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)

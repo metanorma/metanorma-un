@@ -68,7 +68,12 @@ BLANK_HDR = <<~"HDR"
              <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
            </organization>
          </contributor>
-         <language>en</language>
+         <language>ar</language>
+        <language>ru</language>
+        <language>en</language>
+        <language>fr</language>
+        <language>zh</language>
+        <language>es</language>
          <script>Latn</script>
 
          <copyright>

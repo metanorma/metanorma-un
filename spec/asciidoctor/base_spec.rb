@@ -138,7 +138,7 @@ RSpec.describe Asciidoctor::Unece do
     expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to output
   end
 
-   it "processes committee-draft" do
+   it "processes committee-draft, languages" do
     input = <<~"INPUT"
       = Document title
       Author
@@ -147,6 +147,8 @@ RSpec.describe Asciidoctor::Unece do
       :novalid:
       :docnumber: 1000
       :status: committee-draft
+      :language: eo, tlh
+      :submissionlanguage: de, jp
     INPUT
     expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
            <unece-standard xmlns="https://open.ribose.com/standards/unece">
@@ -167,7 +169,10 @@ RSpec.describe Asciidoctor::Unece do
              <name>UNECE</name>
            </organization>
          </contributor>
-         <language>en</language>
+         <language>eo</language>
+        <language>tlh</language>
+        <submissionlanguage>de</submissionlanguage>
+        <submissionlanguage>jp</submissionlanguage>
          <script>Latn</script>
          <status format="plain">committee-draft</status>
          <copyright>
@@ -217,7 +222,12 @@ RSpec.describe Asciidoctor::Unece do
       <name>UNECE</name>
     </organization>
   </contributor>
-  <language>en</language>
+  <language>ar</language>
+<language>ru</language>
+<language>en</language>
+<language>fr</language>
+<language>zh</language>
+<language>es</language>
   <script>Latn</script>
   <status format="plain">draft-standard</status>
   <copyright>

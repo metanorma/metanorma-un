@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "ruby-jing"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "twitter_cldr"
+  spec.add_dependency "iso-639"
 
   spec.add_dependency "metanorma-standoc", "~> 1.0.0"
   spec.add_dependency "isodoc", "~> 0.9.0"
