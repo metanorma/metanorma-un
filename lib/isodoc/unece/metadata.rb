@@ -39,7 +39,7 @@ module IsoDoc
         set(:session_agendaitem, isoxml&.at(ns("//bibdata/session/agenda_item"))&.text)
         set(:session_collaborator, isoxml&.at(ns("//bibdata/session/collaborator"))&.text)
         set(:session_id, isoxml&.at(ns("//bibdata/session/id"))&.text)
-        set(:session_distribution, isoxml&.at(ns("//bibdata/session/distribution"))&.text)
+        set(:distribution, isoxml&.at(ns("//bibdata/distribution"))&.text)
         lgs = extract_languages(isoxml.xpath(ns("//bibdata/language")))
         lgs = [] if lgs.sort == %w(English French Arabic Chinese German Spanish).sort
         slgs = extract_languages(isoxml.xpath(ns("//bibdata/submissionlanguage")))

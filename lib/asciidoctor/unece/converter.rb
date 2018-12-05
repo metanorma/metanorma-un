@@ -80,6 +80,10 @@ module Asciidoctor
         end
       end
 
+      def metadata_distribution(node, xml)
+          xml.distribution node.attr("distribution") if node.attr("distribution")
+      end
+
       def metadata_session(node, xml)
         xml.session do |session|
           session.number node.attr("session") if node.attr("session")
@@ -87,7 +91,6 @@ module Asciidoctor
           session.agenda_item node.attr("agenda-item") if node.attr("agenda-item")
           session.collaborator node.attr("collaborator") if node.attr("collaborator")
           session.id node.attr("agenda-id") if node.attr("agenda-id")
-          session.distribution node.attr("distribution") if node.attr("distribution")
         end
       end
 
@@ -100,6 +103,7 @@ module Asciidoctor
 
       def metadata(node, xml)
         super
+        metadata_distribution(node, xml)
         metadata_session(node, xml)
       end
 

@@ -81,14 +81,14 @@ RSpec.describe Asciidoctor::Unece do
       :agenda-item: 123
       :collaborator: WHO
       :agenda-id: WHO 1
-      :distribution: publid
+      :distribution: public
     INPUT
     output = <<~"OUTPUT"
     <?xml version="1.0" encoding="UTF-8"?>
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
 <bibdata type="recommendation">
   <title language="en" format="text/plain">Main Title</title>
-  <subtitle language="en" format="text/plain">Subtitle</title>
+  <subtitle language="en" format="text/plain">Subtitle</subtitle>
   <docidentifier>1000(wd)</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>
@@ -118,13 +118,13 @@ RSpec.describe Asciidoctor::Unece do
     <committee type="A">TC</committee>
     <committee type="B">TC1</committee>
   </editorialgroup>
+  <distribution>public</distribution>
   <session>
   <number>Session</number>
   <date>2000-01-01</date>
   <agenda-item>123</agenda-item>
   <collaborator>WHO</collaborator>
   <id>WHO 1</id>
-  <distribution>publid</distribution>
 </session>
 </bibdata><version>
   <edition>2</edition>
