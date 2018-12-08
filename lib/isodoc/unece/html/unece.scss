@@ -498,7 +498,10 @@ p.Formula, li.Formula, div.Formula
 	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh1;
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h1;
 	mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef1;
-	mso-paper-source:0;}
+	mso-paper-source:0;
+        mso-footnote-numbering-style:chicago;
+	mso-footnote-numbering-restart:each-section;
+      }
 div.WordSection1
 	{page:WordSection1;}
 @page WordSection2
@@ -511,7 +514,9 @@ div.WordSection1
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
 	mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef2;
 	mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f2;
-	mso-paper-source:0;}
+	mso-paper-source:0;
+	mso-footnote-numbering-restart:each-section;
+      }
 div.WordSection2
 	{page:WordSection2;}
 @page WordSection3
@@ -524,7 +529,9 @@ div.WordSection2
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
 	mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef3;
 	mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f3;
-	mso-paper-source:0;}
+	mso-paper-source:0;
+	mso-footnote-numbering-restart:each-section;
+      }
 div.WordSection3
 	{page:WordSection3;}
 ol

@@ -88,9 +88,12 @@ module Asciidoctor
         xml.session do |session|
           session.number node.attr("session") if node.attr("session")
           session.date node.attr("session-date") if node.attr("session-date")
-          session.agenda_item node.attr("agenda-item") if node.attr("agenda-item")
+          node&.attr("item-number")&.split(/,[ ]*/)&.each { |i| session.item_number i }
+          node&.attr("item-name")&.split(/,[ ]*/)&.each { |i| session.item_name i }
+          node&.attr("subitem-name")&.split(/,[ ]*/)&.each { |i| session.subitem_name i }
           session.collaborator node.attr("collaborator") if node.attr("collaborator")
           session.id node.attr("agenda-id") if node.attr("agenda-id")
+          session.item_footnote node.attr("item-footnote") if node.attr("item-footnote")
         end
       end
 

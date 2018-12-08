@@ -70,14 +70,37 @@ font-family:"Times New Roman",serif'>{{ session_number }} session<o:p></o:p></sp
 padding:0cm;mso-padding-alt:1.0pt 0cm 0cm 0cm'><span lang=EN-AU
 style='font-size:10.5pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ session_date }}<o:p></o:p></span></p>
 
+{% if session_itemnumber.size == 1 %}
 <p class=MsoNormal style='border:none;mso-border-top-alt:solid windowtext 2.25pt;
 padding:0cm;mso-padding-alt:1.0pt 0cm 0cm 0cm'><span lang=EN-AU
-style='font-size:10.5pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ docnumber }}<o:p></o:p></span></p>
+style='font-size:10.5pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>Agenda item {{ session_itemnumber[0] }}<o:p></o:p></span></p>
+{% endif %}
 
+{% if session_itemnumber.size > 1 %}
+<p class=MsoNormal style='border:none;mso-border-top-alt:solid windowtext 2.25pt;
+padding:0cm;mso-padding-alt:1.0pt 0cm 0cm 0cm'><span lang=EN-AU
+style='font-size:10.5pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>Agenda items {{ session_itemnumber | join: ", " }}<o:p></o:p></span></p>
+{% endif %}
+
+<p class=MsoNormal style='border:none;mso-border-top-alt:solid windowtext 2.25pt;
+padding:0cm;mso-padding-alt:1.0pt 0cm 0cm 0cm'><span lang=EN-AU
+  style='font-size:10.5pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ docnumber }}{% if item_footnote %}<a
+style='mso-footnote-id:ftnitem' href="#ftnitem" name="_ftnrefitem" class="footnote" title=""><span
+                                                           class=MsoFootnoteReference><span style='mso-special-character:footnote'></span></span></a>{% endif %}<o:p></o:p></span></p>
+
+{% if session_itemname.size > 0 %}
 <p class=MsoNormal style='border:none;mso-border-top-alt:solid windowtext 2.25pt;
 padding:0cm;mso-padding-alt:1.0pt 0cm 0cm 0cm'><b style='mso-bidi-font-weight:
 normal'><span lang=EN-AU style='font-size:10.5pt;mso-bidi-font-size:12.0pt;
-font-family:"Times New Roman",serif'>{{ doctitle }}<o:p></o:p></span></b></p>
+font-family:"Times New Roman",serif'>{{ session_itemname | join: "<br/>" }}<o:p></o:p></span></b></p>
+{% endif %}
+
+{% if session_subitemname.size > 0 %}
+<p class=MsoNormal style='border:none;mso-border-top-alt:solid windowtext 2.25pt;
+padding:0cm;mso-padding-alt:1.0pt 0cm 0cm 0cm'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-AU style='font-size:10.5pt;mso-bidi-font-size:12.0pt;
+font-family:"Times New Roman",serif'>{{ session_subitemname | join: "<br/>" }}<o:p></o:p></span></b></p>
+{% endif %}
 
 <p class=MsoNormal style='border:none;mso-border-top-alt:solid windowtext 2.25pt;
 padding:0cm;mso-padding-alt:1.0pt 0cm 0cm 0cm'><span lang=EN-AU

@@ -1,0 +1,133 @@
+<div class="document-stage-band" id='{{ status | downcase | replace: " ", "-" }}-band'>
+    <p class="document-stage">{{ status }}</p>
+</div>
+
+<div class="document-type-band" id='{{ doctype | downcase | replace: " ", "-" }}-band'>
+    <p class="document-type">UNECE {{ doctype }}</p>
+</div>
+
+
+
+  <div id='toggle'> <span>&#x2022;</span> </div>
+
+  <header>
+
+<!--<div class="WordSection1">-->
+  <div class="coverpage">
+    <div class="wrapper-top">
+
+  <div class="coverpage-doc-identity">
+    <div class="doc-number">
+      <span class="docnumber">{{ formatted_docnumber }}</span>
+      <span class="docyear">{{ draftinfo }}</span>
+    </div>
+
+    <div class="doc-number">
+      <p>{{ session_number }} session</p>
+      <p>{{ session_date }}</p>
+{% if session_itemnumber.size == 1 %}
+<p>Agenda item {{ session_itemnumber[0] }}</p>
+{% endif %}
+{% if session_itemnumber.size > 1 %}
+<p>Agenda items {{ session_itemnumber | join: ", " }}</p>
+{% endif %}
+<p>{{ docnumber }}{% if item_footnote %}[{{item_footnote}}]{% endif %}
+{% if session_itemname.size > 0 %}
+<p> {{ session_itemname | join: "<br/>" }}</p>
+{% endif %}
+{% if session_subitemname.size > 0 %}
+<p>{{ session_subitemname | join: "<br/>" }}</p>
+{% endif %}
+</div>
+    </div>
+
+    <div class="coverpage-title">
+      <span class="title-first">{{ doctitle }}</span>
+      <!--<span class="title-second">{{ docsubtitle }}</span>-->
+    </div>
+  </div>
+
+  <div class="coverpage-logo">
+    <span>UNECE {{ docyear }}</span>
+  </div>
+
+  <div class="coverpage-tc-name">
+    <span>{{ tc }}</span>
+  </div>
+  </div>
+
+    <div class="wrapper-top-bottom"></div>
+
+  <div class="WordSection11">
+  <div class="coverpage-stage-block" >
+    <span class="coverpage-stage" id="{{ doctype | replace: ' ', '-' | downcase }}">UNECE {{ doctype }}</span>
+  </div>
+
+  <div class="coverpage-stage-block" >
+    <p><span class="coverpage-maturity" id="{{ status | replace: ' ', '-' | downcase }}">{% if unpublished %}{{ status }}{% endif %}</span></p>
+{% if submissionlanguage %}
+<p><span class="coverpage-maturity">Original: {{ submissionlanguage | join: "/" }}</span></p>
+{% endif %}
+{% if language %}
+<p><span class="coverpage-maturity">{{ language | join: ", " }} only</span></p>
+{% endif %}
+</div>
+
+{% if doctype == "Policy And Procedures" or doctype == "Proposal" %}
+<div  class="coverpage-stage-block" >{{ revdate }}</div>
+{% endif %}
+
+{% if unpublished %}
+  <div class="coverpage-warning">
+    <span class="title">Warning for Drafts</span>
+
+    <p class="content">
+    This document is not a UNECE Standard. It is distributed for review and
+    comment, and is subject to change without notice and may not be referred to as
+    a Standard. Recipients of this draft are invited to submit, with their
+    comments, notification of any relevant patent rights of which they are aware
+    and to provide supporting documentation.
+    </p>
+  </div>
+{% endif %}
+
+<div class="info-section">
+<div class="copyright">
+  <p class="year">
+    &copy; {{ docyear }} United Nations.
+  </p>
+
+  <p class="message">
+    None of the materials provided on this web site may be used,
+    reproduced or transmitted, in whole or in part, in any form or by any
+    means, electronic or mechanical, including photocopying, recording or
+    the use of any information storage and retrieval system, except as
+    provided for in the Terms and Conditions of Use of United Nations Web
+    Sites, without permission in writing from the publisher. <br>
+    <br>
+    News-related material can be used as long as the appropriate credit is given and the United Nations is advised.<br>
+    <br>
+    To request such permission or for further enquires, please visit:
+    <a href="https://shop.un.org/rights-permissions">United Nations Publications: Rights and Permissions.</a><br>
+  </p>
+
+<div class="contact-info">
+  <p class="name">UN Economic Commission for Europe: Information Service</p>
+  <p class="address">
+    Palais des Nations<br />
+    CH-1211 Geneva 10<br />
+    Switzerland<br />
+    <br />
+    <a href="tel:+41(0)229171234">+41 (0) 22 917 12 34 (switchboard)</a><br />
+    <a href="mailto:unece_info@un.org">unece_info@un.org</a><br />
+    <a href="https://www.unece.org/">www.unece.org/</a>
+  </p>
+</div>
+</div>
+
+<div class="rule"></div>
+</div>
+  </div>
+
+
+</header>

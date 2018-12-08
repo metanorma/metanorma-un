@@ -78,7 +78,10 @@ RSpec.describe Asciidoctor::Unece do
       :subtitle: Subtitle
       :session: Session
       :session-date: 2000-01-01
-      :agenda-item: 123
+      :item-footnote: A/123
+      :item-number: 123, 456
+      :item-name: ABC, DEF
+      :subitem-name: EGH, IJK
       :collaborator: WHO
       :agenda-id: WHO 1
       :distribution: public
@@ -122,9 +125,15 @@ RSpec.describe Asciidoctor::Unece do
   <session>
   <number>Session</number>
   <date>2000-01-01</date>
-  <agenda-item>123</agenda-item>
+  <item-number>123</item-number>
+<item-number>456</item-number>
+<item-name>ABC</item-name>
+<item-name>DEF</item-name>
+<subitem-name>EGH</subitem-name>
+<subitem-name>IJK</subitem-name>
   <collaborator>WHO</collaborator>
   <id>WHO 1</id>
+  <item-footnote>A/123</item-footnote>
 </session>
 </bibdata><version>
   <edition>2</edition>

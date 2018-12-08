@@ -68,6 +68,9 @@ module IsoDoc
       def make_body(xml, docxml)
         plenary = docxml.at(ns("//bibdata[@type = 'plenary']"))
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72", "xml:lang": "EN-US", class: "container" }
+        if plenary && @htmlcoverpage == html_doc_path("html_unece_titlepage.html")
+          @htmlcoverpage = html_doc_path("html_unece_plenary_titlepage.html")
+        end
         #@htmlintropage = nil if plenary
         xml.body **body_attr do |body|
           make_body1(body, docxml)

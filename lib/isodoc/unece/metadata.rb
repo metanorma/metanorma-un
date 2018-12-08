@@ -33,12 +33,6 @@ module IsoDoc
       def author(isoxml, _out)
         tc = isoxml.at(ns("//bibdata/editorialgroup/committee"))
         set(:tc, tc.text) if tc
-        set(:session_number, isoxml&.at(ns("//bibdata/session/number"))&.text&.to_i&.
-            localize&.to_rbnf_s("SpelloutRules", "spellout-ordinal")&.capitalize)
-        set(:session_date, isoxml&.at(ns("//bibdata/session/date"))&.text)
-        set(:session_agendaitem, isoxml&.at(ns("//bibdata/session/agenda_item"))&.text)
-        set(:session_collaborator, isoxml&.at(ns("//bibdata/session/collaborator"))&.text)
-        set(:session_id, isoxml&.at(ns("//bibdata/session/id"))&.text)
         set(:distribution, isoxml&.at(ns("//bibdata/distribution"))&.text)
         lgs = extract_languages(isoxml.xpath(ns("//bibdata/language")))
         lgs = [] if lgs.sort == %w(English French Arabic Chinese German Spanish).sort
@@ -46,6 +40,25 @@ module IsoDoc
         lgs = [] if slgs.size == 1
         set(:language, lgs) unless lgs.empty?
         set(:submissionlanguage, slgs) unless slgs.empty?
+        session(isoxml, _out)
+      end
+
+      def multival(isoxml, xpath)
+        items = []
+        isoxml.xpath(ns(xpath)).each { |i| items << i.text }
+        items
+      end
+
+      def session(isoxml, _out)
+        set(:session_number, isoxml&.at(ns("//bibdata/session/number"))&.text&.to_i&.
+            localize&.to_rbnf_s("SpelloutRules", "spellout-ordinal")&.capitalize)
+        set(:session_date, isoxml&.at(ns("//bibdata/session/date"))&.text)
+        set(:session_collaborator, isoxml&.at(ns("//bibdata/session/collaborator"))&.text)
+        set(:session_id, isoxml&.at(ns("//bibdata/session/id"))&.text)
+        set(:item_footnote, isoxml&.at(ns("//bibdata/session/item-footnote"))&.text)
+        set(:session_itemnumber, multival(isoxml, "//bibdata/session/item-number"))
+        set(:session_itemname, multival(isoxml, "//bibdata/session/item-name"))
+        set(:session_subitemname, multival(isoxml, "//bibdata/session/subitem-name"))
       end
 
       def docid(isoxml, _out)

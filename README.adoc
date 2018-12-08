@@ -199,7 +199,7 @@ these are otherwise suppressed.
 
 === UN document-specific attributes
 
-`:
+`:distribution:`:: Extent of distribution allowed. e.g. `General`
 
 === Recommendation specific attributes
 
@@ -212,13 +212,16 @@ ISO-639-1 codes are used for languages, and they are comma-delimited.
 
 `:session-date:`:: Date of the session where this document will be discussed. e.g. `Geneva, 30 April – 1 May 2018`
 
-`:agenda-item:`:: Number of the agenda item this document belongs to. e.g. `Item 6 of the provisional agenda`
+`:item-number:`:: Number of the agenda item this document belongs to. e.g. `Item 6 of the provisional agenda`. If the document corresponds to multiple items, they are comma-delimited. If the document belongs to multiple subitems under a single item, following editorial practice of the UN (http://dd.dgacm.org/editorialmanual/ed-guidelines/format/Model_mast21.pdf), give the item and subitems identifiers here.
+
+`:item-name:`:: Name of the agenda item this document belongs to. If the document corresponds to multiple items, they are comma-delimited. 
+`:subitem-name:`:: Name of the agenda subitem this document belongs to. If the document corresponds to multiple subitems, they are comma-delimited. 
 
 `:collaborator:`:: Collaborator of this document, if any. e.g. `World Economic Forum`
 
-`:agenda-id:`:: The unique ID number of this agenda item. e.g. `ECE/TRADE/C/CEFACT/2018/6`
+`:agenda-id:`:: The unique identifier of this agenda item. e.g. `ECE/TRADE/C/CEFACT/2018/6`. If there are multiple agenda items or subitems, given them comma-delimited.
 
-`:distribution:`:: Extent of distribution allowed. e.g. `General`
+`:item-footnote:`:: Footnoted reference to item, if item is on the preliminary list or the provisional agenda.
 
 [[model_additions]]
 == Asciidoctor features specific to CSAND
