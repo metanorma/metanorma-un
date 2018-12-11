@@ -94,6 +94,11 @@ RSpec.describe Asciidoctor::Unece do
   <subtitle language="en" format="text/plain">Subtitle</subtitle>
   <docidentifier>1000(wd)</docidentifier>
   <docnumber>1000</docnumber>
+<edition>2</edition>
+<version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
   <contributor>
     <role type="author"/>
     <organization>
@@ -135,11 +140,7 @@ RSpec.describe Asciidoctor::Unece do
   <id>WHO 1</id>
   <item-footnote>A/123</item-footnote>
 </session>
-</bibdata><version>
-  <edition>2</edition>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
+</bibdata>
 <sections/>
 </unece-standard>
     OUTPUT
@@ -461,8 +462,8 @@ RSpec.describe Asciidoctor::Unece do
         <p id="_"><em>emphasis</em>
        <strong>strong</strong>
        <tt>monospace</tt>
-       "double quote"
-       'single quote'
+       “double quote”
+       ‘single quote’
        super<sup>script</sup>
        sub<sub>script</sub>
        <stem type="AsciiMath">a_90</stem>
