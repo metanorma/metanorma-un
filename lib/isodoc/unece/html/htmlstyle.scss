@@ -593,11 +593,11 @@ ul, ol {
   margin-left: 1.2em;
 }
 
-ul li p:first-child {
+ul > li p:first-child {
   display: inline;
 }
 
-ul li:first-child {
+ul > li:first-child {
   margin-top: 1em;
 }
 
@@ -614,7 +614,7 @@ ul li:first-child {
   display: none;
 }
 
-main ul li {
+main ul > li {
   list-style-type: disc;
   list-style-position: outside;
   margin-bottom: 0.5em;
