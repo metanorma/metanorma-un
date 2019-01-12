@@ -150,7 +150,7 @@ module IsoDoc
       foreword.parent = preface_container if foreword && preface_container
       intro.parent = preface_container if intro && preface_container
       if preface_container && (foreword || intro)
-        preface_container.at("./div/br").remove # remove initial page break
+        preface_container.at("./div/p[br]").remove # remove initial page break
       end
       if abstractbox && !intro && !foreword && !@toc
         sect2 = docxml.at("//div[@class='WordSection2']")

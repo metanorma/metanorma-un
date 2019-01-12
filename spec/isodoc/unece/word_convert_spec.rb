@@ -50,7 +50,7 @@ RSpec.describe IsoDoc::Unece do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"UN/CEFACT Recommendation 1000", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_collaborator=>nil, :session_date=>nil, :session_id=>nil, :session_itemname=>[], :session_itemnumber=>[], :session_number=>nil, :session_subitemname=>[], :status=>"Working Draft", :submissionlanguage=>["German"], :tc=>"TC", :toc=>true, :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"UN/CEFACT Recommendation 1000", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_collaborator=>nil, :session_date=>nil, :session_id=>nil, :session_itemname=>[], :session_itemnumber=>[], :session_number=>nil, :session_subitemname=>[], :status=>"Working Draft", :submissionlanguage=>["German"], :tc=>"TC", :toc=>true, :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -112,7 +112,7 @@ RSpec.describe IsoDoc::Unece do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"1000(wd)", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_id=>"WHO-UNECE-01", :session_itemname=>[], :session_itemnumber=>[], :session_number=>"Third", :session_subitemname=>[], :status=>"Working Draft", :submissionlanguage=>["German"], :tc=>"TC", :toc=>true, :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :formatted_docnumber=>"1000(wd)", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_id=>"WHO-UNECE-01", :session_itemname=>[], :session_itemnumber=>[], :session_number=>"Third", :session_subitemname=>[], :status=>"Working Draft", :submissionlanguage=>["German"], :tc=>"TC", :toc=>true, :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -196,17 +196,17 @@ RSpec.describe IsoDoc::Unece do
     output = <<~"OUTPUT"
            <div class="WordSection3">
              <div>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="AbstractTitle">Summary</p>
                <p id="AA">This is an abstract</p>
              </div>
              <div>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="ForewordTitle">Foreword</p>
                <p id="A">This is a preamble</p>
              </div>
              <div class="Section3" id="B">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="IntroTitle">Introduction</p>
                <div id="C"><h2><span style="mso-tab-count:1">&#160; </span>Introduction Subsection</h2>
 
@@ -214,7 +214,7 @@ RSpec.describe IsoDoc::Unece do
              </div>
              <p>&#160;</p>
            </div>
-           <br clear="all" class="section"/>
+           <p><br clear="all" class="section"/></p>
            <div class="WordSection3"><div id="D"><h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1><p id="E">Text</p></div><div id="M"><h1>II.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1><div id="N"><h2>2. <span style="mso-tab-count:1">&#160; </span>Introduction</h2>
 
           </div><div id="O"><h2>A. <span style="mso-tab-count:1">&#160; </span>Clause 4.2</h2>
@@ -225,7 +225,7 @@ RSpec.describe IsoDoc::Unece do
 
             </div>
             </div>
-          </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div id="P" class="Section3"><h1 class="Annex"><b>Annex I</b><br/><b>Annex</b></h1><div id="Q"><h2>1. <span style="mso-tab-count:1">&#160; </span>Annex A.1</h2>
+          </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="P" class="Section3"><h1 class="Annex"><b>Annex I</b><br/><b>Annex</b></h1><div id="Q"><h2>1. <span style="mso-tab-count:1">&#160; </span>Annex A.1</h2>
 
             <div id="Q1"><h3>I. <span style="mso-tab-count:1">&#160; </span>Annex A.1a</h3>
 
@@ -233,7 +233,7 @@ RSpec.describe IsoDoc::Unece do
 
             </div>
             </div>
-          </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div id="U" class="Section3"><h1 class="Annex">1<br/><b>Terminal annex</b></h1></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div><h1 class="Section3">Bibliography</h1><div><h2 class="Section3">Bibliography Subsection</h2></div></div>
+          </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="U" class="Section3"><h1 class="Annex">1<br/><b>Terminal annex</b></h1></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div><h1 class="Section3">Bibliography</h1><div><h2 class="Section3">Bibliography Subsection</h2></div></div>
     OUTPUT
 
     expect(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '')).to be_equivalent_to output
@@ -339,7 +339,7 @@ end
 
     output = <<~"OUTPUT"
              <div id="A">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="ForewordTitle">Foreword</p>
                <p>
             <a href="#A">Foreword</a>
@@ -439,17 +439,17 @@ end
     output = <<~"OUTPUT"
            <div class="WordSection3">
              <div>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="AbstractTitle">Summary</p>
                <p id="AA">This is an abstract</p>
              </div>
              <div>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="ForewordTitle">Foreword</p>
                <p id="A">This is a preamble</p>
              </div>
              <div class="Section3" id="B">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="IntroTitle">Introduction</p>
                <div id="C"><h2><span style="mso-tab-count:1">&#160; </span>Introduction Subsection</h2>
 
@@ -457,17 +457,17 @@ end
              </div>
              <p>&#160;</p>
            </div>
-           <br clear="all" class="section"/>
+           <p><br clear="all" class="section"/></p>
            <div class="WordSection3"><div id="D"><h1>Scope</h1><p id="E">Text</p></div><div id="M"><h1>Clause 4</h1><div id="N"><h2><span style="mso-tab-count:1">&#160; </span>Introduction</h2>
 
           </div><div id="O"><h2><span style="mso-tab-count:1">&#160; </span>Clause 4.2</h2>
 
-          </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div id="P" class="Section3"><h1 class="Annex"><b>Annex I</b><br/><b>Annex</b></h1><div id="Q"><h2><span style="mso-tab-count:1">&#160; </span>Annex A.1</h2>
+          </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="P" class="Section3"><h1 class="Annex"><b>Annex I</b><br/><b>Annex</b></h1><div id="Q"><h2><span style="mso-tab-count:1">&#160; </span>Annex A.1</h2>
 
             <div id="Q1"><h3><span style="mso-tab-count:1">&#160; </span>Annex A.1a</h3>
 
             </div>
-          </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div><h1 class="Section3">Bibliography</h1><div><h2 class="Section3">Bibliography Subsection</h2></div></div>
+          </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div><h1 class="Section3">Bibliography</h1><div><h2 class="Section3">Bibliography Subsection</h2></div></div>
        </div>
          </body>
        </html>
@@ -520,10 +520,10 @@ it "processes admonitions" do
            </div></div><div id="A1"><h1>2.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="FigureTitle" align="center">Box 2&#160;&#8212; Second Box</p>
 
              <p id="C1">paragraph</p>
-           </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div id="D" class="Section3"><h1 class="Annex">1<br/><b>First Annex</b></h1><div class="Admonition"><p class="FigureTitle" align="center">Box I.1&#160;&#8212; Third Box</p>
+           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D" class="Section3"><h1 class="Annex">1<br/><b>First Annex</b></h1><div class="Admonition"><p class="FigureTitle" align="center">Box I.1&#160;&#8212; Third Box</p>
 
              <p id="F">paragraph</p>
-           </div></div><br clear="all" style="mso-special-character:line-break;page-break-before:always"/><div id="D1" class="Section3"><h1 class="Annex">1<br/><b>Second Annex</b></h1><div class="Admonition"><p class="FigureTitle" align="center">Box II.1&#160;&#8212; Fourth Box</p>
+           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D1" class="Section3"><h1 class="Annex">1<br/><b>Second Annex</b></h1><div class="Admonition"><p class="FigureTitle" align="center">Box II.1&#160;&#8212; Fourth Box</p>
 
              <p id="F1">paragraph</p>
            </div></div>
@@ -683,12 +683,12 @@ INPUT
           <div class="WordSection2">
 
       <div>
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+        <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
         <p class="ForewordTitle">Foreword</p>
         <p class="MsoNormal"><a name="A" id="A"></a>This is a preamble</p>
       </div>
       <div class="Section3"><a name="B" id="B"></a>
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+        <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
         <p class="IntroTitle">Introduction</p>
         <div><a name="C" id="C"></a><p class="h2Annex"><span style="mso-tab-count:1">&#xA0; </span>Introduction Subsection</p>
 
@@ -696,7 +696,7 @@ INPUT
       </div>
       <p class="MsoNormal">&#xA0;</p>
     </div>
-    <br clear="all" class="section"/>
+    <p class="MsoNormal"><br clear="all" class="section"/></p>
           OUTPUT
 
     end
@@ -784,11 +784,11 @@ INPUT
                <p class="AbstractTitle">Summary</p>
                <p class="MsoNormal"><a name="AA" id="AA"></a>This is an abstract</p>
              </div><div>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="ForewordTitle">Foreword</p>
                <p class="MsoNormal"><a name="A" id="A"></a>This is a preamble</p>
              </div><div class="Section3"><a name="B" id="B"></a>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="IntroTitle">Introduction</p>
                <div><a name="C" id="C"></a><p class="h2Annex"><span style="mso-tab-count:1">&#xA0; </span>Introduction Subsection</p>
 
@@ -803,7 +803,7 @@ INPUT
 
              <p class="MsoNormal">&#xA0;</p>
            </div>
-           <br clear="all" class="section"/>
+           <p class="MsoNormal"><br clear="all" class="section"/></p>
           OUTPUT
 
     end

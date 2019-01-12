@@ -224,7 +224,7 @@ ISO-639-1 codes are used for languages, and they are comma-delimited.
 `:item-footnote:`:: Footnoted reference to item, if item is on the preliminary list or the provisional agenda.
 
 [[model_additions]]
-== Asciidoctor features specific to CSAND
+== Asciidoctor features specific to UNECE
 
 The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
 gem documents the customisations of Asciidoctor markup common to all metanorma gems.

@@ -186,7 +186,7 @@ RSpec.describe Asciidoctor::Unece do
          <script>Latn</script>
          <status format="plain">committee-draft</status>
          <copyright>
-           <from>2018</from>
+           <from>#{Date.today.year}</from>
            <owner>
              <organization>
                <name>UNECE</name>
@@ -241,7 +241,7 @@ RSpec.describe Asciidoctor::Unece do
   <script>Latn</script>
   <status format="plain">draft-standard</status>
   <copyright>
-    <from>2018</from>
+    <from>#{Date.today.year}</from>
     <owner>
       <organization>
         <name>UNECE</name>
