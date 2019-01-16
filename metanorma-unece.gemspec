@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "twitter_cldr"
   spec.add_dependency "iso-639"
 
-  spec.add_dependency "metanorma-standoc", "~> 1.0.0"
+  spec.add_dependency "metanorma-standoc", "~> 1.1.0"
   spec.add_dependency "isodoc", "~> 0.9.0"
 
   spec.add_development_dependency "bundler", "~> 2.0.1"
@@ -44,5 +44,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_development_dependency "timecop", "~> 0.9"
   spec.add_development_dependency "metanorma", "~> 0.3.1"
-  spec.add_development_dependency "metanorma-cli", "~> 1.0.0"
+  spec.add_development_dependency "metanorma-cli", "~> 1.1.0"
 end
