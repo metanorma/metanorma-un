@@ -147,8 +147,8 @@ module IsoDoc
       intro = docxml.at("//p[@class = 'IntroTitle']/..")
       abstract = docxml.at("//p[@class = 'AbstractTitle']/..")
       abstract.parent = (abstractbox || preface_container) if abstract
-      abstractbox and abstract&.xpath("./br")&.each do |a|
-        a.remove if /page-break-before:always/.match(a["style"])
+      abstractbox and abstract&.xpath(".//p/br")&.each do |a|
+        a.parent.remove if /page-break-before:always/.match(a["style"])
       end
       docxml&.at("//p[@class = 'AbstractTitle']")&.remove if abstractbox
       foreword.parent = preface_container if foreword && preface_container
