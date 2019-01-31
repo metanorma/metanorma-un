@@ -1,7 +1,7 @@
 MIME-Version: 1.0
-Content-Type: multipart/related; boundary="----=_NextPart_1e4c71e2.df09.47d3"
+Content-Type: multipart/related; boundary="----=_NextPart_50390f93.97c4.4c42"
 
-------=_NextPart_1e4c71e2.df09.47d3
+------=_NextPart_50390f93.97c4.4c42
 Content-Location: file:///C:/Doc/test.htm
 Content-Type: text/html; charset="utf-8"
 
@@ -54,7 +54,7 @@ Content-Type: text/html; charset="utf-8"
 </html>
 
 
-------=_NextPart_1e4c71e2.df09.47d3
+------=_NextPart_50390f93.97c4.4c42
 Content-Location: file:///C:/Doc/test_files/filelist.xml
 Content-Transfer-Encoding: base64
 Content-Type: application/xml
@@ -64,11 +64,11 @@ ICAgICAgIDxvOk1haW5GaWxlIEhSZWY9Ii4uL3NwZWMvYXNzZXRzL3Rlc3QuaHRtIi8+ICA8bzpG
 aWxlIEhSZWY9ImZpbGVsaXN0LnhtbCIvPgogIDxvOkZpbGUgSFJlZj0iaGVhZGVyLmh0bWwiLz4K
 PC94bWw+Cg==
 
-------=_NextPart_1e4c71e2.df09.47d3
+------=_NextPart_50390f93.97c4.4c42
 Content-Location: file:///C:/Doc/test_files/header.html
 Content-Transfer-Encoding: base64
 Content-Type: text/html charset="utf-8"
 
 PCEtLSBJIGFtIGEgV29yZCBIZWFkZXIgZmlsZSAtLT4K
 
-------=_NextPart_1e4c71e2.df09.47d3--
+------=_NextPart_50390f93.97c4.4c42--
