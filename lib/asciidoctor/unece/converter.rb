@@ -193,19 +193,6 @@ module Asciidoctor
         end
       end
 
-      def admonition(node)
-        return termnote(node) if in_terms?
-        return note(node) if node.attr("name") == "note"
-        noko do |xml|
-          xml.admonition **admonition_attrs(node) do |a|
-            unless node.title.nil?
-              a.name { |name| name << node.title }
-            end
-            wrap_in_para(node, a)
-          end
-        end.join("\n")
-      end
-
       def clause_parse(attrs, xml, node)
         abstract_parse(attrs, xml, node) && return if node.attr("style") == "abstract"
         super
