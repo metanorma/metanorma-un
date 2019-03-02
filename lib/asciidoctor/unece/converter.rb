@@ -45,10 +45,11 @@ module Asciidoctor
 
       def title(node, xml)
         ["en"].each do |lang|
-          xml.title **{ language: lang, format: "text/plain" } do |t|
+          xml.title **{ type: "main", language: lang, format: "text/plain" } do |t|
             t << asciidoc_sub(node.attr("title"))
           end
-          xml.subtitle **{ language: lang, format: "text/plain" } do |t|
+          node.attr("subtitle") and
+            xml.title **{ type: "subtitle", language: lang, format: "text/plain" } do |t|
             t << asciidoc_sub(node.attr("subtitle"))
           end
         end
@@ -81,7 +82,7 @@ module Asciidoctor
       end
 
       def metadata_distribution(node, xml)
-          xml.distribution node.attr("distribution") if node.attr("distribution")
+        xml.distribution node.attr("distribution") if node.attr("distribution")
       end
 
       def metadata_session(node, xml)

@@ -7,8 +7,8 @@ RSpec.describe IsoDoc::Unece do
     input = <<~"INPUT"
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
 <bibdata type="recommendation">
-  <title language="en" format="plain">Main Title</title>
-  <subtitle language="en" format="plain">Subtitle</title>
+  <title type="main" language="en" format="plain">Main Title</title>
+  <title type="subtitle" language="en" format="plain">Subtitle</title>
   <docidentifier>1000</docidentifier>
   <contributor>
     <role type="author"/>
@@ -62,8 +62,8 @@ RSpec.describe IsoDoc::Unece do
     input = <<~"INPUT"
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
 <bibdata type="plenary">
-  <title language="en" format="plain">Main Title</title>
-  <subtitle language="en" format="plain">Subtitle</title>
+  <title type="main" language="en" format="plain">Main Title</title>
+  <title type="subtitle" language="en" format="plain">Subtitle</title>
   <docidentifier>1000(wd)</docidentifier>
   <contributor>
     <role type="author"/>

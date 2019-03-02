@@ -12,12 +12,12 @@ module IsoDoc
       end
 
       def title(isoxml, _out)
-        main = isoxml&.at(ns("//bibdata/title[@language='en']"))&.text
+        main = isoxml&.at(ns("//bibdata/title[@language='en' and @type='main']"))&.text
         set(:doctitle, main)
       end
 
       def subtitle(isoxml, _out)
-        main = isoxml&.at(ns("//bibdata/subtitle[@language='en']"))&.text
+        main = isoxml&.at(ns("//bibdata/title[@language='en' and @type='subtitle']"))&.text
         set(:docsubtitle, main)
       end
 

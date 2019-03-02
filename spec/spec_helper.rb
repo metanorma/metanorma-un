@@ -54,8 +54,6 @@ BLANK_HDR = <<~"HDR"
        <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
        <bibdata type="recommendation">
 
-         <subtitle language="en" format="text/plain"/>
-
          <contributor>
            <role type="author"/>
            <organization>

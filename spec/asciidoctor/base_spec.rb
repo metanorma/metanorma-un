@@ -90,8 +90,8 @@ RSpec.describe Asciidoctor::Unece do
     <?xml version="1.0" encoding="UTF-8"?>
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
 <bibdata type="recommendation">
-  <title language="en" format="text/plain">Main Title</title>
-  <subtitle language="en" format="text/plain">Subtitle</subtitle>
+  <title type="main" language="en" format="text/plain">Main Title</title>
+  <title type="subtitle" language="en" format="text/plain">Subtitle</title>
   <docidentifier>1000(wd)</docidentifier>
   <docnumber>1000</docnumber>
 <edition>2</edition>
@@ -164,7 +164,6 @@ RSpec.describe Asciidoctor::Unece do
            <unece-standard xmlns="https://open.ribose.com/standards/unece">
        <bibdata type="recommendation">
 
-         <subtitle language="en" format="text/plain"/>
          <docidentifier>1000(cd)</docidentifier>
          <docnumber>1000</docnumber>
          <contributor>
@@ -217,7 +216,6 @@ RSpec.describe Asciidoctor::Unece do
     <unece-standard xmlns="https://open.ribose.com/standards/unece">
 <bibdata type="recommendation">
 
-  <subtitle language="en" format="text/plain"/>
   <docidentifier>1000(d)</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>
