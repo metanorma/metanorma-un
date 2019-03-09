@@ -1,8 +1,8 @@
 = Metanorma processor for UNECE documents
 
 image:https://img.shields.io/gem/v/metanorma-unece.svg["Gem Version", link="https://rubygems.org/gems/metanorma-unece"]
-image:https://img.shields.io/travis/riboseinc/metanorma-unece/master.svg["Build Status", link="https://travis-ci.org/riboseinc/metanorma-unece"]
-image:https://codeclimate.com/github/riboseinc/metanorma-unece/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/riboseinc/metanorma-unece"]
+image:https://img.shields.io/travis/metanorma/metanorma-unece/master.svg["Build Status", link="https://travis-ci.org/metanorma/metanorma-unece"]
+image:https://codeclimate.com/github/metanorma/metanorma-unece/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/metanorma-unece"]
 
 WARNING: This gem is still under development.
 
@@ -12,9 +12,9 @@ WARNING: This gem is still under development.
 This gem processes http://asciidoctor.org/[Asciidoctor] documents following
 a template for generating UNECE International Standards.
 
-The gem currently inherits from the https://github.com/riboseinc/metanorma-standoc[Metanorma-Standoc]
+The gem currently inherits from the https://github.com/metanorma/metanorma-standoc[Metanorma-Standoc]
 gem, and aligns closely to it. Refer to the ISO gem documentation
-for guidance, including https://github.com/riboseinc/metanorma-iso/wiki/Guidance-for-authoring[the Authoring Guide].
+for guidance, including https://github.com/metanorma/metanorma-iso/wiki/Guidance-for-authoring[the Authoring Guide].
 
 The following outputs are generated.
 
@@ -68,13 +68,13 @@ https://www.metanorma.com/overview/getting-started/
 
 === macOS
 
-If you are using macOS, the https://github.com/riboseinc/metanorma-macos-setup
+If you are using macOS, the https://github.com/metanorma/metanorma-macos-setup
 repository has instructions on setting up your machine to run Metanorma
 scripts such as this one. You need only run the following in a Terminal console:
 
 [source,console]
 ----
-$ bash <(curl -s https://raw.githubusercontent.com/riboseinc/metanorma-macos-setup/master/metanorma-setup)
+$ bash <(curl -s https://raw.githubusercontent.com/metanorma/metanorma-macos-setup/master/metanorma-setup)
 $ gem install metanorma-unece
 $ gem install metanorma-cli
 ----
@@ -85,7 +85,7 @@ Since this software is still in development it is not yet as mature as the other
 
 The easiest way to try out is using a Mac. It takes a little bit more work on a Windows machine through the platform-independent Docker container (see the https://www.metanorma.com/overview/getting-started/#docker-setup[Metanorma Quickstart guide]) , but it is doable.
 
-The current examples of UNECE documents encoded using Metanorma is provided in https://github.com/riboseinc/unece-docs/
+The current examples of UNECE documents encoded using Metanorma is provided in https://github.com/metanorma/unece-docs/
 
 (Please run the 2-line macOS setup script prior to the following)
 
@@ -93,7 +93,7 @@ First, use Git to clone the code and documents:
 
 [source,console]
 --
-git clone https://github.com/riboseinc/unece-docs/
+git clone https://github.com/metanorma/unece-docs/
 --
 
 Then, install all dependencies with this command:
@@ -121,7 +121,7 @@ The easiest way to start a new document is to copy one of the two samples and mo
 === Document model
 
 The UNECE Standard Document model is an instance of the
-https://github.com/riboseinc/metanorma-model-standoc[StandardDocument model].
+https://github.com/metanorma/metanorma-model-standoc[StandardDocument model].
 
 The UNECE format ("UNECE XML") intends to introduce rigor into the UNECE
 standards authoring process, and is prescribed in a separate document.
@@ -146,7 +146,7 @@ tables etc, and automatically generating references and citations.
 === Common attributes
 
 The gem relies on Asciidoctor document attributes to provide necessary
-metadata about the document. The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
+metadata about the document. The https://github.com/metanorma/metanorma-standoc[metanorma-standoc]
 gem documents the Asciidoctor document attributes common to all metanorma gems. These include:
 
 `:edition:`:: The document edition
@@ -226,7 +226,7 @@ ISO-639-1 codes are used for languages, and they are comma-delimited.
 [[model_additions]]
 == Asciidoctor features specific to UNECE
 
-The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
+The https://github.com/metanorma/metanorma-standoc[metanorma-standoc]
 gem documents the customisations of Asciidoctor markup common to all metanorma gems.
 The following markup is specific to this gem:
 
@@ -259,11 +259,11 @@ Business Process Analysis was initially designed to document and evaluate an imp
 == Data Models
 
 The UNECE Standard Document format is an instance of the
-https://github.com/riboseinc/metanorma-model-standoc[StandardDocument model]. Details of
+https://github.com/metanorma/metanorma-model-standoc[StandardDocument model]. Details of
 this general model can be found on its page.
 
 Details of the UNECE modifications to this general model can be found in the
-https://github.com/riboseinc/metanorma-model-unece[UNECE model]
+https://github.com/metanorma/metanorma-model-unece[UNECE model]
 repository.
 
 == Examples

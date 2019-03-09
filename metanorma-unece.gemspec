@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
     Metanorma for UNECE: United Nations Economic Commission for Europe.
   DESCRIPTION
 
-  spec.homepage      = "https://github.com/riboseinc/metanorma-unece"
+  spec.homepage      = "https://github.com/metanorma/metanorma-unece"
   spec.license       = "BSD-2-Clause"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
