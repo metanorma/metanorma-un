@@ -123,7 +123,7 @@ module Asciidoctor
         result << "</unece-standard>"
         result = textcleanup(result)
         ret1 = cleanup(Nokogiri::XML(result))
-        validate(ret1)
+        validate(ret1) unless @novalid
         ret1.root.add_namespace(nil, Metanorma::Unece::DOCUMENT_NAMESPACE)
         ret1
       end
