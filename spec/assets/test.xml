@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <unece-standard xmlns="https://open.ribose.com/standards/unece">
-<bibdata type="recommendation"> 
-   
-   
-   
-  <contributor> 
-    <role type="author"/> 
-    <organization> 
-      <name>UNECE</name> 
-    </organization> 
-  </contributor> 
-  <contributor> 
-    <role type="publisher"/> 
-    <organization> 
-      <name>UNECE</name> 
-    </organization> 
-  </contributor> 
-   
-  <language>ar</language> 
-  <language>ru</language> 
-  <language>en</language> 
-  <language>fr</language> 
-  <language>zh</language> 
-  <language>es</language> 
-  <script>Latn</script> 
-   
-  <copyright> 
-    <from>2019</from> 
-    <owner> 
-      <organization> 
-        <name>UNECE</name> 
-      </organization> 
-    </owner> 
-  </copyright> 
-  <editorialgroup> 
-    <committee/> 
-  </editorialgroup> 
-  <session/> 
+<bibdata type="recommendation">
+  
+  
+  
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>UNECE</name>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>UNECE</name>
+    </organization>
+  </contributor>
+  
+  <language>ar</language>
+  <language>ru</language>
+  <language>en</language>
+  <language>fr</language>
+  <language>zh</language>
+  <language>es</language>
+  <script>Latn</script>
+  
+  <copyright>
+    <from>2019</from>
+    <owner>
+      <organization>
+        <name>UNECE</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <committee/>
+  </editorialgroup>
+  <session/>
 </bibdata>
-<sections> 
-  <p id="_ec15e072-6d49-468a-9bc6-217deca55724">Test</p> 
+<sections>
+  <p id="_ecd057c0-956f-45c1-8eee-26afd4251f6f">Test</p>
 </sections>
 </unece-standard>
