@@ -690,7 +690,7 @@ INPUT
       <div class="Section3"><a name="B" id="B"></a>
         <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
         <p class="IntroTitle">Introduction</p>
-        <div><a name="C" id="C"></a><p class="h2Annex"><span style="mso-tab-count:1">&#xA0; </span>Introduction Subsection</p>
+        <div><a name="C" id="C"></a><h2><span style="mso-tab-count:1">&#xA0; </span>Introduction Subsection</h2>
 
    </div>
       </div>
@@ -790,7 +790,7 @@ INPUT
              </div><div class="Section3"><a name="B" id="B"></a>
                <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="IntroTitle">Introduction</p>
-               <div><a name="C" id="C"></a><p class="h2Annex"><span style="mso-tab-count:1">&#xA0; </span>Introduction Subsection</p>
+               <div><a name="C" id="C"></a><h2><span style="mso-tab-count:1">&#xA0; </span>Introduction Subsection</h2>
 
           </div>
              </div></div>
