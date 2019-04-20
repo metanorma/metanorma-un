@@ -194,10 +194,10 @@ module Asciidoctor
         end
       end
 
-      def clause_parse(attrs, xml, node)
-        abstract_parse(attrs, xml, node) && return if node.attr("style") == "abstract"
-        super
-      end
+      #def clause_parse(attrs, xml, node)
+        #abstract_parse(attrs, xml, node) && return if node.attr("style") == "abstract"
+        #super
+      #end
     end
   end
 end
