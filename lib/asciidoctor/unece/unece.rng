@@ -58,20 +58,6 @@
         <ref name="image"/>
       </element>
     </define>
-    <define name="status">
-      <element name="status">
-        <choice>
-          <value>proposal</value>
-          <value>working-draft</value>
-          <value>committee-draft</value>
-          <value>draft-standard</value>
-          <value>final-draft</value>
-          <value>published</value>
-          <value>withdrawn</value>
-          <ref name="LocalizedString"/>
-        </choice>
-      </element>
-    </define>
     <define name="TextElement">
       <choice>
         <text/>
@@ -333,6 +319,9 @@
   <define name="unece-standard">
     <element name="unece-standard">
       <ref name="bibdata"/>
+      <optional>
+        <ref name="boilerplate"/>
+      </optional>
       <ref name="preface"/>
       <oneOrMore>
         <ref name="sections"/>

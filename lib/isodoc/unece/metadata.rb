@@ -8,7 +8,6 @@ module IsoDoc
     class Metadata < IsoDoc::Metadata
       def initialize(lang, script, labels)
         super
-        set(:status, "XXX")
       end
 
       def title(isoxml, _out)
@@ -66,10 +65,6 @@ module IsoDoc
         set(:docnumber, dn)
         type = isoxml&.at(ns("//bibdata/@type"))&.value
         set(:formatted_docnumber, type == "recommendation" ? "UN/CEFACT Recommendation #{dn}" : dn)
-      end
-
-      def status_print(status)
-        status.split(/-/).map{ |w| w.capitalize }.join(" ")
       end
 
       def status_abbr(status)

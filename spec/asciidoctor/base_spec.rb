@@ -113,7 +113,10 @@ RSpec.describe Asciidoctor::Unece do
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <status format="plain">working-draft</status>
+  <status>
+    <stage>working-draft</stage>
+    <iteration>3</iteration>
+  </status>
   <copyright>
     <from>2001</from>
     <owner>
@@ -183,7 +186,9 @@ RSpec.describe Asciidoctor::Unece do
         <submissionlanguage>de</submissionlanguage>
         <submissionlanguage>jp</submissionlanguage>
          <script>Latn</script>
-         <status format="plain">committee-draft</status>
+         <status>
+           <stage>committee-draft</stage>
+         </status>
          <copyright>
            <from>#{Date.today.year}</from>
            <owner>
@@ -237,7 +242,9 @@ RSpec.describe Asciidoctor::Unece do
 <language>zh</language>
 <language>es</language>
   <script>Latn</script>
-  <status format="plain">draft-standard</status>
+  <status>
+    <stage>draft-standard</stage>
+  </status>
   <copyright>
     <from>#{Date.today.year}</from>
     <owner>

@@ -24,7 +24,9 @@
   <language>zh</language>
   <language>es</language>
   <script>Latn</script>
-  
+  <status>
+    <stage>published</stage>
+  </status>
   <copyright>
     <from>2019</from>
     <owner>
@@ -39,6 +41,6 @@
   <session/>
 </bibdata>
 <sections>
-  <p id="_19654a65-c9f9-4ff8-a8f2-889dd6d28df0">Test</p>
+  <p id="_a0250760-71fe-445a-a361-9953a6e522c4">Test</p>
 </sections>
 </unece-standard>
