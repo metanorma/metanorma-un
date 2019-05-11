@@ -52,7 +52,7 @@ HDR
 BLANK_HDR = <<~"HDR"
        <?xml version="1.0" encoding="UTF-8"?>
        <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
-       <bibdata type="recommendation">
+       <bibdata type="standard">
 
          <contributor>
            <role type="author"/>
@@ -83,10 +83,10 @@ BLANK_HDR = <<~"HDR"
              </organization>
            </owner>
          </copyright>
-         <editorialgroup>
-           <committee/>
-         </editorialgroup>
+         <ext>
+         <doctype>recommendation</doctype>
          <session/>
+         </ext>
        </bibdata>
 HDR
 

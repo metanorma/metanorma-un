@@ -30,12 +30,12 @@ module IsoDoc
       end
 
       def author(isoxml, _out)
-        tc = isoxml.at(ns("//bibdata/editorialgroup/committee"))
+        tc = isoxml.at(ns("//bibdata/ext/editorialgroup/committee"))
         set(:tc, tc.text) if tc
-        set(:distribution, isoxml&.at(ns("//bibdata/distribution"))&.text)
+        set(:distribution, isoxml&.at(ns("//bibdata/ext/distribution"))&.text)
         lgs = extract_languages(isoxml.xpath(ns("//bibdata/language")))
         lgs = [] if lgs.sort == %w(English French Arabic Chinese German Spanish).sort
-        slgs = extract_languages(isoxml.xpath(ns("//bibdata/submissionlanguage")))
+        slgs = extract_languages(isoxml.xpath(ns("//bibdata/ext/submissionlanguage")))
         lgs = [] if slgs.size == 1
         set(:language, lgs) unless lgs.empty?
         set(:submissionlanguage, slgs) unless slgs.empty?
@@ -49,21 +49,21 @@ module IsoDoc
       end
 
       def session(isoxml, _out)
-        set(:session_number, isoxml&.at(ns("//bibdata/session/number"))&.text&.to_i&.
+        set(:session_number, isoxml&.at(ns("//bibdata/ext/session/number"))&.text&.to_i&.
             localize&.to_rbnf_s("SpelloutRules", "spellout-ordinal")&.capitalize)
-        set(:session_date, isoxml&.at(ns("//bibdata/session/date"))&.text)
-        set(:session_collaborator, isoxml&.at(ns("//bibdata/session/collaborator"))&.text)
-        set(:session_id, isoxml&.at(ns("//bibdata/session/id"))&.text)
-        set(:item_footnote, isoxml&.at(ns("//bibdata/session/item-footnote"))&.text)
-        set(:session_itemnumber, multival(isoxml, "//bibdata/session/item-number"))
-        set(:session_itemname, multival(isoxml, "//bibdata/session/item-name"))
-        set(:session_subitemname, multival(isoxml, "//bibdata/session/subitem-name"))
+        set(:session_date, isoxml&.at(ns("//bibdata/ext/session/date"))&.text)
+        set(:session_collaborator, isoxml&.at(ns("//bibdata/ext/session/collaborator"))&.text)
+        set(:session_id, isoxml&.at(ns("//bibdata/ext/session/id"))&.text)
+        set(:item_footnote, isoxml&.at(ns("//bibdata/ext/session/item-footnote"))&.text)
+        set(:session_itemnumber, multival(isoxml, "//bibdata/ext/session/item-number"))
+        set(:session_itemname, multival(isoxml, "//bibdata/ext/session/item-name"))
+        set(:session_subitemname, multival(isoxml, "//bibdata/ext/session/subitem-name"))
       end
 
       def docid(isoxml, _out)
         dn = isoxml.at(ns("//bibdata/docidentifier"))&.text
         set(:docnumber, dn)
-        type = isoxml&.at(ns("//bibdata/@type"))&.value
+        type = isoxml&.at(ns("//bibdata/ext/doctype"))&.text
         set(:formatted_docnumber, type == "recommendation" ? "UN/CEFACT Recommendation #{dn}" : dn)
       end
 

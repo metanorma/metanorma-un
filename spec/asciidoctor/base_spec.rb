@@ -89,7 +89,7 @@ RSpec.describe Asciidoctor::Unece do
     output = <<~"OUTPUT"
     <?xml version="1.0" encoding="UTF-8"?>
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
-<bibdata type="recommendation">
+<bibdata type="standard">
   <title type="main" language="en" format="text/plain">Main Title</title>
   <title type="subtitle" language="en" format="text/plain">Subtitle</title>
   <docidentifier>1000(wd)</docidentifier>
@@ -125,6 +125,8 @@ RSpec.describe Asciidoctor::Unece do
       </organization>
     </owner>
   </copyright>
+  <ext>
+  <doctype>recommendation</doctype>
   <editorialgroup>
     <committee type="A">TC</committee>
     <committee type="B">TC1</committee>
@@ -143,6 +145,7 @@ RSpec.describe Asciidoctor::Unece do
   <id>WHO 1</id>
   <item-footnote>A/123</item-footnote>
 </session>
+</ext>
 </bibdata>
 <sections/>
 </unece-standard>
@@ -165,7 +168,7 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
     expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
            <unece-standard xmlns="https://open.ribose.com/standards/unece">
-       <bibdata type="recommendation">
+       <bibdata type="standard">
 
          <docidentifier>1000(cd)</docidentifier>
          <docnumber>1000</docnumber>
@@ -183,8 +186,6 @@ RSpec.describe Asciidoctor::Unece do
          </contributor>
          <language>eo</language>
         <language>tlh</language>
-        <submissionlanguage>de</submissionlanguage>
-        <submissionlanguage>jp</submissionlanguage>
          <script>Latn</script>
          <status>
            <stage>committee-draft</stage>
@@ -197,10 +198,12 @@ RSpec.describe Asciidoctor::Unece do
              </organization>
            </owner>
          </copyright>
-         <editorialgroup>
-           <committee/>
-         </editorialgroup>
+         <ext>
+         <doctype>recommendation</doctype>
          <session/>
+        <submissionlanguage>de</submissionlanguage>
+        <submissionlanguage>jp</submissionlanguage>
+         </ext>
        </bibdata>
        <sections/>
        </unece-standard>
@@ -219,7 +222,7 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
     expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
     <unece-standard xmlns="https://open.ribose.com/standards/unece">
-<bibdata type="recommendation">
+<bibdata type="standard">
 
   <docidentifier>1000(d)</docidentifier>
   <docnumber>1000</docnumber>
@@ -253,10 +256,10 @@ RSpec.describe Asciidoctor::Unece do
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
-  <session/>
+         <ext>
+         <doctype>recommendation</doctype>
+         <session/>
+         </ext>
 </bibdata>
 <sections/>
 </unece-standard>

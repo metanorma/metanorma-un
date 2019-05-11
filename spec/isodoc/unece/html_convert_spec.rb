@@ -6,7 +6,7 @@ RSpec.describe IsoDoc::Unece do
     csdc = IsoDoc::Unece::HtmlConvert.new({toc: true})
     input = <<~"INPUT"
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
-<bibdata type="recommendation">
+<bibdata type="standard">
   <title type="main" language="en" format="plain">Main Title</title>
   <title type="subtitle" language="en" format="plain">Subtitle</title>
   <docidentifier>1000</docidentifier>
@@ -22,10 +22,13 @@ RSpec.describe IsoDoc::Unece do
       <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
     </organization>
   </contributor>
+  <edition>2</edition>
+  <version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
   <language>en</language>
   <language>fr</language>
-  <submissionlanguage>de</submissionlanguage>
-  <submissionlanguage>jp</submissionlanguage>
   <script>Latn</script>
   <status><stage>working-draft</stage></status>
   <copyright>
@@ -36,21 +39,22 @@ RSpec.describe IsoDoc::Unece do
       </organization>
     </owner>
   </copyright>
+  <ext>
+  <doctype>recommendation</doctype>
   <editorialgroup>
     <committee type="A">TC</committee>
   </editorialgroup>
   <security>Client Confidential</security>
-</bibdata><version>
-  <edition>2</edition>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
+  <submissionlanguage>de</submissionlanguage>
+  <submissionlanguage>jp</submissionlanguage>
+  </ext>
+</bibdata>
 <sections/>
 </unece-standard>
     INPUT
 
     output = <<~"OUTPUT"
-  {:accesseddate=>"XXX", :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>nil, :editorialgroup=>[], :formatted_docnumber=>"UN/CEFACT Recommendation 1000", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_collaborator=>nil, :session_date=>nil, :session_id=>nil, :session_itemname=>[], :session_itemnumber=>[], :session_number=>nil, :session_subitemname=>[], :stage=>"Working Draft", :submissionlanguage=>["German"], :tc=>"TC", :toc=>nil, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX"}
+  {:accesseddate=>"XXX", :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :formatted_docnumber=>"UN/CEFACT Recommendation 1000", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :session_collaborator=>nil, :session_date=>nil, :session_id=>nil, :session_itemname=>[], :session_itemnumber=>[], :session_number=>nil, :session_subitemname=>[], :stage=>"Working Draft", :submissionlanguage=>["German"], :tc=>"TC", :toc=>nil, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -61,7 +65,7 @@ RSpec.describe IsoDoc::Unece do
     csdc = IsoDoc::Unece::HtmlConvert.new({toc: true})
     input = <<~"INPUT"
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
-<bibdata type="plenary">
+<bibdata type="standard">
   <title type="main" language="en" format="plain">Main Title</title>
   <title type="subtitle" language="en" format="plain">Subtitle</title>
   <docidentifier>1000(wd)</docidentifier>
@@ -93,6 +97,8 @@ RSpec.describe IsoDoc::Unece do
       </organization>
     </owner>
   </copyright>
+  <ext>
+  <doctype>plenary</doctype>
   <editorialgroup>
     <committee type="A">TC</committee>
   </editorialgroup>
@@ -110,17 +116,14 @@ RSpec.describe IsoDoc::Unece do
   <id>WHO-UNECE-01</id>
   <distribution>public</distribution>
   </session>
-</bibdata><version>
-  <edition>2</edition>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
+  </ext>
+</bibdata>
 <sections/>
 </unece-standard>
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>nil, :editorialgroup=>[], :formatted_docnumber=>"1000(wd)", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_id=>"WHO-UNECE-01", :session_itemname=>["ABC", "DEF"], :session_itemnumber=>["5", "6"], :session_number=>"Third", :session_subitemname=>["GHI", "JKL"], :stage=>"Working Draft", :tc=>"TC", :toc=>nil, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>nil, :draftinfo=>"", :edition=>nil, :formatted_docnumber=>"1000(wd)", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>nil, :revdate_monthyear=>nil, :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_id=>"WHO-UNECE-01", :session_itemname=>["ABC", "DEF"], :session_itemnumber=>["5", "6"], :session_number=>"Third", :session_subitemname=>["GHI", "JKL"], :stage=>"Working Draft", :tc=>"TC", :toc=>nil, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -666,8 +669,9 @@ OUTPUT
         csdc = IsoDoc::Unece::HtmlConvert.new({toc: true})
     input = <<~"INPUT"
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
-<bibdata type="plenary">
+<bibdata type="standard">
   <title language="en" format="plain">Main Title</title>
+  <ext><doctype>plenary</doctype></ext>
   </bibdata>
   <sections/>
   </unece-standard>

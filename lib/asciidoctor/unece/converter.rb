@@ -31,6 +31,7 @@ module Asciidoctor
       end
 
       def metadata_committee(node, xml)
+        return unless node.attr("committee")
         xml.editorialgroup do |a|
           a.committee node.attr("committee"),
             **attr_code(type: node.attr("committee-type"))
@@ -97,14 +98,18 @@ module Asciidoctor
       def metadata_language(node, xml)
         languages = node&.attr("language")&.split(/,[ ]*/) || %w(ar ru en fr zh es)
         languages.each { |l| xml.language l }
+      end
+
+      def metadata_submission_language(node, xml)
         languages = node&.attr("submissionlanguage")&.split(/,[ ]*/) || []
         languages.each { |l| xml.submissionlanguage l }
       end
 
-      def metadata(node, xml)
+      def metadata_ext(node, xml)
         super
         metadata_distribution(node, xml)
         metadata_session(node, xml)
+        metadata_submission_language(node, xml)
       end
 
       def title_validate(root)

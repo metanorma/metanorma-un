@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <unece-standard xmlns="https://open.ribose.com/standards/unece">
-<bibdata type="recommendation">
+<bibdata type="standard">
   
   
   
@@ -35,12 +35,12 @@
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
-  <session/>
+  <ext>
+    <doctype>recommendation</doctype>
+    <session/>
+  </ext>
 </bibdata>
 <sections>
-  <p id="_a0250760-71fe-445a-a361-9953a6e522c4">Test</p>
+  <p id="_61d6a6de-4482-4b41-9373-913029ea58b7">Test</p>
 </sections>
 </unece-standard>
