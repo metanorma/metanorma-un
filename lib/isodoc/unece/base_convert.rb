@@ -151,18 +151,18 @@ module IsoDoc
       def sequential_admonition_names(clause)
         i = 0
         clause.xpath(ns(".//admonition")).each do |t|
-          i += 1
+          i += 1 unless t["unnumbered"]
           next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct(i.to_s, nil, @admonition_lbl, "box")
+          @anchors[t["id"]] = anchor_struct(i.to_s, nil, @admonition_lbl, "box", t["unnumbered"])
         end
       end
 
       def hierarchical_admonition_names(clause, num)
         i = 0
         clause.xpath(ns(".//admonition")).each do |t|
-          i += 1
+          i += 1 unless t["unnumbered"]
           next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct("#{num}.#{i}", nil, @admonition_lbl, "box")
+          @anchors[t["id"]] = anchor_struct("#{num}.#{i}", nil, @admonition_lbl, "box", t["unnumbered"])
         end
       end
 
@@ -178,11 +178,11 @@ module IsoDoc
 
       def admonition_name_parse(node, div, name)
         div.p **{ class: "FigureTitle", align: "center" } do |p|
-          p << l10n("#{@admonition_lbl} #{get_anchors[node['id']][:label]}")
-          if name
+          get_anchors[node['id']][:label].nil? or
+            p << l10n("#{@admonition_lbl} #{get_anchors[node['id']][:label]}")
+          name and !get_anchors[node['id']][:label].nil? and
             p << "&nbsp;&mdash; "
-            name.children.each { |n| parse(n, div) }
-          end
+          name and name.children.each { |n| parse(n, div) }
         end
       end
 

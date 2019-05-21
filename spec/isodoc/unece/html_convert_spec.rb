@@ -567,7 +567,7 @@ it "processes admonitions" do
     </preface>
     <sections>
       <clause id="A">
-      <admonition id="B">
+      <admonition id="B" unnumbered="true">
         <name>First Box</name>
         <p id="C">paragraph</p>
       </admonition>
@@ -598,14 +598,14 @@ it "processes admonitions" do
   #{HTML_HDR}
                <div id="A">
                <h1>1.&#160; </h1>
-               <div class="Admonition"><p class="FigureTitle" align="center">Box 1&#160;&#8212; First Box</p>
+               <div class="Admonition"><p class="FigureTitle" align="center">First Box</p>
 
              <p id="C">paragraph</p>
            </div>
              </div>
              <div id="A1">
                <h1>2.&#160; </h1>
-               <div class="Admonition"><p class="FigureTitle" align="center">Box 2&#160;&#8212; Second Box</p>
+               <div class="Admonition"><p class="FigureTitle" align="center">Box 1&#160;&#8212; Second Box</p>
 
              <p id="C1">paragraph</p>
            </div>

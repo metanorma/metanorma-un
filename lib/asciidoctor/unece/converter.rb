@@ -1,6 +1,7 @@
 require "asciidoctor"
 require "asciidoctor/standoc/converter"
 require "fileutils"
+require_relative "validate"
 
 module Asciidoctor
   module Unece
@@ -193,6 +194,10 @@ module Asciidoctor
             n.parent = cl
           end
         end
+      end
+
+      def admonition_attrs(node)
+        attr_code(super.merge("unnumbered": node.option?("unnumbered")))
       end
 
       #def clause_parse(attrs, xml, node)
