@@ -12,7 +12,7 @@ module IsoDoc
       
       def annex_name(annex, name, div)
         div.h1 **{ class: "Annex" } do |t|
-          t << "#{get_anchors[annex['id']][:label]}"
+          t << "#{anchor(annex['id'], :label)}"
           t.br
           t.b do |b|
             name&.children&.each { |c2| parse(c2, b) }
@@ -178,10 +178,9 @@ module IsoDoc
 
       def admonition_name_parse(node, div, name)
         div.p **{ class: "FigureTitle", align: "center" } do |p|
-          get_anchors[node['id']][:label].nil? or
-            p << l10n("#{@admonition_lbl} #{get_anchors[node['id']][:label]}")
-          name and !get_anchors[node['id']][:label].nil? and
-            p << "&nbsp;&mdash; "
+          lbl = anchor(node['id'], :label)
+          lbl.nil? or p << l10n("#{@admonition_lbl} #{lbl}")
+          name and !lbl.nil? and p << "&nbsp;&mdash; "
           name and name.children.each { |n| parse(n, div) }
         end
       end
@@ -199,8 +198,8 @@ module IsoDoc
       def inline_header_title(out, node, c1)
         title = c1&.content || ""
         out.span **{ class: "zzMoveToFollowing" } do |s|
-          if get_anchors[node['id']][:label]
-            s << "#{get_anchors[node['id']][:label]}. " unless @suppressheadingnumbers
+          if lbl = anchor(node['id'], :label)
+            s << "#{lbl}. " unless @suppressheadingnumbers
             insert_tab(s, 1)
           end
           s << "#{title} "
