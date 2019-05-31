@@ -145,6 +145,8 @@ RSpec.describe IsoDoc::Unece do
        <abstract obligation="informative">
        <p id="AA">This is an abstract</o>
        </abstract>
+       </preface>
+       <sections>
        <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
          <title>Normal Terms</title>
          <term id="J">
@@ -158,7 +160,6 @@ RSpec.describe IsoDoc::Unece do
          </dl>
        </definitions>
        </clause>
-        </preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -223,20 +224,32 @@ RSpec.describe IsoDoc::Unece do
 
           </div>
              </div>
+             <div id="H">
+               <h1>I.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+               <div id="I"><h2>A. &#160; Normal Terms</h2>
+
+            <p class="TermNum" id="J">1.</p>
+            <p class="Terms" style="text-align:left;">Term2</p>
+
+          </div>
+               <div id="K"><h2>2. &#160; Symbols and abbreviated terms</h2>
+            <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
+          </div>
+             </div>
              <div id="D">
-               <h1>1.&#160; Scope</h1>
+               <h1>3.&#160; Scope</h1>
                <p id="E">Text</p>
              </div>
              <div id="M">
-               <h1>II.&#160; Clause 4</h1>
-               <div id="N"><h2>2. &#160; Introduction</h2>
+               <h1>III.&#160; Clause 4</h1>
+               <div id="N"><h2>4. &#160; Introduction</h2>
 
           </div>
                <div id="O"><h2>A. &#160; Clause 4.2</h2>
 
             <div id="O1"><h3>1. &#160; Clause 4.2.1</h3>
 
-            <div id="O11"><h4>3. &#160; Clause 4 Leaf</h4>
+            <div id="O11"><h4>5. &#160; Clause 4 Leaf</h4>
 
             </div>
             </div>
@@ -258,10 +271,10 @@ RSpec.describe IsoDoc::Unece do
             </div>
             </div>
           </div>
-          </div>
-<br/>
-<div id="U" class="Section3">
-  <h1 class="Annex">1<br/><b>Terminal annex</b></h1>
+             </div>
+             <br/>
+             <div id="U" class="Section3">
+               <h1 class="Annex">1<br/><b>Terminal annex</b></h1>
              </div>
              <br/>
              <div>
@@ -317,6 +330,8 @@ end
        <abstract id="AA" obligation="informative">
        <p>This is an abstract</o>
        </abstract>
+       </preface>
+       <sections>
        <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
          <title>Normal Terms</title>
          <term id="J">
@@ -330,7 +345,6 @@ end
          </dl>
        </definitions>
        </clause>
-        </preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -383,26 +397,26 @@ end
      <a href="#A">Foreword</a>
      <a href="#B">Introduction</a>
      <a href="#C">Introduction Subsection</a>
-     <a href="#AA">AA</a>
-     <a href="#H">H</a>
-     <a href="#I">I</a>
-     <a href="#J">J</a>
-     <a href="#K">K</a>
-     <a href="#D">paragraph 1</a>
-     <a href="#E">E</a>
-     <a href="#M">Clause II</a>
-     <a href="#N">paragraph 2</a>
-     <a href="#O">Clause II.A</a>
-     <a href="#O1">Clause II.A.1</a>
-     <a href="#O11">paragraph 3</a>
+     <a href="#AA">Abstract</a>
+     <a href="#H">Clause I</a>
+     <a href="#I">Clause I.A</a>
+     <a href="#J">paragraph 1</a>
+     <a href="#K">paragraph 2</a>
+     <a href="#D">paragraph 3</a>
+     <a href="#E">???</a>
+     <a href="#M">Clause III</a>
+     <a href="#N">paragraph 4</a>
+     <a href="#O">Clause III.A</a>
+     <a href="#O1">Clause III.A.1</a>
+     <a href="#O11">paragraph 5</a>
      <a href="#P">Annex I</a>
      <a href="#Q">Annex I.1</a>
      <a href="#Q1">Annex I.1.I</a>
      <a href="#Q11">paragraph I.1.I.A.1</a>
      <a href="#U">paragraph II.1</a>
-     <a href="#R">R</a>
-     <a href="#S">S</a>
-     <a href="#T">T</a>
+     <a href="#R">Normative References</a>
+     <a href="#S">Bibliography</a>
+     <a href="#T">Bibliography Subsection</a>
     </p>
     </div>
     OUTPUT

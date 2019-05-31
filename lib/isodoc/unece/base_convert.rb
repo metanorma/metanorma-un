@@ -33,6 +33,7 @@ module IsoDoc
       MIDDLE_CLAUSE = "//clause[parent::sections]".freeze
 
       def initial_anchor_names(d)
+        preface_names(d.at(ns("//abstract")))
         preface_names(d.at(ns("//foreword")))
         preface_names(d.at(ns("//introduction")))
         sequential_asset_names(d.xpath(ns("//foreword | //introduction")))
@@ -142,6 +143,10 @@ module IsoDoc
         docxml.xpath(ns("//annex")).each_with_index do |c, i|
           @paranumber = 0
           annex_names(c, RomanNumerals.to_roman(i + 1))
+        end
+        docxml.xpath(ns("//bibliography/clause |"\
+                        "//bibliography/references")).each do |b|
+          preface_names(b)
         end
         docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
           reference_names(ref)
