@@ -253,7 +253,7 @@ main {
   list-style: none;
 }
 
-#toc li {
+#toc li a {
   padding: 5px 10px;
 }
 
@@ -265,6 +265,7 @@ main {
 
 #toc a:hover {
 /*  color: white;*/
+    box-shadow: none;
 }
 
 #toc .h2 {
