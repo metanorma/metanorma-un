@@ -1,5 +1,6 @@
 require "metanorma/unece/processor"
 require "metanorma/unece/input"
+require "metanorma/unece/version"
 
 module Metanorma
   module Unece
