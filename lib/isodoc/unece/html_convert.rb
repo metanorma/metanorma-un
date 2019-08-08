@@ -104,10 +104,6 @@ module IsoDoc
         bibliography isoxml, out
       end
 
-      def html_toc(docxml)
-        docxml
-      end
-
       def clause_parse_title(node, div, c1, out)
         if node["inline-header"] == "true"
           inline_header_title(out, node, c1)
