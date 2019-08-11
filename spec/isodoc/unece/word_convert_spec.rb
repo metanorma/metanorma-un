@@ -379,16 +379,16 @@ it "processes admonitions" do
   INPUT
 
   output = <<~"OUTPUT"
-         <div class="WordSection3"><div id="A"><h1>1.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="FigureTitle" align="center">Box 1&#160;&#8212; First Box</p>
+         <div class="WordSection3"><div id="A"><h1>1.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="FigureTitle" style="text-align:center;">Box 1&#160;&#8212; First Box</p>
 
              <p id="C">paragraph</p>
-           </div></div><div id="A1"><h1>2.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="FigureTitle" align="center">Box 2&#160;&#8212; Second Box</p>
+           </div></div><div id="A1"><h1>2.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="FigureTitle" style="text-align:center;">Box 2&#160;&#8212; Second Box</p>
 
              <p id="C1">paragraph</p>
-           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D" class="Section3"><h1 class="Annex">1<br/><b>First Annex</b></h1><div class="Admonition"><p class="FigureTitle" align="center">Box I.1&#160;&#8212; Third Box</p>
+           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D" class="Section3"><h1 class="Annex">1<br/><b>First Annex</b></h1><div class="Admonition"><p class="FigureTitle" style="text-align:center;">Box I.1&#160;&#8212; Third Box</p>
 
              <p id="F">paragraph</p>
-           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D1" class="Section3"><h1 class="Annex">1<br/><b>Second Annex</b></h1><div class="Admonition"><p class="FigureTitle" align="center">Box II.1&#160;&#8212; Fourth Box</p>
+           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D1" class="Section3"><h1 class="Annex">1<br/><b>Second Annex</b></h1><div class="Admonition"><p class="FigureTitle" style="text-align:center;">Box II.1&#160;&#8212; Fourth Box</p>
 
              <p id="F1">paragraph</p>
            </div></div>
