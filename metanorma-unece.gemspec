@@ -31,8 +31,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "twitter_cldr"
   spec.add_dependency "iso-639"
 
-  spec.add_dependency "metanorma-standoc", "~> 1.2.0"
-  spec.add_dependency "isodoc", "~> 0.10.0"
+  spec.add_dependency "metanorma-standoc", "~> 1.3.0"
+  spec.add_dependency "isodoc", "~> 1.0.0"
 
   spec.add_development_dependency "bundler", "~> 2.0.1"
   spec.add_development_dependency "byebug", "~> 9.1"
