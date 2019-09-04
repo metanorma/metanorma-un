@@ -48,11 +48,11 @@ module Asciidoctor
       def title(node, xml)
         ["en"].each do |lang|
           xml.title **{ type: "main", language: lang, format: "text/plain" } do |t|
-            t << asciidoc_sub(node.attr("title"))
+            t << Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("title"))
           end
           node.attr("subtitle") and
             xml.title **{ type: "subtitle", language: lang, format: "text/plain" } do |t|
-            t << asciidoc_sub(node.attr("subtitle"))
+            t << Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("subtitle"))
           end
         end
       end
