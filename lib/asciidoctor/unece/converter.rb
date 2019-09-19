@@ -197,7 +197,10 @@ module Asciidoctor
       end
 
       def admonition_attrs(node)
-        attr_code(super.merge("unnumbered": node.option?("unnumbered")))
+        attr_code(super.merge(
+          "unnumbered": node.option?("unnumbered"),
+          "subsequence": node.attr("subsequence"),
+        ))
       end
 
       #def clause_parse(attrs, xml, node)

@@ -328,7 +328,7 @@ RSpec.describe Asciidoctor::Unece do
       expect(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true))).to be_equivalent_to <<~"OUTPUT"
       #{ASCIIDOC_BLANK_HDR}
       
-      [IMPORTANT%unnumbered]
+      [IMPORTANT%unnumbered,subsequence=A]
       .The United Nations Centre for Trade Facilitation and e-Business
       ====
       Only use paddy or parboiled rice for the determination of husked rice yield.
@@ -336,7 +336,7 @@ RSpec.describe Asciidoctor::Unece do
       INPUT
       #{BLANK_HDR}
        <sections>
-         <admonition id="_" type="important" unnumbered="true">
+         <admonition id="_" type="important" unnumbered="true" subsequence="A">
          <name>The United Nations Centre for Trade Facilitation and e-Business</name>
          <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </admonition>
