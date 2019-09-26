@@ -402,7 +402,6 @@ end
      <a href="#J">paragraph 1</a>
      <a href="#K">paragraph 2</a>
      <a href="#D">paragraph 3</a>
-     <a href="#E">[[E]], [E]</a>
      <a href="#M">Clause III</a>
      <a href="#N">paragraph 4</a>
      <a href="#O">Clause III.A</a>
