@@ -79,31 +79,31 @@ module IsoDoc
 
       def section_names(clause, num, lvl)
         return num if clause.nil?
-        clause.at(ns("./clause | ./term  | ./terms | ./definitions")) or
+        clause.at(ns("./clause | ./term  | ./terms | ./definitions | ./references")) or
           leaf_section(clause, lvl) && return
         num = num + 1
         lbl = levelnumber(num, 1)
         @anchors[clause["id"]] =
           { label: lbl, xref: l10n("#{@clause_lbl} #{lbl}"), level: lvl, type: "clause" }
         i = 1
-        clause.xpath(ns("./clause | ./term  | ./terms | ./definitions")).each do |c|
+        clause.xpath(ns("./clause | ./term  | ./terms | ./definitions | ./references")).each do |c|
           section_names1(c, "#{lbl}.#{levelnumber(i, lvl + 1)}", lvl + 1)
-          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions"))
+          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
         end
         num
       end
 
       def section_names1(clause, num, level)
-        unless clause.at(ns("./clause | ./term  | ./terms | ./definitions"))
+        unless clause.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
           leaf_section(clause, level) and return
         end
         /\.(?<leafnum>[^.]+$)/ =~ num
         @anchors[clause["id"]] =
           { label: leafnum, level: level, xref: l10n("#{@clause_lbl} #{num}"), type: "clause" }
         i = 1
-        clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).each do |c|
+        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | ./references")).each do |c|
           section_names1(c, "#{num}.#{levelnumber(i, level + 1)}", level + 1)
-          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions"))
+          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
         end
       end
 
@@ -113,7 +113,7 @@ module IsoDoc
 
       def annex_names(clause, num)
         hierarchical_asset_names(clause, num)
-        unless clause.at(ns("./clause | ./term  | ./terms | ./definitions"))
+        unless clause.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
           annex_leaf_section(clause, num, 1) and return
         end
         @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), type: "clause",
@@ -121,21 +121,21 @@ module IsoDoc
         i = 1
         clause.xpath(ns("./clause")).each do |c|
           annex_names1(c, "#{num}.#{annex_levelnumber(i, 2)}", 2)
-          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions"))
+          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
         end
       end
 
       def annex_names1(clause, num, level)
-        unless clause.at(ns("./clause | ./term  | ./terms | ./definitions"))
+        unless clause.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
           annex_leaf_section(clause, num, level) and return
         end
         /\.(?<leafnum>[^.]+$)/ =~ num
         @anchors[clause["id"]] = { label: leafnum, xref: "#{@annex_lbl} #{num}",
                                    level: level, type: "clause" }
         i = 1
-        clause.xpath(ns("./clause")).each do |c|
+        clause.xpath(ns("./clause | ./references")).each do |c|
           annex_names1(c, "#{num}.#{annex_levelnumber(i, level + 1)}", level + 1)
-          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions"))
+          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
         end
       end
 
