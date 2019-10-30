@@ -76,7 +76,7 @@ module IsoDoc
       end
 
       ENDLINE = <<~END.freeze
-      <v:line id="_x0000_s1026"
+      <v:line 
  alt="" style='position:absolute;left:0;text-align:left;z-index:251662848;
  mso-wrap-edited:f;mso-width-percent:0;mso-height-percent:0;
  mso-width-percent:0;mso-height-percent:0'
