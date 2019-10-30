@@ -182,7 +182,7 @@ module IsoDoc
       end
 
       def admonition_name_parse(node, div, name)
-        div.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
+        div.p **{ class: "AdmonitionTitle", style: "text-align:center;" } do |p|
           lbl = anchor(node['id'], :label)
           lbl.nil? or p << l10n("#{@admonition_lbl} #{lbl}")
           name and !lbl.nil? and p << "&nbsp;&mdash; "

@@ -610,14 +610,14 @@ it "processes admonitions" do
   #{HTML_HDR}
                <div id="A">
                <h1>1.&#160; </h1>
-               <div class="Admonition"><p class="FigureTitle" style="text-align:center;">First Box</p>
+               <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">First Box</p>
 
              <p id="C">paragraph</p>
            </div>
              </div>
              <div id="A1">
                <h1>2.&#160; </h1>
-               <div class="Admonition"><p class="FigureTitle" style="text-align:center;">Box 1&#160;&#8212; Second Box</p>
+               <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box 1&#160;&#8212; Second Box</p>
 
              <p id="C1">paragraph</p>
            </div>
@@ -625,7 +625,7 @@ it "processes admonitions" do
              <br/>
              <div id="D" class="Section3">
                <h1 class="Annex">1<br/><b>First Annex</b></h1>
-               <div class="Admonition"><p class="FigureTitle" style="text-align:center;">Box I.1&#160;&#8212; Third Box</p>
+               <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box I.1&#160;&#8212; Third Box</p>
 
              <p id="F">paragraph</p>
            </div>
@@ -633,7 +633,7 @@ it "processes admonitions" do
              <br/>
              <div id="D1" class="Section3">
                <h1 class="Annex">1<br/><b>Second Annex</b></h1>
-               <div class="Admonition"><p class="FigureTitle" style="text-align:center;">Box II.1&#160;&#8212; Fourth Box</p>
+               <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box II.1&#160;&#8212; Fourth Box</p>
 
              <p id="F1">paragraph</p>
            </div>
