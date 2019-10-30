@@ -82,7 +82,7 @@ RSpec.describe IsoDoc::Unece do
     </organization>
   </contributor>
   <language>en</language>
-  <language>de</language>
+  <language>ru</language>
   <language>ar</language>
   <language>es</language>
   <language>fr</language>

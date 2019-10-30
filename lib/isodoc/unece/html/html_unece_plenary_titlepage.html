@@ -68,8 +68,8 @@
 {% if submissionlanguage %}
 <p><span class="coverpage-maturity">Original: {{ submissionlanguage | join: "/" }}</span></p>
 {% endif %}
-{% if language %}
-<p><span class="coverpage-maturity">{{ language | join: ", " }} only</span></p>
+{% if doclanguage %}
+<p><span class="coverpage-maturity">{{ doclanguage | join: ", " }} only</span></p>
 {% endif %}
 </div>
 

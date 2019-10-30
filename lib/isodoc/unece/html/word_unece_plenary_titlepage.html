@@ -30,10 +30,10 @@ lang=EN-AU style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times 
 {{ submissionlanguage | join: "/" }}<o:p></o:p></span></p>
 {% endif %}
 
-{% if language %}
+{% if doclanguage %}
 <p class=MsoNormal style='tab-stops:70.9pt 12.0cm'><span lang=EN-AU
 style='font-family:"Times New Roman",serif'><span style='mso-tab-count:2'>                                                                                                                 </span></span><span
-lang=EN-AU style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ language }} only<o:p></o:p></span></p>
+lang=EN-AU style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ doclanguage | join: ", " }} only<o:p></o:p></span></p>
 {% endif %}
 
 <p class=MsoNormal style='tab-stops:70.9pt 12.0cm'><span lang=EN-AU

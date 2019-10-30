@@ -34,10 +34,10 @@ module IsoDoc
         set(:tc, tc.text) if tc
         set(:distribution, isoxml&.at(ns("//bibdata/ext/distribution"))&.text)
         lgs = extract_languages(isoxml.xpath(ns("//bibdata/language")))
-        lgs = [] if lgs.sort == %w(English French Arabic Chinese German Spanish).sort
+        lgs = [] if lgs.sort == %w(English French Arabic Chinese Russian Spanish).sort
         slgs = extract_languages(isoxml.xpath(ns("//bibdata/ext/submissionlanguage")))
         lgs = [] if slgs.size == 1
-        set(:language, lgs) unless lgs.empty?
+        set(:doclanguage, lgs) unless lgs.empty?
         set(:submissionlanguage, slgs) unless slgs.empty?
         session(isoxml, _out)
       end
