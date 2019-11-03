@@ -53,12 +53,12 @@ RSpec.describe IsoDoc::Unece do
 </unece-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
   {:accesseddate=>"XXX", :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :formatted_docnumber=>"UN/CEFACT Recommendation 1000", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :session_collaborator=>nil, :session_date=>nil, :session_id=>nil, :session_itemname=>[], :session_itemnumber=>[], :session_number=>nil, :session_subitemname=>[], :stage=>"Working Draft", :submissionlanguage=>["German"], :tc=>"TC", :toc=>nil, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
   end
 
     it "processes default metadata, plenary; six official UN languages" do
@@ -122,12 +122,12 @@ RSpec.describe IsoDoc::Unece do
 </unece-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     {:accesseddate=>"XXX", :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>nil, :draftinfo=>"", :edition=>nil, :formatted_docnumber=>"1000(wd)", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>nil, :revdate_monthyear=>nil, :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_id=>"WHO-UNECE-01", :session_itemname=>["ABC", "DEF"], :session_itemnumber=>["5", "6"], :session_number=>"Third", :session_subitemname=>["GHI", "JKL"], :stage=>"Working Draft", :tc=>"TC", :toc=>nil, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
   end
 
   it "processes section names" do
@@ -205,7 +205,7 @@ RSpec.describe IsoDoc::Unece do
        </unece-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
         #{HTML_HDR}
                      <br/>
              <div>
@@ -288,7 +288,7 @@ RSpec.describe IsoDoc::Unece do
        </html>
     OUTPUT
 
-    expect(IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true)).to be_equivalent_to output
+    expect(xmlpp(IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true))).to be_equivalent_to output
 end
 
   it "processes cross-references to section names" do
@@ -389,7 +389,7 @@ end
        </unece-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     <div>
     <h1 class="ForewordTitle">Foreword</h1>
         <p>
@@ -419,11 +419,11 @@ end
     </div>
     OUTPUT
 
-    expect(IsoDoc::Unece::HtmlConvert.new({}).
+    expect(xmlpp(IsoDoc::Unece::HtmlConvert.new({}).
            convert("test", input, true).
            sub(%r{^.*<h1 class="ForewordTitle">}m, '<div><h1 class="ForewordTitle">').
            sub(%r{</div>.*$}m, '</div>')
-          ).to be_equivalent_to output
+          )).to be_equivalent_to output
 end
 
     it "processes section names, suppressing section numbering" do
@@ -487,7 +487,7 @@ end
        </unece-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
         #{HTML_HDR}
              <br/>
              <div>
@@ -544,7 +544,7 @@ end
          </body>
        </html>
         OUTPUT
-    expect(IsoDoc::Unece::HtmlConvert.new({suppressheadingnumbers: true}).convert("test", input, true)).to be_equivalent_to output
+    expect(xmlpp(IsoDoc::Unece::HtmlConvert.new({suppressheadingnumbers: true}).convert("test", input, true))).to be_equivalent_to output
     end
 
 it "injects JS into blank html" do
@@ -556,13 +556,13 @@ it "injects JS into blank html" do
     :novalid:
   INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{BLANK_HDR}
 <sections/>
 </unece-standard>
   OUTPUT
 
-  expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to output
+  expect(xmlpp(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
   html = File.read("test.html", encoding: "utf-8")
   expect(html).to match(%r{jquery\.min\.js})
   expect(html).to match(%r{Roboto})
@@ -606,7 +606,7 @@ it "processes admonitions" do
   </unece-standard>
   INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
                <div id="A">
                <h1>1.&#160; </h1>
@@ -642,11 +642,11 @@ it "processes admonitions" do
          </body>
        </html>
   OUTPUT
-    expect(IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true)).to be_equivalent_to output
+    expect(xmlpp(IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true))).to be_equivalent_to output
 end
 
     it "processes inline section headers" do
-    expect(IsoDoc::Unece::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::Unece::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <unece-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
        <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
@@ -717,7 +717,7 @@ INPUT
        </bibliography>
 </unece-standard>
 INPUT
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
         <div>
         <h1>1.&#160; </h1>
@@ -727,7 +727,7 @@ INPUT
   </body>
 </html>
   OUTPUT
-    expect(IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true)).to be_equivalent_to output
+    expect(xmlpp(IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true))).to be_equivalent_to output
   end
 
 end

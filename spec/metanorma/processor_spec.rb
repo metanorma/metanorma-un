@@ -31,13 +31,13 @@ RSpec.describe Metanorma::Unece::Processor do
     #{ASCIIDOC_BLANK_HDR}
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </unece-standard>
     OUTPUT
 
-    expect(processor.input_to_isodoc(input, nil)).to be_equivalent_to output
+    expect(xmlpp(processor.input_to_isodoc(input, nil))).to be_equivalent_to output
   end
 
   it "generates HTML from IsoDoc XML" do
@@ -54,7 +54,7 @@ RSpec.describe Metanorma::Unece::Processor do
     </unece-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
    <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
      <div id="D">
        <h1>1.&#xA0; Scope</h1>
@@ -66,9 +66,9 @@ RSpec.describe Metanorma::Unece::Processor do
     processor.output(input, "test.html", :html)
 
     expect(
-      File.read("test.html", encoding: "utf-8").
+      xmlpp(File.read("test.html", encoding: "utf-8").
       gsub(%r{^.*<main}m, "<main").
-      gsub(%r{</main>.*}m, "</main>")
+      gsub(%r{</main>.*}m, "</main>"))
     ).to be_equivalent_to output
 
   end
@@ -87,7 +87,7 @@ RSpec.describe Metanorma::Unece::Processor do
     </unece-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
    <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
      <div id="D">
        <h1>1.&#xA0; Scope</h1>

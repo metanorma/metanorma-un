@@ -7,9 +7,9 @@ RSpec.describe Asciidoctor::Unece do
   #  FileUtils.cd "spec/examples"
   #  Asciidoctor.convert_file "rfc6350.adoc", {:attributes=>{"backend"=>"unece"}, :safe=>0, :header_footer=>true, :requires=>["metanorma-unece"], :failure_level=>4, :mkdirs=>true, :to_file=>nil}
   #  FileUtils.cd "../.."
-  #  expect(File.exist?("spec/examples/rfc6350.doc")).to be true
-  #  expect(File.exist?("spec/examples/rfc6350.html")).to be true
-  #  expect(File.exist?("spec/examples/rfc6350.pdf")).to be false
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.doc"))).to be true
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.html"))).to be true
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.pdf"))).to be false
   #end
 
   it "processes a blank document" do
@@ -17,13 +17,13 @@ RSpec.describe Asciidoctor::Unece do
     #{ASCIIDOC_BLANK_HDR}
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </unece-standard>
     OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -34,14 +34,14 @@ RSpec.describe Asciidoctor::Unece do
       :novalid:
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </unece-standard>
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -86,7 +86,7 @@ RSpec.describe Asciidoctor::Unece do
       :agenda-id: WHO 1
       :distribution: public
     INPUT
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     <?xml version="1.0" encoding="UTF-8"?>
 <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
 <bibdata type="standard">
@@ -151,7 +151,7 @@ RSpec.describe Asciidoctor::Unece do
 </unece-standard>
     OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
   end
 
    it "processes committee-draft, languages" do
@@ -166,7 +166,7 @@ RSpec.describe Asciidoctor::Unece do
       :language: eo, tlh
       :submissionlanguage: de, jp
     INPUT
-    expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <unece-standard xmlns="https://open.ribose.com/standards/unece">
        <bibdata type="standard">
 
@@ -220,7 +220,7 @@ RSpec.describe Asciidoctor::Unece do
       :docnumber: 1000
       :status: draft-standard
     INPUT
-    expect(Asciidoctor.convert(input, backend: :unece, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <unece-standard xmlns="https://open.ribose.com/standards/unece">
 <bibdata type="standard">
 
@@ -289,22 +289,20 @@ RSpec.describe Asciidoctor::Unece do
       Abstract
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     <preface><abstract id="_">
   <p id="_">Abstract</p>
 </abstract><foreword obligation="informative">
   <title>Foreword</title>
   <p id="_">Preamble</p>
-</foreword></preface><sections>
-</sections>
-</unece-standard>
+</foreword></preface>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)).sub(/^.*<preface/m, "<preface")).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)).sub(/^.*<preface/m, "<preface").sub(%r{</preface>.*$}m, "</preface>"))).to be_equivalent_to output
   end
 
   it "processes notes" do
-      expect(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true))).to be_equivalent_to <<~"OUTPUT"
+      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
       
       [NOTE]
@@ -325,7 +323,7 @@ RSpec.describe Asciidoctor::Unece do
 
 
   it "processes simple admonitions with Asciidoc names" do
-      expect(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true))).to be_equivalent_to <<~"OUTPUT"
+      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
       
       [IMPORTANT%unnumbered,subsequence=A]
@@ -367,7 +365,7 @@ RSpec.describe Asciidoctor::Unece do
       Para 4
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     <sections><clause id="_" inline-header="false" obligation="normative"><title>Section 1</title><clause id="_" inline-header="true" obligation="normative"><p id="_">Para 1</p><ul id="_">
          <li>
@@ -388,7 +386,7 @@ RSpec.describe Asciidoctor::Unece do
 
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
   end
 
   it "uses default fonts" do
@@ -464,7 +462,7 @@ RSpec.describe Asciidoctor::Unece do
       [smallcap]#smallcap#
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
             #{BLANK_HDR}
        <sections>
         <p id="_"><em>emphasis</em>
@@ -483,6 +481,6 @@ RSpec.describe Asciidoctor::Unece do
        </unece-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
   end
 end

@@ -52,12 +52,12 @@ RSpec.describe IsoDoc::Unece do
 </unece-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     {:accesseddate=>"XXX", :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :formatted_docnumber=>"UN/CEFACT Recommendation 1000", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :session_collaborator=>nil, :session_date=>nil, :session_id=>nil, :session_itemname=>[], :session_itemnumber=>[], :session_number=>nil, :session_subitemname=>[], :stage=>"Working Draft", :submissionlanguage=>["German"], :tc=>"TC", :toc=>true, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
   end
 
     it "processes default metadata, plenary" do
@@ -112,12 +112,12 @@ RSpec.describe IsoDoc::Unece do
 </unece-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     {:accesseddate=>"XXX", :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :doclanguage=>["English", "French"], :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>nil, :draftinfo=>"", :edition=>nil, :formatted_docnumber=>"1000(wd)", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>nil, :revdate_monthyear=>nil, :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_id=>"WHO-UNECE-01", :session_itemname=>[], :session_itemnumber=>[], :session_number=>"Third", :session_subitemname=>[], :stage=>"Working Draft", :tc=>"TC", :toc=>true, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
   end
 
   it "processes section names" do
@@ -194,8 +194,9 @@ RSpec.describe IsoDoc::Unece do
        </unece-standard>
     INPUT
 
-    output = <<~"OUTPUT"
-           <div class="WordSection3">
+    output = xmlpp(<<~"OUTPUT")
+    <div>
+           <div class="WordSection2">
              <div>
                <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="AbstractTitle">Summary</p>
@@ -235,9 +236,10 @@ RSpec.describe IsoDoc::Unece do
             </div>
             </div>
           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="U" class="Section3"><h1 class="Annex">1<br/><b>Terminal annex</b></h1></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div><h1 class="Section3">Bibliography</h1><div><h2 class="Section3">Bibliography Subsection</h2></div></div>
+          </div></div>
     OUTPUT
 
-    expect(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '')).to be_equivalent_to output
+    expect(xmlpp(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">').sub(%r{<v:line.*$}m, '</div></div>'))).to be_equivalent_to output
 end
 
     it "processes section names, suppressing section numbering" do
@@ -301,8 +303,9 @@ end
        </unece-standard>
     INPUT
 
-    output = <<~"OUTPUT"
-           <div class="WordSection3">
+    output = xmlpp(<<~"OUTPUT")
+    <div>
+           <div class="WordSection2">
              <div>
                <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="AbstractTitle">Summary</p>
@@ -323,21 +326,73 @@ end
              <p>&#160;</p>
            </div>
            <p><br clear="all" class="section"/></p>
-           <div class="WordSection3"><div id="D"><h1>Scope</h1><p id="E">Text</p></div><div id="M"><h1>Clause 4</h1><div id="N"><h2><span style="mso-tab-count:1">&#160; </span>Introduction</h2>
-
-          </div><div id="O"><h2><span style="mso-tab-count:1">&#160; </span>Clause 4.2</h2>
-
-          </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="P" class="Section3"><h1 class="Annex"><b>Annex I</b><br/><b>Annex</b></h1><div id="Q"><h2><span style="mso-tab-count:1">&#160; </span>Annex A.1</h2>
-
-            <div id="Q1"><h3><span style="mso-tab-count:1">&#160; </span>Annex A.1a</h3>
-
-            </div>
-          </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div><h1 class="Section3">Bibliography</h1><div><h2 class="Section3">Bibliography Subsection</h2></div></div>
+        <div class='WordSection3'>
+           <div id='D'>
+             <h1>
+               1.
+               <span style='mso-tab-count:1'>&#160; </span>
+               Scope
+             </h1>
+             <p id='E'>Text</p>
+           </div>
+           <div id='M'>
+             <h1>
+               II.
+               <span style='mso-tab-count:1'>&#160; </span>
+               Clause 4
+             </h1>
+             <div id='N'>
+               <h2>
+                 2. 
+                 <span style='mso-tab-count:1'>&#160; </span>
+                 Introduction
+               </h2>
+             </div>
+             <div id='O'>
+               <h2>
+                 3. 
+                 <span style='mso-tab-count:1'>&#160; </span>
+                 Clause 4.2
+               </h2>
+             </div>
+           </div>
+           <p>
+             <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+           </p>
+           <div id='P' class='Section3'>
+             <h1 class='Annex'>
+               <b>Annex I</b>
+               <br/>
+               <b>Annex</b>
+             </h1>
+             <div id='Q'>
+               <h2>
+                 1. 
+                 <span style='mso-tab-count:1'>&#160; </span>
+                 Annex A.1
+               </h2>
+               <div id='Q1'>
+                 <h3>
+                   1. 
+                   <span style='mso-tab-count:1'>&#160; </span>
+                   Annex A.1a
+                 </h3>
+               </div>
+             </div>
+           </div>
+           <p>
+             <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+           </p>
+           <div>
+             <h1 class='Section3'>Bibliography</h1>
+             <div>
+               <h2 class='Section3'>Bibliography Subsection</h2>
+             </div>
+           </div>
+         </div>
        </div>
-         </body>
-       </html>
         OUTPUT
-    expect(IsoDoc::Unece::WordConvert.new({suppressheadingnumbers: true}).convert("test", input, true).sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '')).to be_equivalent_to output
+    expect(xmlpp(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">').sub(%r{<v:line.*$}m, '</div></div>'))).to be_equivalent_to output
     end
 
 it "processes admonitions" do
@@ -378,7 +433,7 @@ it "processes admonitions" do
   </unece-standard>
   INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
          <div class="WordSection3"><div id="A"><h1>1.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box 1&#160;&#8212; First Box</p>
 
              <p id="C">paragraph</p>
@@ -393,14 +448,12 @@ it "processes admonitions" do
              <p id="F1">paragraph</p>
            </div></div>
        </div>
-         </body>
-       </html>
   OUTPUT
-    expect(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '')).to be_equivalent_to output
+    expect(xmlpp(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '</div>'))).to be_equivalent_to output
 end
 
     it "processes inline section headers" do
-      expect(IsoDoc::Unece::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '')).to be_equivalent_to <<~"OUTPUT"
+      expect(xmlpp(IsoDoc::Unece::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '</div>'))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <unece-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
        <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
@@ -419,8 +472,6 @@ end
 
         </div></div>
        </div>
-         </body>
-       </html>
 OUTPUT
     end
 
@@ -501,13 +552,13 @@ IsoDoc::Unece::WordConvert.new(toc: true).convert("test", input, false)
        </bibliography>
 </unece-standard>
 INPUT
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
 <div class="WordSection3"><div><h1>1.<span style="mso-tab-count:1">&#160; </span></h1><a href="#ISO712">ISO 712</a></div>  
 </div>
   OUTPUT
-  expect(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).
+  expect(xmlpp(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).
          sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').
-         sub(%r{<v:line.*$}m, '')).to be_equivalent_to output
+         sub(%r{<v:line.*$}m, '</div>'))).to be_equivalent_to output
   end
 
   it "processes plenary preface" do
@@ -547,9 +598,9 @@ INPUT
         IsoDoc::Unece::WordConvert.new({}).convert("test", input, false)
           html = File.read("test.doc", encoding: "utf-8")
           section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(%r{<div class="WordSection2">.*$}m, "")
-          section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(%r{<div class="WordSection3">.*$}m, "")
+          section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
           expect(section1).to include "This is an abstract"
-          expect(section2).to be_equivalent_to <<~"OUTPUT"
+          expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~"OUTPUT")
           <div class="WordSection2">
 
       <div>
@@ -566,7 +617,6 @@ INPUT
       </div>
       <p class="MsoNormal">&#xA0;</p>
     </div>
-    <p class="MsoNormal"><br clear="all" class="section"/></p>
           OUTPUT
 
     end
@@ -638,9 +688,9 @@ INPUT
         IsoDoc::Unece::WordConvert.new({}).convert("test", input, false)
           html = File.read("test.doc", encoding: "utf-8")
           section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(%r{<div class="WordSection2">.*$}m, "")
-          section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(%r{<div class="WordSection3">.*$}m, "")
+          section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
           expect(section1).not_to include "This is an abstract"
-          expect(section2).to be_equivalent_to <<~"OUTPUT"
+          expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~"OUTPUT")
                  <div class="WordSection2">
        <div>
          <p class="MsoNormal"><b>Note</b>
@@ -679,7 +729,6 @@ INPUT
 
              <p class="MsoNormal">&#xA0;</p>
            </div>
-           <p class="MsoNormal"><br clear="all" class="section"/></p>
           OUTPUT
 
     end
