@@ -1,13 +1,11 @@
 = Metanorma processor for UNECE documents
 
 image:https://img.shields.io/gem/v/metanorma-unece.svg["Gem Version", link="https://rubygems.org/gems/metanorma-unece"]
-image:https://img.shields.io/travis/metanorma/metanorma-unece/master.svg["Build Status", link="https://travis-ci.org/metanorma/metanorma-unece"]
+image:https://travis-ci.com/metanorma/metanorma-unece.svg["Build Status", link="https://travis-ci.com/metanorma/metanorma-unece"]
+image:https://ci.appveyor.com/api/projects/status/hrguu7679xqmwdgy?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/metanorma/metanorma-unece"]
 image:https://codeclimate.com/github/metanorma/metanorma-unece/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/metanorma-unece"]
-image:https://ci.appveyor.com/api/projects/status/lqqkdhc7bswaqpp8?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/metanorma-unece"]
-
-
-WARNING: This gem is still under development.
-
+image:https://img.shields.io/github/issues-pr-raw/metanorma/metanorma-unece.svg["Pull Requests", link="https://github.com/metanorma/metanorma-unece/pulls"]
+image:https://img.shields.io/github/commits-since/metanorma/metanorma-unece/latest.svg["Commits since latest",link="https://github.com/metanorma/metanorma-unece/releases"]
 
 == Functionality
 
