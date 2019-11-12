@@ -13,10 +13,10 @@ module IsoDoc
         @toc = options[:toc]
       end
 
-      def convert1(docxml, filename, dir)
-        FileUtils.cp html_doc_path('logo.jpg'), File.join(@localdir, "logo.jpg")
-        super
-      end
+      #def convert1(docxml, filename, dir)
+        #FileUtils.cp html_doc_path('logo.jpg'), File.join(@localdir, "logo.jpg")
+        #super
+      #end
 
       def default_fonts(options)
         {
