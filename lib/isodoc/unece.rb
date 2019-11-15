@@ -1,6 +1,7 @@
 require "isodoc/unece/metadata"
 require "isodoc/unece/html_convert"
 require "isodoc/unece/word_convert"
+require "isodoc/unece/pdf_convert"
 
 module IsoDoc
   module Unece
