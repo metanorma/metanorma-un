@@ -14,6 +14,7 @@ module Metanorma
         super.merge(
           html: "html",
           doc: "doc",
+          pdf: "pdf",
         )
       end
 
@@ -31,6 +32,8 @@ module Metanorma
           IsoDoc::Unece::HtmlConvert.new(options).convert(outname, isodoc_node)
         when :doc
           IsoDoc::Unece::WordConvert.new(options).convert(outname, isodoc_node)
+        when :pdf
+          IsoDoc::Unece::PdfConvert.new(options).convert(outname, isodoc_node)
         else
           super
         end

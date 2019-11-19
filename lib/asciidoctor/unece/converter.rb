@@ -150,6 +150,7 @@ module Asciidoctor
           File.open(filename, "w") { |f| f.write(ret) }
           html_converter(node).convert filename unless node.attr("nodoc")
           word_converter(node).convert filename unless node.attr("nodoc")
+          pdf_converter(node).convert filename unless node.attr("nodoc")
         end
         @files_to_delete.each { |f| FileUtils.rm f }
         ret
@@ -179,6 +180,10 @@ module Asciidoctor
 
       def word_converter(node)
         IsoDoc::Unece::WordConvert.new(doc_extract_attributes(node))
+      end
+
+      def pdf_converter(node)
+        IsoDoc::Unece::PdfConvert.new(doc_extract_attributes(node))
       end
 
       def sections_cleanup(xmldoc)
