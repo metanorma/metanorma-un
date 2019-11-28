@@ -553,7 +553,7 @@ IsoDoc::Unece::WordConvert.new(toc: true).convert("test", input, false)
 </unece-standard>
 INPUT
   output = xmlpp(<<~"OUTPUT")
-<div class="WordSection3"><div><h1>1.<span style="mso-tab-count:1">&#160; </span></h1><a href="#ISO712">ISO 712</a></div>  
+<div class="WordSection3"><div><h1/><a href="#ISO712">ISO 712</a></div>  
 </div>
   OUTPUT
   expect(xmlpp(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).

@@ -722,7 +722,7 @@ INPUT
   output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
         <div>
-        <h1>1.&#160; </h1>
+        <h1/>
         <a href="#ISO712">ISO 712</a>
       </div>
     </div>
