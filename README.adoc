@@ -131,6 +131,8 @@ repository.
 
 == Examples
 
-* link:spec/examples/plenary.adoc[] is the source file for the "`ECE/TRADE/C/CEFACT/2018/6`" plenary document.
-* link:spec/examples/rec42.adoc[] is the source file for Recommendation 42.
-* link:spec/examples/rfc6350.adoc[] is the UNECE version of https://tools.ietf.org/html/rfc6350[RFC 6350].
+* Example documents are avalable at the https://github.com/metanorma/mn-samples-unece[mn-samples-unece] repository.
+
+////
+* Document templates are available at the https://github.com/metanorma/mn-templates-unece[mn-templates-unece] repository.
+////
