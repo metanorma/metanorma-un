@@ -219,13 +219,13 @@ RSpec.describe IsoDoc::Unece do
              <p>&#160;</p>
            </div>
            <p><br clear="all" class="section"/></p>
-           <div class="WordSection3"><div id="D"><h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1><p id="E">Text</p></div><div id="M"><h1>II.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1><div id="N"><h2>2. <span style="mso-tab-count:1">&#160; </span>Introduction</h2>
+           <div class="WordSection3"><div id="D"><h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1><p id="E">Text</p></div><div id="M"><h1>II.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1><div id="N"><h2>A. <span style="mso-tab-count:1">&#160; </span>Introduction</h2>
 
-          </div><div id="O"><h2>A. <span style="mso-tab-count:1">&#160; </span>Clause 4.2</h2>
+          </div><div id="O"><h2>B. <span style="mso-tab-count:1">&#160; </span>Clause 4.2</h2>
 
             <div id="O1"><h3>1. <span style="mso-tab-count:1">&#160; </span>Clause 4.2.1</h3>
 
-            <div id="O11"><h4>3. <span style="mso-tab-count:1">&#160; </span>Clause 4 Leaf</h4>
+            <div id="O11"><h4>I. <span style="mso-tab-count:1">&#160; </span>Clause 4 Leaf</h4>
 
             </div>
             </div>
@@ -233,11 +233,11 @@ RSpec.describe IsoDoc::Unece do
 
             <div id="Q1"><h3>I. <span style="mso-tab-count:1">&#160; </span>Annex A.1a</h3>
 
-            <div id="Q11"><h4>1. <span style="mso-tab-count:1">&#160; </span>Annex A Leaf</h4>
+            <div id="Q11"><h4>A. <span style="mso-tab-count:1">&#160; </span>Annex A Leaf</h4>
 
             </div>
             </div>
-          </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="U" class="Section3"><h1 class="Annex">1<br/><b>Terminal annex</b></h1></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div><h1 class="Section3">Bibliography</h1><div><h2 class="Section3">Bibliography Subsection</h2></div></div>
+          </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="U" class="Section3"><h1 class="Annex"><b>Annex II</b><br/><b>Terminal annex</b></h1></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div><h1 class="Section3">Bibliography</h1><div><h2 class="Section3">Bibliography Subsection</h2></div></div>
           </div></div>
     OUTPUT
 
@@ -345,14 +345,14 @@ end
              </h1>
              <div id='N'>
                <h2>
-                 2. 
+                 A. 
                  <span style='mso-tab-count:1'>&#160; </span>
                  Introduction
                </h2>
              </div>
              <div id='O'>
                <h2>
-                 3. 
+                 B. 
                  <span style='mso-tab-count:1'>&#160; </span>
                  Clause 4.2
                </h2>
@@ -375,7 +375,7 @@ end
                </h2>
                <div id='Q1'>
                  <h3>
-                   1. 
+                   I. 
                    <span style='mso-tab-count:1'>&#160; </span>
                    Annex A.1a
                  </h3>
@@ -436,16 +436,16 @@ it "processes admonitions" do
   INPUT
 
   output = xmlpp(<<~"OUTPUT")
-         <div class="WordSection3"><div id="A"><h1>1.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box 1&#160;&#8212; First Box</p>
+         <div class="WordSection3"><div id="A"><h1>I.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box 1&#160;&#8212; First Box</p>
 
              <p id="C">paragraph</p>
-           </div></div><div id="A1"><h1>2.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box 2&#160;&#8212; Second Box</p>
+           </div></div><div id="A1"><h1>II.<span style="mso-tab-count:1">&#160; </span></h1><div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box 2&#160;&#8212; Second Box</p>
 
              <p id="C1">paragraph</p>
-           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D" class="Section3"><h1 class="Annex">1<br/><b>First Annex</b></h1><div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box I.1&#160;&#8212; Third Box</p>
+           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D" class="Section3"><h1 class="Annex"><b>Annex I</b><br/><b>First Annex</b></h1><div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box I.1&#160;&#8212; Third Box</p>
 
              <p id="F">paragraph</p>
-           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D1" class="Section3"><h1 class="Annex">1<br/><b>Second Annex</b></h1><div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box II.1&#160;&#8212; Fourth Box</p>
+           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D1" class="Section3"><h1 class="Annex"><b>Annex II</b><br/><b>Second Annex</b></h1><div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box II.1&#160;&#8212; Fourth Box</p>
 
              <p id="F1">paragraph</p>
            </div></div>
@@ -468,9 +468,9 @@ end
        </sections>
       </unece-standard>
     INPUT
-           <div class="WordSection3"><div id="M"><h1>I.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1><div id="N"><h2>1. <span style="mso-tab-count:1">&#160; </span>Introduction</h2>
+           <div class="WordSection3"><div id="M"><h1>I.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1><div id="N"><h2>A. <span style="mso-tab-count:1">&#160; </span>Introduction</h2>
 
-        </div><div id="O"><span class="zzMoveToFollowing">2. <span style="mso-tab-count:1">&#160; </span>Clause 4.2 </span>
+        </div><div id="O"><span class="zzMoveToFollowing">B. <span style="mso-tab-count:1">&#160; </span>Clause 4.2 </span>
 
         </div></div>
        </div>

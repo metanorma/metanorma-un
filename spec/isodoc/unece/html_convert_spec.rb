@@ -132,20 +132,18 @@ RSpec.describe IsoDoc::Unece do
     expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
 
-  it "processes section names" do
+  it "processes section names without paragraph content" do
     input = <<~"INPUT"
     <unece-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
-         <p id="A">This is a preamble</p>
        </foreword>
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
        </clause>
        </introduction>
        <abstract obligation="informative">
-       <p id="AA">This is an abstract</o>
        </abstract>
        </preface>
        <sections>
@@ -164,7 +162,6 @@ RSpec.describe IsoDoc::Unece do
        </clause>
        <clause id="D" obligation="normative">
          <title>Scope</title>
-         <p id="E">Text</p>
        </clause>
 
        <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
@@ -212,12 +209,10 @@ RSpec.describe IsoDoc::Unece do
                      <br/>
              <div>
                <h1 class="AbstractTitle">Summary</h1>
-               <p id="AA">This is an abstract</p>
              </div>
              <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <p id="A">This is a preamble</p>
              </div>
              <br/>
              <div class="Section3" id="B">
@@ -234,24 +229,23 @@ RSpec.describe IsoDoc::Unece do
             <p class="Terms" style="text-align:left;">Term2</p>
 
           </div>
-               <div id="K"><h2>2. &#160; Symbols and abbreviated terms</h2>
+               <div id="K"><h2>B. &#160; Symbols and abbreviated terms</h2>
             <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
           </div>
              </div>
              <div id="D">
-               <h1>3.&#160; Scope</h1>
-               <p id="E">Text</p>
+               <h1>II.&#160; Scope</h1>
              </div>
              <div id="M">
                <h1>III.&#160; Clause 4</h1>
-               <div id="N"><h2>4. &#160; Introduction</h2>
+               <div id="N"><h2>A. &#160; Introduction</h2>
 
           </div>
-               <div id="O"><h2>A. &#160; Clause 4.2</h2>
+               <div id="O"><h2>B. &#160; Clause 4.2</h2>
 
             <div id="O1"><h3>1. &#160; Clause 4.2.1</h3>
 
-            <div id="O11"><h4>5. &#160; Clause 4 Leaf</h4>
+            <div id="O11"><h4>I. &#160; Clause 4 Leaf</h4>
 
             </div>
             </div>
@@ -268,7 +262,7 @@ RSpec.describe IsoDoc::Unece do
 
             <div id="Q1"><h3>I. &#160; Annex A.1a</h3>
 
-            <div id="Q11"><h4>1. &#160; Annex A Leaf</h4>
+            <div id="Q11"><h4>A. &#160; Annex A Leaf</h4>
 
             </div>
             </div>
@@ -276,7 +270,7 @@ RSpec.describe IsoDoc::Unece do
              </div>
              <br/>
              <div id="U" class="Section3">
-               <h1 class="Annex">1<br/><b>Terminal annex</b></h1>
+               <h1 class="Annex"><b>Annex II</b><br/><b>Terminal annex</b></h1>
              </div>
              <br/>
              <div>
@@ -292,6 +286,183 @@ RSpec.describe IsoDoc::Unece do
 
     expect(xmlpp(IsoDoc::Unece::HtmlConvert.new({}).convert("test", input, true))).to be_equivalent_to output
 end
+
+
+  it "processes section names with paragraph content" do
+    expect(xmlpp(IsoDoc::Unece::HtmlConvert.new({}).convert("test", <<~INPUT, true))).to be_equivalent_to <<~OUTPUT
+    <unece-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword obligation="informative">
+         <title>Foreword</title>
+         <p id="A1">Text</p>
+       </foreword>
+        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+         <title>Introduction Subsection</title>
+         <p id="A2">Text</p>
+       </clause>
+       </introduction>
+       <abstract obligation="informative">
+         <p id="A3">Text</p>
+       </abstract>
+       </preface>
+       <sections>
+       <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+         <title>Normal Terms</title>
+         <term id="J">
+         <preferred>Term2</preferred>
+       </term>
+       </terms>
+       <definitions id="K">
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       </clause>
+       <clause id="D" obligation="normative">
+         <title>Scope</title>
+         <p id="A4">Text</p>
+       </clause>
+
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+         <title>Introduction</title>
+         <p id="A5">Text</p>
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
+         <title>Clause 4.2</title>
+         <clause id="O1" inline-header="false" obligation="normative">
+         <title>Clause 4.2.1</title>
+         <clause id="O11" inline-header="false" obligation="normative">
+         <title>Clause 4 Leaf</title>
+         <p id="A6">Text</p>
+         </clause>
+         </clause>
+       </clause></clause>
+
+       </sections><annex id="P" inline-header="false" obligation="normative">
+         <title>Annex</title>
+         <clause id="Q" inline-header="false" obligation="normative">
+         <title>Annex A.1</title>
+         <clause id="Q1" inline-header="false" obligation="normative">
+         <title>Annex A.1a</title>
+         <clause id="Q11" inline-header="false" obligation="normative">
+         <title>Annex A Leaf</title>
+         <p id="A7">Text</p>
+         </clause>
+         </clause>
+       </clause>
+       </annex>
+       <annex id="U"  inline-header="false" obligation="normative">
+       <title>Terminal annex</title>
+         <p id="A8">Text</p>
+       </annex>
+        <bibliography><references id="R" obligation="informative">
+         <title>Normative References</title>
+       </references><clause id="S" obligation="informative">
+         <title>Bibliography</title>
+         <references id="T" obligation="informative">
+         <title>Bibliography Subsection</title>
+       </references>
+       </clause>
+       </bibliography>
+       </unece-standard>
+    INPUT
+            #{HTML_HDR}
+            <br/>
+      <div>
+        <h1 class='AbstractTitle'>Summary</h1>
+        <p id='A3'>Text</p>
+      </div>
+      <br/>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <p id='A1'>Text</p>
+      </div>
+      <br/>
+      <div class='Section3' id='B'>
+        <h1 class='IntroTitle'>Introduction</h1>
+        <div id='C'>
+          <h2>Introduction Subsection</h2>
+          <p id='A2'>Text</p>
+        </div>
+      </div>
+      <div id='H'>
+        <h1>I.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+        <div id='I'>
+          <h2>A. &#160; Normal Terms</h2>
+          <p class='TermNum' id='J'>1.</p>
+          <p class='Terms' style='text-align:left;'>Term2</p>
+        </div>
+        <div id='K'>
+          <h2>B. &#160; Symbols and abbreviated terms</h2>
+          <dl>
+            <dt>
+              <p>Symbol</p>
+            </dt>
+            <dd>Definition</dd>
+          </dl>
+        </div>
+      </div>
+      <div id='D'>
+        <h1>1.&#160; Scope</h1>
+        <p id='A4'>Text</p>
+      </div>
+      <div id='M'>
+        <h1>III.&#160; Clause 4</h1>
+        <div id='N'>
+          <h2>2. &#160; Introduction</h2>
+          <p id='A5'>Text</p>
+        </div>
+        <div id='O'>
+          <h2>A. &#160; Clause 4.2</h2>
+          <div id='O1'>
+            <h3>1. &#160; Clause 4.2.1</h3>
+            <div id='O11'>
+              <h4>3. &#160; Clause 4 Leaf</h4>
+              <p id='A6'>Text</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <div id='P' class='Section3'>
+        <h1 class='Annex'>
+          <b>Annex I</b>
+          <br/>
+          <b>Annex</b>
+        </h1>
+        <div id='Q'>
+          <h2>1. &#160; Annex A.1</h2>
+          <div id='Q1'>
+            <h3>I. &#160; Annex A.1a</h3>
+            <div id='Q11'>
+              <h4>1. &#160; Annex A Leaf</h4>
+              <p id='A7'>Text</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <div id='U' class='Section3'>
+        <h1 class='Annex'>
+          <b>Annex II</b>
+          <br/>
+          <b>Terminal annex</b>
+        </h1>
+        <p id='A8'>Text</p>
+      </div>
+      <br/>
+      <div>
+        <h1 class='Section3'>Bibliography</h1>
+        <div>
+          <h2 class='Section3'>Bibliography Subsection</h2>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+    OUTPUT
+  end
 
   it "processes cross-references to section names" do
     input = <<~"INPUT"
@@ -326,10 +497,13 @@ end
        </foreword>
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
+         <p id="X1"/>
+         <p id="X2"/>
        </clause>
        </introduction>
        <abstract id="AA" obligation="informative">
-       <p>This is an abstract</o>
+         <p id="X3"/>
+         <p id="X4"/>
        </abstract>
        </preface>
        <sections>
@@ -348,36 +522,55 @@ end
        </clause>
        <clause id="D" obligation="normative">
          <title>Scope</title>
-         <p id="E">Text</p>
+         <p id="X5"/>
+         <p id="X6"/>
        </clause>
 
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><p id="X6a"/><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
+         <p id="X7"/>
+         <p id="X8"/>
        </clause>
        <clause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
+         <p id="X9"/>
+         <p id="X10"/>
          <clause id="O1" inline-header="false" obligation="normative">
          <title>Clause 4.2.1</title>
+         <p id="X11"/>
+         <p id="X12"/>
          <clause id="O11" inline-header="false" obligation="normative">
          <title>Clause 4 Leaf</title>
+         <p id="X13"/>
+         <p id="X14"/>
          </clause>
          </clause>
        </clause></clause>
 
        </sections><annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
+         <p id="X15"/>
+         <p id="X16"/>
          <clause id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
+         <p id="X17"/>
+         <p id="X18"/>
          <clause id="Q1" inline-header="false" obligation="normative">
          <title>Annex A.1a</title>
+         <p id="X19"/>
+         <p id="X20"/>
          <clause id="Q11" inline-header="false" obligation="normative">
          <title>Annex A Leaf</title>
+         <p id="X21"/>
+         <p id="X22"/>
          </clause>
          </clause>
        </clause>
        </annex>
        <annex id="U"  inline-header="false" obligation="normative">
        <title>Terminal annex</title>
+         <p id="X23"/>
+         <p id="X24"/>
        </annex>
         <bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
@@ -395,29 +588,29 @@ end
     <div>
     <h1 class="ForewordTitle">Foreword</h1>
         <p>
-     <a href="#A">Foreword</a>
-     <a href="#B">Introduction</a>
-     <a href="#C">Introduction Subsection</a>
-     <a href="#AA">Abstract</a>
-     <a href="#H">Clause I</a>
-     <a href="#I">Clause I.A</a>
-     <a href="#J">paragraph 1</a>
-     <a href="#K">paragraph 2</a>
-     <a href="#D">paragraph 3</a>
-     <a href="#M">Clause III</a>
-     <a href="#N">paragraph 4</a>
-     <a href="#O">Clause III.A</a>
-     <a href="#O1">Clause III.A.1</a>
-     <a href="#O11">paragraph 5</a>
-     <a href="#P">Annex I</a>
-     <a href="#Q">Annex I.1</a>
-     <a href="#Q1">Annex I.1.I</a>
-     <a href="#Q11">paragraph I.1.I.A.1</a>
-     <a href="#U">paragraph II.1</a>
-     <a href="#R">Normative References</a>
-     <a href="#S">Bibliography</a>
-     <a href="#T">Bibliography Subsection</a>
-    </p>
+                   <a href='#A'>Foreword</a>
+           <a href='#B'>Introduction</a>
+           <a href='#C'>Introduction Subsection</a>
+           <a href='#AA'>Abstract</a>
+           <a href='#H'>Clause I</a>
+           <a href='#I'>Clause I.A</a>
+           <a href='#J'>Clause I.A.1</a>
+           <a href='#K'>Clause I.B</a>
+           <a href='#D'>paragraph 1</a>
+           <a href='#M'>Clause III</a>
+           <a href='#N'>paragraph 2</a>
+           <a href='#O'>Clause III.A</a>
+           <a href='#O1'>Clause III.A.1</a>
+           <a href='#O11'>paragraph 3</a>
+           <a href='#P'>Annex I</a>
+           <a href='#Q'>Annex I.1</a>
+           <a href='#Q1'>Annex I.1.I</a>
+           <a href='#Q11'>paragraph I.1.I.A.1</a>
+           <a href='#U'>Annex II</a>
+           <a href='#R'>Normative References</a>
+           <a href='#S'>Bibliography</a>
+           <a href='#T'>Bibliography Subsection</a>
+         </p>
     </div>
     OUTPUT
 
@@ -611,14 +804,14 @@ it "processes admonitions" do
   output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
                <div id="A">
-               <h1>1.&#160; </h1>
+               <h1>I.&#160; </h1>
                <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">First Box</p>
 
              <p id="C">paragraph</p>
            </div>
              </div>
              <div id="A1">
-               <h1>2.&#160; </h1>
+               <h1>II.&#160; </h1>
                <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box 1&#160;&#8212; Second Box</p>
 
              <p id="C1">paragraph</p>
@@ -626,7 +819,7 @@ it "processes admonitions" do
              </div>
              <br/>
              <div id="D" class="Section3">
-               <h1 class="Annex">1<br/><b>First Annex</b></h1>
+               <h1 class="Annex"><b>Annex I</b><br/><b>First Annex</b></h1>
                <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box I.1&#160;&#8212; Third Box</p>
 
              <p id="F">paragraph</p>
@@ -634,7 +827,7 @@ it "processes admonitions" do
              </div>
              <br/>
              <div id="D1" class="Section3">
-               <h1 class="Annex">1<br/><b>Second Annex</b></h1>
+               <h1 class="Annex"><b>Annex II</b><br/><b>Second Annex</b></h1>
                <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box II.1&#160;&#8212; Fourth Box</p>
 
              <p id="F1">paragraph</p>
@@ -664,10 +857,10 @@ end
   #{HTML_HDR}
              <div id="M">
                <h1>I.&#160; Clause 4</h1>
-               <div id="N"><h2>1. &#160; Introduction</h2>
+               <div id="N"><h2>A. &#160; Introduction</h2>
 
         </div>
-               <div id="O"><span class="zzMoveToFollowing">2. &#160; Clause 4.2 </span>
+               <div id="O"><span class="zzMoveToFollowing">B. &#160; Clause 4.2 </span>
 
         </div>
              </div>

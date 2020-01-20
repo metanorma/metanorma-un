@@ -9,7 +9,7 @@ module IsoDoc
         @meta = Metadata.new(lang, script, labels)
         @meta.set(:toc, @toc)
       end
-      
+
       def annex_name(annex, name, div)
         div.h1 **{ class: "Annex" } do |t|
           t << "#{anchor(annex['id'], :label)}"
@@ -59,7 +59,7 @@ module IsoDoc
         end
       end
 
-      def annex_levelnumber(num, lvl)
+      def annex_levelnum(num, lvl)
         case lvl % 3
         when 0 then RomanNumerals.to_roman(num)
         when 1 then ("A".ord + num - 1).chr
@@ -67,43 +67,53 @@ module IsoDoc
         end
       end
 
-      def leaf_section(clause, lvl)
-        @paranumber += 1
-        @anchors[clause["id"]] = {label: @paranumber.to_s, xref: "paragraph #{@paranumber}", level: lvl, type: "paragraph" }
+      NONTERMINAL =
+        "./clause | ./term  | ./terms | ./definitions | ./references".freeze
+
+      def leaf_section?(clause)
+        !clause.at(ns(NONTERMINAL)) &&
+          !%w(definitions annex terms).include?(clause.name) &&
+          clause.at(ns("./p | ./bibitem"))
       end
 
-      def annex_leaf_section(clause, num, lvl)
+      def label_leaf_section(clause, lvl)
         @paranumber += 1
-        @anchors[clause["id"]] = {label: @paranumber.to_s, xref: "paragraph #{num}.#{@paranumber}", level: lvl, type: "paragraph" }
+        @anchors[clause["id"]] = {label: @paranumber.to_s, 
+                                  xref: "paragraph #{@paranumber}", 
+                                  level: lvl, type: "paragraph" }
+      end
+
+      def label_annex_leaf_section(clause, num, lvl)
+        @paranumber += 1
+        @anchors[clause["id"]] = {label: @paranumber.to_s, 
+                                  xref: "paragraph #{num}.#{@paranumber}", 
+                                  level: lvl, type: "paragraph" }
       end
 
       def section_names(clause, num, lvl)
         return num if clause.nil?
-        clause.at(ns("./clause | ./term  | ./terms | ./definitions | ./references")) or
-          leaf_section(clause, lvl) && return
+        leaf_section?(clause) and label_leaf_section(clause, lvl) and return
         num = num + 1
         lbl = levelnumber(num, 1)
-        @anchors[clause["id"]] =
-          { label: lbl, xref: l10n("#{@clause_lbl} #{lbl}"), level: lvl, type: "clause" }
+        @anchors[clause["id"]] = { label: lbl, level: lvl, type: "clause",
+                                   xref: l10n("#{@clause_lbl} #{lbl}") }
         i = 1
-        clause.xpath(ns("./clause | ./term  | ./terms | ./definitions | ./references")).each do |c|
+        clause.xpath(ns(NONTERMINAL)).each do |c|
           section_names1(c, "#{lbl}.#{levelnumber(i, lvl + 1)}", lvl + 1)
-          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
+          i += 1 if !leaf_section?(c)
         end
         num
       end
 
       def section_names1(clause, num, level)
-        unless clause.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
-          leaf_section(clause, level) and return
-        end
+        leaf_section?(clause) and label_leaf_section(clause, level) and return
         /\.(?<leafnum>[^.]+$)/ =~ num
-        @anchors[clause["id"]] =
-          { label: leafnum, level: level, xref: l10n("#{@clause_lbl} #{num}"), type: "clause" }
+        @anchors[clause["id"]] = { label: leafnum, level: level, type: "clause",
+                                   xref: l10n("#{@clause_lbl} #{num}") }
         i = 1
-        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | ./references")).each do |c|
+        clause.xpath(ns(NONTERMINAL)).each do |c|
           section_names1(c, "#{num}.#{levelnumber(i, level + 1)}", level + 1)
-          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
+          i += 1 if !leaf_section?(c)
         end
       end
 
@@ -113,29 +123,28 @@ module IsoDoc
 
       def annex_names(clause, num)
         hierarchical_asset_names(clause, num)
-        unless clause.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
-          annex_leaf_section(clause, num, 1) and return
-        end
-        @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), type: "clause",
+        leaf_section?(clause) and
+          label_annex_leaf_section(clause, num, 1) and return
+        @anchors[clause["id"]] = { label: annex_name_lbl(clause, num),
+                                   type: "clause",
                                    xref: "#{@annex_lbl} #{num}", level: 1 }
         i = 1
         clause.xpath(ns("./clause")).each do |c|
-          annex_names1(c, "#{num}.#{annex_levelnumber(i, 2)}", 2)
-          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
+          annex_names1(c, "#{num}.#{annex_levelnum(i, 2)}", 2)
+          i += 1 if !leaf_section?(c)
         end
       end
 
       def annex_names1(clause, num, level)
-        unless clause.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
-          annex_leaf_section(clause, num, level) and return
-        end
+        leaf_section?(clause) and
+          label_annex_leaf_section(clause, num, level) and return
         /\.(?<leafnum>[^.]+$)/ =~ num
         @anchors[clause["id"]] = { label: leafnum, xref: "#{@annex_lbl} #{num}",
                                    level: level, type: "clause" }
         i = 1
         clause.xpath(ns("./clause | ./references")).each do |c|
-          annex_names1(c, "#{num}.#{annex_levelnumber(i, level + 1)}", level + 1)
-          i += 1 if c.at(ns("./clause | ./term  | ./terms | ./definitions | ./references"))
+          annex_names1(c, "#{num}.#{annex_levelnum(i, level + 1)}", level + 1)
+          i += 1 if !leaf_section?(c)
         end
       end
 
@@ -158,7 +167,8 @@ module IsoDoc
         clause.xpath(ns(".//admonition")).each do |t|
           i += 1 unless t["unnumbered"]
           next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct(i.to_s, nil, @admonition_lbl, "box", t["unnumbered"])
+          @anchors[t["id"]] = anchor_struct(i.to_s, nil, @admonition_lbl,
+                                            "box", t["unnumbered"])
         end
       end
 
@@ -167,7 +177,9 @@ module IsoDoc
         clause.xpath(ns(".//admonition")).each do |t|
           i += 1 unless t["unnumbered"]
           next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct("#{num}.#{i}", nil, @admonition_lbl, "box", t["unnumbered"])
+          @anchors[t["id"]] =
+            anchor_struct("#{num}.#{i}", nil, @admonition_lbl, "box",
+                          t["unnumbered"])
         end
       end
 
