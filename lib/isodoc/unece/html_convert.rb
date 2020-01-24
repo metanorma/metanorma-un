@@ -13,12 +13,6 @@ module IsoDoc
         super
       end
 
-      #def convert1(docxml, filename, dir)
-        #FileUtils.cp html_doc_path('logo.jpg'), File.join(@localdir, "logo.jpg")
-        #@files_to_delete << File.join(@localdir, "logo.jpg")
-        #super
-      #end
-
       def default_fonts(options)
         {
           bodyfont: (
@@ -58,7 +52,6 @@ module IsoDoc
         if plenary && @htmlcoverpage == html_doc_path("html_unece_titlepage.html")
           @htmlcoverpage = html_doc_path("html_unece_plenary_titlepage.html")
         end
-        #@htmlintropage = nil if plenary
         xml.body **body_attr do |body|
           make_body1(body, docxml)
           make_body2(body, docxml)
@@ -68,6 +61,7 @@ module IsoDoc
 
       def make_body3(body, docxml)
         body.div **{ class: "main-section" } do |div3|
+          boilerplate docxml, div3
           abstract docxml, div3
           foreword docxml, div3
           introduction docxml, div3
@@ -75,27 +69,6 @@ module IsoDoc
           footnotes div3
           comments div3
         end
-      end
-
-      def html_preface(docxml)
-        super
-=begin
-        preface_container = docxml.at("//div[@id = 'preface_container']") # recommendation
-        abstractbox = docxml.at("//div[@id = 'abstractbox']") # plenary
-        foreword = docxml.at("//p[@class = 'ForewordTitle']/..")
-        intro = docxml.at("//p[@class = 'IntroTitle']/..")
-        abstract = docxml.at("//h1[@class = 'AbstractTitle']/..")
-        abstract.parent = (abstractbox || preface_container) if abstract
-        docxml.at("//h1[@class = 'AbstractTitle']").remove if abstractbox
-        foreword.parent = preface_container if foreword && preface_container
-        intro.parent = preface_container if intro && preface_container
-        if abstractbox && !intro && !foreword
-          sect2 = docxml.at("//div[@class='WordSection2']")
-          sect2.next_element.remove # pagebreak
-          sect2.remove # pagebreak
-        end
-=end
-        docxml
       end
 
       def middle(isoxml, out)

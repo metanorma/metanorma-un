@@ -212,7 +212,7 @@ RSpec.describe IsoDoc::Unece do
              <div class="Section3" id="B">
                <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="IntroTitle">Introduction</p>
-               <div id="C"><h2><span style="mso-tab-count:1">&#160; </span>Introduction Subsection</h2>
+               <div id="C"><h2>Introduction Subsection</h2>
 
           </div>
              </div>
@@ -321,7 +321,7 @@ end
              <div class="Section3" id="B">
                <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="IntroTitle">Introduction</p>
-               <div id="C"><h2><span style="mso-tab-count:1">&#160; </span>Introduction Subsection</h2>
+               <div id="C"><h2>Introduction Subsection</h2>
 
           </div>
              </div>
@@ -613,7 +613,7 @@ INPUT
       <div class="Section3"><a name="B" id="B"></a>
         <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
         <p class="IntroTitle">Introduction</p>
-        <div><a name="C" id="C"></a><h2><span style="mso-tab-count:1">&#xA0; </span>Introduction Subsection</h2>
+        <div><a name="C" id="C"></a><h2>Introduction Subsection</h2>
 
    </div>
       </div>
@@ -660,6 +660,7 @@ INPUT
     <bibdata type="standard">
     <ext><doctype>recommendation</doctype></ext>
     </bibdata>
+    #{BOILERPLATE}
       <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
@@ -685,7 +686,8 @@ INPUT
          </dl>
        </definitions>
        </clause>
-        </preface><sections>
+        </preface><sections/>
+        </unece-standard>
 INPUT
         IsoDoc::Unece::WordConvert.new({}).convert("test", input, false)
           html = File.read("test.doc", encoding: "utf-8")
@@ -695,15 +697,41 @@ INPUT
           expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~"OUTPUT")
                  <div class="WordSection2">
        <div>
-         <p class="MsoNormal"><b>Note</b>
-         </p><p class="MsoNormal">The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
-
-
-
-         <p align="center" style="border:solid;" class="MsoNormal">ECE/TRADE/437</p>
-         <p align="center" class="MsoNormal">Copyright &#xA9; United Nations <br/>
-         All rights reserved worldwide<br/>
-         United Nations publication issued by the Economic Commission for Europe</p>
+<div class='boilerplate-legal'>
+  <div>
+    <p class='IntroTitle'/>
+    <div>
+      <p class='IntroTitle'>Note</p>
+      <p class='MsoNormal'>
+        <a name='_' id='_'/>
+        The designations employed and the presentation of the material in
+        this publication do not imply the expression of any opinion
+        whatsoever on the part of the Secretariat of the United Nations
+        concerning the legal status of any country, territory, city or area,
+        or of its authorities, or concerning the delimitation of its
+        frontiers or boundaries.
+      </p>
+    </div>
+  </div>
+</div>
+<div class='boilerplate-copyright'>
+  <div>
+    <p class='IntroTitle'/>
+    <p class='MsoNormal'>
+      <a name='boilerplate-ECEhdr' id='boilerplate-ECEhdr'/>
+      ECE/TRADE/437
+    </p>
+    <p class='MsoNormal'>
+      <a name='_' id='_'/>
+      Copyright &#xA9; United Nations 2020
+      <br/>
+       All rights reserved worldwide
+      <br/>
+       United Nations publication issued by the Economic Commission for
+      Europe
+    </p>
+  </div>
+</div>
 
        </div>
 
@@ -718,7 +746,7 @@ INPUT
              </div><div class="Section3"><a name="B" id="B"></a>
                <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <p class="IntroTitle">Introduction</p>
-               <div><a name="C" id="C"></a><h2><span style="mso-tab-count:1">&#xA0; </span>Introduction Subsection</h2>
+               <div><a name="C" id="C"></a><h2>Introduction Subsection</h2>
 
           </div>
              </div></div>
