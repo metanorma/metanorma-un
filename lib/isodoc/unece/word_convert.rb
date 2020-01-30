@@ -67,6 +67,7 @@ module IsoDoc
       def make_body2(body, docxml)
         body.div **{ class: "WordSection2" } do |div2|
           info docxml, div2
+          boilerplate docxml, div2
           abstract docxml, div2
           foreword docxml, div2
           introduction docxml, div2
@@ -101,8 +102,10 @@ module IsoDoc
         else
           div.send "h#{anchor(node['id'], :level) || '1'}" do |h|
             lbl = anchor(node['id'], :label, false)
-            h << "#{lbl}. " if lbl && !@suppressheadingnumbers
-            insert_tab(h, 1)
+            if lbl && !@suppressheadingnumbers
+              h << "#{lbl}. "
+              insert_tab(h, 1)
+            end
             c1&.children&.each { |c2| parse(c2, h) }
           end
         end
@@ -163,6 +166,12 @@ module IsoDoc
           s.p(**{ class: "AbstractTitle" }) { |h1| h1 << @abstract_lbl }
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
+      end
+
+      def authority_cleanup(docxml)
+        super
+        a = docxml.at("//div[@id = 'boilerplate-ECEhdr']") and a["class"] = "boilerplate-ECEhdr"
+        docxml&.at("//div[@class = 'authority']")&.remove
       end
 
       include BaseConvert

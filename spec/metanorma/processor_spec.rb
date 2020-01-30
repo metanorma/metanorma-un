@@ -31,13 +31,13 @@ RSpec.describe Metanorma::Unece::Processor do
     #{ASCIIDOC_BLANK_HDR}
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = xmlpp(strip_guid(<<~"OUTPUT"))
     #{BLANK_HDR}
 <sections/>
 </unece-standard>
     OUTPUT
 
-    expect(xmlpp(processor.input_to_isodoc(input, nil))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(processor.input_to_isodoc(input, nil)))).to be_equivalent_to output
   end
 
   it "generates HTML from IsoDoc XML" do
