@@ -819,7 +819,7 @@ a.footnote-number {
 }
 
 /* http://www.un.org/styleguide/ labels */
-.contact-info .name {
+.contact-info #boilerplate-feedback-name {
 /*  font-weight: 700;
   font-size: 1.2em;
   margin-bottom:0;*/
@@ -834,7 +834,7 @@ a.footnote-number {
   margin-bottom: 9px;
 }
 
-.contact-info .address {
+.contact-info #boilerplate-feedback-address {
     font-size: 1em;
     line-height: 1.3em;
     margin-top:0;
@@ -986,12 +986,20 @@ h2 p {
   4.4 Copyright
 */
 
-.copyright {
+.boilerplate-copyright {
   padding: 1em;
   font-size: 0.9em;
   text-align: left;
 }
 
+
+.boilerplate-copyright p {
+text-align: center;
+}
+
+#boilerplate-ECEhdr {
+  border: solid;
+}
 
 /*  .copyright .name, .copyright .address {color: $un-link;} */
 

@@ -23,7 +23,7 @@ RSpec.describe Asciidoctor::Unece do
 </unece-standard>
     OUTPUT
 
-    expect(xmlpp(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -41,7 +41,7 @@ RSpec.describe Asciidoctor::Unece do
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(xmlpp(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -94,11 +94,6 @@ RSpec.describe Asciidoctor::Unece do
   <title type="subtitle" language="en" format="text/plain">Subtitle</title>
   <docidentifier>1000(wd)</docidentifier>
   <docnumber>1000</docnumber>
-<edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
   <contributor>
     <role type="author"/>
     <organization>
@@ -111,6 +106,11 @@ RSpec.describe Asciidoctor::Unece do
       <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
     </organization>
   </contributor>
+  <edition>2</edition>
+<version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
   <language>en</language>
   <script>Latn</script>
   <status>
@@ -147,11 +147,12 @@ RSpec.describe Asciidoctor::Unece do
 </session>
 </ext>
 </bibdata>
+    #{BOILERPLATE.sub(/United Nations #{Date.today.year}/, "United Nations 2001")}
 <sections/>
 </unece-standard>
     OUTPUT
 
-    expect(xmlpp(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
   end
 
    it "processes committee-draft, languages" do
@@ -166,7 +167,7 @@ RSpec.describe Asciidoctor::Unece do
       :language: eo, tlh
       :submissionlanguage: de, jp
     INPUT
-    expect(xmlpp(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <unece-standard xmlns="https://open.ribose.com/standards/unece">
        <bibdata type="standard">
 
@@ -205,6 +206,7 @@ RSpec.describe Asciidoctor::Unece do
         <submissionlanguage>jp</submissionlanguage>
          </ext>
        </bibdata>
+#{BOILERPLATE}
        <sections/>
        </unece-standard>
     OUTPUT
@@ -220,7 +222,7 @@ RSpec.describe Asciidoctor::Unece do
       :docnumber: 1000
       :status: draft-standard
     INPUT
-    expect(xmlpp(Asciidoctor.convert(input, backend: :unece, header_footer: true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <unece-standard xmlns="https://open.ribose.com/standards/unece">
 <bibdata type="standard">
 
@@ -261,6 +263,7 @@ RSpec.describe Asciidoctor::Unece do
          <session/>
          </ext>
 </bibdata>
+#{BOILERPLATE}
 <sections/>
 </unece-standard>
     OUTPUT
