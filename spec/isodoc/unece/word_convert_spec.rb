@@ -699,9 +699,9 @@ INPUT
        <div>
 <div class='boilerplate-legal'>
   <div>
-    <p class='IntroTitle'/>
+    <p class='TitlePageSubhead'/>
     <div>
-      <p class='IntroTitle'>Note</p>
+      <p class='TitlePageSubhead'>Note</p>
       <p class='MsoNormal'>
         <a name='_' id='_'/>
         The designations employed and the presentation of the material in
@@ -716,7 +716,7 @@ INPUT
 </div>
 <div class='boilerplate-copyright'>
   <div>
-    <p class='IntroTitle'/>
+    <p class='TitlePageSubhead'/>
     <p class='MsoNormal'>
       <a name='boilerplate-ECEhdr' id='boilerplate-ECEhdr'/>
       ECE/TRADE/437
