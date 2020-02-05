@@ -100,7 +100,7 @@ module IsoDoc
         if node["inline-header"] == "true"
           inline_header_title(out, node, c1)
         else
-          div.send "h#{anchor(node['id'], :level) || '1'}" do |h|
+          div.send "h#{anchor(node['id'], :level, false) || '1'}" do |h|
             lbl = anchor(node['id'], :label, false)
             if lbl && !@suppressheadingnumbers
               h << "#{lbl}. "
