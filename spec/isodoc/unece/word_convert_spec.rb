@@ -699,7 +699,6 @@ INPUT
        <div>
 <div class='boilerplate-legal'>
   <div>
-    <p class='TitlePageSubhead'/>
     <div>
       <p class='TitlePageSubhead'>Note</p>
       <p class='MsoNormal'>
@@ -716,7 +715,6 @@ INPUT
 </div>
 <div class='boilerplate-copyright'>
   <div>
-    <p class='TitlePageSubhead'/>
     <p class='MsoNormal'>
       <a name='boilerplate-ECEhdr' id='boilerplate-ECEhdr'/>
       ECE/TRADE/437
