@@ -10,6 +10,8 @@ module Asciidoctor
     # schema encapsulation of the document for validation
     #
     class Converter < Standoc::Converter
+      XML_ROOT_TAG = "unece-standard".freeze
+      XML_NAMESPACE = "https://www.metanorma.com/ns/unece".freeze
 
       register_for "unece"
 
@@ -118,16 +120,8 @@ module Asciidoctor
       end
 
       def makexml(node)
-        result = ["<?xml version='1.0' encoding='UTF-8'?>\n<unece-standard>"]
         @draft = node.attributes.has_key?("draft")
-        result << noko { |ixml| front node, ixml }
-        result << noko { |ixml| middle node, ixml }
-        result << "</unece-standard>"
-        result = textcleanup(result)
-        ret1 = cleanup(Nokogiri::XML(result))
-        validate(ret1) unless @novalid
-        ret1.root.add_namespace(nil, Metanorma::Unece::DOCUMENT_NAMESPACE)
-        ret1
+        super
       end
 
       def doctype(node)

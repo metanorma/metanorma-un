@@ -70,7 +70,7 @@ BOILERPLATE =
 
 BLANK_HDR = <<~"HDR"
        <?xml version="1.0" encoding="UTF-8"?>
-       <unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
+       <unece-standard xmlns="https://www.metanorma.com/ns/unece">
        <bibdata type="standard">
 
          <contributor>
