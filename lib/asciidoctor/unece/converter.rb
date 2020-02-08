@@ -11,7 +11,7 @@ module Asciidoctor
     #
     class Converter < Standoc::Converter
       XML_ROOT_TAG = "unece-standard".freeze
-      XML_NAMESPACE = "https://open.ribose.com/standards/unece".freeze
+      XML_NAMESPACE = "https://www.metanorma.com/ns/unece".freeze
 
       register_for "unece"
 
