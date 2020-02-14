@@ -62,7 +62,7 @@ module Asciidoctor
       def metadata_id(node, xml)
         dn = node.attr("docnumber")
         if docstatus = node.attr("status")
-          abbr = IsoDoc::Unece::Metadata.new("en", "Latn", {}).status_abbr(docstatus)
+          abbr = IsoDoc::Unece::Metadata.new("en", "Latn", {}).stage_abbr(docstatus)
           dn = "#{dn}(#{abbr})" unless abbr.empty?
         end
         xml.docidentifier { |i| i << dn }
