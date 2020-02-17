@@ -69,7 +69,7 @@ set(:logo, File.expand_path(File.join(here, "html", "logo.jpg")))
         set(:formatted_docnumber, type == "recommendation" ? "UN/CEFACT Recommendation #{dn}" : dn)
       end
 
-      def status_abbr(status)
+      def stage_abbr(status)
         case status
         when "working-draft" then "wd"
         when "committee-draft" then "cd"
