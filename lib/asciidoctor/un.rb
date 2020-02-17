@@ -1,7 +1,7 @@
-require "asciidoctor/unece/converter"
+require "asciidoctor/un/converter"
 
 module Asciidoctor
-  module Unece
+  module UN
 
   end
 end

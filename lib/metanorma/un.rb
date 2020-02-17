@@ -1,13 +1,12 @@
-require "metanorma/unece/processor"
-require "metanorma/unece/input"
-require "metanorma/unece/version"
+require "metanorma/un/processor"
+require "metanorma/un/input"
+require "metanorma/un/version"
 
 module Metanorma
-  module Unece
+  module UN
 
-    ORGANIZATION_NAME_SHORT = "UNECE"
-    ORGANIZATION_NAME_LONG = "United Nations Economic Commission for Europe"
-    DOCUMENT_NAMESPACE = "https://open.ribose.com/standards/unece"
+    ORGANIZATION_NAME_SHORT = "UN"
+    ORGANIZATION_NAME_LONG = "United Nations"
 
   end
 end

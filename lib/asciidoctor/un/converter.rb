@@ -4,22 +4,23 @@ require "fileutils"
 require_relative "validate"
 
 module Asciidoctor
-  module Unece
+  module UN
 
     # A {Converter} implementation that generates RSD output, and a document
     # schema encapsulation of the document for validation
     #
     class Converter < Standoc::Converter
-      XML_ROOT_TAG = "unece-standard".freeze
+      XML_ROOT_TAG = "un-standard".freeze
       XML_NAMESPACE = "https://www.metanorma.org/ns/un".freeze
 
-      register_for "unece"
+      register_for "un"
 
       def metadata_author(node, xml)
         xml.contributor do |c|
           c.role **{ type: "author" }
           c.organization do |a|
-            a.name Metanorma::Unece::ORGANIZATION_NAME_SHORT
+            a.name Metanorma::UN::ORGANIZATION_NAME_LONG
+            a.abbreviation Metanorma::UN::ORGANIZATION_NAME_SHORT
           end
         end
       end
@@ -28,7 +29,8 @@ module Asciidoctor
         xml.contributor do |c|
           c.role **{ type: "publisher" }
           c.organization do |a|
-            a.name Metanorma::Unece::ORGANIZATION_NAME_SHORT
+            a.name Metanorma::UN::ORGANIZATION_NAME_LONG
+            a.abbreviation Metanorma::UN::ORGANIZATION_NAME_SHORT
           end
         end
       end
@@ -62,7 +64,7 @@ module Asciidoctor
       def metadata_id(node, xml)
         dn = node.attr("docnumber")
         if docstatus = node.attr("status")
-          abbr = IsoDoc::Unece::Metadata.new("en", "Latn", {}).status_abbr(docstatus)
+          abbr = IsoDoc::UN::Metadata.new("en", "Latn", {}).status_abbr(docstatus)
           dn = "#{dn}(#{abbr})" unless abbr.empty?
         end
         xml.docidentifier { |i| i << dn }
@@ -75,7 +77,8 @@ module Asciidoctor
           c.from from
           c.owner do |owner|
             owner.organization do |o|
-              o.name Metanorma::Unece::ORGANIZATION_NAME_SHORT
+              o.name Metanorma::UN::ORGANIZATION_NAME_LONG
+              o.abbreviation Metanorma::UN::ORGANIZATION_NAME_SHORT
             end
           end
         end
@@ -153,7 +156,7 @@ module Asciidoctor
       def validate(doc)
         content_validate(doc)
         schema_validate(formattedstr_strip(doc.dup),
-                        File.join(File.dirname(__FILE__), "unece.rng"))
+                        File.join(File.dirname(__FILE__), "un.rng"))
       end
 
       def style(n, t)
@@ -169,15 +172,15 @@ module Asciidoctor
       end
 
       def html_converter(node)
-        IsoDoc::Unece::HtmlConvert.new(html_extract_attributes(node))
+        IsoDoc::UN::HtmlConvert.new(html_extract_attributes(node))
       end
 
       def word_converter(node)
-        IsoDoc::Unece::WordConvert.new(doc_extract_attributes(node))
+        IsoDoc::UN::WordConvert.new(doc_extract_attributes(node))
       end
 
       def pdf_converter(node)
-        IsoDoc::Unece::PdfConvert.new(doc_extract_attributes(node))
+        IsoDoc::UN::PdfConvert.new(doc_extract_attributes(node))
       end
 
       def sections_cleanup(xmldoc)

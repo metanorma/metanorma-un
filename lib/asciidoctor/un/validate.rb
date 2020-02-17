@@ -1,5 +1,5 @@
 module Asciidoctor
-  module Unece
+  module UN
     class Converter < Standoc::Converter
       def content_validate(doc)
         super

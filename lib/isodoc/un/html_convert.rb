@@ -2,7 +2,7 @@ require_relative "base_convert"
 require "isodoc"
 
 module IsoDoc
-  module Unece
+  module UN
 
     # A {Converter} implementation that generates HTML output, and a document
     # schema encapsulation of the document for validation

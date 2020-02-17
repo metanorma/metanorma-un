@@ -3,7 +3,7 @@ require "twitter_cldr"
 require "iso-639"
 
 module IsoDoc
-  module Unece
+  module UN
 
     class Metadata < IsoDoc::Metadata
       def initialize(lang, script, labels)

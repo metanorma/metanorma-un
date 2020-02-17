@@ -1,10 +1,10 @@
-require "isodoc/unece/metadata"
-require "isodoc/unece/html_convert"
-require "isodoc/unece/word_convert"
-require "isodoc/unece/pdf_convert"
+require "isodoc/un/metadata"
+require "isodoc/un/html_convert"
+require "isodoc/un/word_convert"
+require "isodoc/un/pdf_convert"
 
 module IsoDoc
-  module Unece
+  module UN
 
   end
 end

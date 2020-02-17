@@ -1,17 +1,7 @@
 require "spec_helper"
 require "fileutils"
 
-RSpec.describe Asciidoctor::Unece do
-  #it "generates output for the Rice document" do
-  #  FileUtils.rm_rf %w(spec/examples/rfc6350.doc spec/examples/rfc6350.html spec/examples/rfc6350.pdf)
-  #  FileUtils.cd "spec/examples"
-  #  Asciidoctor.convert_file "rfc6350.adoc", {:attributes=>{"backend"=>"unece"}, :safe=>0, :header_footer=>true, :requires=>["metanorma-unece"], :failure_level=>4, :mkdirs=>true, :to_file=>nil}
-  #  FileUtils.cd "../.."
-  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.doc"))).to be true
-  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.html"))).to be true
-  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.pdf"))).to be false
-  #end
-
+RSpec.describe Asciidoctor::UN do
   it "processes a blank document" do
     input = <<~"INPUT"
     #{ASCIIDOC_BLANK_HDR}
@@ -20,10 +10,10 @@ RSpec.describe Asciidoctor::Unece do
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
-</unece-standard>
+</un-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -37,11 +27,11 @@ RSpec.describe Asciidoctor::Unece do
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
-</unece-standard>
+</un-standard>
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -88,7 +78,7 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
     output = xmlpp(<<~"OUTPUT")
     <?xml version="1.0" encoding="UTF-8"?>
-<unece-standard xmlns="https://www.metanorma.org/ns/un">
+<un-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
   <title type="main" language="en" format="text/plain">Main Title</title>
   <title type="subtitle" language="en" format="text/plain">Subtitle</title>
@@ -97,13 +87,15 @@ RSpec.describe Asciidoctor::Unece do
   <contributor>
     <role type="author"/>
     <organization>
-      <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+      <name>United Nations</name>
+      <abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+      <name>United Nations</name>
+      <abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <edition>2</edition>
@@ -121,7 +113,8 @@ RSpec.describe Asciidoctor::Unece do
     <from>2001</from>
     <owner>
       <organization>
-        <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+      <name>United Nations</name>
+      <abbreviation>UN</abbreviation>
       </organization>
     </owner>
   </copyright>
@@ -149,10 +142,10 @@ RSpec.describe Asciidoctor::Unece do
 </bibdata>
     #{BOILERPLATE.sub(/United Nations #{Date.today.year}/, "United Nations 2001")}
 <sections/>
-</unece-standard>
+</un-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
   end
 
    it "processes committee-draft, languages" do
@@ -167,8 +160,8 @@ RSpec.describe Asciidoctor::Unece do
       :language: eo, tlh
       :submissionlanguage: de, jp
     INPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-           <unece-standard xmlns="https://www.metanorma.org/ns/un">
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+           <un-standard xmlns="https://www.metanorma.org/ns/un">
        <bibdata type="standard">
 
          <docidentifier>1000(cd)</docidentifier>
@@ -176,13 +169,15 @@ RSpec.describe Asciidoctor::Unece do
          <contributor>
            <role type="author"/>
            <organization>
-             <name>UNECE</name>
+           <name>United Nations</name>
+<abbreviation>UN</abbreviation>
            </organization>
          </contributor>
          <contributor>
            <role type="publisher"/>
            <organization>
-             <name>UNECE</name>
+           <name>United Nations</name>
+<abbreviation>UN</abbreviation>
            </organization>
          </contributor>
          <language>eo</language>
@@ -195,7 +190,8 @@ RSpec.describe Asciidoctor::Unece do
            <from>#{Date.today.year}</from>
            <owner>
              <organization>
-               <name>UNECE</name>
+             <name>United Nations</name>
+<abbreviation>UN</abbreviation>
              </organization>
            </owner>
          </copyright>
@@ -208,7 +204,7 @@ RSpec.describe Asciidoctor::Unece do
        </bibdata>
 #{BOILERPLATE}
        <sections/>
-       </unece-standard>
+       </un-standard>
     OUTPUT
    end
 
@@ -222,8 +218,8 @@ RSpec.describe Asciidoctor::Unece do
       :docnumber: 1000
       :status: draft-standard
     INPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <unece-standard xmlns="https://www.metanorma.org/ns/un">
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <un-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
 
   <docidentifier>1000(d)</docidentifier>
@@ -231,13 +227,15 @@ RSpec.describe Asciidoctor::Unece do
   <contributor>
     <role type="author"/>
     <organization>
-      <name>UNECE</name>
+    <name>United Nations</name>
+<abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>UNECE</name>
+    <name>United Nations</name>
+<abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <language>ar</language>
@@ -254,7 +252,8 @@ RSpec.describe Asciidoctor::Unece do
     <from>#{Date.today.year}</from>
     <owner>
       <organization>
-        <name>UNECE</name>
+      <name>United Nations</name>
+<abbreviation>UN</abbreviation>
       </organization>
     </owner>
   </copyright>
@@ -265,12 +264,12 @@ RSpec.describe Asciidoctor::Unece do
 </bibdata>
 #{BOILERPLATE}
 <sections/>
-</unece-standard>
+</un-standard>
     OUTPUT
    end
 
    it "warns when type used other than recommendation or plenary" do
-     expect { Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true) }.to output(/is not a legal document type/).to_stderr
+     expect { Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true) }.to output(/is not a legal document type/).to_stderr
       = Document title
       Author
       :docfile: test.adoc
@@ -301,11 +300,11 @@ RSpec.describe Asciidoctor::Unece do
 </foreword></preface>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)).sub(/^.*<preface/m, "<preface").sub(%r{</preface>.*$}m, "</preface>"))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)).sub(/^.*<preface/m, "<preface").sub(%r{</preface>.*$}m, "</preface>"))).to be_equivalent_to output
   end
 
   it "processes notes" do
-      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
       
       [NOTE]
@@ -320,13 +319,13 @@ RSpec.describe Asciidoctor::Unece do
          <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </note>
        </sections>
-       </unece-standard>
+       </un-standard>
       OUTPUT
     end
 
 
   it "processes simple admonitions with Asciidoc names" do
-      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
       
       [IMPORTANT%unnumbered,subsequence=A]
@@ -342,7 +341,7 @@ RSpec.describe Asciidoctor::Unece do
          <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </admonition>
        </sections>
-       </unece-standard>
+       </un-standard>
 
       OUTPUT
     end
@@ -385,11 +384,11 @@ RSpec.describe Asciidoctor::Unece do
        <clause id="_" inline-header="true" obligation="normative"><p id="_">Para 2</p></clause></clause>
        </sections><annex id="_" inline-header="false" obligation="normative"><title>Annex</title><clause id="_" inline-header="true" obligation="normative"><p id="_">Para 3</p></clause>
        <clause id="_" inline-header="true" obligation="normative"><p id="_">Para 4</p></clause></annex>
-       </unece-standard>
+       </un-standard>
 
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
   end
 
   it "uses default fonts" do
@@ -401,7 +400,7 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
 
     FileUtils.rm_f "test.html"
-    Asciidoctor.convert(input, backend: :unece, header_footer: true)
+    Asciidoctor.convert(input, backend: :un, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\.Sourcecode[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
@@ -419,7 +418,7 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
 
     FileUtils.rm_f "test.html"
-    Asciidoctor.convert(input, backend: :unece, header_footer: true)
+    Asciidoctor.convert(input, backend: :un, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\.Sourcecode[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
@@ -440,7 +439,7 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
 
     FileUtils.rm_f "test.html"
-    Asciidoctor.convert(input, backend: :unece, header_footer: true)
+    Asciidoctor.convert(input, backend: :un, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\.Sourcecode[^{]+\{[^{]+font-family: Andale Mono;]m)
@@ -481,9 +480,9 @@ RSpec.describe Asciidoctor::Unece do
        <strike>strike</strike>
        <smallcap>smallcap</smallcap></p>
        </sections>
-       </unece-standard>
+       </un-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
   end
 end

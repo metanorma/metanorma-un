@@ -3,7 +3,7 @@ require "fileutils"
 require "roman-numerals"
 
 module IsoDoc
-  module Unece
+  module UN
     module BaseConvert
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)

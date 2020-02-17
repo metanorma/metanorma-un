@@ -1,8 +1,8 @@
-require "metanorma/unece"
+require "metanorma/un"
 require "asciidoctor"
-require "asciidoctor/unece"
-require "isodoc/unece"
+require "asciidoctor/un"
+require "isodoc/un"
 
 if defined? Metanorma
-  Metanorma::Registry.instance.register(Metanorma::Unece::Processor)
+  Metanorma::Registry.instance.register(Metanorma::UN::Processor)
 end

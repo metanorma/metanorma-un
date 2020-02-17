@@ -4,7 +4,7 @@ SimpleCov.start do
 end
 
 require "bundler/setup"
-require "metanorma-unece"
+require "metanorma-un"
 require "rspec/matchers"
 require "equivalent-xml"
 require "htmlentities"
@@ -60,7 +60,7 @@ HDR
 
 BOILERPLATE =
   HTMLEntities.new.decode(
-  File.read(File.join(File.dirname(__FILE__), "..", "lib", "asciidoctor", "unece", "boilerplate.xml"), encoding: "utf-8").
+  File.read(File.join(File.dirname(__FILE__), "..", "lib", "asciidoctor", "un", "boilerplate.xml"), encoding: "utf-8").
   gsub(/\{\{ agency \}\}/, "ISO").gsub(/\{\{ docyear \}\}/, Date.today.year.to_s).
   gsub(/\{% if unpublished %\}.*\{% endif %\}/m, "").
   gsub(/<p>/, "<p id='_'>").
@@ -70,19 +70,21 @@ BOILERPLATE =
 
 BLANK_HDR = <<~"HDR"
        <?xml version="1.0" encoding="UTF-8"?>
-       <unece-standard xmlns="https://www.metanorma.org/ns/un">
+       <un-standard xmlns="https://www.metanorma.org/ns/un">
        <bibdata type="standard">
 
          <contributor>
            <role type="author"/>
            <organization>
-             <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+             <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+             <abbreviation>#{Metanorma::UN::ORGANIZATION_NAME_SHORT}</abbreviation>
            </organization>
          </contributor>
          <contributor>
            <role type="publisher"/>
            <organization>
-             <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+             <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+             <abbreviation>#{Metanorma::UN::ORGANIZATION_NAME_SHORT}</abbreviation>
            </organization>
          </contributor>
          <language>ar</language>
@@ -98,7 +100,8 @@ BLANK_HDR = <<~"HDR"
            <from>#{Date.today.year}</from>
            <owner>
              <organization>
-               <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+               <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+               <abbreviation>#{Metanorma::UN::ORGANIZATION_NAME_SHORT}</abbreviation>
              </organization>
            </owner>
          </copyright>

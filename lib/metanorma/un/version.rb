@@ -1,5 +1,5 @@
 module Metanorma
-  module Unece
-    VERSION = "0.2.14"
+  module UN
+    VERSION = "0.3.0"
   end
 end
