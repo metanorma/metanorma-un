@@ -88,7 +88,7 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
     output = xmlpp(<<~"OUTPUT")
     <?xml version="1.0" encoding="UTF-8"?>
-<unece-standard xmlns="https://www.metanorma.com/ns/unece">
+<unece-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
   <title type="main" language="en" format="text/plain">Main Title</title>
   <title type="subtitle" language="en" format="text/plain">Subtitle</title>
@@ -168,7 +168,7 @@ RSpec.describe Asciidoctor::Unece do
       :submissionlanguage: de, jp
     INPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-           <unece-standard xmlns="https://www.metanorma.com/ns/unece">
+           <unece-standard xmlns="https://www.metanorma.org/ns/un">
        <bibdata type="standard">
 
          <docidentifier>1000(cd)</docidentifier>
@@ -223,7 +223,7 @@ RSpec.describe Asciidoctor::Unece do
       :status: draft-standard
     INPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <unece-standard xmlns="https://www.metanorma.com/ns/unece">
+    <unece-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
 
   <docidentifier>1000(d)</docidentifier>
