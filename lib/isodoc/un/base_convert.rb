@@ -213,13 +213,12 @@ module IsoDoc
       end
 
       def inline_header_title(out, node, c1)
-        title = c1&.content || ""
         out.span **{ class: "zzMoveToFollowing" } do |s|
           if lbl = anchor(node['id'], :label)
             s << "#{lbl}. " unless @suppressheadingnumbers
             insert_tab(s, 1)
           end
-          s << "#{title} "
+          c1&.children&.each { |c2| parse(c2, b) }
         end
       end
     end
