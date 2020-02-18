@@ -33,10 +33,14 @@ module IsoDoc
       MIDDLE_CLAUSE = "//clause[parent::sections]".freeze
 
       def initial_anchor_names(d)
-        preface_names(d.at(ns("//abstract")))
+        preface_names(d.at(ns("//preface/abstract")))
         preface_names(d.at(ns("//foreword")))
         preface_names(d.at(ns("//introduction")))
-        sequential_asset_names(d.xpath(ns("//foreword | //introduction")))
+        d.xpath(ns("//preface/clause")).each do |c| 
+          preface_names(c)
+        end
+        preface_names(d.at(ns("//acknowledgements")))
+        sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction | //preface/clause | //acknowledgements")))
         middle_section_asset_names(d)
         clause_names(d, 0)
         termnote_anchor_names(d)
@@ -218,7 +222,7 @@ module IsoDoc
             s << "#{lbl}. " unless @suppressheadingnumbers
             insert_tab(s, 1)
           end
-          c1&.children&.each { |c2| parse(c2, b) }
+          c1&.children&.each { |c2| parse(c2, s) }
         end
       end
     end
