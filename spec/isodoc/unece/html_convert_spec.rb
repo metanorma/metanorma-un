@@ -146,6 +146,9 @@ RSpec.describe IsoDoc::UN do
        </introduction>
        <abstract obligation="informative">
        </abstract>
+       <acknowledgements obligation="informative">
+       <title>Acknowledgements</title>
+       </acknowledgements>
        </preface>
        <sections>
        <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
@@ -222,6 +225,10 @@ RSpec.describe IsoDoc::UN do
 
           </div>
              </div>
+             <br/>
+<div class='Section3' id=''>
+  <h1 class='IntroTitle'>Acknowledgements</h1>
+</div>
              <div id="H">
                <h1>I.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
                <div id="I"><h2>A. &#160; Normal Terms</h2>
