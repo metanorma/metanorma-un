@@ -40,7 +40,9 @@ module IsoDoc
           preface_names(c)
         end
         preface_names(d.at(ns("//acknowledgements")))
-        sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction | //preface/clause | //acknowledgements")))
+        sequential_asset_names(
+          d.xpath(ns("//preface/abstract | //foreword | //introduction | "\
+                     "//preface/clause | //acknowledgements")))
         middle_section_asset_names(d)
         clause_names(d, 0)
         termnote_anchor_names(d)
