@@ -706,6 +706,24 @@ end
              <div class="Section3" id="B">
                <h1 class="IntroTitle">Introduction</h1>
                <div id="C"><h2>Introduction Subsection</h2>
+      </div>
+    </div>
+    <br/>
+    <div class='Section3' id='H'>
+      <h1 class='IntroTitle'>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+      <div id='I'>
+        <h2>Normal Terms</h2>
+        <p class='TermNum' id='J'>.</p>
+        <p class='Terms' style='text-align:left;'>Term2</p>
+      </div>
+      <div id='K'>
+        <h2>Symbols and abbreviated terms</h2>
+        <dl>
+          <dt>
+            <p>Symbol</p>
+          </dt>
+          <dd>Definition</dd>
+        </dl>
 
           </div>
              </div>

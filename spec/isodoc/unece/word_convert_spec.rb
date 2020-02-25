@@ -216,6 +216,28 @@ RSpec.describe IsoDoc::UN do
 
           </div>
              </div>
+               <p>
+    <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+  </p>
+  <div class='Section3' id='H'>
+    <h1 class='IntroTitle'>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+    <div id='I'>
+      <h2>Normal Terms</h2>
+      <p class='TermNum' id='J'>.</p>
+      <p class='Terms' style='text-align:left;'>Term2</p>
+    </div>
+    <div id='K'>
+      <h2>Symbols and abbreviated terms</h2>
+      <table class='dl'>
+        <tr>
+          <td valign='top' align='left'>
+            <p align='left' style='margin-left:0pt;text-align:left;'>Symbol</p>
+          </td>
+          <td valign='top'>Definition</td>
+        </tr>
+      </table>
+    </div>
+  </div>
              <p>&#160;</p>
            </div>
            <p><br clear="all" class="section"/></p>
@@ -325,6 +347,29 @@ end
 
           </div>
              </div>
+                 <p>
+      <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+    </p>
+    <div class='Section3' id='H'>
+      <h1 class='IntroTitle'>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+      <div id='I'>
+        <h2>Normal Terms</h2>
+        <p class='TermNum' id='J'>.</p>
+        <p class='Terms' style='text-align:left;'>Term2</p>
+      </div>
+      <div id='K'>
+        <h2>Symbols and abbreviated terms</h2>
+        <table class='dl'>
+          <tr>
+            <td valign='top' align='left'>
+              <p align='left' style='margin-left:0pt;text-align:left;'>Symbol</p>
+            </td>
+            <td valign='top'>Definition</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
              <p>&#160;</p>
            </div>
            <p><br clear="all" class="section"/></p>
@@ -614,6 +659,34 @@ INPUT
         <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
         <p class="IntroTitle">Introduction</p>
         <div><a name="C" id="C"></a><h2>Introduction Subsection</h2>
+   </div>
+ </div>
+ <p class='MsoNormal'>
+   <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+ </p>
+ <div class='Section3'>
+   <a name='H' id='H'/>
+   <h1 class='IntroTitle'>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+   <div>
+     <a name='I' id='I'/>
+     <h2>Normal Terms</h2>
+     <p class='TermNum'>
+       <a name='J' id='J'/>
+       .
+     </p>
+     <p class='Terms' style='text-align:left;'>Term2</p>
+   </div>
+   <div>
+     <a name='K' id='K'/>
+     <h2>Symbols and abbreviated terms</h2>
+     <table class='dl'>
+       <tr>
+         <td valign='top' align='left'>
+           <p align='left' style='margin-left:0pt;text-align:left;' class='MsoNormal'>Symbol</p>
+         </td>
+         <td valign='top'>Definition</td>
+       </tr>
+     </table>
 
    </div>
       </div>
@@ -747,6 +820,35 @@ INPUT
                <div><a name="C" id="C"></a><h2>Introduction Subsection</h2>
 
           </div>
+             </div>
+ </div>
+ <p class='MsoNormal'>
+   <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+ </p>
+ <div class='Section3'>
+   <a name='H' id='H'/>
+   <h1 class='IntroTitle'>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+   <div>
+     <a name='I' id='I'/>
+     <h2>Normal Terms</h2>
+     <p class='TermNum'>
+       <a name='J' id='J'/>
+       .
+     </p>
+     <p class='Terms' style='text-align:left;'>Term2</p>
+   </div>
+   <div>
+     <a name='K' id='K'/>
+     <h2>Symbols and abbreviated terms</h2>
+     <table class='dl'>
+       <tr>
+         <td valign='top' align='left'>
+           <p align='left' style='margin-left:0pt;text-align:left;' class='MsoNormal'>Symbol</p>
+         </td>
+         <td valign='top'>Definition</td>
+       </tr>
+     </table>
+
              </div></div>
 
 
