@@ -294,7 +294,7 @@ RSpec.describe Asciidoctor::UN do
     output = xmlpp(<<~"OUTPUT")
     <preface><abstract id="_">
   <p id="_">Abstract</p>
-</abstract><foreword obligation="informative">
+</abstract><foreword id="_" obligation="informative">
   <title>Foreword</title>
   <p id="_">Preamble</p>
 </foreword></preface>
