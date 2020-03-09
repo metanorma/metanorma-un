@@ -391,6 +391,56 @@ RSpec.describe Asciidoctor::UN do
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
   end
 
+    it "does not add paragraph numbering to an agenda" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :doctype: agenda
+
+      == Section 1
+      Para 1
+
+      * A
+      * B
+      * C
+
+      Para 2
+
+      [appendix]
+      == Annex
+      Para 3
+
+      Para 4
+    INPUT
+
+    output = xmlpp(<<~"OUTPUT")
+    #{BLANK_HDR.sub(%r{<doctype>recommendation</doctype>}, "<doctype>agenda</doctype>")}
+    <sections><clause id="_" inline-header="false" obligation="normative"><title>Section 1</title><p id="_">Para 1</p><ul id="_">
+         <li>
+           <p id="_">A</p>
+         </li>
+         <li>
+           <p id="_">B</p>
+         </li>
+         <li>
+           <p id="_">C</p>
+         </li>
+       </ul>
+
+       <p id="_">Para 2</p></clause>
+       </sections><annex id="_" inline-header="false" obligation="normative"><title>Annex</title><p id="_">Para 3</p>
+       <p id="_">Para 4</p></annex>
+       </un-standard>
+
+    OUTPUT
+
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
+  end
+
+
   it "uses default fonts" do
     input = <<~"INPUT"
       = Document title

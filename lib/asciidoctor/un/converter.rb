@@ -130,7 +130,7 @@ module Asciidoctor
       def doctype(node)
         d = node.attr("doctype")
         unless %w{plenary recommendation addendum communication corrigendum reissue
-          agenda budgetary sec-gen-notes expert-report resolution}.include? d
+          agenda budgetary sec-gen-notes expert-report resolution plenary-attachment}.include? d
           warn "#{d} is not a legal document type: reverting to 'recommendation'"
           d = "recommendation"
         end
@@ -185,6 +185,12 @@ module Asciidoctor
 
       def sections_cleanup(xmldoc)
         super
+        doctype = xmldoc&.at("//bibdata/ext/doctype")&.text
+        %w(plenary agenda budgetary).include?(doctype) or
+          para_to_clause(xmldoc)
+      end
+
+      def para_to_clause(xmldoc)
         xmldoc.xpath("//clause/p | //annex/p").each do |p|
           cl = Nokogiri::XML::Node.new("clause", xmldoc)
           cl["id"] = p["id"]
@@ -205,7 +211,7 @@ module Asciidoctor
         ))
       end
 
-       def sectiontype_streamline(ret)
+      def sectiontype_streamline(ret)
         case ret
         when "foreword" then "donotrecognise-foreword"
         when "introduction" then "donotrecognise-foreword"
