@@ -51,7 +51,7 @@ module IsoDoc
       end
 
       def make_body(xml, docxml)
-        plenary = %w(plenary agenda budgetary).include?(docxml&.at(ns("//bibdata/ext/doctype"))&.text)
+        plenary = is_plenary?(docxml)
         if plenary && @wordcoverpage == html_doc_path("word_unece_titlepage.html")
           @wordcoverpage = html_doc_path("word_unece_plenary_titlepage.html")
         end

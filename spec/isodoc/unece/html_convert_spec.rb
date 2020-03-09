@@ -896,10 +896,8 @@ end
 OUTPUT
     end
 
-
   it "does not switch plenary title page in HTML" do
     FileUtils.rm_f("test.html")
-        csdc = IsoDoc::UN::HtmlConvert.new({toc: true})
     input = <<~"INPUT"
 <un-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
@@ -911,8 +909,59 @@ OUTPUT
 INPUT
   IsoDoc::UN::HtmlConvert.new({}).convert("test", input, false)
   html = File.read("test.html", encoding: "utf-8")
-  expect(html).not_to include "<div class=MsoNormal id='abstractbox'"
+  expect(html).not_to include "<div id='abstractbox'"
   end
+
+    it "switch to plenary title page in DOC" do
+    FileUtils.rm_f("test.doc")
+    input = <<~"INPUT"
+<un-standard xmlns="https://www.metanorma.org/ns/un">
+<bibdata type="standard">
+  <title language="en" format="plain">Main Title</title>
+  <ext><doctype>plenary</doctype></ext>
+  </bibdata>
+  <sections/>
+  </un-standard>
+INPUT
+  IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
+  html = File.read("test.doc", encoding: "utf-8")
+  expect(html).to include '<a name="abstractbox" id="abstractbox"'
+  end
+
+    it "switch to plenary title page in DOC if any bibdata/ext/section" do
+    FileUtils.rm_f("test.doc")
+    input = <<~"INPUT"
+<un-standard xmlns="https://www.metanorma.org/ns/un">
+<bibdata type="standard">
+  <title language="en" format="plain">Main Title</title>
+  <ext><doctype>recommendation</doctype>
+  <session><element/></session>
+        </ext>
+  </bibdata>
+  <sections/>
+  </un-standard>
+INPUT
+  IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
+  html = File.read("test.doc", encoding: "utf-8")
+  expect(html).to include '<a name="abstractbox" id="abstractbox"'
+  end
+
+    it "does not switch plenary title page in DOC if no bibdata/ext/section" do
+    FileUtils.rm_f("test.doc")
+    input = <<~"INPUT"
+<un-standard xmlns="https://www.metanorma.org/ns/un">
+<bibdata type="standard">
+  <title language="en" format="plain">Main Title</title>
+  <ext><doctype>recommendation</doctype></ext>
+  </bibdata>
+  <sections/>
+  </un-standard>
+INPUT
+  IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
+  html = File.read("test.doc", encoding: "utf-8")
+  expect(html).not_to include '<a name="abstractbox" id="abstractbox"'
+  end
+
 
   it "processes bibliography" do
         input = <<~"INPUT"
