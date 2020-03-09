@@ -204,6 +204,15 @@ module Asciidoctor
           "subsequence": node.attr("subsequence"),
         ))
       end
+
+       def sectiontype_streamline(ret)
+        case ret
+        when "foreword" then "donotrecognise-foreword"
+        when "introduction" then "donotrecognise-foreword"
+        else
+          super
+        end
+      end
     end
   end
 end
