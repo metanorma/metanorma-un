@@ -131,7 +131,7 @@ module Asciidoctor
         d = node.attr("doctype")
         unless %w{plenary recommendation addendum communication corrigendum reissue
           agenda budgetary sec-gen-notes expert-report resolution plenary-attachment}.include? d
-          warn "#{d} is not a legal document type: reverting to 'recommendation'"
+          @log.add("Document Attributes", nil, "#{d} is not a legal document type: reverting to 'recommendation'")
           d = "recommendation"
         end
         d
@@ -149,6 +149,7 @@ module Asciidoctor
           word_converter(node).convert filename unless node.attr("nodoc")
           pdf_converter(node).convert filename unless node.attr("nodoc")
         end
+        @log.write(@filename + ".err") unless @novalid
         @files_to_delete.each { |f| FileUtils.rm f }
         ret
       end
