@@ -100,12 +100,12 @@ nav {
   }
 
   ul#toc-list {
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
   }
 }
 
-div.figure {
+.figure {
   @include figureBlock();
 }
 
@@ -124,9 +124,9 @@ div.figure {
   font-weight: 300;
 }
 
-div.document-stage-band,
-div.document-type-band {
-  background-color: #9ABD48;
+.document-stage-band,
+.document-type-band {
+  background-color: #9abd48;
 }
 
 p.document-type,
@@ -153,12 +153,12 @@ p.document-stage {
 
 #standard-band,
 #published-band {
-  background-color: #9ABD48;
+  background-color: #9abd48;
 }
 
 #standard,
 #published {
-  border-bottom: solid 3px #9ABD48;
+  border-bottom: solid 3px #9abd48;
 }
 
 #governance,
@@ -210,11 +210,11 @@ p.document-stage {
 }
 
 #standard {
-  border-bottom: solid 3px #9ABD48;
+  border-bottom: solid 3px #9abd48;
 }
 
 #standard-band {
-  background-color: #9ABD48;
+  background-color: #9abd48;
 }
 
 #obsolete {
@@ -544,7 +544,7 @@ a.footnote-number {
 .contact-info #boilerplate-feedback-address {
     font-size: 1em;
     line-height: 1.3em;
-    margin-top:0;
+    margin-top: 0;
 }
 
 /*
