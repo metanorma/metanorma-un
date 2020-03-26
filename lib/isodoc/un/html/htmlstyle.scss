@@ -33,6 +33,10 @@ $un-text: #333;
 /* RT: I made this up */
 $un-link: #00ADEF;
 
+$un-background: #9abd48;
+
+$un-guide: #48a0e7;
+
 body {
   @include bodyStyle1(15px, 1.4em, $un-text, #ffffff, 300);
   font-weight: 400;
@@ -100,8 +104,8 @@ nav {
   }
 
   ul#toc-list {
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
 }
 
@@ -120,13 +124,14 @@ nav {
 .document-stage-band {
   @include docBand(1, 150);
 }
-.document-stage-band > :first-child {
+
+.document-stage-band> :first-child {
   font-weight: 300;
 }
 
 .document-stage-band,
 .document-type-band {
-  background-color: #9abd48;
+  background-color: $un-background;
 }
 
 p.document-type,
@@ -153,12 +158,12 @@ p.document-stage {
 
 #standard-band,
 #published-band {
-  background-color: #9abd48;
+  background-color: $un-background;
 }
 
 #standard,
 #published {
-  border-bottom: solid 3px #9abd48;
+  border-bottom: solid 3px $un-background;
 }
 
 #governance,
@@ -172,11 +177,11 @@ p.document-stage {
 }
 
 #guide {
-  border-bottom: solid 3px #48a0e7;
+  border-bottom: solid 3px $un-guide;
 }
 
 #guide-band {
-  background-color: #48a0e7;
+  background-color: $un-guide;
 }
 
 .coverpage-maturity {
@@ -210,11 +215,11 @@ p.document-stage {
 }
 
 #standard {
-  border-bottom: solid 3px #9abd48;
+  border-bottom: solid 3px $un-background;
 }
 
 #standard-band {
-  background-color: #9abd48;
+  background-color: $un-background;
 }
 
 #obsolete {
@@ -233,7 +238,13 @@ p.document-stage {
     3.1 Titles
 */
 
-h1, h2, h3, h4, h5, h6, .h2Annex {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h2Annex {
   font-family: $headerfont;
   color: $un-blue;
   font-weight: 700;
@@ -242,7 +253,9 @@ h1, h2, h3, h4, h5, h6, .h2Annex {
   margin-bottom: 0.3em;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin-top: 18px;
   margin-bottom: 9px;
 }
@@ -309,28 +322,30 @@ h6 {
     font-weight: 100;
   }*/
 
-  .TermNum, .Terms, .AltTerms {
-    color: $un-blue;
-    font-weight: 100;
-  }
+.TermNum,
+.Terms,
+.AltTerms {
+  color: $un-blue;
+  font-weight: 100;
+}
 
-  h2.TermNum {
-    margin-bottom: 0;
-  }
+h2.TermNum {
+  margin-bottom: 0;
+}
 
-  p.Terms {
-    font-size: 1.1em;
-    line-height: 1.5em;
-    margin: 0;
-  }
+p.Terms {
+  font-size: 1.1em;
+  line-height: 1.5em;
+  margin: 0;
+}
 
-  p.AltTerms {
-    /*
+p.AltTerms {
+  /*
     font-style: italic;
      */
-    font-size: 1.1em;
-    margin: 0;
-  }
+  font-size: 1.1em;
+  margin: 0;
+}
 
 /*
     3.2 Links
@@ -342,15 +357,16 @@ h6 {
     3.3 Lists
 */
 
-ul, ol {
+ul,
+ol {
   margin-left: 1.2em;
 }
 
-ul > li p:first-child {
+ul>li p:first-child {
   display: inline;
 }
 
-ul > li:first-child {
+ul>li:first-child {
   margin-top: 1em;
 }
 
@@ -367,7 +383,7 @@ ul > li:first-child {
   display: none;
 }
 
-main ul > li {
+main ul>li {
   list-style-type: disc;
   list-style-position: outside;
   margin-bottom: 0.5em;
@@ -387,9 +403,10 @@ main ul > li {
     3.5 Bibliograhy
 */
 
-p.Biblio, p.NormRef {
-    margin-top: 1em;
-    margin-left: 2em;
+p.Biblio,
+p.NormRef {
+  margin-top: 1em;
+  margin-left: 2em;
 }
 
 /*
@@ -419,25 +436,25 @@ pre {
 */
 
 .Note {
-    background-color: #fff495;
-    color: #47430c;
-    padding: 1.2em;
-    margin: 1em 0 1em 0;
+  background-color: #fff495;
+  color: #47430c;
+  padding: 1.2em;
+  margin: 1em 0 1em 0;
 
-    p {
-        margin: 0;
-    }
+  p {
+    margin: 0;
+  }
 }
 
 .Admonition {
-    background-color: #ffcccc;
-    color: #47430c;
-    padding: 1.2em;
-    margin: 1em 0 1em 0;
+  background-color: #ffcccc;
+  color: #47430c;
+  padding: 1.2em;
+  margin: 1em 0 1em 0;
 
-    p {
-        margin: 0;
-    }
+  p {
+    margin: 0;
+  }
 }
 
 
@@ -477,12 +494,12 @@ p.TableTitle {
 */
 
 a.footnote-number {
-    vertical-align: super;
-    font-size: 0.8em;
+  vertical-align: super;
+  font-size: 0.8em;
 }
 
 .footnote {
-    font-size: 0.9em;
+  font-size: 0.9em;
 }
 
 
@@ -508,7 +525,7 @@ a.footnote-number {
 */
 
 .contact-info {
-/*  padding: 2em;*/
+  /*  padding: 2em;*/
   margin-top: 5em;
   text-align: left;
 }
@@ -520,14 +537,14 @@ a.footnote-number {
 
 .contact-info p,
 .contact-info a {
-/*  font-family: $monospacefont;
+  /*  font-family: $monospacefont;
   font-variant-ligatures: none; */
   font-weight: 400;
 }
 
 /* http://www.un.org/styleguide/ labels */
 .contact-info #boilerplate-feedback-name {
-/*  font-weight: 700;
+  /*  font-weight: 700;
   font-size: 1.2em;
   margin-bottom:0;*/
   padding-left: 1px;
@@ -542,9 +559,9 @@ a.footnote-number {
 }
 
 .contact-info #boilerplate-feedback-address {
-    font-size: 1em;
-    line-height: 1.3em;
-    margin-top: 0;
+  font-size: 1em;
+  line-height: 1.3em;
+  margin-top: 0;
 }
 
 /*
@@ -552,7 +569,7 @@ a.footnote-number {
 */
 
 span.keyword {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 /*
@@ -560,8 +577,8 @@ span.keyword {
 */
 
 p {
-    margin-top: 1em;
-    margin-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 h2 p {
@@ -627,7 +644,8 @@ h2 p {
 }
 
 
-.zzSTDTitle1, .MsoCommentText {
+.zzSTDTitle1,
+.MsoCommentText {
   display: none;
 }
 
@@ -637,7 +655,8 @@ h2 p {
   padding-left: 1.5em;
 }
 
-.coverpage-logo span, .coverpage-tc-name span {
+.coverpage-logo span,
+.coverpage-tc-name span {
   font-family: $bodyfont;
   text-transform: none;
   font-weight: 300;
@@ -702,7 +721,7 @@ h2 p {
 
 
 .boilerplate-copyright p {
-text-align: center;
+  text-align: center;
 }
 
 #boilerplate-ECEhdr {
@@ -733,16 +752,25 @@ To top button
 
 @media print {
 
-  .document-info,  nav, .copyright {
-      page-break-before: always;
+  .document-info,
+  nav,
+  .copyright {
+    page-break-before: always;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     page-break-after: avoid;
     margin-top: 1.2em;
   }
 
-  .note, .figure, pre, .pseudocode, table {
+  .note,
+  .figure,
+  pre,
+  .pseudocode,
+  table {
     page-break-inside: avoid;
   }
 
@@ -751,7 +779,7 @@ To top button
   }
 
   .coverpage {
-      height: 23cm;
+    height: 23cm;
   }
 
   .wrapper-top {
@@ -765,7 +793,7 @@ To top button
   }
 
   .container {
-      padding-left: 0;
+    padding-left: 0;
   }
 
 
@@ -773,61 +801,64 @@ To top button
     color: #4D7EA5;
   }
 
-  #toc .toc-active, #toc li:hover {
+  #toc .toc-active,
+  #toc li:hover {
     background: white;
-    box-shadow: none !important; }
+    box-shadow: none !important;
+  }
 
-    #toc li:hover a {
-    color: black; }
-
-
-    h1.content {
-      margin-top: 2em;
-      line-height: 2.5em;
-    }
-
-    h1 {
-      font-size: 1.5em;
-      line-height: 1.5;
-    }
-
-    h2 {
-      font-size: 1.2em
-    }
-
-    h3 {
-      font-size: 1em;
-    }
+  #toc li:hover a {
+    color: black;
+  }
 
 
-    .Note {
-        background-color: #fff495;
-        color: #47430c;
-        padding: 5px;
-        margin: 2em 0 1em 0; }
+  h1.content {
+    margin-top: 2em;
+    line-height: 2.5em;
+  }
 
-    .Note p {
-      padding: 0 5px 0 5px;
-    }
+  h1 {
+    font-size: 1.5em;
+    line-height: 1.5;
+  }
 
-    .Admonition {
-        background-color: #ffcccc;
-        color: #47430c;
-        padding: 5px;
-        margin: 2em 0 1em 0; }
+  h2 {
+    font-size: 1.2em
+  }
 
-    .Admonition p {
-      padding: 0 5px 0 5px;
-    }
+  h3 {
+    font-size: 1em;
+  }
 
 
-    nav {
-      line-height: 1;
-    }
+  .Note {
+    background-color: #fff495;
+    color: #47430c;
+    padding: 5px;
+    margin: 2em 0 1em 0;
+  }
 
-    .wrapper-top-bottom {
-      display: none;
-    }
+  .Note p {
+    padding: 0 5px 0 5px;
+  }
 
+  .Admonition {
+    background-color: #ffcccc;
+    color: #47430c;
+    padding: 5px;
+    margin: 2em 0 1em 0;
+  }
+
+  .Admonition p {
+    padding: 0 5px 0 5px;
+  }
+
+
+  nav {
+    line-height: 1;
+  }
+
+  .wrapper-top-bottom {
+    display: none;
+  }
 }
-
