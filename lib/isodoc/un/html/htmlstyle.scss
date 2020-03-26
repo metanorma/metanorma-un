@@ -37,11 +37,11 @@ $un-background: #9abd48;
 
 $un-guide: #48a0e7;
 
-$un-toc: #1661AD;
+$un-toc: #1661ad;
 
 $un-governence: #750697;
 
-$un-working-draft: #F7803C;
+$un-working-draft: #f7803c;
 
 $un-comitee-draft: #fd06fd;
 
@@ -55,7 +55,7 @@ $un-admonition-back: #ffcccc;
 
 $un-admonition-color: #47430c;
 
-$un-toc-active: #4D7EA5;
+$un-toc-active: #4d7ea5;
 
 body {
   @include bodyStyle1(15px, 1.4em, $un-text, #ffffff, 300);
@@ -149,8 +149,8 @@ nav {
   font-weight: 300;
 }
 
-.document-stage-band,
-.document-type-band {
+div.document-stage-band,
+div.document-type-band {
   background-color: $un-background;
 }
 
@@ -425,8 +425,8 @@ main ul>li {
 
 p.Biblio,
 p.NormRef {
-  margin-top: 1em;
   margin-left: 2em;
+  margin-top: 1em;
 }
 
 /*
