@@ -88,20 +88,20 @@ nav {
 
 @media screen and (min-width: 768px) {
   .container {
-      padding-left: 360px;
+    padding-left: 360px;
   }
 
   .rule.toc {
-      display: none;
+    display: none;
   }
 
   h1.toc-contents {
-      margin-top: 1em;
+    margin-top: 1em;
   }
 
   ul#toc-list {
-      padding:0;
-      margin:0;
+    padding:0;
+    margin:0;
   }
 }
 
@@ -122,6 +122,11 @@ div.figure {
 }
 .document-stage-band > :first-child {
   font-weight: 300;
+}
+
+div.document-stage-band,
+div.document-type-band {
+  background-color: #9ABD48;
 }
 
 p.document-type,
@@ -610,6 +615,7 @@ h2 p {
 
 .WordSection11 {
   padding: 0 2em 0 3em;
+  text-align: center;
 }
 
 .info-section {
