@@ -297,7 +297,7 @@ h2 {
 h3 {
   font-size: 24px;
   margin-top: 26px;
-  color: black;
+  color: $un-black;
 }
 
 h4 {
@@ -309,7 +309,7 @@ h4 {
 
 h5 {
   font-size: 16.25px;
-  color: black;
+  color: $un-black;
   margin-bottom: 2px;
 }
 
@@ -469,8 +469,8 @@ pre {
 .Admonition {
   background-color: $un-admonition-back;
   color: $un-admonition-color;
-  padding: 1.2em;
   margin: 1em 0;
+  padding: 1.2em;
 
   p {
     margin: 0;
@@ -500,7 +500,7 @@ pre {
 */
 
 table {
-  @include table(1px solid black);
+  @include table(1px solid $un-black);
 }
 
 p.TableTitle {
@@ -514,8 +514,8 @@ p.TableTitle {
 */
 
 a.footnote-number {
-  vertical-align: super;
   font-size: 0.8em;
+  vertical-align: super;
 }
 
 .footnote {
@@ -545,7 +545,6 @@ a.footnote-number {
 */
 
 .contact-info {
-  /*  padding: 2em;*/
   margin-top: 5em;
   text-align: left;
 }
@@ -557,16 +556,11 @@ a.footnote-number {
 
 .contact-info p,
 .contact-info a {
-  /*  font-family: $monospacefont;
-  font-variant-ligatures: none; */
   font-weight: 400;
 }
 
-/* http://www.un.org/styleguide/ labels */
+// http://www.un.org/styleguide/ labels
 .contact-info #boilerplate-feedback-name {
-  /*  font-weight: 700;
-  font-size: 1.2em;
-  margin-bottom:0;*/
   padding-left: 1px;
   color: $un-label;
   font-size: 18.2px;
@@ -597,8 +591,8 @@ span.keyword {
 */
 
 p {
-  margin-top: 1em;
   margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 h2 p {
@@ -828,13 +822,13 @@ To top button
   }
 
   #toc li:hover a {
-    color: black;
+    color: $un-black;
   }
 
 
   h1.content {
-    margin-top: 2em;
     line-height: 2.5em;
+    margin-top: 2em;
   }
 
   h1 {
@@ -843,7 +837,7 @@ To top button
   }
 
   h2 {
-    font-size: 1.2em
+    font-size: 1.2em;
   }
 
   h3 {
@@ -854,12 +848,12 @@ To top button
   .Note {
     background-color: $un-note;
     color: $un-admonition-color;
-    padding: 5px;
     margin: 2em 0 1em;
+    padding: 5px;
   }
 
   .Note p {
-    padding: 0 5px 0 5px;
+    padding: 0 5px;
   }
 
   .Admonition {
