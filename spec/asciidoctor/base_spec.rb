@@ -306,7 +306,7 @@ RSpec.describe Asciidoctor::UN do
   it "processes notes" do
       expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
-      
+
       [NOTE]
       .The United Nations Centre for Trade Facilitation and e-Business
       ====
@@ -327,7 +327,7 @@ RSpec.describe Asciidoctor::UN do
   it "processes simple admonitions with Asciidoc names" do
       expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
-      
+
       [IMPORTANT%unnumbered,subsequence=A]
       .The United Nations Centre for Trade Facilitation and e-Business
       ====
@@ -455,7 +455,7 @@ RSpec.describe Asciidoctor::UN do
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Roboto]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6, \.h2Annex \{[^}]+font-family: "Roboto]m)
+    expect(html).to match(%r[h1,\sh2,\sh3,\sh4,\sh5,\sh6,\s\.h2Annex \{[^}]+font-family: "Roboto]m)
   end
 
   it "uses Chinese fonts" do
@@ -473,7 +473,7 @@ RSpec.describe Asciidoctor::UN do
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "SimSun", serif;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6, \.h2Annex \{[^}]+font-family: "SimHei", sans-serif;]m)
+    expect(html).to match(%r[h1,\sh2,\sh3,\sh4,\sh5,\sh6,\s\.h2Annex \{[^}]+font-family: "SimHei", sans-serif;]m)
   end
 
   it "uses specified fonts" do
@@ -494,7 +494,7 @@ RSpec.describe Asciidoctor::UN do
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\bpre[^{]+\{[^{]+font-family: Andale Mono;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: Zapf Chancery;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6, \.h2Annex \{[^}]+font-family: Comic Sans;]m)
+    expect(html).to match(%r[h1,\sh2,\sh3,\sh4,\sh5,\sh6,\s\.h2Annex \{[^}]+font-family: Comic Sans;]m)
   end
 
   it "processes inline_quoted formatting" do
@@ -524,7 +524,7 @@ RSpec.describe Asciidoctor::UN do
        ‘single quote’
        super<sup>script</sup>
        sub<sub>script</sub>
-       <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>a</mi><mn>90</mn></msub></math></stem> 
+       <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>a</mi><mn>90</mn></msub></math></stem>
        <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub> <mrow> <mrow> <mi mathvariant="bold-italic">F</mi> </mrow> </mrow> <mrow> <mrow> <mi mathvariant="bold-italic">Α</mi> </mrow> </mrow> </msub> </math></stem>
        <keyword>keyword</keyword>
        <strike>strike</strike>
@@ -555,7 +555,7 @@ RSpec.describe Asciidoctor::UN do
       === Introduction Subsection
 
       == Acknowledgements
-      
+
       [.preface]
       == Dedication
 

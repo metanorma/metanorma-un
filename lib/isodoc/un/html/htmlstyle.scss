@@ -37,6 +37,26 @@ $un-background: #9abd48;
 
 $un-guide: #48a0e7;
 
+$un-toc: #1661AD;
+
+$un-governence: #750697;
+
+$un-working-draft: #F7803C;
+
+$un-comitee-draft: #fd06fd;
+
+$un-draft-standard: #fdf906;
+
+$un-obsolete: #7e0d13;
+
+$un-note: #fff495;
+
+$un-admonition-back: #ffcccc;
+
+$un-admonition-color: #47430c;
+
+$un-toc-active: #4D7EA5;
+
 body {
   @include bodyStyle1(15px, 1.4em, $un-text, #ffffff, 300);
   font-weight: 400;
@@ -55,7 +75,7 @@ p {
 */
 
 #toc {
-  @include toc($un-text, #1661AD, $un-text);
+  @include toc($un-text, $un-toc, $un-text);
   @include sidebarToc();
 
   .toc-active a {
@@ -168,12 +188,12 @@ p.document-stage {
 
 #governance,
 #policy-and-procedures {
-  border-bottom: solid 3px #750697;
+  border-bottom: solid 3px $un-governence;
 }
 
 #governance-band,
 #policy-and-procedures-band {
-  background-color: #750697;
+  background-color: $un-governence;
 }
 
 #guide {
@@ -190,28 +210,28 @@ p.document-stage {
 
 #working-draft,
 #proposal {
-  border-bottom: solid 3px #F7803C;
+  border-bottom: solid 3px $un-working-draft;
 }
 
 #working-draft-band,
 #proposal-band {
-  background-color: #F7803C;
+  background-color: $un-working-draft;
 }
 
 #committee-draft {
-  border-bottom: solid 3px #fd06fd;
+  border-bottom: solid 3px $un-comitee-draft;
 }
 
 #committee-draft-band {
-  background-color: #fd06fd;
+  background-color: $un-comitee-draft;
 }
 
 #draft-standard {
-  border-bottom: solid 3px #fdf906;
+  border-bottom: solid 3px $un-draft-standard;
 }
 
 #draft-standard-band {
-  background-color: #fdf906;
+  background-color: $un-draft-standard;
 }
 
 #standard {
@@ -223,11 +243,11 @@ p.document-stage {
 }
 
 #obsolete {
-  border-bottom: solid 3px #7e0d13;
+  border-bottom: solid 3px $un-obsolete;
 }
 
 #obsolete-band {
-  background-color: #7e0d13;
+  background-color: $un-obsolete;
 }
 
 /*
@@ -436,10 +456,10 @@ pre {
 */
 
 .Note {
-  background-color: #fff495;
-  color: #47430c;
+  background-color: $un-note;
+  color: $un-admonition-color;
+  margin: 1em 0;
   padding: 1.2em;
-  margin: 1em 0 1em 0;
 
   p {
     margin: 0;
@@ -447,10 +467,10 @@ pre {
 }
 
 .Admonition {
-  background-color: #ffcccc;
-  color: #47430c;
+  background-color: $un-admonition-back;
+  color: $un-admonition-color;
   padding: 1.2em;
-  margin: 1em 0 1em 0;
+  margin: 1em 0;
 
   p {
     margin: 0;
@@ -798,7 +818,7 @@ To top button
 
 
   #toc .toc-active a {
-    color: #4D7EA5;
+    color: $un-toc-active;
   }
 
   #toc .toc-active,
@@ -832,10 +852,10 @@ To top button
 
 
   .Note {
-    background-color: #fff495;
-    color: #47430c;
+    background-color: $un-note;
+    color: $un-admonition-color;
     padding: 5px;
-    margin: 2em 0 1em 0;
+    margin: 2em 0 1em;
   }
 
   .Note p {
@@ -843,16 +863,15 @@ To top button
   }
 
   .Admonition {
-    background-color: #ffcccc;
-    color: #47430c;
+    background-color: $un-admonition-back;
+    color: $un-admonition-color;
+    margin: 2em 0 1em;
     padding: 5px;
-    margin: 2em 0 1em 0;
   }
 
   .Admonition p {
-    padding: 0 5px 0 5px;
+    padding: 0 5px;
   }
-
 
   nav {
     line-height: 1;
