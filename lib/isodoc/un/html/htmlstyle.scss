@@ -33,6 +33,30 @@ $un-text: #333;
 /* RT: I made this up */
 $un-link: #00ADEF;
 
+$un-background: #9abd48;
+
+$un-guide: #48a0e7;
+
+$un-toc: #1661ad;
+
+$un-governence: #750697;
+
+$un-working-draft: #f7803c;
+
+$un-comitee-draft: #fd06fd;
+
+$un-draft-standard: #fdf906;
+
+$un-obsolete: #7e0d13;
+
+$un-note: #fff495;
+
+$un-admonition-back: #ffcccc;
+
+$un-admonition-color: #47430c;
+
+$un-toc-active: #4d7ea5;
+
 body {
   @include bodyStyle1(15px, 1.4em, $un-text, #ffffff, 300);
   font-weight: 400;
@@ -51,7 +75,7 @@ p {
 */
 
 #toc {
-  @include toc($un-text, #1661AD, $un-text);
+  @include toc($un-text, $un-toc, $un-text);
   @include sidebarToc();
 
   .toc-active a {
@@ -88,24 +112,24 @@ nav {
 
 @media screen and (min-width: 768px) {
   .container {
-      padding-left: 360px;
+    padding-left: 360px;
   }
 
   .rule.toc {
-      display: none;
+    display: none;
   }
 
   h1.toc-contents {
-      margin-top: 1em;
+    margin-top: 1em;
   }
 
   ul#toc-list {
-      padding:0;
-      margin:0;
+    margin: 0;
+    padding: 0;
   }
 }
 
-div.figure {
+.figure {
   @include figureBlock();
 }
 
@@ -120,8 +144,14 @@ div.figure {
 .document-stage-band {
   @include docBand(1, 150);
 }
-.document-stage-band > :first-child {
+
+.document-stage-band> :first-child {
   font-weight: 300;
+}
+
+div.document-stage-band,
+div.document-type-band {
+  background-color: $un-background;
 }
 
 p.document-type,
@@ -148,30 +178,30 @@ p.document-stage {
 
 #standard-band,
 #published-band {
-  background-color: #9ABD48;
+  background-color: $un-background;
 }
 
 #standard,
 #published {
-  border-bottom: solid 3px #9ABD48;
+  border-bottom: solid 3px $un-background;
 }
 
 #governance,
 #policy-and-procedures {
-  border-bottom: solid 3px #750697;
+  border-bottom: solid 3px $un-governence;
 }
 
 #governance-band,
 #policy-and-procedures-band {
-  background-color: #750697;
+  background-color: $un-governence;
 }
 
 #guide {
-  border-bottom: solid 3px #48a0e7;
+  border-bottom: solid 3px $un-guide;
 }
 
 #guide-band {
-  background-color: #48a0e7;
+  background-color: $un-guide;
 }
 
 .coverpage-maturity {
@@ -180,44 +210,44 @@ p.document-stage {
 
 #working-draft,
 #proposal {
-  border-bottom: solid 3px #F7803C;
+  border-bottom: solid 3px $un-working-draft;
 }
 
 #working-draft-band,
 #proposal-band {
-  background-color: #F7803C;
+  background-color: $un-working-draft;
 }
 
 #committee-draft {
-  border-bottom: solid 3px #fd06fd;
+  border-bottom: solid 3px $un-comitee-draft;
 }
 
 #committee-draft-band {
-  background-color: #fd06fd;
+  background-color: $un-comitee-draft;
 }
 
 #draft-standard {
-  border-bottom: solid 3px #fdf906;
+  border-bottom: solid 3px $un-draft-standard;
 }
 
 #draft-standard-band {
-  background-color: #fdf906;
+  background-color: $un-draft-standard;
 }
 
 #standard {
-  border-bottom: solid 3px #9ABD48;
+  border-bottom: solid 3px $un-background;
 }
 
 #standard-band {
-  background-color: #9ABD48;
+  background-color: $un-background;
 }
 
 #obsolete {
-  border-bottom: solid 3px #7e0d13;
+  border-bottom: solid 3px $un-obsolete;
 }
 
 #obsolete-band {
-  background-color: #7e0d13;
+  background-color: $un-obsolete;
 }
 
 /*
@@ -228,7 +258,13 @@ p.document-stage {
     3.1 Titles
 */
 
-h1, h2, h3, h4, h5, h6, .h2Annex {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h2Annex {
   font-family: $headerfont;
   color: $un-blue;
   font-weight: 700;
@@ -237,7 +273,9 @@ h1, h2, h3, h4, h5, h6, .h2Annex {
   margin-bottom: 0.3em;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin-top: 18px;
   margin-bottom: 9px;
 }
@@ -259,7 +297,7 @@ h2 {
 h3 {
   font-size: 24px;
   margin-top: 26px;
-  color: black;
+  color: $un-black;
 }
 
 h4 {
@@ -271,7 +309,7 @@ h4 {
 
 h5 {
   font-size: 16.25px;
-  color: black;
+  color: $un-black;
   margin-bottom: 2px;
 }
 
@@ -304,28 +342,30 @@ h6 {
     font-weight: 100;
   }*/
 
-  .TermNum, .Terms, .AltTerms {
-    color: $un-blue;
-    font-weight: 100;
-  }
+.TermNum,
+.Terms,
+.AltTerms {
+  color: $un-blue;
+  font-weight: 100;
+}
 
-  h2.TermNum {
-    margin-bottom: 0;
-  }
+h2.TermNum {
+  margin-bottom: 0;
+}
 
-  p.Terms {
-    font-size: 1.1em;
-    line-height: 1.5em;
-    margin: 0;
-  }
+p.Terms {
+  font-size: 1.1em;
+  line-height: 1.5em;
+  margin: 0;
+}
 
-  p.AltTerms {
-    /*
+p.AltTerms {
+  /*
     font-style: italic;
      */
-    font-size: 1.1em;
-    margin: 0;
-  }
+  font-size: 1.1em;
+  margin: 0;
+}
 
 /*
     3.2 Links
@@ -337,15 +377,16 @@ h6 {
     3.3 Lists
 */
 
-ul, ol {
+ul,
+ol {
   margin-left: 1.2em;
 }
 
-ul > li p:first-child {
+ul>li p:first-child {
   display: inline;
 }
 
-ul > li:first-child {
+ul>li:first-child {
   margin-top: 1em;
 }
 
@@ -362,7 +403,7 @@ ul > li:first-child {
   display: none;
 }
 
-main ul > li {
+main ul>li {
   list-style-type: disc;
   list-style-position: outside;
   margin-bottom: 0.5em;
@@ -382,9 +423,10 @@ main ul > li {
     3.5 Bibliograhy
 */
 
-p.Biblio, p.NormRef {
-    margin-top: 1em;
-    margin-left: 2em;
+p.Biblio,
+p.NormRef {
+  margin-left: 2em;
+  margin-top: 1em;
 }
 
 /*
@@ -414,25 +456,25 @@ pre {
 */
 
 .Note {
-    background-color: #fff495;
-    color: #47430c;
-    padding: 1.2em;
-    margin: 1em 0 1em 0;
+  background-color: $un-note;
+  color: $un-admonition-color;
+  margin: 1em 0;
+  padding: 1.2em;
 
-    p {
-        margin: 0;
-    }
+  p {
+    margin: 0;
+  }
 }
 
 .Admonition {
-    background-color: #ffcccc;
-    color: #47430c;
-    padding: 1.2em;
-    margin: 1em 0 1em 0;
+  background-color: $un-admonition-back;
+  color: $un-admonition-color;
+  margin: 1em 0;
+  padding: 1.2em;
 
-    p {
-        margin: 0;
-    }
+  p {
+    margin: 0;
+  }
 }
 
 
@@ -458,7 +500,7 @@ pre {
 */
 
 table {
-  @include table(1px solid black);
+  @include table(1px solid $un-black);
 }
 
 p.TableTitle {
@@ -472,12 +514,12 @@ p.TableTitle {
 */
 
 a.footnote-number {
-    vertical-align: super;
-    font-size: 0.8em;
+  font-size: 0.8em;
+  vertical-align: super;
 }
 
 .footnote {
-    font-size: 0.9em;
+  font-size: 0.9em;
 }
 
 
@@ -503,7 +545,6 @@ a.footnote-number {
 */
 
 .contact-info {
-/*  padding: 2em;*/
   margin-top: 5em;
   text-align: left;
 }
@@ -515,16 +556,11 @@ a.footnote-number {
 
 .contact-info p,
 .contact-info a {
-/*  font-family: $monospacefont;
-  font-variant-ligatures: none; */
   font-weight: 400;
 }
 
-/* http://www.un.org/styleguide/ labels */
+// http://www.un.org/styleguide/ labels
 .contact-info #boilerplate-feedback-name {
-/*  font-weight: 700;
-  font-size: 1.2em;
-  margin-bottom:0;*/
   padding-left: 1px;
   color: $un-label;
   font-size: 18.2px;
@@ -537,9 +573,9 @@ a.footnote-number {
 }
 
 .contact-info #boilerplate-feedback-address {
-    font-size: 1em;
-    line-height: 1.3em;
-    margin-top:0;
+  font-size: 1em;
+  line-height: 1.3em;
+  margin-top: 0;
 }
 
 /*
@@ -547,7 +583,7 @@ a.footnote-number {
 */
 
 span.keyword {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 /*
@@ -555,8 +591,8 @@ span.keyword {
 */
 
 p {
-    margin-top: 1em;
-    margin-bottom: 1em;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 h2 p {
@@ -610,6 +646,7 @@ h2 p {
 
 .WordSection11 {
   padding: 0 2em 0 3em;
+  text-align: center;
 }
 
 .info-section {
@@ -621,7 +658,8 @@ h2 p {
 }
 
 
-.zzSTDTitle1, .MsoCommentText {
+.zzSTDTitle1,
+.MsoCommentText {
   display: none;
 }
 
@@ -631,7 +669,8 @@ h2 p {
   padding-left: 1.5em;
 }
 
-.coverpage-logo span, .coverpage-tc-name span {
+.coverpage-logo span,
+.coverpage-tc-name span {
   font-family: $bodyfont;
   text-transform: none;
   font-weight: 300;
@@ -696,7 +735,7 @@ h2 p {
 
 
 .boilerplate-copyright p {
-text-align: center;
+  text-align: center;
 }
 
 #boilerplate-ECEhdr {
@@ -727,16 +766,25 @@ To top button
 
 @media print {
 
-  .document-info,  nav, .copyright {
-      page-break-before: always;
+  .document-info,
+  nav,
+  .copyright {
+    page-break-before: always;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     page-break-after: avoid;
     margin-top: 1.2em;
   }
 
-  .note, .figure, pre, .pseudocode, table {
+  .note,
+  .figure,
+  pre,
+  .pseudocode,
+  table {
     page-break-inside: avoid;
   }
 
@@ -745,7 +793,7 @@ To top button
   }
 
   .coverpage {
-      height: 23cm;
+    height: 23cm;
   }
 
   .wrapper-top {
@@ -759,69 +807,71 @@ To top button
   }
 
   .container {
-      padding-left: 0;
+    padding-left: 0;
   }
 
 
   #toc .toc-active a {
-    color: #4D7EA5;
+    color: $un-toc-active;
   }
 
-  #toc .toc-active, #toc li:hover {
+  #toc .toc-active,
+  #toc li:hover {
     background: white;
-    box-shadow: none !important; }
+    box-shadow: none !important;
+  }
 
-    #toc li:hover a {
-    color: black; }
-
-
-    h1.content {
-      margin-top: 2em;
-      line-height: 2.5em;
-    }
-
-    h1 {
-      font-size: 1.5em;
-      line-height: 1.5;
-    }
-
-    h2 {
-      font-size: 1.2em
-    }
-
-    h3 {
-      font-size: 1em;
-    }
+  #toc li:hover a {
+    color: $un-black;
+  }
 
 
-    .Note {
-        background-color: #fff495;
-        color: #47430c;
-        padding: 5px;
-        margin: 2em 0 1em 0; }
+  h1.content {
+    line-height: 2.5em;
+    margin-top: 2em;
+  }
 
-    .Note p {
-      padding: 0 5px 0 5px;
-    }
+  h1 {
+    font-size: 1.5em;
+    line-height: 1.5;
+  }
 
-    .Admonition {
-        background-color: #ffcccc;
-        color: #47430c;
-        padding: 5px;
-        margin: 2em 0 1em 0; }
+  h2 {
+    font-size: 1.2em;
+  }
 
-    .Admonition p {
-      padding: 0 5px 0 5px;
-    }
+  h3 {
+    font-size: 1em;
+  }
 
 
-    nav {
-      line-height: 1;
-    }
+  .Note {
+    background-color: $un-note;
+    color: $un-admonition-color;
+    margin: 2em 0 1em;
+    padding: 5px;
+  }
 
-    .wrapper-top-bottom {
-      display: none;
-    }
+  .Note p {
+    padding: 0 5px;
+  }
 
+  .Admonition {
+    background-color: $un-admonition-back;
+    color: $un-admonition-color;
+    margin: 2em 0 1em;
+    padding: 5px;
+  }
+
+  .Admonition p {
+    padding: 0 5px;
+  }
+
+  nav {
+    line-height: 1;
+  }
+
+  .wrapper-top-bottom {
+    display: none;
+  }
 }
-
