@@ -163,7 +163,7 @@ RSpec.describe Asciidoctor::UN do
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <un-standard xmlns="https://www.metanorma.org/ns/un">
        <bibdata type="standard">
-
+<title type='main' language='en' format='text/plain'>Document title</title>
          <docidentifier>1000(cd)</docidentifier>
          <docnumber>1000</docnumber>
          <contributor>
@@ -221,7 +221,7 @@ RSpec.describe Asciidoctor::UN do
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <un-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
-
+<title type='main' language='en' format='text/plain'>Document title</title>
   <docidentifier>1000(d)</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>

@@ -72,7 +72,7 @@ BLANK_HDR = <<~"HDR"
        <?xml version="1.0" encoding="UTF-8"?>
        <un-standard xmlns="https://www.metanorma.org/ns/un">
        <bibdata type="standard">
-
+        <title type='main' language='en' format='text/plain'>Document title</title>
          <contributor>
            <role type="author"/>
            <organization>
