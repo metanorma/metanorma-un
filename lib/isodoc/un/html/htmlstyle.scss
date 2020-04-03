@@ -138,7 +138,11 @@ nav {
 */
 
 .document-type-band {
-  @include docBand(2, 150, 180px);
+  @include docBand($order: 2, $offset: 180px);
+
+  .document-type {
+    top: 20px;
+  }
 }
 
 .document-stage-band {
