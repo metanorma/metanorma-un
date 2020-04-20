@@ -2,6 +2,10 @@ require "metanorma/processor"
 
 module Metanorma
   module UN
+    def self.pdf_fonts
+      ["Arial", "Arial Black", "Courier", "Times New Roman", "HanSans"]
+    end
+
     class Processor < Metanorma::Processor
 
       def initialize
