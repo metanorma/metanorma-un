@@ -1,13 +1,13 @@
 require "spec_helper"
 
-logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "isodoc", "unece", "html"))
+logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "isodoc", "un", "html"))
 
-RSpec.describe IsoDoc::Unece do
+RSpec.describe IsoDoc::UN do
 
   it "processes default metadata, recommendation" do
-    csdc = IsoDoc::Unece::WordConvert.new({toc: true})
+    csdc = IsoDoc::UN::WordConvert.new({toc: true})
     input = <<~"INPUT"
-<unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
+<un-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
   <title type="main" language="en" format="plain">Main Title</title>
   <title type="subtitle" language="en" format="plain">Subtitle</title>
@@ -15,13 +15,15 @@ RSpec.describe IsoDoc::Unece do
   <contributor>
     <role type="author"/>
     <organization>
-      <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+    <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+      <abbreviation>#{Metanorma::UN::ORGANIZATION_NAME_SHORT}</abbreviation>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+    <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+      <abbreviation>#{Metanorma::UN::ORGANIZATION_NAME_SHORT}</abbreviation>
     </organization>
   </contributor>
   <edition>2</edition>
@@ -37,7 +39,8 @@ RSpec.describe IsoDoc::Unece do
     <from>2001</from>
     <owner>
       <organization>
-        <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+      <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+      <abbreviation>#{Metanorma::UN::ORGANIZATION_NAME_SHORT}</abbreviation>
       </organization>
     </owner>
   </copyright>
@@ -51,11 +54,11 @@ RSpec.describe IsoDoc::Unece do
   </ext>
 </bibdata>
 <sections/>
-</unece-standard>
+</un-standard>
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :formatted_docnumber=>"UN/CEFACT Recommendation 1000", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :logo=>"#{File.join(logoloc, "logo.jpg")}", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :session_collaborator=>nil, :session_date=>nil, :session_id=>nil, :session_itemname=>[], :session_itemnumber=>[], :session_number=>nil, :session_subitemname=>[], :stage=>"Working Draft", :submissionlanguage=>["German"], :tc=>"TC", :toc=>true, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
+    {:accesseddate=>"XXX", :agency=>"UN", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :docnumber=>"1000", :docnumeric=>nil, :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Recommendation", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :formatted_docnumber=>"UN/CEFACT Recommendation 1000", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :logo=>"#{File.join(logoloc, "logo.jpg")}", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :publisher=>"United Nations", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :session_collaborator=>nil, :session_date=>nil, :session_id=>nil, :session_itemname=>[], :session_itemnumber=>[], :session_number=>nil, :session_subitemname=>[], :stage=>"Working Draft", :stageabbr=>"wd", :submissionlanguage=>["German"], :tc=>"TC", :toc=>true, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -63,9 +66,9 @@ RSpec.describe IsoDoc::Unece do
   end
 
     it "processes default metadata, plenary" do
-    csdc = IsoDoc::Unece::WordConvert.new({toc: true})
+    csdc = IsoDoc::UN::WordConvert.new({toc: true})
     input = <<~"INPUT"
-<unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
+<un-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
   <title type="main" language="en" format="plain">Main Title</title>
   <title type="subtitle" language="en" format="plain">Subtitle</title>
@@ -73,13 +76,15 @@ RSpec.describe IsoDoc::Unece do
   <contributor>
     <role type="author"/>
     <organization>
-      <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+    <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+      <abbreviation>#{Metanorma::UN::ORGANIZATION_NAME_SHORT}</abbreviation>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+    <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+      <abbreviation>#{Metanorma::UN::ORGANIZATION_NAME_SHORT}</abbreviation>
     </organization>
   </contributor>
   <language>en</language>
@@ -90,7 +95,8 @@ RSpec.describe IsoDoc::Unece do
     <from>2001</from>
     <owner>
       <organization>
-        <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+      <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+      <abbreviation>#{Metanorma::UN::ORGANIZATION_NAME_SHORT}</abbreviation>
       </organization>
     </owner>
   </copyright>
@@ -111,11 +117,11 @@ RSpec.describe IsoDoc::Unece do
   </ext>
 </bibdata>
 <sections/>
-</unece-standard>
+</un-standard>
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :doclanguage=>["English", "French"], :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>nil, :draftinfo=>"", :edition=>nil, :formatted_docnumber=>"1000(wd)", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :logo=>"#{File.join(logoloc, "logo.jpg")}", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>nil, :revdate_monthyear=>nil, :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_id=>"WHO-UNECE-01", :session_itemname=>[], :session_itemnumber=>[], :session_number=>"Third", :session_subitemname=>[], :stage=>"Working Draft", :tc=>"TC", :toc=>true, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
+    {:accesseddate=>"XXX", :agency=>"UN", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :distribution=>nil, :doclanguage=>["English", "French"], :docnumber=>"1000(wd)", :docnumeric=>nil, :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Plenary", :docyear=>"2001", :draft=>nil, :draftinfo=>"", :edition=>nil, :formatted_docnumber=>"1000(wd)", :implementeddate=>"XXX", :issueddate=>"XXX", :item_footnote=>nil, :logo=>"#{File.join(logoloc, "logo.jpg")}", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :publisher=>"United Nations", :receiveddate=>"XXX", :revdate=>nil, :revdate_monthyear=>nil, :session_collaborator=>"WHO", :session_date=>"2001-01-01", :session_id=>"WHO-UNECE-01", :session_itemname=>[], :session_itemnumber=>[], :session_number=>"Third", :session_subitemname=>[], :stage=>"Working Draft", :stageabbr=>"wd", :tc=>"TC", :toc=>true, :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -124,7 +130,7 @@ RSpec.describe IsoDoc::Unece do
 
   it "processes section names" do
     input = <<~"INPUT"
-    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <un-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
@@ -193,7 +199,7 @@ RSpec.describe IsoDoc::Unece do
        </references>
        </clause>
        </bibliography>
-       </unece-standard>
+       </un-standard>
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
@@ -216,6 +222,28 @@ RSpec.describe IsoDoc::Unece do
 
           </div>
              </div>
+               <p>
+    <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+  </p>
+  <div class='Section3' id='H'>
+    <h1 class='IntroTitle'>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+    <div id='I'>
+      <h2>Normal Terms</h2>
+      <p class='TermNum' id='J'>.</p>
+      <p class='Terms' style='text-align:left;'>Term2</p>
+    </div>
+    <div id='K'>
+      <h2>Symbols and abbreviated terms</h2>
+      <table class='dl'>
+        <tr>
+          <td valign='top' align='left'>
+            <p align='left' style='margin-left:0pt;text-align:left;'>Symbol</p>
+          </td>
+          <td valign='top'>Definition</td>
+        </tr>
+      </table>
+    </div>
+  </div>
              <p>&#160;</p>
            </div>
            <p><br clear="all" class="section"/></p>
@@ -241,12 +269,12 @@ RSpec.describe IsoDoc::Unece do
           </div></div>
     OUTPUT
 
-    expect(xmlpp(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">').sub(%r{<v:line.*$}m, '</div></div>'))).to be_equivalent_to output
+    expect(xmlpp(IsoDoc::UN::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">').sub(%r{<v:line.*$}m, '</div></div>'))).to be_equivalent_to output
 end
 
     it "processes section names, suppressing section numbering" do
     input = <<~"INPUT"
-    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <un-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
@@ -302,7 +330,7 @@ end
        </references>
        </clause>
        </bibliography>
-       </unece-standard>
+       </un-standard>
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
@@ -325,6 +353,29 @@ end
 
           </div>
              </div>
+                 <p>
+      <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+    </p>
+    <div class='Section3' id='H'>
+      <h1 class='IntroTitle'>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+      <div id='I'>
+        <h2>Normal Terms</h2>
+        <p class='TermNum' id='J'>.</p>
+        <p class='Terms' style='text-align:left;'>Term2</p>
+      </div>
+      <div id='K'>
+        <h2>Symbols and abbreviated terms</h2>
+        <table class='dl'>
+          <tr>
+            <td valign='top' align='left'>
+              <p align='left' style='margin-left:0pt;text-align:left;'>Symbol</p>
+            </td>
+            <td valign='top'>Definition</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
              <p>&#160;</p>
            </div>
            <p><br clear="all" class="section"/></p>
@@ -394,12 +445,12 @@ end
          </div>
        </div>
         OUTPUT
-    expect(xmlpp(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">').sub(%r{<v:line.*$}m, '</div></div>'))).to be_equivalent_to output
+    expect(xmlpp(IsoDoc::UN::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">').sub(%r{<v:line.*$}m, '</div></div>'))).to be_equivalent_to output
     end
 
 it "processes admonitions" do
   input = <<~"INPUT"
-  <unece-standard xmlns="http://riboseinc.com/isoxml">
+  <un-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <xref target="B"/>
     <xref target="B1"/>
@@ -432,7 +483,7 @@ it "processes admonitions" do
         <p id="F1">paragraph</p>
       </admonition>
     </annex>
-  </unece-standard>
+  </un-standard>
   INPUT
 
   output = xmlpp(<<~"OUTPUT")
@@ -451,12 +502,12 @@ it "processes admonitions" do
            </div></div>
        </div>
   OUTPUT
-    expect(xmlpp(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '</div>'))).to be_equivalent_to output
+    expect(xmlpp(IsoDoc::UN::WordConvert.new({}).convert("test", input, true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '</div>'))).to be_equivalent_to output
 end
 
     it "processes inline section headers" do
-      expect(xmlpp(IsoDoc::Unece::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '</div>'))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-      <unece-standard xmlns="http://riboseinc.com/isoxml">
+      expect(xmlpp(IsoDoc::UN::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, '</div>'))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      <un-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
        <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
@@ -466,7 +517,7 @@ end
        </clause></clause>
 
        </sections>
-      </unece-standard>
+      </un-standard>
     INPUT
            <div class="WordSection3"><div id="M"><h1>I.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1><div id="N"><h2>A. <span style="mso-tab-count:1">&#160; </span>Introduction</h2>
 
@@ -481,15 +532,15 @@ OUTPUT
   it "uses plenary title page in DOC for plenaries" do
     FileUtils.rm_f("test.doc")
     input = <<~"INPUT"
-<unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
+<un-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
   <title language="en" format="plain">Main Title</title>
   <ext><doctype>plenary</doctype></ext>
   </bibdata>
   <sections/>
-  </unece-standard>
+  </un-standard>
 INPUT
-IsoDoc::Unece::WordConvert.new(toc: true).convert("test", input, false)
+IsoDoc::UN::WordConvert.new(toc: true).convert("test", input, false)
   html = File.read("test.doc", encoding: "utf-8")
   expect(html).to include '<a name="abstractbox" id="abstractbox">'
   expect(html).to include 'class="zzContents"'
@@ -498,15 +549,15 @@ IsoDoc::Unece::WordConvert.new(toc: true).convert("test", input, false)
   it "removes intro page page in DOC for plenaries with no ToC" do
     FileUtils.rm_f("test.doc")
     input = <<~"INPUT"
-<unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
+<un-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
   <title language="en" format="plain">Main Title</title>
   <ext><doctype>plenary</doctype></ext>
   </bibdata>
   <sections/>
-  </unece-standard>
+  </un-standard>
 INPUT
-IsoDoc::Unece::WordConvert.new(toc: false).convert("test", input, false)
+IsoDoc::UN::WordConvert.new(toc: false).convert("test", input, false)
   html = File.read("test.doc", encoding: "utf-8")
   expect(html).to include '<a name="abstractbox" id="abstractbox">'
   expect(html).not_to include 'class="zzContents"'
@@ -516,15 +567,15 @@ IsoDoc::Unece::WordConvert.new(toc: false).convert("test", input, false)
   it "does not used plenary title page in DOC for recommendations" do
     FileUtils.rm_f("test.doc")
     input = <<~"INPUT"
-<unece-standard xmlns="#{Metanorma::Unece::DOCUMENT_NAMESPACE}">
+<un-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
   <title language="en" format="plain">Main Title</title>
   <ext><doctype>recommendation</doctype></ext>
   </bibdata>
   <sections/>
-  </unece-standard>
+  </un-standard>
 INPUT
-IsoDoc::Unece::WordConvert.new(toc: true).convert("test", input, false)
+IsoDoc::UN::WordConvert.new(toc: true).convert("test", input, false)
   html = File.read("test.doc", encoding: "utf-8")
   expect(html).not_to include '<a name="abstractbox" id="abstractbox">'
   expect(html).to include 'preface_container'
@@ -532,7 +583,7 @@ IsoDoc::Unece::WordConvert.new(toc: true).convert("test", input, false)
 
   it "processes bibliography" do
         input = <<~"INPUT"
-    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <un-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
     <clause>
     <eref bibitemid="ISO712"/>
@@ -552,13 +603,13 @@ IsoDoc::Unece::WordConvert.new(toc: true).convert("test", input, false)
 </bibitem>
        </references>
        </bibliography>
-</unece-standard>
+</un-standard>
 INPUT
   output = xmlpp(<<~"OUTPUT")
 <div class="WordSection3"><div><h1/><a href="#ISO712">ISO 712</a></div>  
 </div>
   OUTPUT
-  expect(xmlpp(IsoDoc::Unece::WordConvert.new({}).convert("test", input, true).
+  expect(xmlpp(IsoDoc::UN::WordConvert.new({}).convert("test", input, true).
          sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').
          sub(%r{<v:line.*$}m, '</div>'))).to be_equivalent_to output
   end
@@ -566,7 +617,7 @@ INPUT
   it "processes plenary preface" do
     FileUtils.rm_f("test.doc")
     input = <<~"INPUT"
-    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <un-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="standard">
     <ext><doctype>plenary</doctype></ext>
     </bibdata>
@@ -597,7 +648,7 @@ INPUT
        </clause>
         </preface><sections>
 INPUT
-        IsoDoc::Unece::WordConvert.new({}).convert("test", input, false)
+        IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
           html = File.read("test.doc", encoding: "utf-8")
           section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(%r{<div class="WordSection2">.*$}m, "")
           section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
@@ -614,6 +665,34 @@ INPUT
         <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
         <p class="IntroTitle">Introduction</p>
         <div><a name="C" id="C"></a><h2>Introduction Subsection</h2>
+   </div>
+ </div>
+ <p class='MsoNormal'>
+   <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+ </p>
+ <div class='Section3'>
+   <a name='H' id='H'/>
+   <h1 class='IntroTitle'>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+   <div>
+     <a name='I' id='I'/>
+     <h2>Normal Terms</h2>
+     <p class='TermNum'>
+       <a name='J' id='J'/>
+       .
+     </p>
+     <p class='Terms' style='text-align:left;'>Term2</p>
+   </div>
+   <div>
+     <a name='K' id='K'/>
+     <h2>Symbols and abbreviated terms</h2>
+     <table class='dl'>
+       <tr>
+         <td valign='top' align='left'>
+           <p align='left' style='margin-left:0pt;text-align:left;' class='MsoNormal'>Symbol</p>
+         </td>
+         <td valign='top'>Definition</td>
+       </tr>
+     </table>
 
    </div>
       </div>
@@ -626,14 +705,14 @@ INPUT
   it "removes WordSection2 if empty" do
         FileUtils.rm_f("test.doc")
     input = <<~"INPUT"
-    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <un-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="standard">
     <ext><doctype>plenary</doctype></ext>
     </bibdata>
       <preface>
         </preface><sections>
 INPUT
-        IsoDoc::Unece::WordConvert.new({}).convert("test", input, false)
+        IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
           html = File.read("test.doc", encoding: "utf-8")
           expect(html).not_to include '<div class="WordSection2"'
   end
@@ -641,14 +720,14 @@ INPUT
   it "does not removes WordSection2 if no preface but ToC" do
         FileUtils.rm_f("test.doc")
     input = <<~"INPUT"
-    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <un-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="standard">
     <ext><doctype>plenary</doctype></ext>
     </bibdata>
       <preface>
         </preface><sections>
 INPUT
-        IsoDoc::Unece::WordConvert.new({toc: true}).convert("test", input, false)
+        IsoDoc::UN::WordConvert.new({toc: true}).convert("test", input, false)
           html = File.read("test.doc", encoding: "utf-8")    
           expect(html).to include '<div class="WordSection2"'
   end
@@ -656,7 +735,7 @@ INPUT
   it "processes recommendation preface" do
     FileUtils.rm_f("test.doc")
     input = <<~"INPUT"
-    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <un-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="standard">
     <ext><doctype>recommendation</doctype></ext>
     </bibdata>
@@ -687,9 +766,9 @@ INPUT
        </definitions>
        </clause>
         </preface><sections/>
-        </unece-standard>
+        </un-standard>
 INPUT
-        IsoDoc::Unece::WordConvert.new({}).convert("test", input, false)
+        IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
           html = File.read("test.doc", encoding: "utf-8")
           section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(%r{<div class="WordSection2">.*$}m, "")
           section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
@@ -747,6 +826,35 @@ INPUT
                <div><a name="C" id="C"></a><h2>Introduction Subsection</h2>
 
           </div>
+             </div>
+ </div>
+ <p class='MsoNormal'>
+   <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+ </p>
+ <div class='Section3'>
+   <a name='H' id='H'/>
+   <h1 class='IntroTitle'>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+   <div>
+     <a name='I' id='I'/>
+     <h2>Normal Terms</h2>
+     <p class='TermNum'>
+       <a name='J' id='J'/>
+       .
+     </p>
+     <p class='Terms' style='text-align:left;'>Term2</p>
+   </div>
+   <div>
+     <a name='K' id='K'/>
+     <h2>Symbols and abbreviated terms</h2>
+     <table class='dl'>
+       <tr>
+         <td valign='top' align='left'>
+           <p align='left' style='margin-left:0pt;text-align:left;' class='MsoNormal'>Symbol</p>
+         </td>
+         <td valign='top'>Definition</td>
+       </tr>
+     </table>
+
              </div></div>
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<grammar ns="https://www.metanorma.com/ns/unece" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<grammar ns="https://www.metanorma.org/ns/un" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <!--
     Currently we inherit from a namespaced grammar, isostandard. Until we inherit from isodoc,
     we cannot have a new default namespace: we will end up with a grammar with two different
@@ -7,7 +7,7 @@
   -->
   <include href="isodoc.rng">
     <start>
-      <ref name="unece-standard"/>
+      <ref name="un-standard"/>
     </start>
     <define name="TextElement">
       <choice>
@@ -107,7 +107,9 @@
       <zeroOrMore>
         <ref name="submissionlanguage"/>
       </zeroOrMore>
-      <ref name="editorialgroup"/>
+      <optional>
+        <ref name="editorialgroup"/>
+      </optional>
       <zeroOrMore>
         <ref name="ics"/>
       </zeroOrMore>
@@ -221,11 +223,12 @@
         <value>general</value>
         <value>limited</value>
         <value>restricted</value>
+        <value>provisional</value>
       </choice>
     </element>
   </define>
-  <define name="unece-standard">
-    <element name="unece-standard">
+  <define name="un-standard">
+    <element name="un-standard">
       <ref name="bibdata"/>
       <optional>
         <ref name="boilerplate"/>

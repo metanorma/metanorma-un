@@ -1,9 +1,10 @@
 require "spec_helper"
 require "fileutils"
 
-RSpec.describe Asciidoctor::Unece do
+RSpec.describe Asciidoctor::UN do
    it "Warns of illegal doctype" do
-    expect { Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true) }.to output(/pizza is not a legal document type/).to_stderr
+       FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true) 
   = Document title
   Author
   :docfile: test.adoc
@@ -13,10 +14,12 @@ RSpec.describe Asciidoctor::Unece do
 
   text
   INPUT
+    expect(File.read("test.err")).to include "pizza is not a legal document type"
 end
 
 it "Warns of illegal status" do
-    expect { Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true) }.to output(/pizza is not a recognised status/).to_stderr
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true)
   = Document title
   Author
   :docfile: test.adoc
@@ -26,6 +29,7 @@ it "Warns of illegal status" do
 
   text
   INPUT
+    expect(File.read("test.err")).to include "pizza is not a recognised status"
 end
 
 end

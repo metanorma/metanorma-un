@@ -2,7 +2,7 @@ require_relative "base_convert"
 require "isodoc"
 
 module IsoDoc
-  module Unece
+  module UN
     # A {Converter} implementation that generates Word output, and a document
     # schema encapsulation of the document for validation
 
@@ -51,7 +51,7 @@ module IsoDoc
       end
 
       def make_body(xml, docxml)
-        plenary = docxml.at(ns("//bibdata/ext[doctype = 'plenary']"))
+        plenary = is_plenary?(docxml)
         if plenary && @wordcoverpage == html_doc_path("word_unece_titlepage.html")
           @wordcoverpage = html_doc_path("word_unece_plenary_titlepage.html")
         end
@@ -71,6 +71,8 @@ module IsoDoc
           abstract docxml, div2
           foreword docxml, div2
           introduction docxml, div2
+          preface docxml, div2
+          acknowledgements docxml, div2
           div2.p { |p| p << "&nbsp;" } # placeholder
         end
         section_break(body)
@@ -142,7 +144,8 @@ module IsoDoc
         foreword = docxml.at("//p[@class = 'ForewordTitle']/..")
         intro = docxml.at("//p[@class = 'IntroTitle']/..")
         abstract = docxml.at("//p[@class = 'AbstractTitle']/..")
-        abstract.parent = (abstractbox || preface_container) if abstract
+        abstract.parent = (abstractbox || preface_container) if abstract &&
+          (abstractbox || preface_container)
         abstractbox and abstract&.xpath(".//p/br")&.each do |a|
           a.parent.remove if /page-break-before:always/.match(a["style"])
         end

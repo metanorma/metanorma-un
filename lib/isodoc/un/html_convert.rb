@@ -2,7 +2,7 @@ require_relative "base_convert"
 require "isodoc"
 
 module IsoDoc
-  module Unece
+  module UN
 
     # A {Converter} implementation that generates HTML output, and a document
     # schema encapsulation of the document for validation
@@ -47,7 +47,7 @@ module IsoDoc
       end
 
       def make_body(xml, docxml)
-        plenary = docxml.at(ns("//bibdata/ext[doctype = 'plenary']"))
+        plenary = is_plenary?(docxml)
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72", "xml:lang": "EN-US", class: "container" }
         if plenary && @htmlcoverpage == html_doc_path("html_unece_titlepage.html")
           @htmlcoverpage = html_doc_path("html_unece_plenary_titlepage.html")
@@ -65,6 +65,8 @@ module IsoDoc
           abstract docxml, div3
           foreword docxml, div3
           introduction docxml, div3
+          preface docxml, div3
+          acknowledgements docxml, div3
           middle docxml, div3
           footnotes div3
           comments div3

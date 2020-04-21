@@ -4,22 +4,23 @@ require "fileutils"
 require_relative "validate"
 
 module Asciidoctor
-  module Unece
+  module UN
 
     # A {Converter} implementation that generates RSD output, and a document
     # schema encapsulation of the document for validation
     #
     class Converter < Standoc::Converter
-      XML_ROOT_TAG = "unece-standard".freeze
-      XML_NAMESPACE = "https://www.metanorma.com/ns/unece".freeze
+      XML_ROOT_TAG = "un-standard".freeze
+      XML_NAMESPACE = "https://www.metanorma.org/ns/un".freeze
 
-      register_for "unece"
+      register_for "un"
 
       def metadata_author(node, xml)
         xml.contributor do |c|
           c.role **{ type: "author" }
           c.organization do |a|
-            a.name Metanorma::Unece::ORGANIZATION_NAME_SHORT
+            a.name Metanorma::UN::ORGANIZATION_NAME_LONG
+            a.abbreviation Metanorma::UN::ORGANIZATION_NAME_SHORT
           end
         end
       end
@@ -28,7 +29,8 @@ module Asciidoctor
         xml.contributor do |c|
           c.role **{ type: "publisher" }
           c.organization do |a|
-            a.name Metanorma::Unece::ORGANIZATION_NAME_SHORT
+            a.name Metanorma::UN::ORGANIZATION_NAME_LONG
+            a.abbreviation Metanorma::UN::ORGANIZATION_NAME_SHORT
           end
         end
       end
@@ -50,7 +52,7 @@ module Asciidoctor
       def title(node, xml)
         ["en"].each do |lang|
           xml.title **{ type: "main", language: lang, format: "text/plain" } do |t|
-            t << Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("title"))
+            t << Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("title") || node.title)
           end
           node.attr("subtitle") and
             xml.title **{ type: "subtitle", language: lang, format: "text/plain" } do |t|
@@ -62,7 +64,7 @@ module Asciidoctor
       def metadata_id(node, xml)
         dn = node.attr("docnumber")
         if docstatus = node.attr("status")
-          abbr = IsoDoc::Unece::Metadata.new("en", "Latn", {}).status_abbr(docstatus)
+          abbr = IsoDoc::UN::Metadata.new("en", "Latn", {}).stage_abbr(docstatus)
           dn = "#{dn}(#{abbr})" unless abbr.empty?
         end
         xml.docidentifier { |i| i << dn }
@@ -75,7 +77,8 @@ module Asciidoctor
           c.from from
           c.owner do |owner|
             owner.organization do |o|
-              o.name Metanorma::Unece::ORGANIZATION_NAME_SHORT
+              o.name Metanorma::UN::ORGANIZATION_NAME_LONG
+              o.abbreviation Metanorma::UN::ORGANIZATION_NAME_SHORT
             end
           end
         end
@@ -127,8 +130,8 @@ module Asciidoctor
       def doctype(node)
         d = node.attr("doctype")
         unless %w{plenary recommendation addendum communication corrigendum reissue
-          agenda budgetary sec-gen-notes expert-report resolution}.include? d
-          warn "#{d} is not a legal document type: reverting to 'recommendation'"
+          agenda budgetary sec-gen-notes expert-report resolution plenary-attachment}.include? d
+          @log.add("Document Attributes", nil, "#{d} is not a legal document type: reverting to 'recommendation'")
           d = "recommendation"
         end
         d
@@ -146,6 +149,7 @@ module Asciidoctor
           word_converter(node).convert filename unless node.attr("nodoc")
           pdf_converter(node).convert filename unless node.attr("nodoc")
         end
+        @log.write(@localdir + @filename + ".err") unless @novalid
         @files_to_delete.each { |f| FileUtils.rm f }
         ret
       end
@@ -153,7 +157,7 @@ module Asciidoctor
       def validate(doc)
         content_validate(doc)
         schema_validate(formattedstr_strip(doc.dup),
-                        File.join(File.dirname(__FILE__), "unece.rng"))
+                        File.join(File.dirname(__FILE__), "un.rng"))
       end
 
       def style(n, t)
@@ -169,19 +173,25 @@ module Asciidoctor
       end
 
       def html_converter(node)
-        IsoDoc::Unece::HtmlConvert.new(html_extract_attributes(node))
+        IsoDoc::UN::HtmlConvert.new(html_extract_attributes(node))
       end
 
       def word_converter(node)
-        IsoDoc::Unece::WordConvert.new(doc_extract_attributes(node))
+        IsoDoc::UN::WordConvert.new(doc_extract_attributes(node))
       end
 
       def pdf_converter(node)
-        IsoDoc::Unece::PdfConvert.new(doc_extract_attributes(node))
+        IsoDoc::UN::PdfConvert.new(doc_extract_attributes(node))
       end
 
       def sections_cleanup(xmldoc)
         super
+        doctype = xmldoc&.at("//bibdata/ext/doctype")&.text
+        %w(plenary agenda budgetary).include?(doctype) or
+          para_to_clause(xmldoc)
+      end
+
+      def para_to_clause(xmldoc)
         xmldoc.xpath("//clause/p | //annex/p").each do |p|
           cl = Nokogiri::XML::Node.new("clause", xmldoc)
           cl["id"] = p["id"]
@@ -200,6 +210,15 @@ module Asciidoctor
           "unnumbered": node.option?("unnumbered"),
           "subsequence": node.attr("subsequence"),
         ))
+      end
+
+      def sectiontype_streamline(ret)
+        case ret
+        when "foreword" then "donotrecognise-foreword"
+        when "introduction" then "donotrecognise-foreword"
+        else
+          super
+        end
       end
     end
   end

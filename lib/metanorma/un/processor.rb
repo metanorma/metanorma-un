@@ -1,13 +1,17 @@
 require "metanorma/processor"
 
 module Metanorma
-  module Unece
+  module UN
+    def self.pdf_fonts
+      ["Arial", "Arial Black", "Courier", "Times New Roman", "HanSans"]
+    end
+
     class Processor < Metanorma::Processor
 
       def initialize
-        @short = :unece
+        @short = :un
         @input_format = :asciidoc
-        @asciidoctor_backend = :unece
+        @asciidoctor_backend = :un
       end
 
       def output_formats
@@ -19,21 +23,21 @@ module Metanorma
       end
 
       def version
-        "Metanorma::Unece #{Metanorma::Unece::VERSION}"
+        "Metanorma::UN #{Metanorma::UN::VERSION}"
       end
 
       def input_to_isodoc(file, filename)
-        Metanorma::Unece::Input::Asciidoc.new.process(file, filename, @asciidoctor_backend)
+        Metanorma::UN::Input::Asciidoc.new.process(file, filename, @asciidoctor_backend)
       end
 
       def output(isodoc_node, outname, format, options={})
         case format
         when :html
-          IsoDoc::Unece::HtmlConvert.new(options).convert(outname, isodoc_node)
+          IsoDoc::UN::HtmlConvert.new(options).convert(outname, isodoc_node)
         when :doc
-          IsoDoc::Unece::WordConvert.new(options).convert(outname, isodoc_node)
+          IsoDoc::UN::WordConvert.new(options).convert(outname, isodoc_node)
         when :pdf
-          IsoDoc::Unece::PdfConvert.new(options).convert(outname, isodoc_node)
+          IsoDoc::UN::PdfConvert.new(options).convert(outname, isodoc_node)
         else
           super
         end

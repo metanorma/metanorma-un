@@ -1,19 +1,21 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "metanorma/unece/version"
+require "metanorma/un/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "metanorma-unece"
-  spec.version       = Metanorma::Unece::VERSION
+  spec.name          = "metanorma-un"
+  spec.version       = Metanorma::UN::VERSION
   spec.authors       = ["Ribose Inc."]
   spec.email         = ["open.source@ribose.com"]
 
-  spec.summary       = "Metanorma for UNECE."
+  spec.summary       = "Metanorma for UN."
   spec.description   = <<~DESCRIPTION
-    Metanorma for UNECE: United Nations Economic Commission for Europe.
+    Metanorma for UN documents.
+
+    Formerly known as metanorma-unece
   DESCRIPTION
 
-  spec.homepage      = "https://github.com/metanorma/metanorma-unece"
+  spec.homepage      = "https://github.com/metanorma/metanorma-un"
   spec.license       = "BSD-2-Clause"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
@@ -42,5 +44,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop", "= 0.54.0"
   spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_development_dependency "timecop", "~> 0.9"
-  spec.add_development_dependency "metanorma", "~> 0.3.1"
 end

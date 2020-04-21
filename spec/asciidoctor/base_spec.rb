@@ -1,17 +1,7 @@
 require "spec_helper"
 require "fileutils"
 
-RSpec.describe Asciidoctor::Unece do
-  #it "generates output for the Rice document" do
-  #  FileUtils.rm_rf %w(spec/examples/rfc6350.doc spec/examples/rfc6350.html spec/examples/rfc6350.pdf)
-  #  FileUtils.cd "spec/examples"
-  #  Asciidoctor.convert_file "rfc6350.adoc", {:attributes=>{"backend"=>"unece"}, :safe=>0, :header_footer=>true, :requires=>["metanorma-unece"], :failure_level=>4, :mkdirs=>true, :to_file=>nil}
-  #  FileUtils.cd "../.."
-  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.doc"))).to be true
-  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.html"))).to be true
-  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.pdf"))).to be false
-  #end
-
+RSpec.describe Asciidoctor::UN do
   it "processes a blank document" do
     input = <<~"INPUT"
     #{ASCIIDOC_BLANK_HDR}
@@ -20,10 +10,10 @@ RSpec.describe Asciidoctor::Unece do
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
-</unece-standard>
+</un-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -37,11 +27,11 @@ RSpec.describe Asciidoctor::Unece do
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
-</unece-standard>
+</un-standard>
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -88,7 +78,7 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
     output = xmlpp(<<~"OUTPUT")
     <?xml version="1.0" encoding="UTF-8"?>
-<unece-standard xmlns="https://www.metanorma.com/ns/unece">
+<un-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
   <title type="main" language="en" format="text/plain">Main Title</title>
   <title type="subtitle" language="en" format="text/plain">Subtitle</title>
@@ -97,13 +87,15 @@ RSpec.describe Asciidoctor::Unece do
   <contributor>
     <role type="author"/>
     <organization>
-      <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+      <name>United Nations</name>
+      <abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+      <name>United Nations</name>
+      <abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <edition>2</edition>
@@ -121,7 +113,8 @@ RSpec.describe Asciidoctor::Unece do
     <from>2001</from>
     <owner>
       <organization>
-        <name>#{Metanorma::Unece::ORGANIZATION_NAME_SHORT}</name>
+      <name>United Nations</name>
+      <abbreviation>UN</abbreviation>
       </organization>
     </owner>
   </copyright>
@@ -149,10 +142,10 @@ RSpec.describe Asciidoctor::Unece do
 </bibdata>
     #{BOILERPLATE.sub(/United Nations #{Date.today.year}/, "United Nations 2001")}
 <sections/>
-</unece-standard>
+</un-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
   end
 
    it "processes committee-draft, languages" do
@@ -167,22 +160,24 @@ RSpec.describe Asciidoctor::Unece do
       :language: eo, tlh
       :submissionlanguage: de, jp
     INPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-           <unece-standard xmlns="https://www.metanorma.com/ns/unece">
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+           <un-standard xmlns="https://www.metanorma.org/ns/un">
        <bibdata type="standard">
-
+<title type='main' language='en' format='text/plain'>Document title</title>
          <docidentifier>1000(cd)</docidentifier>
          <docnumber>1000</docnumber>
          <contributor>
            <role type="author"/>
            <organization>
-             <name>UNECE</name>
+           <name>United Nations</name>
+<abbreviation>UN</abbreviation>
            </organization>
          </contributor>
          <contributor>
            <role type="publisher"/>
            <organization>
-             <name>UNECE</name>
+           <name>United Nations</name>
+<abbreviation>UN</abbreviation>
            </organization>
          </contributor>
          <language>eo</language>
@@ -195,7 +190,8 @@ RSpec.describe Asciidoctor::Unece do
            <from>#{Date.today.year}</from>
            <owner>
              <organization>
-               <name>UNECE</name>
+             <name>United Nations</name>
+<abbreviation>UN</abbreviation>
              </organization>
            </owner>
          </copyright>
@@ -208,7 +204,7 @@ RSpec.describe Asciidoctor::Unece do
        </bibdata>
 #{BOILERPLATE}
        <sections/>
-       </unece-standard>
+       </un-standard>
     OUTPUT
    end
 
@@ -222,22 +218,24 @@ RSpec.describe Asciidoctor::Unece do
       :docnumber: 1000
       :status: draft-standard
     INPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <unece-standard xmlns="https://www.metanorma.com/ns/unece">
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <un-standard xmlns="https://www.metanorma.org/ns/un">
 <bibdata type="standard">
-
+<title type='main' language='en' format='text/plain'>Document title</title>
   <docidentifier>1000(d)</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
     <organization>
-      <name>UNECE</name>
+    <name>United Nations</name>
+<abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>UNECE</name>
+    <name>United Nations</name>
+<abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <language>ar</language>
@@ -254,7 +252,8 @@ RSpec.describe Asciidoctor::Unece do
     <from>#{Date.today.year}</from>
     <owner>
       <organization>
-        <name>UNECE</name>
+      <name>United Nations</name>
+<abbreviation>UN</abbreviation>
       </organization>
     </owner>
   </copyright>
@@ -265,12 +264,12 @@ RSpec.describe Asciidoctor::Unece do
 </bibdata>
 #{BOILERPLATE}
 <sections/>
-</unece-standard>
+</un-standard>
     OUTPUT
    end
 
    it "warns when type used other than recommendation or plenary" do
-     expect { Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true) }.to output(/is not a legal document type/).to_stderr
+     expect { Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true) }.to output(/is not a legal document type/).to_stderr
       = Document title
       Author
       :docfile: test.adoc
@@ -295,19 +294,19 @@ RSpec.describe Asciidoctor::Unece do
     output = xmlpp(<<~"OUTPUT")
     <preface><abstract id="_">
   <p id="_">Abstract</p>
-</abstract><foreword obligation="informative">
+</abstract><foreword id="_" obligation="informative">
   <title>Foreword</title>
   <p id="_">Preamble</p>
 </foreword></preface>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)).sub(/^.*<preface/m, "<preface").sub(%r{</preface>.*$}m, "</preface>"))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)).sub(/^.*<preface/m, "<preface").sub(%r{</preface>.*$}m, "</preface>"))).to be_equivalent_to output
   end
 
   it "processes notes" do
-      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
-      
+
       [NOTE]
       .The United Nations Centre for Trade Facilitation and e-Business
       ====
@@ -320,15 +319,15 @@ RSpec.describe Asciidoctor::Unece do
          <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </note>
        </sections>
-       </unece-standard>
+       </un-standard>
       OUTPUT
     end
 
 
   it "processes simple admonitions with Asciidoc names" do
-      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :unece, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
-      
+
       [IMPORTANT%unnumbered,subsequence=A]
       .The United Nations Centre for Trade Facilitation and e-Business
       ====
@@ -342,7 +341,7 @@ RSpec.describe Asciidoctor::Unece do
          <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </admonition>
        </sections>
-       </unece-standard>
+       </un-standard>
 
       OUTPUT
     end
@@ -385,12 +384,62 @@ RSpec.describe Asciidoctor::Unece do
        <clause id="_" inline-header="true" obligation="normative"><p id="_">Para 2</p></clause></clause>
        </sections><annex id="_" inline-header="false" obligation="normative"><title>Annex</title><clause id="_" inline-header="true" obligation="normative"><p id="_">Para 3</p></clause>
        <clause id="_" inline-header="true" obligation="normative"><p id="_">Para 4</p></clause></annex>
-       </unece-standard>
+       </un-standard>
 
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
   end
+
+    it "does not add paragraph numbering to an agenda" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :doctype: agenda
+
+      == Section 1
+      Para 1
+
+      * A
+      * B
+      * C
+
+      Para 2
+
+      [appendix]
+      == Annex
+      Para 3
+
+      Para 4
+    INPUT
+
+    output = xmlpp(<<~"OUTPUT")
+    #{BLANK_HDR.sub(%r{<doctype>recommendation</doctype>}, "<doctype>agenda</doctype>")}
+    <sections><clause id="_" inline-header="false" obligation="normative"><title>Section 1</title><p id="_">Para 1</p><ul id="_">
+         <li>
+           <p id="_">A</p>
+         </li>
+         <li>
+           <p id="_">B</p>
+         </li>
+         <li>
+           <p id="_">C</p>
+         </li>
+       </ul>
+
+       <p id="_">Para 2</p></clause>
+       </sections><annex id="_" inline-header="false" obligation="normative"><title>Annex</title><p id="_">Para 3</p>
+       <p id="_">Para 4</p></annex>
+       </un-standard>
+
+    OUTPUT
+
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
+  end
+
 
   it "uses default fonts" do
     input = <<~"INPUT"
@@ -401,12 +450,12 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
 
     FileUtils.rm_f "test.html"
-    Asciidoctor.convert(input, backend: :unece, header_footer: true)
+    Asciidoctor.convert(input, backend: :un, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\.Sourcecode[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
+    expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Roboto]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6, \.h2Annex \{[^}]+font-family: "Roboto]m)
+    expect(html).to match(%r[h1,\sh2,\sh3,\sh4,\sh5,\sh6,\s\.h2Annex \{[^}]+font-family: "Roboto]m)
   end
 
   it "uses Chinese fonts" do
@@ -419,12 +468,12 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
 
     FileUtils.rm_f "test.html"
-    Asciidoctor.convert(input, backend: :unece, header_footer: true)
+    Asciidoctor.convert(input, backend: :un, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\.Sourcecode[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
+    expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "SimSun", serif;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6, \.h2Annex \{[^}]+font-family: "SimHei", sans-serif;]m)
+    expect(html).to match(%r[h1,\sh2,\sh3,\sh4,\sh5,\sh6,\s\.h2Annex \{[^}]+font-family: "SimHei", sans-serif;]m)
   end
 
   it "uses specified fonts" do
@@ -440,12 +489,12 @@ RSpec.describe Asciidoctor::Unece do
     INPUT
 
     FileUtils.rm_f "test.html"
-    Asciidoctor.convert(input, backend: :unece, header_footer: true)
+    Asciidoctor.convert(input, backend: :un, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\.Sourcecode[^{]+\{[^{]+font-family: Andale Mono;]m)
+    expect(html).to match(%r[\bpre[^{]+\{[^{]+font-family: Andale Mono;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: Zapf Chancery;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6, \.h2Annex \{[^}]+font-family: Comic Sans;]m)
+    expect(html).to match(%r[h1,\sh2,\sh3,\sh4,\sh5,\sh6,\s\.h2Annex \{[^}]+font-family: Comic Sans;]m)
   end
 
   it "processes inline_quoted formatting" do
@@ -475,15 +524,212 @@ RSpec.describe Asciidoctor::Unece do
        ‘single quote’
        super<sup>script</sup>
        sub<sub>script</sub>
-       <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>a</mi><mn>90</mn></msub></math></stem> 
+       <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>a</mi><mn>90</mn></msub></math></stem>
        <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub> <mrow> <mrow> <mi mathvariant="bold-italic">F</mi> </mrow> </mrow> <mrow> <mrow> <mi mathvariant="bold-italic">Α</mi> </mrow> </mrow> </msub> </math></stem>
        <keyword>keyword</keyword>
        <strike>strike</strike>
        <smallcap>smallcap</smallcap></p>
        </sections>
-       </unece-standard>
+       </un-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :unece, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
   end
+
+   it "processes sections" do
+    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      #{ASCIIDOC_BLANK_HDR}
+      .Foreword1
+
+      Text
+
+      == Foreword
+
+      [abstract]
+      == Abstract
+
+      Text
+
+      == Introduction
+
+      === Introduction Subsection
+
+      == Acknowledgements
+
+      [.preface]
+      == Dedication
+
+      == Scope
+
+      Text
+
+      == Normative References
+
+      == Terms and Definitions
+
+      === Term1
+
+      == Terms, Definitions, Symbols and Abbreviated Terms
+
+      [.nonterm]
+      === Introduction
+
+      ==== Intro 1
+
+      === Intro 2
+
+      [.nonterm]
+      ==== Intro 3
+
+      === Intro 4
+
+      ==== Intro 5
+
+      ===== Term1
+
+      === Normal Terms
+
+      ==== Term2
+
+      === Symbols and Abbreviated Terms
+
+      [.nonterm]
+      ==== General
+
+      ==== Symbols 1
+
+      == Abbreviated Terms
+
+      == Clause 4
+      === Introduction
+
+      === Clause 4.2
+
+      == Terms and Definitions
+
+      [appendix]
+      == Annex
+
+      === Annex A.1
+
+      == Bibliography
+
+      === Bibliography Subsection
+    INPUT
+    #{BLANK_HDR.sub(/<status>/, "<abstract> <p>Text</p> </abstract> <status>")}
+        <preface>
+    <abstract id='_'>
+      <p id='_'>Text</p>
+    </abstract>
+    <foreword id='_' obligation='informative'>
+      <title>Foreword1</title>
+      <p id='_'>Text</p>
+    </foreword>
+    <clause id='_' inline-header='false' obligation='informative'>
+      <title>Dedication</title>
+    </clause>
+    <acknowledgements id='_' obligation='informative'>
+      <title>Acknowledgements</title>
+    </acknowledgements>
+  </preface>
+  <sections>
+    <clause id='_' inline-header='false' obligation='normative'>
+      <title>Foreword</title>
+    </clause>
+    <clause id='_' inline-header='false' obligation='normative'>
+      <title>Introduction</title>
+      <clause id='_' inline-header='false' obligation='normative'>
+        <title>Introduction Subsection</title>
+      </clause>
+    </clause>
+    <clause id='_' inline-header='false' obligation='normative'>
+      <title>Scope</title>
+      <clause id='_' inline-header='true' obligation='normative'>
+        <p id='_'>Text</p>
+      </clause>
+    </clause>
+    <terms id='_' obligation='normative'>
+      <title>Terms and definitions</title>
+      <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
+      <term id='_'>
+        <preferred>Term1</preferred>
+      </term>
+    </terms>
+    <clause id='_' obligation='normative'>
+      <title>Terms, definitions, symbols and abbreviated terms</title>
+      <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
+      <clause id='_' inline-header='false' obligation='normative'>
+        <title>Introduction</title>
+        <clause id='_' inline-header='false' obligation='normative'>
+          <title>Intro 1</title>
+        </clause>
+      </clause>
+      <terms id='_' obligation='normative'>
+        <title>Intro 2</title>
+        <clause id='_' inline-header='false' obligation='normative'>
+          <title>Intro 3</title>
+        </clause>
+      </terms>
+      <clause id='_' obligation='normative'>
+        <title>Intro 4</title>
+        <terms id='_' obligation='normative'>
+          <title>Intro 5</title>
+          <term id='_'>
+            <preferred>Term1</preferred>
+          </term>
+        </terms>
+      </clause>
+      <terms id='_' obligation='normative'>
+        <title>Normal Terms</title>
+        <term id='_'>
+          <preferred>Term2</preferred>
+        </term>
+      </terms>
+      <definitions id='_'>
+        <title>Symbols and Abbreviated Terms</title>
+        <clause id='_' inline-header='false' obligation='normative'>
+          <title>General</title>
+        </clause>
+        <definitions id='_'>
+          <title>Symbols 1</title>
+        </definitions>
+      </definitions>
+    </clause>
+    <definitions id='_'>
+      <title>Abbreviated Terms</title>
+    </definitions>
+    <clause id='_' inline-header='false' obligation='normative'>
+      <title>Clause 4</title>
+      <clause id='_' inline-header='false' obligation='normative'>
+        <title>Introduction</title>
+      </clause>
+      <clause id='_' inline-header='false' obligation='normative'>
+        <title>Clause 4.2</title>
+      </clause>
+    </clause>
+    <clause id='_' inline-header='false' obligation='normative'>
+      <title>Terms and Definitions</title>
+    </clause>
+  </sections>
+  <annex id='_' inline-header='false' obligation='normative'>
+    <title>Annex</title>
+    <clause id='_' inline-header='false' obligation='normative'>
+      <title>Annex A.1</title>
+    </clause>
+  </annex>
+  <bibliography>
+    <references id='_' obligation='informative'>
+      <title>Normative References</title>
+      <p id='_'>There are no normative references in this document.</p>
+    </references>
+    <clause id='_' obligation='informative'>
+      <title>Bibliography</title>
+      <references id='_' obligation='informative'>
+        <title>Bibliography Subsection</title>
+      </references>
+    </clause>
+  </bibliography>
+</un-standard>
+OUTPUT
+   end
 end

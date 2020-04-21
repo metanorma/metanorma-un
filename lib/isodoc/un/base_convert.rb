@@ -3,7 +3,7 @@ require "fileutils"
 require "roman-numerals"
 
 module IsoDoc
-  module Unece
+  module UN
     module BaseConvert
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)
@@ -33,10 +33,16 @@ module IsoDoc
       MIDDLE_CLAUSE = "//clause[parent::sections]".freeze
 
       def initial_anchor_names(d)
-        preface_names(d.at(ns("//abstract")))
+        preface_names(d.at(ns("//preface/abstract")))
         preface_names(d.at(ns("//foreword")))
         preface_names(d.at(ns("//introduction")))
-        sequential_asset_names(d.xpath(ns("//foreword | //introduction")))
+        d.xpath(ns("//preface/clause")).each do |c| 
+          preface_names(c)
+        end
+        preface_names(d.at(ns("//acknowledgements")))
+        sequential_asset_names(
+          d.xpath(ns("//preface/abstract | //foreword | //introduction | "\
+                     "//preface/clause | //acknowledgements")))
         middle_section_asset_names(d)
         clause_names(d, 0)
         termnote_anchor_names(d)
@@ -213,14 +219,20 @@ module IsoDoc
       end
 
       def inline_header_title(out, node, c1)
-        title = c1&.content || ""
         out.span **{ class: "zzMoveToFollowing" } do |s|
           if lbl = anchor(node['id'], :label)
             s << "#{lbl}. " unless @suppressheadingnumbers
             insert_tab(s, 1)
           end
-          s << "#{title} "
+          c1&.children&.each { |c2| parse(c2, s) }
         end
+      end
+
+      def is_plenary?(docxml)
+        doctype = docxml&.at(ns("//bibdata/ext/doctype"))&.text
+        return true if  %w(plenary agenda budgetary).include?(doctype)
+        return true if docxml&.at(ns("//bibdata/ext/session/*"))
+        false
       end
     end
   end

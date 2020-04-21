@@ -3,13 +3,13 @@ require "twitter_cldr"
 require "iso-639"
 
 module IsoDoc
-  module Unece
+  module UN
 
     class Metadata < IsoDoc::Metadata
       def initialize(lang, script, labels)
         super
-                here = File.dirname(__FILE__)
-set(:logo, File.expand_path(File.join(here, "html", "logo.jpg")))
+        here = File.dirname(__FILE__)
+        set(:logo, File.expand_path(File.join(here, "html", "logo.jpg")))
       end
 
       def title(isoxml, _out)
@@ -42,6 +42,7 @@ set(:logo, File.expand_path(File.join(here, "html", "logo.jpg")))
         set(:doclanguage, lgs) unless lgs.empty?
         set(:submissionlanguage, slgs) unless slgs.empty?
         session(isoxml, _out)
+        super
       end
 
       def multival(isoxml, xpath)
@@ -69,7 +70,7 @@ set(:logo, File.expand_path(File.join(here, "html", "logo.jpg")))
         set(:formatted_docnumber, type == "recommendation" ? "UN/CEFACT Recommendation #{dn}" : dn)
       end
 
-      def status_abbr(status)
+      def stage_abbr(status)
         case status
         when "working-draft" then "wd"
         when "committee-draft" then "cd"
@@ -82,34 +83,6 @@ set(:logo, File.expand_path(File.join(here, "html", "logo.jpg")))
       def unpublished(status)
         !%w(published withdrawn).include? status.downcase
       end
-
-      def version(isoxml, _out)
-        super
-        revdate = get[:revdate]
-        set(:revdate_monthyear, monthyr(revdate))
-      end
-
-      MONTHS = {
-        "01": "January",
-        "02": "February",
-        "03": "March",
-        "04": "April",
-        "05": "May",
-        "06": "June",
-        "07": "July",
-        "08": "August",
-        "09": "September",
-        "10": "October",
-        "11": "November",
-        "12": "December",
-      }.freeze
-
-      def monthyr(isodate)
-        m = /(?<yr>\d\d\d\d)-(?<mo>\d\d)/.match isodate
-        return isodate unless m && m[:yr] && m[:mo]
-        return "#{MONTHS[m[:mo].to_sym]} #{m[:yr]}"
-      end
-
     end
   end
 end

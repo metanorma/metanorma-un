@@ -1,8 +1,8 @@
-<div class="document-stage-band" id='{{ stage | downcase | replace: " ", "-" }}-band'>
+<div class="document-stage-band" id="{{ stage | downcase | replace: ' ', '-' }}-band">
     <p class="document-stage">{{ stage }}</p>
 </div>
 
-<div class="document-type-band" id='{{ doctype | downcase | replace: " ", "-" }}-band'>
+<div class="document-type-band" id="{{ doctype | downcase | replace: ' ', '-' }}-band">
     <p class="document-type">UNECE {{ doctype }}</p>
 </div>
 
@@ -22,25 +22,6 @@
       <span class="docyear">{{ draftinfo }}</span>
     </div>
 
-    <div class="doc-number">
-      <p>{{ session_number }} session</p>
-      <p>{{ session_date }}</p>
-{% if session_itemnumber.size == 1 %}
-<p>Agenda item {{ session_itemnumber[0] }}</p>
-{% endif %}
-{% if session_itemnumber.size > 1 %}
-<p>Agenda items {{ session_itemnumber | join: ", " }}</p>
-{% endif %}
-<p>{{ docnumber }}{% if item_footnote %}[{{item_footnote}}]{% endif %}
-{% if session_itemname.size > 0 %}
-<p> {{ session_itemname | join: "<br/>" }}</p>
-{% endif %}
-{% if session_subitemname.size > 0 %}
-<p>{{ session_subitemname | join: "<br/>" }}</p>
-{% endif %}
-</div>
-    </div>
-
     <div class="coverpage-title">
       <span class="title-first">{{ doctitle }}</span>
       <!--<span class="title-second">{{ docsubtitle }}</span>-->
@@ -55,8 +36,7 @@
     <span>{{ tc }}</span>
   </div>
   </div>
-
-    <div class="wrapper-top-bottom"></div>
+  <div class="wrapper-top-bottom"></div>
 
   <div class="WordSection11">
   <div class="coverpage-stage-block" >

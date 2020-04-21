@@ -1,0 +1,881 @@
+/*
+    0 CSS RESET
+*/
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+@import 'base_style/all';
+
+/*
+    1. HTML & Body
+*/
+
+/* http://www.un.org/styleguide/ color */
+$un-blue: #00ADEF;
+
+/* http://www.99colors.net/name/united-nations-blue */
+$un-classic-blue: #5b92e5;
+
+/* http://www.un.org/styleguide/ label text */
+$un-label: #4D4D4D;
+
+/* http://www.un.org/styleguide/ brand-bar */
+$un-gray: #f2f2f2;
+
+$un-black: #000;
+
+/* http://www.un.org/styleguide/ p */
+$un-text: #333;
+
+/* RT: I made this up */
+$un-link: #00ADEF;
+
+$un-background: #9abd48;
+
+$un-guide: #48a0e7;
+
+$un-toc: #1661ad;
+
+$un-governence: #750697;
+
+$un-working-draft: #f7803c;
+
+$un-comitee-draft: #fd06fd;
+
+$un-draft-standard: #fdf906;
+
+$un-obsolete: #7e0d13;
+
+$un-note: #fff495;
+
+$un-admonition-back: #ffcccc;
+
+$un-admonition-color: #47430c;
+
+$un-toc-active: #4d7ea5;
+
+body {
+  @include bodyStyle1(15px, 1.4em, $un-text, #ffffff, 300);
+  font-weight: 400;
+}
+
+main {
+  margin: 0 3em 0 6em;
+}
+
+p {
+  line-height: 1.6;
+}
+
+/*
+    2. Responsive navigation layout
+*/
+
+#toc {
+  @include toc($un-text, $un-toc, $un-text);
+  @include sidebarToc();
+
+  .toc-active a {
+    color: white;
+  }
+
+  .toc-active,
+  li:hover {
+    background: linear-gradient(280deg, $un-blue, $un-classic-blue);
+    box-shadow: inset -5px 0px 10px -5px $un-blue !important;
+
+    a {
+      color: white;
+      background: none;
+      box-shadow: none;
+    }
+  }
+
+  ul {
+    a:hover {
+      box-shadow: none;
+      color: white;
+    }
+  }
+}
+
+nav {
+  @include sidebarNav(#f2f2f2, 323px, 45px);
+}
+
+#toggle {
+  @include sidebarNavToggle(white, $un-blue)
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding-left: 360px;
+  }
+
+  .rule.toc {
+    display: none;
+  }
+
+  h1.toc-contents {
+    margin-top: 1em;
+  }
+
+  ul#toc-list {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.figure {
+  @include figureBlock();
+}
+
+/*
+    Document types + stages
+*/
+
+.document-type-band {
+  @include docBand($order: 2, $offset: 180px);
+
+  .document-type {
+    top: 20px;
+  }
+}
+
+.document-stage-band {
+  @include docBand(1, 150);
+}
+
+.document-stage-band> :first-child {
+  font-weight: 300;
+}
+
+div.document-stage-band,
+div.document-type-band {
+  background-color: $un-background;
+}
+
+p.document-type,
+p.document-stage {
+  @include docBandTitle(150);
+}
+
+#governance-band p.document-type {
+  height: 230px !important;
+}
+
+p.document-stage {
+  font-weight: 300;
+  height: 160px;
+}
+
+#standard-band p {
+  height: 270px;
+}
+
+#proposal-band p {
+  height: 150px;
+}
+
+#standard-band,
+#published-band {
+  background-color: $un-background;
+}
+
+#standard,
+#published {
+  border-bottom: solid 3px $un-background;
+}
+
+#governance,
+#policy-and-procedures {
+  border-bottom: solid 3px $un-governence;
+}
+
+#governance-band,
+#policy-and-procedures-band {
+  background-color: $un-governence;
+}
+
+#guide {
+  border-bottom: solid 3px $un-guide;
+}
+
+#guide-band {
+  background-color: $un-guide;
+}
+
+.coverpage-maturity {
+  @include coverpageStageBlock();
+}
+
+#working-draft,
+#proposal {
+  border-bottom: solid 3px $un-working-draft;
+}
+
+#working-draft-band,
+#proposal-band {
+  background-color: $un-working-draft;
+}
+
+#committee-draft {
+  border-bottom: solid 3px $un-comitee-draft;
+}
+
+#committee-draft-band {
+  background-color: $un-comitee-draft;
+}
+
+#draft-standard {
+  border-bottom: solid 3px $un-draft-standard;
+}
+
+#draft-standard-band {
+  background-color: $un-draft-standard;
+}
+
+#standard {
+  border-bottom: solid 3px $un-background;
+}
+
+#standard-band {
+  background-color: $un-background;
+}
+
+#obsolete {
+  border-bottom: solid 3px $un-obsolete;
+}
+
+#obsolete-band {
+  background-color: $un-obsolete;
+}
+
+/*
+    3. TYPOGRAPHY
+*/
+
+/*
+    3.1 Titles
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h2Annex {
+  font-family: $headerfont;
+  color: $un-blue;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-top: 1.6em;
+  margin-bottom: 0.3em;
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 18px;
+  margin-bottom: 9px;
+}
+
+h1 {
+  font-size: 33px;
+  font-weight: 500;
+  margin: 0.67em 0;
+  letter-spacing: -0.02em;
+  color: $un-label;
+}
+
+
+h2 {
+  font-size: 27px;
+  color: $un-label;
+}
+
+h3 {
+  font-size: 24px;
+  margin-top: 26px;
+  color: $un-black;
+}
+
+h4 {
+  font-size: 18.2px;
+  margin-bottom: 2px;
+  color: $un-label;
+  letter-spacing: 0.03em;
+}
+
+h5 {
+  font-size: 16.25px;
+  color: $un-black;
+  margin-bottom: 2px;
+}
+
+h6 {
+  font-size: 13px;
+  color: $un-label;
+  letter-spacing: 0.05em;
+}
+
+
+/*  h1 {
+    font-size: 1.6em;
+    text-transform: uppercase;
+    margin-top: 2em;
+  }
+
+  h1#content {
+      margin-top: 2em;
+  }
+
+  h2 {
+    margin-top: 1.3em;
+    font-size: 1.3em;
+    font-weight: 400;
+  }
+
+  h3 {
+    margin-top: 1.1em;
+    font-size: 1.1em;
+    font-weight: 100;
+  }*/
+
+.TermNum,
+.Terms,
+.AltTerms {
+  color: $un-blue;
+  font-weight: 100;
+}
+
+h2.TermNum {
+  margin-bottom: 0;
+}
+
+p.Terms {
+  font-size: 1.1em;
+  line-height: 1.5em;
+  margin: 0;
+}
+
+p.AltTerms {
+  /*
+    font-style: italic;
+     */
+  font-size: 1.1em;
+  margin: 0;
+}
+
+/*
+    3.2 Links
+*/
+
+@include elementStyles($un-link, $un-blue, white);
+
+/*
+    3.3 Lists
+*/
+
+ul,
+ol {
+  margin-left: 1.2em;
+}
+
+ul>li p:first-child {
+  display: inline;
+}
+
+ul>li:first-child {
+  margin-top: 1em;
+}
+
+#toc-list ul {
+  margin-bottom: 0.25em;
+}
+
+#toc-list li {
+  list-style-type: none;
+}
+
+#toc li:before {
+  content: " ";
+  display: none;
+}
+
+main ul>li {
+  list-style-type: disc;
+  list-style-position: outside;
+  margin-bottom: 0.5em;
+  margin-left: 1em;
+}
+
+
+/*
+    3.4 Rules
+*/
+
+.rule {
+  @include rule(1px, #eee)
+}
+
+/*
+    3.5 Bibliograhy
+*/
+
+p.Biblio,
+p.NormRef {
+  margin-left: 2em;
+  margin-top: 1em;
+}
+
+/*
+    3.6 Source Code + figures
+*/
+
+.figure,
+pre,
+.pseudocode {
+  @include pseudocodeBlock($un-gray);
+}
+
+pre {
+  @include monospaceBlockStyle()
+}
+
+@include admonitionBlock();
+@include recommendationBlock();
+
+.FigureTitle,
+.SourceTitle {
+  @include blockTitle()
+}
+
+/*
+    3.7 Notes
+*/
+
+.Note {
+  background-color: $un-note;
+  color: $un-admonition-color;
+  margin: 1em 0;
+  padding: 1.2em;
+
+  p {
+    margin: 0;
+  }
+}
+
+.Admonition {
+  background-color: $un-admonition-back;
+  color: $un-admonition-color;
+  margin: 1em 0;
+  padding: 1.2em;
+
+  p {
+    margin: 0;
+  }
+}
+
+
+/*
+    3.8 Examples
+*/
+
+.example {
+  @include exampleBlock(#e1eef1, #424242, 1.2em);
+
+  .example-title {
+    margin-top: 0;
+  }
+
+  pre,
+  .pseudocode {
+    background: none;
+  }
+}
+
+/*
+    3.9 Tables
+*/
+
+table {
+  @include table(1px solid $un-black);
+}
+
+p.TableTitle {
+  text-align: center;
+  margin-top: 2.5em;
+  font-weight: 400;
+}
+
+/*
+  3.10 Footnotes
+*/
+
+a.footnote-number {
+  font-size: 0.8em;
+  vertical-align: super;
+}
+
+.footnote {
+  font-size: 0.9em;
+}
+
+
+/*
+    3.11 Blockquotes
+*/
+
+.Quote {
+  @include blockquoteBlock(#f2f2f2);
+}
+
+
+/*
+    3.12 Formulas
+*/
+
+.formula {
+  @include formulaBlock(#f2f2f2)
+}
+
+/*
+    3.13 Contact Info
+*/
+
+.contact-info {
+  margin-top: 5em;
+  text-align: left;
+}
+
+.contact-info a,
+.contact-info a:hover {
+  color: $un-blue;
+}
+
+.contact-info p,
+.contact-info a {
+  font-weight: 400;
+}
+
+// http://www.un.org/styleguide/ labels
+.contact-info #boilerplate-feedback-name {
+  padding-left: 1px;
+  color: $un-label;
+  font-size: 18.2px;
+  text-transform: uppercase;
+  margin-top: 0;
+  letter-spacing: 0.03em;
+  border-bottom: $un-blue solid 3px;
+  padding-bottom: 7px;
+  margin-bottom: 9px;
+}
+
+.contact-info #boilerplate-feedback-address {
+  font-size: 1em;
+  line-height: 1.3em;
+  margin-top: 0;
+}
+
+/*
+    Keywords
+*/
+
+span.keyword {
+  font-weight: 600;
+}
+
+/*
+    Paragraphs
+*/
+
+p {
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+h2 p {
+  display: inline;
+}
+
+
+/*
+    4.0 Page header
+*/
+
+/*
+    4.1 Top Logo
+*/
+
+.icon-svg {
+  width: 100%;
+  color: #5ecf86;
+}
+
+.wrapper-top {
+  background: linear-gradient(85deg, $un-blue, $un-classic-blue);
+  color: #ffffff;
+  padding: 2em 0;
+  width: 100%;
+}
+
+.wrapper-top-bottom {
+  width: 0;
+  height: 0;
+  border-top: 100px solid $un-blue;
+  border-right: 100px solid transparent;
+  position: absolute;
+}
+
+.doc-number {
+  font-size: 0.5em;
+  font-family: $bodyfont;
+}
+
+.coverpage-title {
+  padding-bottom: 0.5em;
+  font-family: $headerfont;
+  font-size: 1.2em;
+  line-height: 1.5em;
+  font-weight: 100;
+  padding-left: 1em;
+  padding-right: 1em;
+  text-transform: uppercase;
+}
+
+.WordSection11 {
+  padding: 0 2em 0 3em;
+  text-align: center;
+}
+
+.info-section {
+  padding: 0 2em;
+}
+
+.prefatory-section {
+  padding: 0 3em 0 6em;
+}
+
+
+.zzSTDTitle1,
+.MsoCommentText {
+  display: none;
+}
+
+
+.coverpage {
+  text-align: center;
+  padding-left: 1.5em;
+}
+
+.coverpage-logo span,
+.coverpage-tc-name span {
+  font-family: $bodyfont;
+  text-transform: none;
+  font-weight: 300;
+}
+
+.coverpage-tc-name {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  margin: 0.25em 0;
+}
+
+/*
+  4.2 Document Identity
+*/
+
+.coverpage-doc-identity {
+  font-size: 2em;
+  line-height: 2em;
+}
+
+.coverpage-title .title-second {
+  display: none;
+}
+
+.coverpage-stage-block {
+  font-family: $bodyfont;
+  font-weight: 600;
+  font-size: 1.25em;
+  margin: 2em 0em 2em 0em;
+  text-transform: uppercase;
+}
+
+/*
+  4.3 Draft Warning
+*/
+
+.coverpage-warning {
+  border: #f36f36 solid 2px;
+  color: #f36f36 !important;
+  margin: 1em 2em;
+  padding: 2em 1em 1em 1em;
+  border-radius: 25px;
+}
+
+.coverpage-warning .title {
+  font-family: $headerfont;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 1.2em;
+}
+
+
+/*
+  4.4 Copyright
+*/
+
+.boilerplate-copyright {
+  padding: 1em;
+  font-size: 0.9em;
+  text-align: left;
+}
+
+
+.boilerplate-copyright p {
+  text-align: center;
+}
+
+#boilerplate-ECEhdr {
+  border: solid;
+}
+
+/*
+    5.0 Other styles
+*/
+
+
+/*
+To top button
+*/
+
+#myBtn {
+  @include toTopBtn(white, #1f8ca0);
+  text-transform: uppercase;
+
+  a.anchorjs-link {
+    @include anchorLink($un-link)
+  }
+}
+
+@page {
+  margin: 2cm 1cm;
+}
+
+@media print {
+
+  .document-info,
+  nav,
+  .copyright {
+    page-break-before: always;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    page-break-after: avoid;
+    margin-top: 1.2em;
+  }
+
+  .note,
+  .figure,
+  pre,
+  .pseudocode,
+  table {
+    page-break-inside: avoid;
+  }
+
+  .info-section {
+    display: none;
+  }
+
+  .coverpage {
+    height: 23cm;
+  }
+
+  .wrapper-top {
+    top: 0;
+    padding-top: 4cm;
+    padding-bottom: 4cm;
+  }
+
+  .wrapper-top-bottom {
+    margin-top: -5px;
+  }
+
+  .container {
+    padding-left: 0;
+  }
+
+
+  #toc .toc-active a {
+    color: $un-toc-active;
+  }
+
+  #toc .toc-active,
+  #toc li:hover {
+    background: white;
+    box-shadow: none !important;
+  }
+
+  #toc li:hover a {
+    color: $un-black;
+  }
+
+
+  h1.content {
+    line-height: 2.5em;
+    margin-top: 2em;
+  }
+
+  h1 {
+    font-size: 1.5em;
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  h3 {
+    font-size: 1em;
+  }
+
+
+  .Note {
+    background-color: $un-note;
+    color: $un-admonition-color;
+    margin: 2em 0 1em;
+    padding: 5px;
+  }
+
+  .Note p {
+    padding: 0 5px;
+  }
+
+  .Admonition {
+    background-color: $un-admonition-back;
+    color: $un-admonition-color;
+    margin: 2em 0 1em;
+    padding: 5px;
+  }
+
+  .Admonition p {
+    padding: 0 5px;
+  }
+
+  nav {
+    line-height: 1;
+  }
+
+  .wrapper-top-bottom {
+    display: none;
+  }
+}

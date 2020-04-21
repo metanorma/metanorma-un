@@ -1,7 +1,7 @@
 require "metanorma/input"
 
 module Metanorma
-  module Unece
+  module UN
     module Input
       class Asciidoc < ::Metanorma::Input::Asciidoc
         def extract_options(file)

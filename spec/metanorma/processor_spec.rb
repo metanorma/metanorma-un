@@ -1,13 +1,13 @@
 require "spec_helper"
 require "fileutils"
 
-RSpec.describe Metanorma::Unece::Processor do
+RSpec.describe Metanorma::UN::Processor do
 
   registry = Metanorma::Registry.instance
-  registry.register(Metanorma::Unece::Processor)
+  registry.register(Metanorma::UN::Processor)
 
   let(:processor) {
-    registry.find_processor(:unece)
+    registry.find_processor(:un)
   }
 
   it "registers against metanorma" do
@@ -23,7 +23,7 @@ RSpec.describe Metanorma::Unece::Processor do
   end
 
   it "registers version against metanorma" do
-    expect(processor.version.to_s).to match(%r{^Metanorma::Unece })
+    expect(processor.version.to_s).to match(%r{^Metanorma::UN })
   end
 
   it "generates IsoDoc XML from a blank document" do
@@ -34,7 +34,7 @@ RSpec.describe Metanorma::Unece::Processor do
     output = xmlpp(strip_guid(<<~"OUTPUT"))
     #{BLANK_HDR}
 <sections/>
-</unece-standard>
+</un-standard>
     OUTPUT
 
     expect(xmlpp(strip_guid(processor.input_to_isodoc(input, nil)))).to be_equivalent_to output
@@ -44,14 +44,14 @@ RSpec.describe Metanorma::Unece::Processor do
     FileUtils.rm_f "test.xml"
     FileUtils.rm_f "test.html"
     input = <<~"INPUT"
-    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <un-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
     <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
        </clause>
         </sections>
-    </unece-standard>
+    </un-standard>
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
@@ -77,14 +77,14 @@ RSpec.describe Metanorma::Unece::Processor do
     FileUtils.rm_f "test.xml"
     FileUtils.rm_f "test.doc"
     input = <<~"INPUT"
-    <unece-standard xmlns="http://riboseinc.com/isoxml">
+    <un-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
     <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
        </clause>
         </sections>
-    </unece-standard>
+    </un-standard>
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
@@ -105,7 +105,7 @@ RSpec.describe Metanorma::Unece::Processor do
 
   it "parses :toc document attribute" do
     FileUtils.rm_f "test.xml"
-      expect(Hash[Metanorma::Unece::Input::Asciidoc.new().extract_options(<<~"INPUT").sort].to_s + "\n").to eq <<~"OUTPUT"
+      expect(Hash[Metanorma::UN::Input::Asciidoc.new().extract_options(<<~"INPUT").sort].to_s + "\n").to eq <<~"OUTPUT"
       = Document title
       Author
       :docfile: test.adoc
