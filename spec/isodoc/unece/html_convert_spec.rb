@@ -781,6 +781,7 @@ it "injects JS into blank html" do
     Author
     :docfile: test.adoc
     :novalid:
+    :no-pdf:
   INPUT
 
   output = xmlpp(<<~"OUTPUT")
