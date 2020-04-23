@@ -542,7 +542,7 @@ OUTPUT
 INPUT
 IsoDoc::UN::WordConvert.new(toc: true).convert("test", input, false)
   html = File.read("test.doc", encoding: "utf-8")
-  expect(html).to include '<a name="abstractbox" id="abstractbox">'
+  expect(html).to include 'This is a plenary page'
   expect(html).to include 'class="zzContents"'
   end
 
@@ -559,8 +559,41 @@ IsoDoc::UN::WordConvert.new(toc: true).convert("test", input, false)
 INPUT
 IsoDoc::UN::WordConvert.new(toc: false).convert("test", input, false)
   html = File.read("test.doc", encoding: "utf-8")
-  expect(html).to include '<a name="abstractbox" id="abstractbox">'
+  expect(html).to include 'This is a plenary page'
   expect(html).not_to include 'class="zzContents"'
+  end
+
+   it "populates abstract box if there is an abstract" do
+    FileUtils.rm_f("test.doc")
+    input = <<~"INPUT"
+<un-standard xmlns="https://www.metanorma.org/ns/un">
+<bibdata type="standard">
+  <title language="en" format="plain">Main Title</title>
+  <ext><doctype>plenary</doctype></ext>
+  </bibdata>
+  <preface><abstract><title>Abstract</title><p>123</p></abstract></preface>
+  <sections/>
+  </un-standard>
+INPUT
+IsoDoc::UN::WordConvert.new(toc: false).convert("test", input, false)
+  html = File.read("test.doc", encoding: "utf-8")
+  expect(html).to include '<a name="abstractbox" id="abstractbox">'
+  end
+
+   it "does not populate abstract box if there is no abstract" do
+    FileUtils.rm_f("test.doc")
+    input = <<~"INPUT"
+<un-standard xmlns="https://www.metanorma.org/ns/un">
+<bibdata type="standard">
+  <title language="en" format="plain">Main Title</title>
+  <ext><doctype>plenary</doctype></ext>
+  </bibdata>
+  <sections/>
+  </un-standard>
+INPUT
+IsoDoc::UN::WordConvert.new(toc: false).convert("test", input, false)
+  html = File.read("test.doc", encoding: "utf-8")
+  expect(html).not_to include '<a name="abstractbox" id="abstractbox">'
   end
 
 

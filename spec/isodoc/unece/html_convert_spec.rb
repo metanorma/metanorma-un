@@ -932,7 +932,7 @@ INPUT
 INPUT
   IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
   html = File.read("test.doc", encoding: "utf-8")
-  expect(html).to include '<a name="abstractbox" id="abstractbox"'
+  expect(html).to include 'This is a plenary page'
   end
 
     it "switch to plenary title page in DOC if any bibdata/ext/section" do
@@ -950,7 +950,7 @@ INPUT
 INPUT
   IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
   html = File.read("test.doc", encoding: "utf-8")
-  expect(html).to include '<a name="abstractbox" id="abstractbox"'
+  expect(html).to include 'This is a plenary page'
   end
 
     it "does not switch plenary title page in DOC if no bibdata/ext/section" do
@@ -966,7 +966,7 @@ INPUT
 INPUT
   IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
   html = File.read("test.doc", encoding: "utf-8")
-  expect(html).not_to include '<a name="abstractbox" id="abstractbox"'
+  expect(html).not_to include 'This is a plenary page'
   end
 
 

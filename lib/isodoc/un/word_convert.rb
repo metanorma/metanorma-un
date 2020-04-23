@@ -160,6 +160,7 @@ module IsoDoc
           sect2.next_element.remove # pagebreak
           sect2.remove # pagebreak
         end
+        abstractbox.parent.remove if abstractbox && !abstract
       end
 
       def abstract(isoxml, out)
