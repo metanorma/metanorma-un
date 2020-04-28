@@ -25,7 +25,7 @@
 	<xsl:variable name="id" select="/un:un-standard/un:bibdata/un:ext/un:session/un:id"/>
 	
 	<xsl:template match="/">
-		<fo:root font-family="Times New Roman, Cambria Math, HanSans" font-size="10pt" xml:lang="{$lang}">
+		<fo:root font-family="Times New Roman, STIX2Math, HanSans" font-size="10pt" xml:lang="{$lang}">
 			<fo:layout-master-set>
 				<!-- Cover page -->
 				<fo:simple-page-master master-name="cover-page" page-width="{$pageWidth}" page-height="{$pageHeight}">
@@ -1200,14 +1200,6 @@
 	
 	<xsl:template match="un:formula" mode="process">
 		<xsl:call-template name="formula"/>
-	</xsl:template>
-	
-	<xsl:template match="mathml:math">
-		<fo:inline font-family="Cambria Math">
-			<fo:instream-foreign-object> 
-				<xsl:copy-of select="."/>
-			</fo:instream-foreign-object>
-		</fo:inline>
 	</xsl:template>
 	
 	<xsl:template match="un:example">
@@ -2496,6 +2488,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 		<!-- <xsl:variable name="namespace" select="substring-before(name(/*), '-')"/> -->
 		
 		
+		
 		<xsl:choose>
 			<xsl:when test="@unnumbered = 'true'"/>
 			<xsl:otherwise>
@@ -2503,6 +2496,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				
 				
 					<fo:block font-weight="bold" text-align="center" margin-bottom="6pt" keep-with-next="always">
+						
 						
 						
 						
@@ -2530,10 +2524,11 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 								
 							</xsl:when>
 							<xsl:otherwise>
-								<!-- <xsl:number format="1"/> -->
-								<xsl:number format="A." count="*[local-name()='annex']"/>
-								<!-- <xsl:number format="1" level="any" count="*[local-name()='sections']//*[local-name()='table'][not(@unnumbered) or @unnumbered != 'true']"/> -->
-								<xsl:number format="1" level="any" count="//*[local-name()='table']                                          [not(ancestor::*[local-name()='annex'])                                           and not(ancestor::*[local-name()='executivesummary'])                                          and not(ancestor::*[local-name()='bibdata'])]                                          [not(@unnumbered) or @unnumbered != 'true']"/>
+								
+								
+									<xsl:number format="A." count="*[local-name()='annex']"/>
+									<xsl:number format="1" level="any" count="//*[local-name()='table']                                           [not(ancestor::*[local-name()='annex'])                                            and not(ancestor::*[local-name()='executivesummary'])                                           and not(ancestor::*[local-name()='bibdata'])]                                           [not(@unnumbered) or @unnumbered != 'true']"/>
+									
 							</xsl:otherwise>
 						</xsl:choose>
 						<xsl:if test="*[local-name()='name']">
@@ -2599,11 +2594,13 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			
 			
 			
+			
 				<xsl:attribute name="space-after">18pt</xsl:attribute>
 			
 			
 			
 			<fo:table id="{@id}" table-layout="fixed" width="100%" margin-left="{$margin-left}mm" margin-right="{$margin-left}mm">
+				
 				
 				
 				
@@ -2758,8 +2755,15 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 					<fo:table-cell border="solid black 1pt" padding-left="1mm" padding-right="1mm" padding-top="1mm" number-columns-spanned="{$cols-count}">
 						
 						
+						
 						<!-- fn will be processed inside 'note' processing -->
+						
+						
 						<xsl:apply-templates select="../*[local-name()='note']" mode="process"/>
+						
+						<!-- horizontal row separator -->
+						
+						
 						<!-- fn processing -->
 						<xsl:call-template name="fn_display"/>
 						
@@ -2778,8 +2782,10 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 					
 					
 					
+					
 				</xsl:if>
 				<xsl:if test="$parent-name = 'tfoot'">
+					
 					
 				</xsl:if>
 				
@@ -2791,6 +2797,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 		</fo:table-row>
 	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='th']">
 		<fo:table-cell text-align="{@align}" font-weight="bold" border="solid black 1pt" padding-left="1mm" display-align="center">
+			
 			
 			
 			
@@ -2822,6 +2829,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 		</fo:table-cell>
 	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='td']">
 		<fo:table-cell text-align="{@align}" display-align="center" border="solid black 1pt" padding-left="1mm">
+			
 			
 			
 			
@@ -2866,6 +2874,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 		
 			<fo:block font-size="10pt" margin-bottom="12pt">
 				
+				
 				<fo:inline padding-right="2mm">
 					<xsl:text>NOTE </xsl:text>
 					
@@ -2893,9 +2902,11 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			<xsl:if test="not(preceding-sibling::*[@reference = $reference])"> <!-- only unique reference puts in note-->
 				<fo:block margin-bottom="12pt">
 					
+					
 					<fo:inline font-size="80%" padding-right="5mm" id="{@id}">
 						
 							<xsl:attribute name="vertical-align">super</xsl:attribute>
+						
 						
 						
 						
@@ -2942,6 +2953,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<fo:table width="95%" table-layout="fixed">
 					<xsl:if test="normalize-space($key_iso) = 'true'">
 						<xsl:attribute name="font-size">10pt</xsl:attribute>
+						
 					</xsl:if>
 					<fo:table-column column-width="15%"/>
 					<fo:table-column column-width="85%"/>
@@ -3022,6 +3034,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			<xsl:when test="$parent = 'figure' and  (not(../@class) or ../@class !='pseudocode')">
 				<fo:block font-weight="bold" text-align="left" margin-bottom="12pt">
 					
+					
 					<xsl:text>Key</xsl:text>
 				</fo:block>
 			</xsl:when>
@@ -3061,6 +3074,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 							</xsl:when>
 							<xsl:when test="normalize-space($key_iso) = 'true'">
 								<xsl:attribute name="font-size">10pt</xsl:attribute>
+								
 							</xsl:when>
 						</xsl:choose>
 						<xsl:choose>
@@ -3152,6 +3166,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 		<fo:table-row>
 			<fo:table-cell>
 				<fo:block margin-top="6pt">
+					
 					<xsl:if test="normalize-space($key_iso) = 'true'">
 						<xsl:attribute name="margin-top">0</xsl:attribute>
 						
@@ -3496,4 +3511,10 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<xsl:value-of select="substring($str2, 2)"/>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="mathml:math">
+		<fo:inline font-family="STIX2Math">
+			<fo:instream-foreign-object fox:alt-text="Math"> 
+				<xsl:copy-of select="."/>
+			</fo:instream-foreign-object>
+		</fo:inline>
 	</xsl:template></xsl:stylesheet>
