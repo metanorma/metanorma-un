@@ -2,7 +2,7 @@ require "metanorma/processor"
 
 module Metanorma
   module UN
-    def self.pdf_fonts
+    def self.fonts_used
       ["Arial", "Arial Black", "Courier", "Times New Roman", "HanSans"]
     end
 

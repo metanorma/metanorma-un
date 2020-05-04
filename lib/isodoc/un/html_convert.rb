@@ -18,14 +18,14 @@ module IsoDoc
           bodyfont: (
             options[:script] == "Hans" ?
             '"SimSun",serif' :
-            '"Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif'
+            '"Times New Roman", serif'
           ),
           headerfont: (
             options[:script] == "Hans" ?
             '"SimHei",sans-serif' :
-            '"Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif'
+            '"Times New Roman", serif'
           ),
-          monospacefont: '"Space Mono",monospace'
+          monospacefont: '"Courier New",monospace'
         }
       end
 

@@ -455,9 +455,9 @@ RSpec.describe Asciidoctor::UN do
     Asciidoctor.convert(input, backend: :un, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
-    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Roboto]m)
-    expect(html).to match(%r[h1,\sh2,\sh3,\sh4,\sh5,\sh6,\s\.h2Annex \{[^}]+font-family: "Roboto]m)
+    expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Courier New", monospace;]m)
+    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Times New Roman", serif]m)
+    expect(html).to match(%r[h1,\sh2,\sh3,\sh4,\sh5,\sh6,\s\.h2Annex \{[^}]+font-family: "Times New Roman", serif]m)
   end
 
   it "uses Chinese fonts" do
@@ -474,7 +474,7 @@ RSpec.describe Asciidoctor::UN do
     Asciidoctor.convert(input, backend: :un, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
+    expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Courier New", monospace;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "SimSun", serif;]m)
     expect(html).to match(%r[h1,\sh2,\sh3,\sh4,\sh5,\sh6,\s\.h2Annex \{[^}]+font-family: "SimHei", sans-serif;]m)
   end
