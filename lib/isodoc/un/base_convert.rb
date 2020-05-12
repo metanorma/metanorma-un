@@ -134,10 +134,14 @@ module IsoDoc
         @anchors[clause["id"]] = { label: annex_name_lbl(clause, num),
                                    type: "clause",
                                    xref: "#{@annex_lbl} #{num}", level: 1 }
-        i = 1
-        clause.xpath(ns("./clause")).each do |c|
-          annex_names1(c, "#{num}.#{annex_levelnum(i, 2)}", 2)
-          i += 1 if !leaf_section?(c)
+        if a = single_annex_special_section(clause)
+          annex_names1(a, "#{num}", 1)
+        else
+          i = 1
+          clause.xpath(ns(SUBCLAUSES)).each do |c|
+            annex_names1(c, "#{num}.#{annex_levelnum(i, 2)}", 2)
+            i += 1 if !leaf_section?(c)
+          end
         end
       end
 
