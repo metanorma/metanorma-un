@@ -127,6 +127,10 @@ module IsoDoc
         l10n("<b>#{@annex_lbl} #{num}</b>")
       end
 
+      SUBCLAUSES =
+      "./clause | ./references | ./term  | ./terms | ./definitions".freeze
+
+
       def annex_names(clause, num)
         hierarchical_asset_names(clause, num)
         leaf_section?(clause) and

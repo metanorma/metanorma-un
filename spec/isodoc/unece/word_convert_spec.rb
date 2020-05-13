@@ -190,11 +190,11 @@ RSpec.describe IsoDoc::UN do
        <annex id="U"  inline-header="false" obligation="normative">
        <title>Terminal annex</title>
        </annex>
-        <bibliography><references id="R" obligation="informative">
+        <bibliography><references id="R" obligation="informative" normative="true">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
-         <references id="T" obligation="informative">
+         <references id="T" obligation="informative" normative="false">
          <title>Bibliography Subsection</title>
        </references>
        </clause>
@@ -321,11 +321,11 @@ end
          <title>Annex A.1a</title>
          </clause>
        </clause>
-       </annex><bibliography><references id="R" obligation="informative">
+       </annex><bibliography><references id="R" obligation="informative" normative="true">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
-         <references id="T" obligation="informative">
+         <references id="T" obligation="informative" normative="false">
          <title>Bibliography Subsection</title>
        </references>
        </clause>
@@ -622,7 +622,7 @@ IsoDoc::UN::WordConvert.new(toc: true).convert("test", input, false)
     <eref bibitemid="ISO712"/>
     </clause>
     </sections>
-    <bibliography><references id="R" obligation="informative">
+    <bibliography><references id="R" obligation="informative" normative="true">
          <title>Normative References</title>
          <bibitem id="ISO712" type="standard">
   <title format="text/plain">Cereals and cereal products</title>
