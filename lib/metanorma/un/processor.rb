@@ -3,7 +3,11 @@ require "metanorma/processor"
 module Metanorma
   module UN
     def self.fonts_used
-      ["Arial", "Arial Black", "Courier", "Times New Roman", "HanSans"]
+      {
+        html: ["Arial", "Arial Black", "Courier", "Times New Roman", "HanSans"],
+        doc: ["Arial", "Arial Black", "Courier", "Times New Roman", "HanSans"],
+        pdf: ["Arial", "Arial Black", "Courier", "Times New Roman", "HanSans"],
+      }
     end
 
     class Processor < Metanorma::Processor
