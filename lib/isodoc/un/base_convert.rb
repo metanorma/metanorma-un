@@ -179,8 +179,8 @@ module IsoDoc
       def sequential_admonition_names(clause)
         i = 0
         clause.xpath(ns(".//admonition")).each do |t|
-          i += 1 unless t["unnumbered"]
           next if t["id"].nil? || t["id"].empty?
+          i += 1 unless t["unnumbered"] == "true"
           @anchors[t["id"]] = anchor_struct(i.to_s, nil, @admonition_lbl,
                                             "box", t["unnumbered"])
         end
@@ -189,8 +189,8 @@ module IsoDoc
       def hierarchical_admonition_names(clause, num)
         i = 0
         clause.xpath(ns(".//admonition")).each do |t|
-          i += 1 unless t["unnumbered"]
           next if t["id"].nil? || t["id"].empty?
+          i += 1 unless t["unnumbered"] == "true"
           @anchors[t["id"]] =
             anchor_struct("#{num}.#{i}", nil, @admonition_lbl, "box",
                           t["unnumbered"])
