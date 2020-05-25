@@ -736,4 +736,207 @@ RSpec.describe Asciidoctor::UN do
 </un-standard>
 OUTPUT
    end
+
+      it "processes sections with do-not-number-subheadings" do
+    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :do-not-number-subheadings:
+
+      .Foreword1
+
+      Text
+
+      == Foreword
+
+      [abstract]
+      == Abstract
+
+      Text
+
+      == Introduction
+
+      === Introduction Subsection
+
+      == Acknowledgements
+
+      [.preface]
+      == Dedication
+
+      == Scope
+
+      Text
+
+      == Normative References
+
+      == Terms and Definitions
+
+      === Term1
+
+      == Terms, Definitions, Symbols and Abbreviated Terms
+
+      [.nonterm]
+      === Introduction
+
+      ==== Intro 1
+
+      === Intro 2
+
+      [.nonterm]
+      ==== Intro 3
+
+      === Intro 4
+
+      ==== Intro 5
+
+      ===== Term1
+
+      === Normal Terms
+
+      ==== Term2
+
+      === Symbols and Abbreviated Terms
+
+      [.nonterm]
+      ==== General
+
+      ==== Symbols 1
+
+      == Abbreviated Terms
+
+      == Clause 4
+      === Introduction
+
+      === Clause 4.2
+
+      == Terms and Definitions
+
+      [appendix]
+      == Annex
+
+      === Annex A.1
+
+      == Bibliography
+
+      === Bibliography Subsection
+    INPUT
+    #{BLANK_HDR.sub(/<status>/, "<abstract> <p>Text</p> </abstract> <status>")}
+    <preface>
+   <abstract id='_'>
+     <p id='_'>Text</p>
+   </abstract>
+   <foreword id='_' obligation='informative'>
+     <title>Foreword1</title>
+     <p id='_'>Text</p>
+   </foreword>
+   <clause id='_' inline-header='false' obligation='informative'>
+     <title>Dedication</title>
+   </clause>
+   <acknowledgements id='_' obligation='informative'>
+     <title>Acknowledgements</title>
+   </acknowledgements>
+ </preface>
+ <sections>
+   <clause id='_' inline-header='false' obligation='normative'>
+     <title>Foreword</title>
+   </clause>
+   <clause id='_' inline-header='false' obligation='normative'>
+     <title>Introduction</title>
+     <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+       <title>Introduction Subsection</title>
+     </clause>
+   </clause>
+   <clause id='_' inline-header='false' obligation='normative'>
+     <title>Scope</title>
+     <clause id='_' inline-header='true' obligation='normative'>
+       <p id='_'>Text</p>
+     </clause>
+   </clause>
+   <terms id='_' obligation='normative'>
+     <title>Terms and definitions</title>
+     <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
+     <term id='_'>
+       <preferred>Term1</preferred>
+     </term>
+   </terms>
+    <clause id='_' obligation='normative'>
+             <title>Terms, definitions, symbols and abbreviated terms</title>
+             <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
+             <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+               <title>Introduction</title>
+               <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+                 <title>Intro 1</title>
+               </clause>
+             </clause>
+             <terms id='_' unnumbered='true' obligation='normative'>
+               <title>Intro 2</title>
+               <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+                 <title>Intro 3</title>
+               </clause>
+             </terms>
+             <clause id='_' unnumbered='true' obligation='normative'>
+               <title>Intro 4</title>
+               <terms id='_' unnumbered='true' obligation='normative'>
+                 <title>Intro 5</title>
+                 <term id='_'>
+                   <preferred>Term1</preferred>
+                 </term>
+               </terms>
+             </clause>
+             <terms id='_' unnumbered='true' obligation='normative'>
+               <title>Normal Terms</title>
+               <term id='_'>
+                 <preferred>Term2</preferred>
+               </term>
+             </terms>
+             <definitions id='_' unnumbered='true'>
+               <title>Symbols and Abbreviated Terms</title>
+               <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+                 <title>General</title>
+               </clause>
+               <definitions id='_' unnumbered='true'>
+                 <title>Symbols 1</title>
+               </definitions>
+             </definitions>
+           </clause>
+           <definitions id='_'>
+             <title>Abbreviated Terms</title>
+           </definitions>
+   <clause id='_' inline-header='false' obligation='normative'>
+     <title>Clause 4</title>
+     <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+       <title>Introduction</title>
+     </clause>
+     <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+       <title>Clause 4.2</title>
+     </clause>
+   </clause>
+   <clause id='_' inline-header='false' obligation='normative'>
+     <title>Terms and Definitions</title>
+   </clause>
+ </sections>
+ <annex id='_' inline-header='false' obligation='normative'>
+   <title>Annex</title>
+   <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+     <title>Annex A.1</title>
+   </clause>
+ </annex>
+ <bibliography>
+   <references id='_' normative='true' obligation='informative'>
+     <title>Normative References</title>
+     <p id='_'>There are no normative references in this document.</p>
+   </references>
+   <clause id='_' obligation='informative'>
+     <title>Bibliography</title>
+     <references id='_' normative='false' obligation='informative'>
+       <title>Bibliography Subsection</title>
+     </references>
+   </clause>
+ </bibliography>
+    </un-standard>
+    OUTPUT
+      end
 end

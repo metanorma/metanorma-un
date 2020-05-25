@@ -124,6 +124,7 @@ module Asciidoctor
 
       def makexml(node)
         @draft = node.attributes.has_key?("draft")
+        @no_number_subheadings = node.attributes.has_key?("do-not-number-subheadings")
         super
       end
 
@@ -187,12 +188,26 @@ module Asciidoctor
 
       def sections_cleanup(xmldoc)
         super
-        doctype = xmldoc&.at("//bibdata/ext/doctype")&.text
-        %w(plenary agenda budgetary).include?(doctype) or
-          para_to_clause(xmldoc)
+        no_number_subheadings(xmldoc) if @no_number_subheadings
+        para_to_clause(xmldoc)
+      end
+
+      def no_number_subheadings(xmldoc)
+        xmldoc.xpath("//sections/clause | "\
+                     "//sections/definitions | //annex").each do |s|
+          s.xpath(".//clause | .//definitions").each do |c|
+            c["unnumbered"] = true
+          end
+        end
       end
 
       def para_to_clause(xmldoc)
+        doctype = xmldoc&.at("//bibdata/ext/doctype")&.text
+        %w(plenary agenda budgetary).include?(doctype) or
+          para_to_clause1(xmldoc)
+      end
+
+      def para_to_clause1(xmldoc)
         xmldoc.xpath("//clause/p | //annex/p").each do |p|
           cl = Nokogiri::XML::Node.new("clause", xmldoc)
           cl["id"] = p["id"]
