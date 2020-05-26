@@ -865,39 +865,39 @@ OUTPUT
     <clause id='_' obligation='normative'>
              <title>Terms, definitions, symbols and abbreviated terms</title>
              <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
-             <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+             <clause id='_' inline-header='false' obligation='normative'>
                <title>Introduction</title>
-               <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+               <clause id='_' inline-header='false' obligation='normative'>
                  <title>Intro 1</title>
                </clause>
              </clause>
-             <terms id='_' unnumbered='true' obligation='normative'>
+             <terms id='_' obligation='normative'>
                <title>Intro 2</title>
-               <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+               <clause id='_' inline-header='false' obligation='normative'>
                  <title>Intro 3</title>
                </clause>
              </terms>
-             <clause id='_' unnumbered='true' obligation='normative'>
+             <clause id='_' obligation='normative'>
                <title>Intro 4</title>
-               <terms id='_' unnumbered='true' obligation='normative'>
+               <terms id='_' obligation='normative'>
                  <title>Intro 5</title>
                  <term id='_'>
                    <preferred>Term1</preferred>
                  </term>
                </terms>
              </clause>
-             <terms id='_' unnumbered='true' obligation='normative'>
+             <terms id='_' obligation='normative'>
                <title>Normal Terms</title>
                <term id='_'>
                  <preferred>Term2</preferred>
                </term>
              </terms>
-             <definitions id='_' unnumbered='true'>
+             <definitions id='_'>
                <title>Symbols and Abbreviated Terms</title>
-               <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
+               <clause id='_' inline-header='false' obligation='normative'>
                  <title>General</title>
                </clause>
-               <definitions id='_' unnumbered='true'>
+               <definitions id='_'>
                  <title>Symbols 1</title>
                </definitions>
              </definitions>
