@@ -56,7 +56,10 @@ module IsoDoc
             localize&.to_rbnf_s("SpelloutRules", "spellout-ordinal")&.capitalize)
         set(:session_date, isoxml&.at(ns("//bibdata/ext/session/date"))&.text)
         set(:session_collaborator, isoxml&.at(ns("//bibdata/ext/session/collaborator"))&.text)
-        set(:session_id, isoxml&.at(ns("//bibdata/ext/session/id"))&.text)
+        sid = isoxml&.at(ns("//bibdata/ext/session/id"))&.text
+        set(:session_id, sid)
+        set(:session_id_head, sid&.sub(%r{/.*$}, ""))
+        set(:session_id_tail, sid&.sub(%r{^[^/]+}, ""))
         set(:item_footnote, isoxml&.at(ns("//bibdata/ext/session/item-footnote"))&.text)
         set(:session_itemnumber, multival(isoxml, "//bibdata/ext/session/item-number"))
         set(:session_itemname, multival(isoxml, "//bibdata/ext/session/item-name"))
