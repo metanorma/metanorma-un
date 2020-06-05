@@ -13,10 +13,19 @@ module IsoDoc
         super
       end
 
+      def pdf_stylesheet(docxml)
+        case doctype = docxml&.at(ns("//bibdata/ext/doctype"))&.text
+        when "plenary", "agenda", "budgetary" 
+          "unece.plenary.xsl"
+        else
+          docxml&.at(ns("//bibdata/ext/session/*")) ?
+            "un.plenary-attachment.xsl" : "unece.recommendation.xsl"
+        end
+      end
+
       def convert(filename, file = nil, debug = false)
         file = File.read(filename, encoding: "utf-8") if file.nil?
         docxml, outname_html, dir = convert_init(file, filename, debug)
-        plenary = docxml.at(ns("//bibdata/ext[doctype = 'plenary']"))
         /\.xml$/.match(filename) or
           filename = Tempfile.open([outname_html, ".xml"], encoding: "utf-8") do |f|
           f.write file
@@ -25,7 +34,7 @@ module IsoDoc
         FileUtils.rm_rf dir
         ::Metanorma::Output::XslfoPdf.new.convert(
           filename, outname_html + ".pdf",
-          File.join(@libdir, plenary ? "unece.plenary.xsl" : "unece.recommendation.xsl"))
+          File.join(@libdir, pdf_stylesheet(docxml)))
       end
     end
   end
