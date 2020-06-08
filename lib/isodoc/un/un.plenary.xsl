@@ -89,7 +89,9 @@
 								</xsl:variable>
 								<xsl:value-of select="normalize-space($abstract)"/>
 							</dc:description>
-							<pdf:Keywords/>
+							<pdf:Keywords>
+								<xsl:call-template name="insertKeywords"/>
+							</pdf:Keywords>
 						</rdf:Description>
 						<rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about="">
 							<!-- XMP properties go here -->
@@ -1337,15 +1339,7 @@
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
-	
-	<xsl:template match="un:sourcecode">
-		<fo:block font-family="Courier" font-size="10pt" margin-top="6pt" margin-bottom="6pt">
-			<xsl:attribute name="white-space">pre</xsl:attribute>
-			<xsl:attribute name="wrap-option">wrap</xsl:attribute>
-			<xsl:apply-templates/>
-		</fo:block>
-	</xsl:template>
-	
+		
 	<xsl:template match="un:references">
 		<fo:block>
 			<xsl:if test="not(un:title)">
@@ -2467,16 +2461,76 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 		</xsl:text>
 	</xsl:variable>
 	
-<xsl:variable xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="lower">abcdefghijklmnopqrstuvwxyz</xsl:variable><xsl:variable xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="upper">ABCDEFGHIJKLMNOPQRSTUVWXYZ</xsl:variable><xsl:variable xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="en_chars" select="concat($lower,$upper,',.`1234567890-=~!@#$%^*()_+[]{}\|?/')"/><xsl:variable xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="linebreak" select="'&#8232;'"/><xsl:attribute-set xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="link-style">
+<xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-table">
+		
+			<xsl:text>Table </xsl:text>
 		
 		
-	</xsl:attribute-set><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="text()">
+	</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-note">
+		
+			<xsl:text>NOTE </xsl:text>
+		
+		
+	</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-figure">
+		
+			<xsl:text>Figure </xsl:text>
+		
+		
+	</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-example">
+		
+			<xsl:text>EXAMPLE </xsl:text>
+		
+		
+	</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-inequality">Inequality </xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-equation">Equation </xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-annex">
+		
+			<xsl:text>Annex </xsl:text>
+		
+		
+	</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-appendix">
+		<xsl:text>Appendix </xsl:text>
+	</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-clause">
+		
+			<xsl:text>Clause </xsl:text>
+		
+		
+	</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-edition">
+		<xsl:text>Edition </xsl:text>
+	</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-toc">
+		
+		
+	</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-page">Page</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-key">Key</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-where">where</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-descriptors">Descriptors</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-part-en">Part </xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-part-fr">Partie </xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-note-to-entry">Note # to entry: </xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-modified">modified</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-source">SOURCE</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="title-keywords">Keywords</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="lower">abcdefghijklmnopqrstuvwxyz</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="upper">ABCDEFGHIJKLMNOPQRSTUVWXYZ</xsl:variable><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="en_chars" select="concat($lower,$upper,',.`1234567890-=~!@#$%^*()_+[]{}\|?/')"/><xsl:variable xmlns:java="http://xml.apache.org/xalan/java" name="linebreak" select="'&#8232;'"/><xsl:attribute-set xmlns:java="http://xml.apache.org/xalan/java" name="link-style">
+		
+		
+	</xsl:attribute-set><xsl:attribute-set xmlns:java="http://xml.apache.org/xalan/java" name="sourcecode-style">
+		
+		
+		
+		
+		
+			<xsl:attribute name="font-family">Courier</xsl:attribute>
+			<xsl:attribute name="font-size">10pt</xsl:attribute>
+			<xsl:attribute name="margin-top">6pt</xsl:attribute>
+			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
+		
+				
+		
+		
+	</xsl:attribute-set><xsl:attribute-set xmlns:java="http://xml.apache.org/xalan/java" name="appendix-style">
+		
+		
+		
+	</xsl:attribute-set><xsl:attribute-set xmlns:java="http://xml.apache.org/xalan/java" name="appendix-example-style">
+		
+		
+		
+	</xsl:attribute-set><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="text()">
 		<xsl:value-of select="."/>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='br']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='br']">
 		<xsl:value-of select="$linebreak"/>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='td']//text() | *[local-name()='th']//text() | *[local-name()='dt']//text() | *[local-name()='dd']//text()" priority="1">
-		<xsl:call-template name="add-zero-spaces"/>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='table']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='td']//text() | *[local-name()='th']//text() | *[local-name()='dt']//text() | *[local-name()='dd']//text()" priority="1">
+		<!-- <xsl:call-template name="add-zero-spaces"/> -->
+		<xsl:call-template name="add-zero-spaces-java"/>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='table']">
 	
 		<xsl:variable name="simple-table">
 			<!-- <xsl:copy> -->
@@ -2513,33 +2567,13 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 						
 						
 						
-						<xsl:text>Table </xsl:text>
-						<xsl:choose>
-							<xsl:when test="ancestor::*[local-name()='executivesummary']"> <!-- NIST -->
-								<xsl:text>ES-</xsl:text><xsl:number format="1" count="*[local-name()='executivesummary']//*[local-name()='table'][not(@unnumbered) or @unnumbered != 'true']"/>
-							</xsl:when>
-							<xsl:when test="ancestor::*[local-name()='annex']">
-								
-								
-								
-								
-								
-								
-								
-									<xsl:variable name="annex-id" select="ancestor::*[local-name()='annex']/@id"/>
-									<xsl:number format="I." count="*[local-name()='annex']"/>
-									<xsl:number format="1" level="any" count="*[local-name()='table'][not(@unnumbered) or @unnumbered != 'true'][ancestor::*[local-name()='annex'][@id = $annex-id]]"/>
-								
-								
-							</xsl:when>
-							<xsl:otherwise>
-								
-								
-									<xsl:number format="A." count="*[local-name()='annex']"/>
-									<xsl:number format="1" level="any" count="//*[local-name()='table']                                           [not(ancestor::*[local-name()='annex'])                                            and not(ancestor::*[local-name()='executivesummary'])                                           and not(ancestor::*[local-name()='bibdata'])]                                           [not(@unnumbered) or @unnumbered != 'true']"/>
-									
-							</xsl:otherwise>
-						</xsl:choose>
+						
+						
+						<xsl:value-of select="$title-table"/>
+						
+						<xsl:call-template name="getTableNumber"/>
+
+						
 						<xsl:if test="*[local-name()='name']">
 							
 							: 
@@ -2609,6 +2643,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			
 			
 			
+			
 			<fo:table id="{@id}" table-layout="fixed" width="100%" margin-left="{$margin-left}mm" margin-right="{$margin-left}mm" table-omit-footer-at-break="true">
 				
 				
@@ -2623,9 +2658,10 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				
 				
 				
+				
 				<xsl:for-each select="xalan:nodeset($colwidths)//column">
 					<xsl:choose>
-						<xsl:when test=". = 1">
+						<xsl:when test=". = 1 or . = 0">
 							<fo:table-column column-width="proportional-column-width(2)"/>
 						</xsl:when>
 						<xsl:otherwise>
@@ -2639,15 +2675,42 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			
 			
 		</fo:block-container>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='table']/*[local-name()='name']"/><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='table']/*[local-name()='name']" mode="process">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="getTableNumber">
+		<xsl:choose>
+			<xsl:when test="ancestor::*[local-name()='executivesummary']"> <!-- NIST -->
+				<xsl:text>ES-</xsl:text><xsl:number format="1" count="*[local-name()='executivesummary']//*[local-name()='table'][not(@unnumbered) or @unnumbered != 'true']"/>
+			</xsl:when>
+			<xsl:when test="ancestor::*[local-name()='annex']">
+				
+				
+				
+				
+				
+				
+				
+					<xsl:variable name="annex-id" select="ancestor::*[local-name()='annex']/@id"/>
+					<xsl:number format="I." count="*[local-name()='annex']"/>
+					<xsl:number format="1" level="any" count="*[local-name()='table'][not(@unnumbered) or @unnumbered != 'true'][ancestor::*[local-name()='annex'][@id = $annex-id]]"/>
+				
+				
+			</xsl:when>
+			<xsl:otherwise>
+				
+				
+					<xsl:number format="A." count="*[local-name()='annex']"/>
+					<xsl:number format="1" level="any" count="//*[local-name()='table']                                       [not(ancestor::*[local-name()='annex'])                                        and not(ancestor::*[local-name()='executivesummary'])                                       and not(ancestor::*[local-name()='bibdata'])]                                       [not(@unnumbered) or @unnumbered != 'true']"/>
+					
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='table']/*[local-name()='name']"/><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='table']/*[local-name()='name']" mode="process">
 		<xsl:apply-templates/>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="calculate-columns-numbers">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="calculate-columns-numbers">
 		<xsl:param name="table-row"/>
 		<xsl:variable name="columns-count" select="count($table-row/*)"/>
 		<xsl:variable name="sum-colspans" select="sum($table-row/*/@colspan)"/>
 		<xsl:variable name="columns-with-colspan" select="count($table-row/*[@colspan])"/>
 		<xsl:value-of select="$columns-count + $sum-colspans - $columns-with-colspan"/>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="calculate-column-widths">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="calculate-column-widths">
 		<xsl:param name="table"/>
 		<xsl:param name="cols-count"/>
 		<xsl:param name="curr-col" select="1"/>
@@ -2656,7 +2719,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 		<xsl:if test="$curr-col &lt;= $cols-count">
 			<xsl:variable name="widths">
 				<xsl:choose>
-					<xsl:when test="not($table)">
+					<xsl:when test="not($table)"><!-- this branch is not using in production, for debug only -->
 						<xsl:for-each select="*[local-name()='thead']//*[local-name()='tr']">
 							<xsl:variable name="words">
 								<xsl:call-template name="tokenize">
@@ -2695,9 +2758,16 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 								<xsl:apply-templates select="td[$curr-col]" mode="td_text"/>
 							</xsl:variable>
 							<xsl:variable name="words">
+								<xsl:variable name="string_with_added_zerospaces">
+									<xsl:call-template name="add-zero-spaces-java">
+										<xsl:with-param name="text" select="$td_text"/>
+									</xsl:call-template>
+								</xsl:variable>
 								<xsl:call-template name="tokenize">
 									<!-- <xsl:with-param name="text" select="translate(td[$curr-col],'- —:', '    ')"/> -->
-									<xsl:with-param name="text" select="translate(normalize-space($td_text),'- —:', '    ')"/>
+									<!-- 2009 thinspace -->
+									<!-- <xsl:with-param name="text" select="translate(normalize-space($td_text),'- —:', '    ')"/> -->
+									<xsl:with-param name="text" select="normalize-space(translate($string_with_added_zerospaces, '​', ' '))"/>
 								</xsl:call-template>
 							</xsl:variable>
 							<xsl:variable name="max_length">
@@ -2738,17 +2808,24 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<xsl:with-param name="table" select="$table"/>
 			</xsl:call-template>
 		</xsl:if>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="text()" mode="td_text">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="text()" mode="td_text">
 		<xsl:variable name="zero-space">​</xsl:variable>
 		<xsl:value-of select="translate(., $zero-space, ' ')"/><xsl:text> </xsl:text>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='table2']"/><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='thead']"/><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='thead']" mode="process">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='termsource']" mode="td_text">
+		<xsl:value-of select="*[local-name()='origin']/@citeas"/>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='link']" mode="td_text">
+		<xsl:value-of select="@target"/>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='table2']"/><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='thead']"/><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='thead']" mode="process">
+		<xsl:param name="cols-count"/>
 		<!-- font-weight="bold" -->
-		<fo:table-header>
+		<fo:table-header>			
+			
 			<xsl:apply-templates/>
 		</fo:table-header>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='tfoot']"/><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='tfoot']" mode="process">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='tfoot']"/><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='tfoot']" mode="process">
 		<xsl:apply-templates/>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="insertTableFooter">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="insertTableFooter">
+		<xsl:param name="cols-count"/>
 		<xsl:variable name="isNoteOrFnExist" select="../*[local-name()='note'] or ..//*[local-name()='fn'][local-name(..) != 'name']"/>
 		<xsl:if test="../*[local-name()='tfoot'] or           $isNoteOrFnExist = 'true'">
 		
@@ -2759,22 +2836,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<!-- if there are note(s) or fn(s) then create footer row -->
 				<xsl:if test="$isNoteOrFnExist = 'true'">
 				
-					<xsl:variable name="cols-count">
-						<xsl:choose>
-							<xsl:when test="../*[local-name()='thead']">
-								<!-- <xsl:value-of select="count(../*[local-name()='thead']/*[local-name()='tr']/*[local-name()='th'])"/> -->
-								<xsl:call-template name="calculate-columns-numbers">
-									<xsl:with-param name="table-row" select="../*[local-name()='thead']/*[local-name()='tr'][1]"/>
-								</xsl:call-template>
-							</xsl:when>
-							<xsl:otherwise>
-								<!-- <xsl:value-of select="count(./*[local-name()='tr'][1]/*[local-name()='td'])"/> -->
-								<xsl:call-template name="calculate-columns-numbers">
-									<xsl:with-param name="table-row" select="./*[local-name()='tr'][1]"/>
-								</xsl:call-template>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:variable>
+					
 				
 					<fo:table-row>
 						<fo:table-cell border="solid black 1pt" padding-left="1mm" padding-right="1mm" padding-top="1mm" number-columns-spanned="{$cols-count}">
@@ -2802,11 +2864,30 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			</fo:table-footer>
 		
 		</xsl:if>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='tbody']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='tbody']">
 		
-		<xsl:apply-templates select="../*[local-name()='thead']" mode="process"/>
+		<xsl:variable name="cols-count">
+			<xsl:choose>
+				<xsl:when test="../*[local-name()='thead']">					
+					<xsl:call-template name="calculate-columns-numbers">
+						<xsl:with-param name="table-row" select="../*[local-name()='thead']/*[local-name()='tr'][1]"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>					
+					<xsl:call-template name="calculate-columns-numbers">
+						<xsl:with-param name="table-row" select="./*[local-name()='tr'][1]"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		
-		<xsl:call-template name="insertTableFooter"/>
+		<xsl:apply-templates select="../*[local-name()='thead']" mode="process">
+			<xsl:with-param name="cols-count" select="$cols-count"/>
+		</xsl:apply-templates>
+		
+		<xsl:call-template name="insertTableFooter">
+			<xsl:with-param name="cols-count" select="$cols-count"/>
+		</xsl:call-template>
 		
 		<fo:table-body>
 			<xsl:apply-templates/>
@@ -2814,7 +2895,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 		
 		</fo:table-body>
 		
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='tr']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='tr']">
 		<xsl:variable name="parent-name" select="local-name(..)"/>
 		<!-- <xsl:variable name="namespace" select="substring-before(name(/*), '-')"/> -->
 		<fo:table-row min-height="4mm">
@@ -2838,7 +2919,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				
 			<xsl:apply-templates/>
 		</fo:table-row>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='th']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='th']">
 		<fo:table-cell text-align="{@align}" font-weight="bold" border="solid black 1pt" padding-left="1mm" display-align="center">
 			
 			
@@ -2870,7 +2951,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<xsl:apply-templates/>
 			</fo:block>
 		</fo:table-cell>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='td']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='td']">
 		<fo:table-cell text-align="{@align}" display-align="center" border="solid black 1pt" padding-left="1mm">
 			
 			
@@ -2899,6 +2980,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				</xsl:attribute>
 			</xsl:if>
 			<fo:block>
+								
 				<xsl:apply-templates/>
 			</fo:block>
 			<!-- <xsl:choose>
@@ -2914,16 +2996,18 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			
 			
 		</fo:table-cell>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='table']/*[local-name()='note']"/><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='table']/*[local-name()='note']" mode="process">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='table']/*[local-name()='note']"/><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='table']/*[local-name()='note']" mode="process">
 		
 		
 			<fo:block font-size="10pt" margin-bottom="12pt">
 				
 				
 				
+				
 				<fo:inline padding-right="2mm">
 					
-					<xsl:text>NOTE </xsl:text>
+					
+					<xsl:value-of select="$title-note"/>
 					
 					
 					
@@ -2933,9 +3017,9 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<xsl:apply-templates mode="process"/>
 			</fo:block>
 		
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='table']/*[local-name()='note']/*[local-name()='p']" mode="process">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='table']/*[local-name()='note']/*[local-name()='p']" mode="process">
 		<xsl:apply-templates/>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="fn_display">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="fn_display">
 		<xsl:variable name="references">
 			<xsl:for-each select="..//*[local-name()='fn'][local-name(..) != 'name']">
 				<fn reference="{@reference}" id="{@reference}_{ancestor::*[@id][1]/@id}">
@@ -2949,6 +3033,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			<xsl:variable name="reference" select="@reference"/>
 			<xsl:if test="not(preceding-sibling::*[@reference = $reference])"> <!-- only unique reference puts in note-->
 				<fo:block margin-bottom="12pt">
+					
 					
 					
 					
@@ -2971,7 +3056,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				</fo:block>
 			</xsl:if>
 		</xsl:for-each>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="fn_name_display">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="fn_name_display">
 		<!-- <xsl:variable name="references">
 			<xsl:for-each select="*[local-name()='name']//*[local-name()='fn']">
 				<fn reference="{@reference}" id="{@reference}_{ancestor::*[@id][1]/@id}">
@@ -2987,7 +3072,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<xsl:apply-templates/>
 			</fo:block>
 		</xsl:for-each>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="fn_display_figure">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="fn_display_figure">
 		<xsl:variable name="key_iso">
 			 <!-- and (not(@class) or @class !='pseudocode') -->
 		</xsl:variable>
@@ -3038,7 +3123,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			</fo:block>
 		</xsl:if>
 		
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='fn']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='fn']">
 		<!-- <xsl:variable name="namespace" select="substring-before(name(/*), '-')"/> -->
 		<fo:inline font-size="80%" keep-with-previous.within-line="always">
 			
@@ -3050,11 +3135,11 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<xsl:value-of select="@reference"/>
 			</fo:basic-link>
 		</fo:inline>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='fn']/*[local-name()='p']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='fn']/*[local-name()='p']">
 		<fo:inline>
 			<xsl:apply-templates/>
 		</fo:inline>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='dl']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='dl']">
 		<xsl:variable name="parent" select="local-name(..)"/>
 		
 		<xsl:variable name="key_iso">
@@ -3066,8 +3151,8 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				
 				
 					<fo:block margin-bottom="12pt" text-align="left">
-												
-						<xsl:text>where </xsl:text>
+						
+						<xsl:value-of select="$title-where"/><xsl:text> </xsl:text>
 						<xsl:apply-templates select="*[local-name()='dt']/*"/>
 						<xsl:text/>
 						<xsl:apply-templates select="*[local-name()='dd']/*" mode="inline"/>
@@ -3080,7 +3165,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 					
 					
 					
-					<xsl:text>where</xsl:text>
+					<xsl:value-of select="$title-where"/>
 				</fo:block>
 			</xsl:when>
 			<xsl:when test="$parent = 'figure' and  (not(../@class) or ../@class !='pseudocode')">
@@ -3088,7 +3173,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 					
 					
 					
-					<xsl:text>Key</xsl:text>
+					<xsl:value-of select="$title-key"/>
 				</fo:block>
 			</xsl:when>
 		</xsl:choose>
@@ -3099,7 +3184,9 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				
 				
 				
+				
 				<fo:block>
+					
 					
 					
 					<!-- create virtual html table for dl/[dt and dd] -->
@@ -3153,7 +3240,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 									<xsl:otherwise>
 										<xsl:for-each select="xalan:nodeset($colwidths)//column">
 											<xsl:choose>
-												<xsl:when test=". = 1">
+												<xsl:when test=". = 1 or . = 0">
 													<fo:table-column column-width="proportional-column-width(2)"/>
 												</xsl:when>
 												<xsl:otherwise>
@@ -3176,7 +3263,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				</fo:block>
 			</fo:block>
 		</xsl:if>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='dl']/*[local-name()='note']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='dl']/*[local-name()='note']">
 		<xsl:param name="key_iso"/>
 		
 		<!-- <tr>
@@ -3192,7 +3279,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 					<xsl:if test="normalize-space($key_iso) = 'true'">
 						<xsl:attribute name="margin-top">0</xsl:attribute>
 					</xsl:if>
-					NOTE
+					<xsl:value-of select="$title-note"/>
 				</fo:block>
 			</fo:table-cell>
 			<fo:table-cell>
@@ -3201,7 +3288,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				</fo:block>
 			</fo:table-cell>
 		</fo:table-row>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='dt']" mode="dl">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='dt']" mode="dl">
 		<tr>
 			<td>
 				<xsl:apply-templates/>
@@ -3214,11 +3301,12 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			</td>
 		</tr>
 		
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='dt']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='dt']">
 		<xsl:param name="key_iso"/>
 		
 		<fo:table-row>
 			<fo:table-cell>
+				
 				<fo:block margin-top="6pt">
 					
 					
@@ -3226,6 +3314,9 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 						<xsl:attribute name="margin-top">0</xsl:attribute>
 						
 					</xsl:if>
+					
+					
+					
 					
 					
 					<xsl:apply-templates/>
@@ -3243,37 +3334,37 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			</fo:table-cell>
 		</fo:table-row>
 		
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='dd']" mode="dl"/><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='dd']" mode="dl_process">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='dd']" mode="dl"/><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='dd']" mode="dl_process">
 		<xsl:apply-templates/>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='dd']"/><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='dd']" mode="process">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='dd']"/><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='dd']" mode="process">
 		<xsl:apply-templates/>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='dd']/*[local-name()='p']" mode="inline">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='dd']/*[local-name()='p']" mode="inline">
 		<fo:inline><xsl:text> </xsl:text><xsl:apply-templates/></fo:inline>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='em']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='em']">
 		<fo:inline font-style="italic">
 			<xsl:apply-templates/>
 		</fo:inline>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='strong']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='strong']">
 		<fo:inline font-weight="bold">
 			<xsl:apply-templates/>
 		</fo:inline>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='sup']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='sup']">
 		<fo:inline font-size="80%" vertical-align="super">
 			<xsl:apply-templates/>
 		</fo:inline>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='sub']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='sub']">
 		<fo:inline font-size="80%" vertical-align="sub">
 			<xsl:apply-templates/>
 		</fo:inline>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='tt']">
-		<fo:inline font-family="Courier" font-size="10pt">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='tt']">
+		<fo:inline font-family="Courier" font-size="10pt">			
 			<xsl:apply-templates/>
 		</fo:inline>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='del']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='del']">
 		<fo:inline font-size="10pt" color="red" text-decoration="line-through">
 			<xsl:apply-templates/>
 		</fo:inline>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="text()[ancestor::*[local-name()='smallcap']]">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="text()[ancestor::*[local-name()='smallcap']]">
 		<xsl:variable name="text" select="normalize-space(.)"/>
 		<fo:inline font-size="75%">
 				<xsl:if test="string-length($text) &gt; 0">
@@ -3282,7 +3373,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 					</xsl:call-template>
 				</xsl:if>
 			</fo:inline> 
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="recursiveSmallCaps">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="recursiveSmallCaps">
     <xsl:param name="text"/>
     <xsl:variable name="char" select="substring($text,1,1)"/>
     <xsl:variable name="upperCase" select="translate($char, $lower, $upper)"/>
@@ -3301,7 +3392,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
         <xsl:with-param name="text" select="substring($text,2)"/>
       </xsl:call-template>
     </xsl:if>
-  </xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="tokenize">
+  </xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="tokenize">
 		<xsl:param name="text"/>
 		<xsl:param name="separator" select="' '"/>
 		<xsl:choose>
@@ -3349,7 +3440,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="max_length">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="max_length">
 		<xsl:param name="words"/>
 		<xsl:for-each select="$words//word">
 				<xsl:sort select="." data-type="number" order="descending"/>
@@ -3357,7 +3448,11 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 						<xsl:value-of select="."/>
 				</xsl:if>
 		</xsl:for-each>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="add-zero-spaces">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="add-zero-spaces-java">
+		<xsl:param name="text" select="."/>
+		<!-- add zero-width space (#x200B) after characters: dash, dot, colon, equal, underscore, em dash, thin space  -->
+		<xsl:value-of select="java:replaceAll(java:java.lang.String.new($text),'(-|\.|:|=|_|—| )','$1​')"/>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="add-zero-spaces">
 		<xsl:param name="text" select="."/>
 		<xsl:variable name="zero-space-after-chars">-</xsl:variable>
 		<xsl:variable name="zero-space-after-dot">.</xsl:variable>
@@ -3410,7 +3505,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<xsl:value-of select="$text"/>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="add-zero-spaces-equal">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="add-zero-spaces-equal">
 		<xsl:param name="text" select="."/>
 		<xsl:variable name="zero-space-after-equals">==========</xsl:variable>
 		<xsl:variable name="zero-space-after-equal">=</xsl:variable>
@@ -3436,7 +3531,7 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<xsl:value-of select="$text"/>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="getSimpleTable">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="getSimpleTable">
 		<xsl:variable name="simple-table">
 		
 			<!-- Step 1. colspan processing -->
@@ -3463,9 +3558,9 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			</xsl:choose> -->
 		</xsl:variable>
 		<xsl:copy-of select="$simple-table"/>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='thead'] | *[local-name()='tbody']" mode="simple-table-colspan">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='thead'] | *[local-name()='tbody']" mode="simple-table-colspan">
 		<xsl:apply-templates mode="simple-table-colspan"/>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='fn']" mode="simple-table-colspan"/><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='th'] | *[local-name()='td']" mode="simple-table-colspan">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='fn']" mode="simple-table-colspan"/><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='th'] | *[local-name()='td']" mode="simple-table-colspan">
 		<xsl:choose>
 			<xsl:when test="@colspan">
 				<xsl:variable name="td">
@@ -3487,16 +3582,16 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="@colspan" mode="simple-table-colspan"/><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='tr']" mode="simple-table-colspan">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="@colspan" mode="simple-table-colspan"/><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='tr']" mode="simple-table-colspan">
 		<xsl:element name="tr">
 			<xsl:apply-templates select="@*" mode="simple-table-colspan"/>
 			<xsl:apply-templates mode="simple-table-colspan"/>
 		</xsl:element>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="@*|node()" mode="simple-table-colspan">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="@*|node()" mode="simple-table-colspan">
 		<xsl:copy>
 				<xsl:apply-templates select="@*|node()" mode="simple-table-colspan"/>
 		</xsl:copy>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="repeatNode">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="repeatNode">
 		<xsl:param name="count"/>
 		<xsl:param name="node"/>
 		
@@ -3507,18 +3602,18 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 			</xsl:call-template>
 			<xsl:copy-of select="$node"/>
 		</xsl:if>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="@*|node()" mode="simple-table-rowspan">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="@*|node()" mode="simple-table-rowspan">
 		<xsl:copy>
 				<xsl:apply-templates select="@*|node()" mode="simple-table-rowspan"/>
 		</xsl:copy>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="tbody" mode="simple-table-rowspan">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="tbody" mode="simple-table-rowspan">
 		<xsl:copy>
 				<xsl:copy-of select="tr[1]"/>
 				<xsl:apply-templates select="tr[2]" mode="simple-table-rowspan">
 						<xsl:with-param name="previousRow" select="tr[1]"/>
 				</xsl:apply-templates>
 		</xsl:copy>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="tr" mode="simple-table-rowspan">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="tr" mode="simple-table-rowspan">
 		<xsl:param name="previousRow"/>
 		<xsl:variable name="currentRow" select="."/>
 	
@@ -3552,13 +3647,13 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 		<xsl:apply-templates select="following-sibling::tr[1]" mode="simple-table-rowspan">
 				<xsl:with-param name="previousRow" select="$newRow"/>
 		</xsl:apply-templates>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="getLang">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="getLang">
 		<xsl:variable name="language" select="//*[local-name()='bibdata']//*[local-name()='language']"/>
 		<xsl:choose>
 			<xsl:when test="$language = 'English'">en</xsl:when>
 			<xsl:otherwise><xsl:value-of select="$language"/></xsl:otherwise>
 		</xsl:choose>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" name="capitalizeWords">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="capitalizeWords">
 		<xsl:param name="str"/>
 		<xsl:variable name="str2" select="translate($str, '-', ' ')"/>
 		<xsl:choose>
@@ -3576,19 +3671,19 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<xsl:value-of select="substring($str2, 2)"/>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="mathml:math">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="mathml:math">
 		<fo:inline font-family="STIX2Math">
 			<fo:instream-foreign-object fox:alt-text="Math"> 
 				<xsl:copy-of select="."/>
 			</fo:instream-foreign-object>
 		</fo:inline>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='localityStack']">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='localityStack']">
 		<xsl:for-each select="*[local-name()='locality']">
 			<xsl:if test="position() =1"><xsl:text>, </xsl:text></xsl:if>
 			<xsl:apply-templates select="."/>
 			<xsl:if test="position() != last()"><xsl:text>; </xsl:text></xsl:if>
 		</xsl:for-each>
-	</xsl:template><xsl:template xmlns:iso="https://www.metanorma.org/ns/iso" xmlns:iec="https://www.metanorma.org/ns/iec" xmlns:itu="https://www.metanorma.org/ns/itu" xmlns:nist="https://www.metanorma.org/ns/nist" xmlns:csd="https://www.metanorma.org/ns/csd" xmlns:ogc="https://www.metanorma.org/ns/ogc" match="*[local-name()='link']" name="link">
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='link']" name="link">
 		<xsl:variable name="target">
 			<xsl:choose>
 				<xsl:when test="starts-with(normalize-space(@target), 'mailto:')">
@@ -3618,4 +3713,122 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				</xsl:otherwise>
 			</xsl:choose>
 		</fo:inline>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='sourcecode']" name="sourcecode">
+		<fo:block xsl:use-attribute-sets="sourcecode-style">
+			<!-- <xsl:choose>
+				<xsl:when test="@lang = 'en'"></xsl:when>
+				<xsl:otherwise> -->
+					<xsl:attribute name="white-space">pre</xsl:attribute>
+					<xsl:attribute name="wrap-option">wrap</xsl:attribute>
+				<!-- </xsl:otherwise>
+			</xsl:choose> -->
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='bookmark']">
+		<fo:inline id="{@id}"/>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='appendix']">
+		<fo:block id="{@id}" xsl:use-attribute-sets="appendix-style">
+			<fo:inline padding-right="5mm"><xsl:value-of select="$title-appendix"/> <xsl:number/></fo:inline>
+			<xsl:apply-templates select="*[local-name()='title']" mode="process"/>
+		</fo:block>
+		<xsl:apply-templates/>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='appendix']/*[local-name()='title']"/><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='appendix']/*[local-name()='title']" mode="process">
+		<fo:inline><xsl:apply-templates/></fo:inline>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='appendix']//*[local-name()='example']">
+		<fo:block xsl:use-attribute-sets="appendix-example-style">
+			<xsl:variable name="claims_id" select="ancestor::*[local-name()='clause'][1]/@id"/>
+			<xsl:value-of select="$title-example"/>
+			<xsl:if test="count(ancestor::*[local-name()='clause'][1]//*[local-name()='example']) &gt; 1">
+					<xsl:number count="*[local-name()='example'][ancestor::*[local-name()='clause'][@id = $claims_id]]" level="any"/><xsl:text> </xsl:text>
+				</xsl:if>
+			<xsl:if test="*[local-name()='name']">
+				<xsl:text>— </xsl:text><xsl:apply-templates select="*[local-name()='name']" mode="process"/>
+			</xsl:if>
+		</fo:block>
+		<xsl:apply-templates/>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='appendix']//*[local-name()='example']/*[local-name()='name']"/><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name()='appendix']//*[local-name()='example']/*[local-name()='name']" mode="process">
+		<fo:inline><xsl:apply-templates/></fo:inline>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name() = 'callout']">		
+		<fo:basic-link internal-destination="{@target}" fox:alt-text="{@target}">&lt;<xsl:apply-templates/>&gt;</fo:basic-link>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name() = 'annotation']">
+		<xsl:variable name="annotation-id" select="@id"/>
+		<xsl:variable name="callout" select="//*[@target = $annotation-id]/text()"/>		
+		<fo:block id="{$annotation-id}" white-space="nowrap">			
+			<fo:inline>				
+				<xsl:apply-templates>
+					<xsl:with-param name="callout" select="concat('&lt;', $callout, '&gt; ')"/>
+				</xsl:apply-templates>
+			</fo:inline>
+		</fo:block>		
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" match="*[local-name() = 'annotation']/*[local-name() = 'p']">
+		<xsl:param name="callout"/>
+		<fo:inline id="{@id}">
+			<!-- for first p in annotation, put <x> -->
+			<xsl:if test="not(preceding-sibling::*[local-name() = 'p'])"><xsl:value-of select="$callout"/></xsl:if>
+			<xsl:apply-templates/>
+		</fo:inline>		
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="convertDate">
+		<xsl:param name="date"/>
+		<xsl:param name="format" select="'short'"/>
+		<xsl:variable name="year" select="substring($date, 1, 4)"/>
+		<xsl:variable name="month" select="substring($date, 6, 2)"/>
+		<xsl:variable name="day" select="substring($date, 9, 2)"/>
+		<xsl:variable name="monthStr">
+			<xsl:choose>
+				<xsl:when test="$month = '01'">January</xsl:when>
+				<xsl:when test="$month = '02'">February</xsl:when>
+				<xsl:when test="$month = '03'">March</xsl:when>
+				<xsl:when test="$month = '04'">April</xsl:when>
+				<xsl:when test="$month = '05'">May</xsl:when>
+				<xsl:when test="$month = '06'">June</xsl:when>
+				<xsl:when test="$month = '07'">July</xsl:when>
+				<xsl:when test="$month = '08'">August</xsl:when>
+				<xsl:when test="$month = '09'">September</xsl:when>
+				<xsl:when test="$month = '10'">October</xsl:when>
+				<xsl:when test="$month = '11'">November</xsl:when>
+				<xsl:when test="$month = '12'">December</xsl:when>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="result">
+			<xsl:choose>
+				<xsl:when test="$format = 'short' or $day = ''">
+					<xsl:value-of select="normalize-space(concat($monthStr, ' ', $year))"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(concat($monthStr, ' ', $day, ', ' , $year))"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:value-of select="$result"/>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="insertKeywords">
+		<xsl:param name="sorting" select="'true'"/>
+		<xsl:param name="charAtEnd" select="'.'"/>
+		<xsl:param name="charDelim" select="', '"/>
+		<xsl:choose>
+			<xsl:when test="$sorting = 'true' or $sorting = 'yes'">
+				<xsl:for-each select="/*/*[local-name() = 'bibdata']//*[local-name() = 'keyword']">
+					<xsl:sort data-type="text" order="ascending"/>
+					<xsl:call-template name="insertKeyword">
+						<xsl:with-param name="charAtEnd" select="$charAtEnd"/>
+						<xsl:with-param name="charDelim" select="$charDelim"/>
+					</xsl:call-template>
+				</xsl:for-each>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:for-each select="/*/*[local-name() = 'bibdata']//*[local-name() = 'keyword']">
+					<xsl:call-template name="insertKeyword">
+						<xsl:with-param name="charAtEnd" select="$charAtEnd"/>
+						<xsl:with-param name="charDelim" select="$charDelim"/>
+					</xsl:call-template>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template><xsl:template xmlns:java="http://xml.apache.org/xalan/java" name="insertKeyword">
+		<xsl:param name="charAtEnd"/>
+		<xsl:param name="charDelim"/>
+		<xsl:apply-templates/>
+		<xsl:choose>
+			<xsl:when test="position() != last()"><xsl:value-of select="$charDelim"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="$charAtEnd"/></xsl:otherwise>
+		</xsl:choose>
 	</xsl:template></xsl:stylesheet>
