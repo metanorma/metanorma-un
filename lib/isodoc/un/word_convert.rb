@@ -13,11 +13,6 @@ module IsoDoc
         @toc = options[:toc]
       end
 
-      #def convert1(docxml, filename, dir)
-        #FileUtils.cp html_doc_path('logo.jpg'), File.join(@localdir, "logo.jpg")
-        #super
-      #end
-
       def default_fonts(options)
         {
           bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Times New Roman",serif'),
@@ -92,6 +87,7 @@ module IsoDoc
       end
 
       def middle(isoxml, out)
+        middle_admonitions(isoxml, out)
         clause isoxml, out
         annex isoxml, out
         bibliography isoxml, out
