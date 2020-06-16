@@ -41,7 +41,7 @@ module IsoDoc
 
       def admonition_parse(node, out)
         name = node.at(ns("./name"))
-        out.div **{ class: "Admonition" } do |t|
+        out.div **admonition_attrs(node) do |t|
           admonition_name_parse(node, t, name) if name
           node.children.each do |n|
             parse(n, t) unless n.name == "name"
