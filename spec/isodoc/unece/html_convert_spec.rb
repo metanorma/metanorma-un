@@ -1264,4 +1264,72 @@ INPUT
     expect(xmlpp(IsoDoc::UN::HtmlConvert.new({}).convert("test", input, true))).to be_equivalent_to output
   end
 
+  it "processes note types" do
+     input = <<~"INPUT"
+    <un-standard xmlns="http://riboseinc.com/isoxml">
+    <sections>
+    <clause>
+    <note type="source" id="A">
+    <p>Source</p>
+    </note>
+    <note type="abbreviation" id="B">
+    <p>Source</p>
+    </note>
+    <note type="source" id="C">
+    <p>Source</p>
+    </note>
+    <note type="abbreviation" id="D">
+    <p>Source</p>
+    </note>
+    <note id="E">
+    <p>Source</p>
+    </note>
+    </clause>
+    </sections>
+</un-standard>
+INPUT
+output = xmlpp(<<~"OUTPUT")
+  #{HTML_HDR}
+  <div>
+  <h1/>
+      <div id='A' class='Note'>
+      <p>
+        <span class='note_label'>Source:</span>
+        &#160; Source
+      </p>
+    </div>
+    <div id='B' class='Note'>
+      <p>
+        <span class='note_label'>Abbreviations:</span>
+        &#160; Source
+      </p>
+    </div>
+    <div id='C' class='Note'>
+      <p>
+        <span class='note_label'>Source:</span>
+        &#160; Source
+      </p>
+    </div>
+    <div id='D' class='Note'>
+      <p>
+        <span class='note_label'>Abbreviations:</span>
+        &#160; Source
+      </p>
+    </div>
+    <div id='E' class='Note'>
+      <p>
+        <span class='note_label'>NOTE:</span>
+        &#160; Source
+      </p>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>
+  OUTPUT
+    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({}).convert("test", input, true))).to be_equivalent_to output
+  end
+
+
+
 end
