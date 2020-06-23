@@ -84,8 +84,8 @@ module IsoDoc
         if node["inline-header"] == "true"
           inline_header_title(out, node, c1)
         else
-          div.send "h#{anchor(node['id'], :level, false) || '1'}" do |h|
-            lbl = anchor(node['id'], :label, false)
+          div.send "h#{@xrefs.anchor(node['id'], :level, false) || '1'}" do |h|
+            lbl = @xrefs.anchor(node['id'], :label, false)
             h << "#{lbl}. " if lbl && !@suppressheadingnumbers
             insert_tab(h, 1) if lbl && !@suppressheadingnumbers
             c1&.children&.each { |c2| parse(c2, h) }
