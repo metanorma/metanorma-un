@@ -16,7 +16,7 @@ RSpec.describe Metanorma::UN::Processor do
 
   it "registers output formats against metanorma" do
     output = <<~"OUTPUT"
-    [[:doc, "doc"], [:html, "html"], [:pdf, "pdf"], [:rxl, "rxl"], [:xml, "xml"]]
+    [[:doc, "doc"], [:html, "html"], [:pdf, "pdf"], [:presentation, "presentation.xml"], [:rxl, "rxl"], [:xml, "xml"]]
     OUTPUT
 
     expect(processor.output_formats.sort.to_s).to be_equivalent_to output
@@ -63,7 +63,7 @@ RSpec.describe Metanorma::UN::Processor do
    </main>
     OUTPUT
 
-    processor.output(input, "test.html", :html)
+    processor.output(input, "test.xml", "test.html", :html)
 
     expect(
       xmlpp(File.read("test.html", encoding: "utf-8").
@@ -96,7 +96,7 @@ RSpec.describe Metanorma::UN::Processor do
    </main>
     OUTPUT
 
-    processor.output(input, "test.doc", :doc)
+    processor.output(input, "test.xml", "test.doc", :doc)
 
     expect(File.read("test.doc", encoding: "utf-8")).to include '<div class="WordSection3"><div><a name="D" id="D"></a><h1>1.<span style="mso-tab-count:1">&#xA0; </span>Scope</h1><p class="MsoNormal"><a name="E" id="E"></a>Text</p></div>'
 

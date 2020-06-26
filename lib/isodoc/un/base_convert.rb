@@ -10,9 +10,13 @@ module IsoDoc
         @meta.set(:toc, @toc)
       end
 
+def xref_init(lang, script, klass, labels, options)
+        @xrefs = Xref.new(lang, script, klass, labels, options)
+      end
+
       def annex_name(annex, name, div)
         div.h1 **{ class: "Annex" } do |t|
-          t << "#{anchor(annex['id'], :label)}"
+          t << "#{@xrefs.anchor(annex['id'], :label)}"
           t.br
           t.b do |b|
             name&.children&.each { |c2| parse(c2, b) }
@@ -30,9 +34,13 @@ module IsoDoc
         File.join(File.dirname(__FILE__), loc)
       end
 
+      def middle_clause
+        "//clause[parent::sections]"
+      end
+
       def admonition_name_parse(node, div, name)
         div.p **{ class: "AdmonitionTitle", style: "text-align:center;" } do |p|
-          lbl = anchor(node['id'], :label)
+          lbl = @xrefs.anchor(node['id'], :label)
           lbl.nil? or p << l10n("#{@admonition_lbl} #{lbl}")
           name and !lbl.nil? and p << "&nbsp;&mdash; "
           name and name.children.each { |n| parse(n, div) }
@@ -51,7 +59,7 @@ module IsoDoc
 
       def inline_header_title(out, node, c1)
         out.span **{ class: "zzMoveToFollowing" } do |s|
-          if lbl = anchor(node['id'], :label)
+          if lbl = @xrefs.anchor(node['id'], :label)
             s << "#{lbl}. " unless @suppressheadingnumbers
             insert_tab(s, 1)
           end
@@ -67,7 +75,7 @@ module IsoDoc
       end
 
        def note_label(node)
-      n = get_anchors[node["id"]]
+         n = @xrefs.get[node["id"]]
       lbl = case node["type"]
             when "source" then "Source"
             when "abbreviation" then "Abbreviations"
