@@ -1,4 +1,5 @@
 require_relative "base_convert"
+require_relative "init"
 require "isodoc"
 
 module IsoDoc
@@ -175,6 +176,7 @@ module IsoDoc
       end
 
       include BaseConvert
+      include Init
     end
   end
 end
