@@ -9,6 +9,17 @@ module IsoDoc
         @toc = options[:toc]
       end
 
+      def note1(f)
+        n = @xrefs.get[f["id"]]
+        lbl = case f["type"]
+              when "source" then "Source"
+              when "abbreviation" then "Abbreviations"
+              else
+                @note_lbl
+              end
+        prefix_name(f, "", lbl)
+      end
+
       include Init
     end
   end

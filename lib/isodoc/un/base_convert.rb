@@ -56,18 +56,6 @@ module IsoDoc
         return true if docxml&.at(ns("//bibdata/ext/session/*"))
         false
       end
-
-       def note_label(node)
-         n = @xrefs.get[node["id"]]
-      lbl = case node["type"]
-            when "source" then "Source"
-            when "abbreviation" then "Abbreviations"
-            else
-              @note_lbl
-            end
-      return "#{lbl}:" # if n.nil? || n[:label].nil? || n[:label].empty?
-      #l10n("#{lbl} #{n[:label]}:")
-    end
     end
   end
 end
