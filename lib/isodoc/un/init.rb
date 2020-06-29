@@ -13,6 +13,12 @@ module IsoDoc
       def xref_init(lang, script, klass, labels, options)
         @xrefs = Xref.new(lang, script, klass, labels, options)
       end
+
+      def i18n_init(lang, script)
+        super
+        @admonition_lbl = "Box"
+        @abstract_lbl = "Summary"
+      end
     end
   end
 end

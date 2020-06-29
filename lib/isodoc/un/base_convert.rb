@@ -13,12 +13,6 @@ module IsoDoc
         end
       end
 
-      def i18n_init(lang, script)
-        super
-        @admonition_lbl = "Box"
-        @abstract_lbl = "Summary"
-      end
-
       def fileloc(loc)
         File.join(File.dirname(__FILE__), loc)
       end
