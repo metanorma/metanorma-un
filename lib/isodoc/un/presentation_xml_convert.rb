@@ -17,7 +17,7 @@ module IsoDoc
               else
                 @note_lbl
               end
-        prefix_name(f, "", lbl)
+        prefix_name(f, "", lbl, "name")
       end
 
       include Init
