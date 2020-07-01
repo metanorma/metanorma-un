@@ -21,15 +21,6 @@ module IsoDoc
         "//clause[parent::sections]"
       end
 
-      def admonition_name_parse(node, div, name)
-        div.p **{ class: "AdmonitionTitle", style: "text-align:center;" } do |p|
-          lbl = @xrefs.anchor(node['id'], :label)
-          lbl.nil? or p << l10n("#{@admonition_lbl} #{lbl}")
-          name and !lbl.nil? and p << "&nbsp;&mdash; "
-          name and name.children.each { |n| parse(n, div) }
-        end
-      end
-
       def admonition_parse(node, out)
         name = node.at(ns("./name"))
         out.div **admonition_attrs(node) do |t|

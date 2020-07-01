@@ -20,6 +20,23 @@ module IsoDoc
         prefix_name(f, "", lbl, "name")
       end
 
+      def conversions(docxml)
+        super
+        admonition docxml
+      end
+
+      def admonition(docxml)
+        docxml.xpath(ns("//admonition")).each do |f|
+          admonition1(f)
+        end
+      end
+
+      def admonition1(f)
+        n = @xrefs.anchor(f['id'], :label) or return
+        lbl = l10n("#{@admonition_lbl} #{n}")
+        prefix_name(f, "&nbsp;&mdash; ", lbl, "name")
+      end
+
       include Init
     end
   end

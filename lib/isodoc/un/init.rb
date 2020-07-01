@@ -11,12 +11,14 @@ module IsoDoc
       end
 
       def xref_init(lang, script, klass, labels, options)
-        @xrefs = Xref.new(lang, script, klass, labels, options)
+        @xrefs = Xref.new(lang, script, HtmlConvert.new(language: lang, script: script), labels, options)
       end
 
       def i18n_init(lang, script)
         super
+        @labels["admonition"] = "Box"
         @admonition_lbl = "Box"
+        @labels["abstract"] = "Box"
         @abstract_lbl = "Summary"
       end
     end

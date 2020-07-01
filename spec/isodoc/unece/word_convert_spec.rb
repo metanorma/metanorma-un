@@ -585,16 +585,16 @@ it "processes admonitions" do
   INPUT
 
   output = xmlpp(<<~"OUTPUT")
-         <div class="WordSection3"><div id="A"><h1>I.<span style="mso-tab-count:1">&#160; </span></h1><div id="B" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box 1&#160;&#8212; First Box</p>
+         <div class="WordSection3"><div id="A"><h1>I.<span style="mso-tab-count:1">&#160; </span></h1><div id="B" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">First Box</p>
 
              <p id="C">paragraph</p>
-           </div></div><div id="A1"><h1>II.<span style="mso-tab-count:1">&#160; </span></h1><div id="B1" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box 2&#160;&#8212; Second Box</p>
+           </div></div><div id="A1"><h1>II.<span style="mso-tab-count:1">&#160; </span></h1><div id="B1" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Second Box</p>
 
              <p id="C1">paragraph</p>
-           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D" class="Section3"><h1 class="Annex"><b>Annex I</b><br/><b>First Annex</b></h1><div id="E" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box I.1&#160;&#8212; Third Box</p>
+           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D" class="Section3"><h1 class="Annex"><b>Annex I</b><br/><b>First Annex</b></h1><div id="E" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Third Box</p>
 
              <p id="F">paragraph</p>
-           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D1" class="Section3"><h1 class="Annex"><b>Annex II</b><br/><b>Second Annex</b></h1><div id="E1" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box II.1&#160;&#8212; Fourth Box</p>
+           </div></div><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="D1" class="Section3"><h1 class="Annex"><b>Annex II</b><br/><b>Second Annex</b></h1><div id="E1" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Fourth Box</p>
 
              <p id="F1">paragraph</p>
            </div></div>
@@ -710,39 +710,6 @@ IsoDoc::UN::WordConvert.new(toc: true).convert("test", input, false)
   html = File.read("test.doc", encoding: "utf-8")
   expect(html).not_to include '<a name="abstractbox" id="abstractbox">'
   expect(html).to include 'preface_container'
-  end
-
-  it "processes bibliography" do
-        input = <<~"INPUT"
-    <un-standard xmlns="http://riboseinc.com/isoxml">
-    <sections>
-    <clause>
-    <eref bibitemid="ISO712"/>
-    </clause>
-    </sections>
-    <bibliography><references id="R" obligation="informative" normative="true">
-         <title>Normative References</title>
-         <bibitem id="ISO712" type="standard">
-  <title format="text/plain">Cereals and cereal products</title>
-  <docidentifier type="ISO">ISO 712</docidentifier>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>International Organization for Standardization</name>
-    </organization>
-  </contributor>
-</bibitem>
-       </references>
-       </bibliography>
-</un-standard>
-INPUT
-  output = xmlpp(<<~"OUTPUT")
-<div class="WordSection3"><div><h1/><a href="#ISO712">ISO 712</a></div>  
-</div>
-  OUTPUT
-  expect(xmlpp(IsoDoc::UN::WordConvert.new({}).convert("test", input, true).
-         sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').
-         sub(%r{<v:line.*$}m, '</div>'))).to be_equivalent_to output
   end
 
   it "processes plenary preface" do

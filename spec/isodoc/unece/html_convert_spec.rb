@@ -736,7 +736,7 @@ end
   end
 
   it "processes cross-references to section names" do
-    input = <<~"INPUT"
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", <<~INPUT, true))).to be_equivalent_to <<~OUTPUT
     <un-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
       <foreword id="A" obligation="informative">
@@ -854,42 +854,134 @@ end
        </bibliography>
        </un-standard>
     INPUT
-
-    output = xmlpp(<<~"OUTPUT")
-    <div>
-    <h1 class="ForewordTitle">Foreword</h1>
+      <?xml version='1.0'?>
+  <un-standard xmlns='http://riboseinc.com/isoxml'>
+    <preface>
+      <foreword id='A' obligation='informative'>
+        <title>Foreword</title>
         <p>
-                   <a href='#A'>Foreword</a>
-           <a href='#B'>Introduction</a>
-           <a href='#C'>Introduction Subsection</a>
-           <a href='#AA'>Abstract</a>
-           <a href='#H'>Clause I</a>
-           <a href='#I'>Clause I.A</a>
-           <a href='#J'>Clause I.A.1</a>
-           <a href='#K'>Clause I.B</a>
-           <a href='#D'>paragraph 1</a>
-           <a href='#M'>Clause III</a>
-           <a href='#N'>paragraph 2</a>
-           <a href='#O'>Clause III.A</a>
-           <a href='#O1'>Clause III.A.1</a>
-           <a href='#O11'>paragraph 3</a>
-           <a href='#P'>Annex I</a>
-           <a href='#Q'>Annex I.1</a>
-           <a href='#Q1'>Annex I.1.I</a>
-           <a href='#Q11'>paragraph I.1.I.A.1</a>
-           <a href='#U'>Annex II</a>
-           <a href='#R'>Normative References</a>
-           <a href='#S'>Bibliography</a>
-           <a href='#T'>Bibliography Subsection</a>
-         </p>
-    </div>
+          <xref target='A'>Foreword</xref>
+          <xref target='B'>Introduction</xref>
+          <xref target='C'>Introduction Subsection</xref>
+          <xref target='AA'>Abstract</xref>
+          <xref target='H'>Clause I</xref>
+          <xref target='I'>Clause I.A</xref>
+          <xref target='J'>Clause I.A.1</xref>
+          <xref target='K'>Clause I.B</xref>
+          <xref target='D'>paragraph 1</xref>
+          <xref target='M'>Clause III</xref>
+          <xref target='N'>paragraph 2</xref>
+          <xref target='O'>Clause III.A</xref>
+          <xref target='O1'>Clause III.A.1</xref>
+          <xref target='O11'>paragraph 3</xref>
+          <xref target='P'>Annex I</xref>
+          <xref target='Q'>Annex I.1</xref>
+          <xref target='Q1'>Annex I.1.I</xref>
+          <xref target='Q11'>paragraph I.1.I.A.1</xref>
+          <xref target='U'>Annex II</xref>
+          <xref target='R'>Normative References</xref>
+          <xref target='S'>Bibliography</xref>
+          <xref target='T'>Bibliography Subsection</xref>
+        </p>
+      </foreword>
+      <introduction id='B' obligation='informative'>
+        <title>Introduction</title>
+        <clause id='C' inline-header='false' obligation='informative'>
+          <title>Introduction Subsection</title>
+          <p id='X1'/>
+          <p id='X2'/>
+        </clause>
+      </introduction>
+      <abstract id='AA' obligation='informative'>
+        <p id='X3'/>
+        <p id='X4'/>
+      </abstract>
+    </preface>
+    <sections>
+      <clause id='H' obligation='normative'>
+        <title>Terms, Definitions, Symbols and Abbreviated Terms</title>
+        <terms id='I' obligation='normative'>
+          <title>Normal Terms</title>
+          <term id='J'>
+            <preferred>Term2</preferred>
+          </term>
+        </terms>
+        <definitions id='K'>
+          <dl>
+            <dt>Symbol</dt>
+            <dd>Definition</dd>
+          </dl>
+        </definitions>
+      </clause>
+      <clause id='D' obligation='normative'>
+        <title>Scope</title>
+        <p id='X5'/>
+        <p id='X6'/>
+      </clause>
+      <clause id='M' inline-header='false' obligation='normative'>
+        <title>Clause 4</title>
+        <p id='X6a'/>
+        <clause id='N' inline-header='false' obligation='normative'>
+          <title>Introduction</title>
+          <p id='X7'/>
+          <p id='X8'/>
+        </clause>
+        <clause id='O' inline-header='false' obligation='normative'>
+          <title>Clause 4.2</title>
+          <p id='X9'/>
+          <p id='X10'/>
+          <clause id='O1' inline-header='false' obligation='normative'>
+            <title>Clause 4.2.1</title>
+            <p id='X11'/>
+            <p id='X12'/>
+            <clause id='O11' inline-header='false' obligation='normative'>
+              <title>Clause 4 Leaf</title>
+              <p id='X13'/>
+              <p id='X14'/>
+            </clause>
+          </clause>
+        </clause>
+      </clause>
+    </sections>
+    <annex id='P' inline-header='false' obligation='normative'>
+      <title>Annex</title>
+      <p id='X15'/>
+      <p id='X16'/>
+      <clause id='Q' inline-header='false' obligation='normative'>
+        <title>Annex A.1</title>
+        <p id='X17'/>
+        <p id='X18'/>
+        <clause id='Q1' inline-header='false' obligation='normative'>
+          <title>Annex A.1a</title>
+          <p id='X19'/>
+          <p id='X20'/>
+          <clause id='Q11' inline-header='false' obligation='normative'>
+            <title>Annex A Leaf</title>
+            <p id='X21'/>
+            <p id='X22'/>
+          </clause>
+        </clause>
+      </clause>
+    </annex>
+    <annex id='U' inline-header='false' obligation='normative'>
+      <title>Terminal annex</title>
+      <p id='X23'/>
+      <p id='X24'/>
+    </annex>
+    <bibliography>
+      <references id='R' obligation='informative' normative='true'>
+        <title>Normative References</title>
+      </references>
+      <clause id='S' obligation='informative'>
+        <title>Bibliography</title>
+        <references id='T' obligation='informative' normative='false'>
+          <title>Bibliography Subsection</title>
+        </references>
+      </clause>
+    </bibliography>
+  </un-standard>
     OUTPUT
 
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({}).
-           convert("test", input, true).
-           sub(%r{^.*<h1 class="ForewordTitle">}m, '<div><h1 class="ForewordTitle">').
-           sub(%r{</div>.*$}m, '</div>')
-          )).to be_equivalent_to output
 end
 
     it "processes section names, suppressing section numbering" do
@@ -1053,7 +1145,88 @@ it "injects JS into blank html" do
   expect(html).to match(%r{Roboto})
 end
 
-it "processes admonitions" do
+it "processes admonitions (Presentation XML)" do
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", <<~INPUT, true))).to be_equivalent_to <<~OUTPUT
+  <un-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
+    <p>
+    <xref target="B"/>
+    <xref target="B1"/>
+    <xref target="E"/>
+    <xref target="E1"/>
+    </p>
+    </preface>
+    <sections>
+      <clause id="A">
+      <admonition id="B" unnumbered="true">
+        <name>First Box</name>
+        <p id="C">paragraph</p>
+      </admonition>
+      </clause>
+      <clause id="A1">
+      <admonition id="B1">
+        <name>Second Box</name>
+        <p id="C1">paragraph</p>
+      </admonition>
+      </clause>
+    </sections>
+    <annex id="D"><title>First Annex</title>
+      <admonition id="E">
+        <name>Third Box</name>
+        <p id="F">paragraph</p>
+      </admonition>
+    </annex>
+    <annex id="D1"><title>Second Annex</title>
+      <admonition id="E1">
+        <name>Fourth Box</name>
+        <p id="F1">paragraph</p>
+      </admonition>
+    </annex>
+  </un-standard>
+  INPUT
+  <?xml version='1.0'?>
+<un-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <p>
+      <xref target='B'>Box (??)</xref>
+      <xref target='B1'>Box 1</xref>
+      <xref target='E'>Box I.1</xref>
+      <xref target='E1'>Box II.1</xref>
+    </p>
+  </preface>
+  <sections>
+    <clause id='A'>
+      <admonition id='B' unnumbered='true'>
+        <name>First Box</name>
+        <p id='C'>paragraph</p>
+      </admonition>
+    </clause>
+    <clause id='A1'>
+      <admonition id='B1'>
+        <name>Box 1&#xA0;&#x2014; Second Box</name>
+        <p id='C1'>paragraph</p>
+      </admonition>
+    </clause>
+  </sections>
+  <annex id='D'>
+    <title>First Annex</title>
+    <admonition id='E'>
+      <name>Box I.1&#xA0;&#x2014; Third Box</name>
+      <p id='F'>paragraph</p>
+    </admonition>
+  </annex>
+  <annex id='D1'>
+    <title>Second Annex</title>
+    <admonition id='E1'>
+      <name>Box II.1&#xA0;&#x2014; Fourth Box</name>
+      <p id='F1'>paragraph</p>
+    </admonition>
+  </annex>
+</un-standard>
+OUTPUT
+end
+
+it "processes admonitions (HTML)" do
   input = <<~"INPUT"
   <un-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
@@ -1102,7 +1275,7 @@ it "processes admonitions" do
              </div>
              <div id="A1">
                <h1>II.&#160; </h1>
-               <div id="B1" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box 1&#160;&#8212; Second Box</p>
+               <div id="B1" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Second Box</p>
 
              <p id="C1">paragraph</p>
            </div>
@@ -1110,7 +1283,7 @@ it "processes admonitions" do
              <br/>
              <div id="D" class="Section3">
                <h1 class="Annex"><b>Annex I</b><br/><b>First Annex</b></h1>
-               <div id="E" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box I.1&#160;&#8212; Third Box</p>
+               <div id="E" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Third Box</p>
 
              <p id="F">paragraph</p>
            </div>
@@ -1118,7 +1291,7 @@ it "processes admonitions" do
              <br/>
              <div id="D1" class="Section3">
                <h1 class="Annex"><b>Annex II</b><br/><b>Second Annex</b></h1>
-               <div id="E1" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Box II.1&#160;&#8212; Fourth Box</p>
+               <div id="E1" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Fourth Box</p>
 
              <p id="F1">paragraph</p>
            </div>
@@ -1228,7 +1401,7 @@ INPUT
 
 
   it "processes bibliography" do
-        input = <<~"INPUT"
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", <<~INPUT, true))).to be_equivalent_to <<~OUTPUT
     <un-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
     <clause>
@@ -1251,17 +1424,30 @@ INPUT
        </bibliography>
 </un-standard>
 INPUT
-  output = xmlpp(<<~"OUTPUT")
-  #{HTML_HDR}
-        <div>
-        <h1/>
-        <a href="#ISO712">ISO 712</a>
-      </div>
-    </div>
-  </body>
-</html>
+<?xml version='1.0'?>
+<un-standard xmlns='http://riboseinc.com/isoxml'>
+  <sections>
+    <clause>
+      <eref bibitemid='ISO712'>ISO 712</eref>
+    </clause>
+  </sections>
+  <bibliography>
+    <references id='R' obligation='informative' normative='true'>
+      <title>Normative References</title>
+      <bibitem id='ISO712' type='standard'>
+        <title format='text/plain'>Cereals and cereal products</title>
+        <docidentifier type='ISO'>ISO 712</docidentifier>
+        <contributor>
+          <role type='publisher'/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+      </bibitem>
+    </references>
+  </bibliography>
+</un-standard>
   OUTPUT
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({}).convert("test", input, true))).to be_equivalent_to output
   end
 
   it "processes note types" do
