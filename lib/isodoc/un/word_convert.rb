@@ -16,8 +16,10 @@ module IsoDoc
 
       def default_fonts(options)
         {
-          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Times New Roman",serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Times New Roman",serif'),
+          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' :
+                     '"Times New Roman",serif'),
+          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' :
+                       '"Times New Roman",serif'),
           monospacefont: '"Courier New",monospace'
         }
       end
@@ -48,7 +50,8 @@ module IsoDoc
 
       def make_body(xml, docxml)
         plenary = is_plenary?(docxml)
-        if plenary && @wordcoverpage == html_doc_path("word_unece_titlepage.html")
+        if plenary &&
+            @wordcoverpage == html_doc_path("word_unece_titlepage.html")
           @wordcoverpage = html_doc_path("word_unece_plenary_titlepage.html")
         end
         @wordintropage = nil if plenary && !@toc
@@ -95,21 +98,6 @@ module IsoDoc
         end_line(isoxml, out)
       end
 
-      def clause_parse_title(node, div, c1, out)
-        if node["inline-header"] == "true"
-          inline_header_title(out, node, c1)
-        else
-          div.send "h#{@xrefs.anchor(node['id'], :level, false) || '1'}" do |h|
-            lbl = @xrefs.anchor(node['id'], :label, false)
-            if lbl && !@suppressheadingnumbers
-              h << "#{lbl}. "
-              insert_tab(h, 1)
-            end
-            c1&.children&.each { |c2| parse(c2, h) }
-          end
-        end
-      end
-
       def introduction(isoxml, out)
         f = isoxml.at(ns("//introduction")) || return
         out.div **{ class: "Section3", id: f["id"] } do |div|
@@ -136,7 +124,8 @@ module IsoDoc
 
       def word_preface(docxml)
         super
-        preface_container = docxml.at("//div[@id = 'preface_container']") # recommendation
+        preface_container =
+          docxml.at("//div[@id = 'preface_container']") # recommendation
         abstractbox = docxml.at("//div[@id = 'abstractbox']") # plenary
         foreword = docxml.at("//p[@class = 'ForewordTitle']/..")
         intro = docxml.at("//p[@class = 'IntroTitle']/..")
@@ -171,7 +160,8 @@ module IsoDoc
 
       def authority_cleanup(docxml)
         super
-        a = docxml.at("//div[@id = 'boilerplate-ECEhdr']") and a["class"] = "boilerplate-ECEhdr"
+        a = docxml.at("//div[@id = 'boilerplate-ECEhdr']") and
+          a["class"] = "boilerplate-ECEhdr"
         docxml&.at("//div[@class = 'authority']")&.remove
       end
 

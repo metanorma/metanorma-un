@@ -646,7 +646,7 @@ RSpec.describe Asciidoctor::UN do
         <title>Introduction Subsection</title>
       </clause>
     </clause>
-    <clause id='_' inline-header='false' obligation='normative'>
+    <clause id='_' inline-header='false' obligation='normative' type="scope">
       <title>Scope</title>
       <clause id='_' inline-header='true' obligation='normative'>
         <p id='_'>Text</p>
@@ -689,17 +689,17 @@ RSpec.describe Asciidoctor::UN do
           <preferred>Term2</preferred>
         </term>
       </terms>
-      <definitions id='_'>
+      <definitions id='_' obligation='normative'>
         <title>Symbols and Abbreviated Terms</title>
         <clause id='_' inline-header='false' obligation='normative'>
           <title>General</title>
         </clause>
-        <definitions id='_'>
+        <definitions id='_' obligation='normative'>
           <title>Symbols 1</title>
         </definitions>
       </definitions>
     </clause>
-    <definitions id='_'>
+    <definitions id='_' obligation='normative'>
       <title>Abbreviated Terms</title>
     </definitions>
     <clause id='_' inline-header='false' obligation='normative'>
@@ -849,7 +849,7 @@ OUTPUT
        <title>Introduction Subsection</title>
      </clause>
    </clause>
-   <clause id='_' inline-header='false' obligation='normative'>
+   <clause id='_' inline-header='false' obligation='normative' type="scope">
      <title>Scope</title>
      <clause id='_' inline-header='true' obligation='normative'>
        <p id='_'>Text</p>
@@ -892,17 +892,17 @@ OUTPUT
                  <preferred>Term2</preferred>
                </term>
              </terms>
-             <definitions id='_'>
+             <definitions id='_' obligation='normative'>
                <title>Symbols and Abbreviated Terms</title>
                <clause id='_' inline-header='false' obligation='normative'>
                  <title>General</title>
                </clause>
-               <definitions id='_'>
+               <definitions id='_' obligation='normative'>
                  <title>Symbols 1</title>
                </definitions>
              </definitions>
            </clause>
-           <definitions id='_'>
+           <definitions id='_' obligation='normative'>
              <title>Abbreviated Terms</title>
            </definitions>
    <clause id='_' inline-header='false' obligation='normative'>

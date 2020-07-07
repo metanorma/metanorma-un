@@ -5,10 +5,6 @@ require_relative "validate"
 
 module Asciidoctor
   module UN
-
-    # A {Converter} implementation that generates RSD output, and a document
-    # schema encapsulation of the document for validation
-    #
     class Converter < Standoc::Converter
       XML_ROOT_TAG = "un-standard".freeze
       XML_NAMESPACE = "https://www.metanorma.org/ns/un".freeze
@@ -49,14 +45,20 @@ module Asciidoctor
         end
       end
 
+      def asciidoc_sub(text)
+        Asciidoctor::Standoc::Utils::asciidoc_sub(text)
+      end
+
       def title(node, xml)
         ["en"].each do |lang|
-          xml.title **{ type: "main", language: lang, format: "text/plain" } do |t|
-            t << (Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("title")) || node.title)
+          xml.title **{ type: "main", language: lang,
+                        format: "text/plain" } do |t|
+            t << (asciidoc_sub(node.attr("title")) || node.title)
           end
           node.attr("subtitle") and
-            xml.title **{ type: "subtitle", language: lang, format: "text/plain" } do |t|
-            t << Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("subtitle"))
+            xml.title **{ type: "subtitle", language: lang,
+                          format: "text/plain" } do |t|
+            t << asciidoc_sub(node.attr("subtitle"))
           end
         end
       end
@@ -64,7 +66,8 @@ module Asciidoctor
       def metadata_id(node, xml)
         dn = node.attr("docnumber")
         if docstatus = node.attr("status")
-          abbr = IsoDoc::UN::Metadata.new("en", "Latn", {}).stage_abbr(docstatus)
+          abbr = IsoDoc::UN::Metadata.new("en", "Latn", {})
+            .stage_abbr(docstatus)
           dn = "#{dn}(#{abbr})" unless abbr.empty?
         end
         xml.docidentifier { |i| i << dn }
@@ -92,17 +95,26 @@ module Asciidoctor
         xml.session do |session|
           session.number node.attr("session") if node.attr("session")
           session.date node.attr("session-date") if node.attr("session-date")
-          node&.attr("item-number")&.split(/,[ ]*/)&.each { |i| session.item_number i }
-          node&.attr("item-name")&.split(/,[ ]*/)&.each { |i| session.item_name i }
-          node&.attr("subitem-name")&.split(/,[ ]*/)&.each { |i| session.subitem_name i }
-          session.collaborator node.attr("collaborator") if node.attr("collaborator")
+          node&.attr("item-number")&.split(/,[ ]*/)&.each do |i|
+            session.item_number i
+          end
+          node&.attr("item-name")&.split(/,[ ]*/)&.each do |i|
+            session.item_name i
+          end
+          node&.attr("subitem-name")&.split(/,[ ]*/)&.each do |i|
+            session.subitem_name i
+          end
+          node.attr("collaborator") and
+            session.collaborator node.attr("collaborator")
           session.id node.attr("agenda-id") if node.attr("agenda-id")
-          session.item_footnote node.attr("item-footnote") if node.attr("item-footnote")
+          node.attr("item-footnote") and
+            session.item_footnote node.attr("item-footnote")
         end
       end
 
       def metadata_language(node, xml)
-        languages = node&.attr("language")&.split(/,[ ]*/) || %w(ar ru en fr zh es)
+        languages = node&.attr("language")&.split(/,[ ]*/) ||
+          %w(ar ru en fr zh es)
         languages.each { |l| xml.language l }
       end
 
@@ -124,15 +136,19 @@ module Asciidoctor
 
       def makexml(node)
         @draft = node.attributes.has_key?("draft")
-        @no_number_subheadings = node.attributes.has_key?("do-not-number-subheadings")
+        @no_number_subheadings =
+          node.attributes.has_key?("do-not-number-subheadings")
         super
       end
 
       def doctype(node)
         d = node.attr("doctype")
-        unless %w{plenary recommendation addendum communication corrigendum reissue
-          agenda budgetary sec-gen-notes expert-report resolution plenary-attachment}.include? d
-          @log.add("Document Attributes", nil, "#{d} is not a legal document type: reverting to 'recommendation'")
+        unless %w{plenary recommendation addendum communication corrigendum 
+          reissue agenda budgetary sec-gen-notes expert-report resolution 
+          plenary-attachment}.include? d
+          @log.add(
+            "Document Attributes", nil,
+            "#{d} is not a legal document type: reverting to 'recommendation'")
           d = "recommendation"
         end
         d
@@ -141,9 +157,12 @@ module Asciidoctor
       def outputs(node, ret)
         File.open(@filename + ".xml", "w:UTF-8") { |f| f.write(ret) }
         presentation_xml_converter(node).convert(@filename + ".xml")
-        html_converter(node).convert(@filename + ".presentation.xml", nil, false, "#{@filename}.html")
-        doc_converter(node).convert(@filename + ".presentation.xml", nil, false, "#{@filename}.doc")
-        pdf_converter(node)&.convert(@filename + ".presentation.xml", nil, false, "#{@filename}.pdf")
+        html_converter(node).convert(@filename + ".presentation.xml", 
+                                     nil, false, "#{@filename}.html")
+        doc_converter(node).convert(@filename + ".presentation.xml", 
+                                    nil, false, "#{@filename}.doc")
+        pdf_converter(node)&.convert(@filename + ".presentation.xml", 
+                                     nil, false, "#{@filename}.pdf")
       end
 
       def validate(doc)
@@ -217,10 +236,8 @@ module Asciidoctor
       end
 
       def admonition_attrs(node)
-        attr_code(super.merge(
-          "unnumbered": node.option?("unnumbered"),
-          "subsequence": node.attr("subsequence"),
-        ))
+        attr_code(super.merge("unnumbered": node.option?("unnumbered"),
+          "subsequence": node.attr("subsequence")))
       end
 
       def sectiontype_streamline(ret)

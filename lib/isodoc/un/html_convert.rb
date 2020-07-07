@@ -49,8 +49,10 @@ module IsoDoc
 
       def make_body(xml, docxml)
         plenary = is_plenary?(docxml)
-        body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72", "xml:lang": "EN-US", class: "container" }
-        if plenary && @htmlcoverpage == html_doc_path("html_unece_titlepage.html")
+        body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72",
+                      "xml:lang": "EN-US", class: "container" }
+        if plenary &&
+            @htmlcoverpage == html_doc_path("html_unece_titlepage.html")
           @htmlcoverpage = html_doc_path("html_unece_plenary_titlepage.html")
         end
         xml.body **body_attr do |body|
@@ -79,19 +81,6 @@ module IsoDoc
         clause isoxml, out
         annex isoxml, out
         bibliography isoxml, out
-      end
-
-      def clause_parse_title(node, div, c1, out)
-        if node["inline-header"] == "true"
-          inline_header_title(out, node, c1)
-        else
-          div.send "h#{@xrefs.anchor(node['id'], :level, false) || '1'}" do |h|
-            lbl = @xrefs.anchor(node['id'], :label, false)
-            h << "#{lbl}. " if lbl && !@suppressheadingnumbers
-            insert_tab(h, 1) if lbl && !@suppressheadingnumbers
-            c1&.children&.each { |c2| parse(c2, h) }
-          end
-        end
       end
 
       def introduction(isoxml, out)

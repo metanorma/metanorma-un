@@ -10,6 +10,7 @@ module IsoDoc
       end
 
       def note1(f)
+        return if f.parent.name == "bibitem"
         n = @xrefs.get[f["id"]]
         lbl = case f["type"]
               when "source" then "Source"
@@ -35,6 +36,14 @@ module IsoDoc
         n = @xrefs.anchor(f['id'], :label) or return
         lbl = l10n("#{@admonition_lbl} #{n}")
         prefix_name(f, "&nbsp;&mdash; ", lbl, "name")
+      end
+
+      def annex1(f)
+        lbl = @xrefs.anchor(f['id'], :label)
+        if t = f.at(ns("./title"))
+          t.children = "<strong>#{t.children.to_xml}</strong>"
+        end
+        prefix_name(f, "<br/>", lbl, "title")
       end
 
       include Init

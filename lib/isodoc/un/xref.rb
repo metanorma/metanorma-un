@@ -97,7 +97,7 @@ module IsoDoc
       end
 
       def annex_name_lbl(clause, num)
-        l10n("<b>#{@labels['annex']} #{num}</b>")
+        l10n("<strong>#{@labels['annex']} #{num}</strong>")
       end
 
       SUBCLAUSES =
