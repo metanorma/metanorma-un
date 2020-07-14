@@ -66,7 +66,7 @@ module Asciidoctor
       def metadata_id(node, xml)
         dn = node.attr("docnumber")
         if docstatus = node.attr("status")
-          abbr = IsoDoc::UN::Metadata.new("en", "Latn", {})
+          abbr = IsoDoc::UN::Metadata.new("en", "Latn", @i18n)
             .stage_abbr(docstatus)
           dn = "#{dn}(#{abbr})" unless abbr.empty?
         end

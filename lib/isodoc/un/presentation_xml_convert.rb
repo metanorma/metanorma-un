@@ -16,7 +16,7 @@ module IsoDoc
               when "source" then "Source"
               when "abbreviation" then "Abbreviations"
               else
-                @note_lbl
+                @i18n.note
               end
         prefix_name(f, "", lbl, "name")
       end
@@ -34,7 +34,7 @@ module IsoDoc
 
       def admonition1(f)
         n = @xrefs.anchor(f['id'], :label) or return
-        lbl = l10n("#{@admonition_lbl} #{n}")
+        lbl = l10n("#{@i18n.admonition} #{n}")
         prefix_name(f, "&nbsp;&mdash; ", lbl, "name")
       end
 

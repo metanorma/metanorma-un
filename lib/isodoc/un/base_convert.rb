@@ -3,10 +3,6 @@ require "fileutils"
 module IsoDoc
   module UN
     module BaseConvert
-      def fileloc(loc)
-        File.join(File.dirname(__FILE__), loc)
-      end
-
       def middle_clause
         "//clause[parent::sections]"
       end
