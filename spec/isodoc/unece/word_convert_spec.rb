@@ -404,7 +404,7 @@ INPUT
    </div>
    <div>
      <a name='K' id='K'/>
-     <h2>Symbols and abbreviated terms</h2>
+     <h2>Symbols</h2>
      <table class='dl'>
        <tr>
          <td valign='top' align='left'>
@@ -470,6 +470,7 @@ INPUT
        </clause>
        </introduction>
        <abstract obligation="informative">
+       <title>Summary</title>
        <p id="AA">This is an abstract</o>
        </abstract>
        <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
@@ -564,7 +565,7 @@ INPUT
    </div>
    <div>
      <a name='K' id='K'/>
-     <h2>Symbols and abbreviated terms</h2>
+     <h2>Symbols</h2>
      <table class='dl'>
        <tr>
          <td valign='top' align='left'>

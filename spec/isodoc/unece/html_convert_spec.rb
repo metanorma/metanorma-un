@@ -248,6 +248,7 @@ RSpec.describe IsoDoc::UN do
        </clause>
        </introduction>
        <abstract obligation="informative">
+       <title>Summary</title>
        </abstract>
        <acknowledgements obligation="informative">
        <title>Acknowledgements</title>
@@ -322,6 +323,7 @@ RSpec.describe IsoDoc::UN do
           </clause>
           </introduction>
           <abstract obligation="informative">
+       <title>Summary</title>
           </abstract>
           <acknowledgements obligation="informative">
           <title>Acknowledgements</title>
@@ -484,7 +486,7 @@ end
          <title>Introduction Subsection</title>
        </clause>
        </introduction>
-       <abstract obligation="informative">
+       <abstract obligation="informative"><title>Summary</title>
        </abstract>
        <acknowledgements obligation="informative">
        <title>Acknowledgements</title>
@@ -554,6 +556,7 @@ end
           </clause>
           </introduction>
           <abstract obligation="informative">
+          <title>Summary</title>
           </abstract>
           <acknowledgements obligation="informative">
           <title>Acknowledgements</title>
@@ -636,7 +639,7 @@ end
              <div id='H'>
                <h1>I.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
                <div id='K'>
-                 <h2>Symbols and abbreviated terms</h2>
+                 <h2>Symbols</h2>
                  <dl>
                    <dt>
                      <p>Symbol</p>
@@ -718,6 +721,7 @@ end
        </clause>
        </introduction>
        <abstract obligation="informative">
+       <title>Summary</title>
          <p id="A3">Text</p>
        </abstract>
        </preface>
@@ -797,6 +801,7 @@ end
           </clause>
           </introduction>
           <abstract obligation="informative">
+       <title>Summary</title>
             <p id="A3">Text</p>
           </abstract>
           </preface>
@@ -1441,6 +1446,7 @@ end
        </clause>
        </introduction>
        <abstract obligation="informative">
+       <title>Summary</title>
        <p id="AA">This is an abstract</p>
        </abstract>
        <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
@@ -1501,6 +1507,7 @@ end
           </clause>
           </introduction>
           <abstract obligation="informative">
+       <title>Summary</title>
           <p id="AA">This is an abstract</p>
           </abstract>
           <clause id="H" obligation="normative"><title depth="1">Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
@@ -1576,7 +1583,7 @@ OUTPUT
         <p class='Terms' style='text-align:left;'>Term2</p>
       </div>
       <div id='K'>
-        <h2>Symbols and abbreviated terms</h2>
+        <h2>Symbols</h2>
         <dl>
           <dt>
             <p>Symbol</p>
@@ -1662,7 +1669,7 @@ OUTPUT
                <p class='Terms' style='text-align:left;'>Term2</p>
              </div>
              <div id='K'>
-               <h2>Symbols and abbreviated terms</h2>
+               <h2>Symbols</h2>
                <table class='dl'>
                  <tr>
                    <td valign='top' align='left'>

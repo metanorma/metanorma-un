@@ -294,6 +294,7 @@ RSpec.describe Asciidoctor::UN do
 
     output = xmlpp(<<~"OUTPUT")
     <preface><abstract id="_">
+    <title>Summary</title>
   <p id="_">Abstract</p>
 </abstract><foreword id="_" obligation="informative">
   <title>Foreword</title>
@@ -623,10 +624,11 @@ RSpec.describe Asciidoctor::UN do
     #{BLANK_HDR.sub(/<status>/, "<abstract> <p>Text</p> </abstract> <status>")}
         <preface>
     <abstract id='_'>
+    <title>Summary</title>
       <p id='_'>Text</p>
     </abstract>
     <foreword id='_' obligation='informative'>
-      <title>Foreword1</title>
+      <title>Foreword</title>
       <p id='_'>Text</p>
     </foreword>
     <clause id='_' inline-header='false' obligation='informative'>
@@ -690,17 +692,17 @@ RSpec.describe Asciidoctor::UN do
         </term>
       </terms>
       <definitions id='_' obligation='normative'>
-        <title>Symbols and Abbreviated Terms</title>
+        <title>Symbols and abbreviated terms</title>
         <clause id='_' inline-header='false' obligation='normative'>
           <title>General</title>
         </clause>
         <definitions id='_' obligation='normative'>
-          <title>Symbols 1</title>
+          <title>Symbols and abbreviated terms</title>
         </definitions>
       </definitions>
     </clause>
-    <definitions id='_' obligation='normative'>
-      <title>Abbreviated Terms</title>
+    <definitions id='_' obligation='normative' type="abbreviated_terms">
+      <title>Abbreviated terms</title>
     </definitions>
     <clause id='_' inline-header='false' obligation='normative'>
       <title>Clause 4</title>
@@ -723,7 +725,7 @@ RSpec.describe Asciidoctor::UN do
   </annex>
   <bibliography>
     <references id='_' obligation='informative' normative="true">
-      <title>Normative References</title>
+      <title>Normative references</title>
       <p id='_'>There are no normative references in this document.</p>
     </references>
     <clause id='_' obligation='informative'>
@@ -826,10 +828,11 @@ OUTPUT
     #{BLANK_HDR.sub(/<status>/, "<abstract> <p>Text</p> </abstract> <status>")}
     <preface>
    <abstract id='_'>
+   <title>Summary</title>
      <p id='_'>Text</p>
    </abstract>
    <foreword id='_' obligation='informative'>
-     <title>Foreword1</title>
+     <title>Foreword</title>
      <p id='_'>Text</p>
    </foreword>
    <clause id='_' inline-header='false' obligation='informative'>
@@ -893,17 +896,17 @@ OUTPUT
                </term>
              </terms>
              <definitions id='_' obligation='normative'>
-               <title>Symbols and Abbreviated Terms</title>
+               <title>Symbols and abbreviated terms</title>
                <clause id='_' inline-header='false' obligation='normative'>
                  <title>General</title>
                </clause>
                <definitions id='_' obligation='normative'>
-                 <title>Symbols 1</title>
+                 <title>Symbols and abbreviated terms</title>
                </definitions>
              </definitions>
            </clause>
-           <definitions id='_' obligation='normative'>
-             <title>Abbreviated Terms</title>
+           <definitions id='_' obligation='normative' type="abbreviated_terms">
+             <title>Abbreviated terms</title>
            </definitions>
    <clause id='_' inline-header='false' obligation='normative'>
      <title>Clause 4</title>
@@ -926,7 +929,7 @@ OUTPUT
  </annex>
  <bibliography>
    <references id='_' normative='true' obligation='informative'>
-     <title>Normative References</title>
+     <title>Normative references</title>
      <p id='_'>There are no normative references in this document.</p>
    </references>
    <clause id='_' obligation='informative'>

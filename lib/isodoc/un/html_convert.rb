@@ -87,9 +87,7 @@ module IsoDoc
         f = isoxml.at(ns("//introduction")) || return
         page_break(out)
         out.div **{ class: "Section3", id: f["id"] } do |div|
-          div.h1(**{ class: "IntroTitle" }) do |h1|
-            h1 << @i18n.introduction
-          end
+          clause_name(nil, f.at(ns("./title")), div, { class: "IntroTitle" })
           f.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
@@ -100,9 +98,8 @@ module IsoDoc
         f = isoxml.at(ns("//foreword")) || return
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          s.h1(**{ class: "ForewordTitle" }) do |h1|
-            h1 << @i18n.foreword
-          end
+          clause_name(nil, f.at(ns("./title")) || @i18n.foreword, s,
+                    class: "ForewordTitle")
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
