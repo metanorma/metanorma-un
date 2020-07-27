@@ -512,11 +512,15 @@ end
          <title>Clause 4.2</title>
          <clause id="O1" inline-header="false" obligation="normative" unnumbered="true">
          <title>Clause 4.2.1</title>
-         <clause id="O11" inline-header="false" obligation="normative" unnumbered="true">
+         <clause id="O11" inline-header="false" obligation="normative">
          <title>Clause 4 Leaf</title>
          </clause>
+         <clause id="O12" inline-header="false" obligation="normative" unnumbered="true">
+         <title>Clause 4 Leaf 2</title>
          </clause>
-       </clause></clause>
+         </clause>
+       </clause>
+
 
        </sections><annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
@@ -546,7 +550,7 @@ end
     INPUT
 
     presxml = <<~OUTPUT
-<un-standard xmlns="http://riboseinc.com/isoxml">
+          <un-standard xmlns="http://riboseinc.com/isoxml">
          <preface>
          <foreword obligation="informative">
             <title>Foreword</title>
@@ -555,8 +559,7 @@ end
             <title depth="2">Introduction Subsection</title>
           </clause>
           </introduction>
-          <abstract obligation="informative">
-          <title>Summary</title>
+          <abstract obligation="informative"><title>Summary</title>
           </abstract>
           <acknowledgements obligation="informative">
           <title>Acknowledgements</title>
@@ -582,13 +585,17 @@ end
             <title depth="1">Clause 4.2</title>
             <clause id="O1" inline-header="false" obligation="normative" unnumbered="true">
             <title depth="1">Clause 4.2.1</title>
-            <clause id="O11" inline-header="false" obligation="normative" unnumbered="true">
-            <title depth="1">Clause 4 Leaf</title>
+            <clause id="O11" inline-header="false" obligation="normative">
+            <title depth="4">I.<tab/>Clause 4 Leaf</title>
+            </clause>
+            <clause id="O12" inline-header="false" obligation="normative" unnumbered="true">
+            <title depth="1">Clause 4 Leaf 2</title>
             </clause>
             </clause>
-          </clause></clause>
+          </clause>
      
-          </sections><annex id="P" inline-header="false" obligation="normative">
+     
+          </clause><annex id="P" inline-header="false" obligation="normative">
             <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
             <clause id="Q" inline-header="false" obligation="normative" unnumbered="true">
             <title depth="1">Annex A.1</title>
@@ -612,7 +619,8 @@ end
           </references>
           </clause>
           </bibliography>
-          </un-standard>
+          </sections>
+       </un-standard>
     OUTPUT
 
      html = <<~"OUTPUT"
@@ -661,8 +669,11 @@ end
                  <div id='O1'>
                    <h1>Clause 4.2.1</h1>
                    <div id='O11'>
-                     <h1>Clause 4 Leaf</h1>
-                   </div>
+  <h4>I.&#160; Clause 4 Leaf</h4>
+</div>
+<div id='O12'>
+  <h1>Clause 4 Leaf 2</h1>
+</div>
                  </div>
                </div>
              </div>

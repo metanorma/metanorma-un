@@ -76,9 +76,8 @@ module IsoDoc
                                    xref: l10n("#{@labels['clause']} #{lbl}") }
         i = 1
         clause.xpath(ns(NONTERMINAL)).each do |c|
-          next if c["unnumbered"] == "true"
           section_names1(c, "#{lbl}.#{levelnumber(i, lvl + 1)}", lvl + 1)
-          i += 1 if !leaf_section?(c)
+          i += 1 if !leaf_section?(c) && c["unnumbered"] != "true"
         end
         num
       end
@@ -86,13 +85,13 @@ module IsoDoc
       def section_names1(clause, num, level)
         leaf_section?(clause) and label_leaf_section(clause, level) and return
         /\.(?<leafnum>[^.]+$)/ =~ num
-        @anchors[clause["id"]] = { label: leafnum, level: level, type: "clause",
-                                   xref: l10n("#{@labels['clause']} #{num}") }
+        clause["unnumbered"] == "true" or
+          @anchors[clause["id"]] = { label: leafnum, level: level, type: "clause",
+                                     xref: l10n("#{@labels['clause']} #{num}") }
         i = 1
         clause.xpath(ns(NONTERMINAL)).each do |c|
-          next if c["unnumbered"] == "true"
           section_names1(c, "#{num}.#{levelnumber(i, level + 1)}", level + 1)
-          i += 1 if !leaf_section?(c)
+          i += 1 if !leaf_section?(c) && c["unnumbered"] != "true"
         end
       end
 
@@ -128,7 +127,7 @@ module IsoDoc
           label_annex_leaf_section(clause, num, level) and return
         /\.(?<leafnum>[^.]+$)/ =~ num
         @anchors[clause["id"]] = { label: leafnum, xref: "#{@labels['annex']} #{num}",
-                                                              level: level, type: "clause" }
+                                   level: level, type: "clause" }
         i = 1
         clause.xpath(ns("./clause | ./references")).each do |c|
           next if c["unnumbered"] == "true"
