@@ -761,9 +761,12 @@
 			<fo:block id="{@id}" font-weight="bold" margin-left="6mm" margin-right="6mm" keep-with-next="always">
 				<xsl:value-of select="$title-box"/><xsl:number/><xsl:text>: </xsl:text><xsl:apply-templates select="un:name" mode="process"/>
 			</fo:block>
-			<fo:block margin-left="5mm" margin-right="5mm">
-				<xsl:apply-templates/>
-			</fo:block>
+			<!-- <fo:block margin-left="5mm" margin-right="5mm"> -->
+			<fo:block-container margin-left="2mm" margin-right="2mm">
+				<fo:block-container margin-left="0mm" margin-right="0mm">
+					<xsl:apply-templates/>
+				</fo:block-container>
+			</fo:block-container>
 		</fo:block-container>
 		<fo:block margin-bottom="4pt"> </fo:block>
 	</xsl:template>
@@ -1148,6 +1151,17 @@
 
 	<xsl:template match="un:note/un:p | un:annex//un:note/un:p" name="note">
 		<fo:block font-size="10pt" space-after="12pt" text-indent="0">
+			<xsl:if test="../@type = 'source' or ../@type = 'abbreviation'">
+				<xsl:attribute name="font-size">9pt</xsl:attribute>
+				<xsl:attribute name="text-align">justify</xsl:attribute>
+				<xsl:attribute name="padding-top">0mm</xsl:attribute>
+				<fo:inline>
+					<xsl:call-template name="capitalize">
+						<xsl:with-param name="str" select="../@type"/>
+					</xsl:call-template>
+					<xsl:text>: </xsl:text>
+				</fo:inline>
+			</xsl:if>
 			<xsl:variable name="title-note">
 				<xsl:call-template name="getTitle">
 					<xsl:with-param name="name" select="'title-note'"/>
@@ -1613,17 +1627,6 @@
 		</xsl:variable>
 		<xsl:variable name="result" select="normalize-space(concat($day, ' ', $monthStr, ' ', $year))"/>
 		<xsl:value-of select="$result"/>
-	</xsl:template>
-
-	<xsl:template name="getLanguage">
-		<xsl:param name="lang"/>		
-		<xsl:variable name="language" select="java:toLowerCase(java:java.lang.String.new($lang))"/>
-		<xsl:choose>
-			<xsl:when test="$language = 'en'">English</xsl:when>
-			<xsl:when test="$language = 'de'">Deutsch</xsl:when>
-			<xsl:when test="$language = 'cn'">Chinese</xsl:when>
-			<xsl:otherwise><xsl:value-of select="$language"/></xsl:otherwise>
-		</xsl:choose>
 	</xsl:template>
 	
 	<xsl:variable name="Image-Logo">
@@ -3186,6 +3189,17 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 				<fo:inline padding-right="2mm">
 					
 					
+					
+						<xsl:if test="@type = 'source' or @type = 'abbreviation'">
+							<xsl:attribute name="font-size">9pt</xsl:attribute>							
+							<fo:inline>
+								<xsl:call-template name="capitalize">
+									<xsl:with-param name="str" select="@type"/>
+								</xsl:call-template>
+								<xsl:text>: </xsl:text>
+							</fo:inline>
+						</xsl:if>
+					
 					<xsl:variable name="title-note">
 						<xsl:call-template name="getTitle">
 							<xsl:with-param name="name" select="'title-note'"/>
@@ -4238,4 +4252,35 @@ k7xSqrdd135+AIqVLd+k6ICjZETxZhgY8HLnv3VGvTZa/+9kz/qlzuHctP4A89UE73L1sCJO
 		</xsl:if>
 	</xsl:template><xsl:template name="getDocumentId">		
 		<xsl:call-template name="getLang"/><xsl:value-of select="//*[local-name() = 'p'][1]/@id"/>
+	</xsl:template><xsl:template name="namespaceCheck">
+		<xsl:variable name="documentNS" select="namespace-uri(/*)"/>
+		<xsl:variable name="XSLNS">			
+			
+			
+			
+			
+				<xsl:value-of select="document('')//*/namespace::unece"/>
+			
+			
+			
+			
+			
+			
+			
+						
+						
+		</xsl:variable>
+		<xsl:if test="$documentNS != $XSLNS">
+			<xsl:message>[WARNING]: Document namespace: '<xsl:value-of select="$documentNS"/>' doesn't equal to xslt namespace '<xsl:value-of select="$XSLNS"/>'</xsl:message>
+		</xsl:if>
+	</xsl:template><xsl:template name="getLanguage">
+		<xsl:param name="lang"/>		
+		<xsl:variable name="language" select="java:toLowerCase(java:java.lang.String.new($lang))"/>
+		<xsl:choose>
+			<xsl:when test="$language = 'en'">English</xsl:when>
+			<xsl:when test="$language = 'fr'">French</xsl:when>
+			<xsl:when test="$language = 'de'">Deutsch</xsl:when>
+			<xsl:when test="$language = 'cn'">Chinese</xsl:when>
+			<xsl:otherwise><xsl:value-of select="$language"/></xsl:otherwise>
+		</xsl:choose>
 	</xsl:template></xsl:stylesheet>
