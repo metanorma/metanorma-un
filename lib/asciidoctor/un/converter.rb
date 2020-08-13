@@ -11,24 +11,8 @@ module Asciidoctor
 
       register_for "un"
 
-      def metadata_author(node, xml)
-        xml.contributor do |c|
-          c.role **{ type: "author" }
-          c.organization do |a|
-            a.name Metanorma::UN::ORGANIZATION_NAME_LONG
-            a.abbreviation Metanorma::UN::ORGANIZATION_NAME_SHORT
-          end
-        end
-      end
-
-      def metadata_publisher(node, xml)
-        xml.contributor do |c|
-          c.role **{ type: "publisher" }
-          c.organization do |a|
-            a.name Metanorma::UN::ORGANIZATION_NAME_LONG
-            a.abbreviation Metanorma::UN::ORGANIZATION_NAME_SHORT
-          end
-        end
+      def default_publisher
+        "United Nations"
       end
 
       def metadata_committee(node, xml)
@@ -58,8 +42,8 @@ module Asciidoctor
           node.attr("subtitle") and
             xml.title **{ type: "subtitle", language: lang,
                           format: "text/plain" } do |t|
-            t << asciidoc_sub(node.attr("subtitle"))
-          end
+              t << asciidoc_sub(node.attr("subtitle"))
+            end
         end
       end
 
@@ -72,19 +56,6 @@ module Asciidoctor
         end
         xml.docidentifier { |i| i << dn }
         xml.docnumber { |i| i << node.attr("docnumber") }
-      end
-
-      def metadata_copyright(node, xml)
-        from = node.attr("copyright-year") || Date.today.year
-        xml.copyright do |c|
-          c.from from
-          c.owner do |owner|
-            owner.organization do |o|
-              o.name Metanorma::UN::ORGANIZATION_NAME_LONG
-              o.abbreviation Metanorma::UN::ORGANIZATION_NAME_SHORT
-            end
-          end
-        end
       end
 
       def metadata_distribution(node, xml)
@@ -237,7 +208,7 @@ module Asciidoctor
 
       def admonition_attrs(node)
         attr_code(super.merge("unnumbered": node.option?("unnumbered"),
-          "subsequence": node.attr("subsequence")))
+                              "subsequence": node.attr("subsequence")))
       end
 
       def sectiontype_streamline(ret)

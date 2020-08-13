@@ -89,14 +89,12 @@ RSpec.describe Asciidoctor::UN do
     <role type="author"/>
     <organization>
       <name>United Nations</name>
-      <abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
       <name>United Nations</name>
-      <abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <edition>2</edition>
@@ -115,7 +113,6 @@ RSpec.describe Asciidoctor::UN do
     <owner>
       <organization>
       <name>United Nations</name>
-      <abbreviation>UN</abbreviation>
       </organization>
     </owner>
   </copyright>
@@ -171,14 +168,12 @@ RSpec.describe Asciidoctor::UN do
            <role type="author"/>
            <organization>
            <name>United Nations</name>
-<abbreviation>UN</abbreviation>
            </organization>
          </contributor>
          <contributor>
            <role type="publisher"/>
            <organization>
            <name>United Nations</name>
-<abbreviation>UN</abbreviation>
            </organization>
          </contributor>
          <language>eo</language>
@@ -192,7 +187,6 @@ RSpec.describe Asciidoctor::UN do
            <owner>
              <organization>
              <name>United Nations</name>
-<abbreviation>UN</abbreviation>
              </organization>
            </owner>
          </copyright>
@@ -229,14 +223,12 @@ RSpec.describe Asciidoctor::UN do
     <role type="author"/>
     <organization>
     <name>United Nations</name>
-<abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
     <name>United Nations</name>
-<abbreviation>UN</abbreviation>
     </organization>
   </contributor>
   <language>ar</language>
@@ -254,7 +246,6 @@ RSpec.describe Asciidoctor::UN do
     <owner>
       <organization>
       <name>United Nations</name>
-<abbreviation>UN</abbreviation>
       </organization>
     </owner>
   </copyright>
