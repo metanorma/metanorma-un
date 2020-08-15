@@ -113,7 +113,7 @@ module Asciidoctor
       end
 
       def doctype(node)
-        d = node.attr("doctype")
+        d = super
         unless %w{plenary recommendation addendum communication corrigendum 
           reissue agenda budgetary sec-gen-notes expert-report resolution 
           plenary-attachment}.include? d
