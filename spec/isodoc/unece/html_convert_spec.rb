@@ -1771,12 +1771,14 @@ it "processes admonitions" do
 input = <<~INPUT
   <un-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
+    <foreword id="FF">
     <p>
     <xref target="B"/>
     <xref target="B1"/>
     <xref target="E"/>
     <xref target="E1"/>
     </p>
+    </foreword>
     </preface>
     <sections>
       <clause id="A">
@@ -1810,12 +1812,14 @@ input = <<~INPUT
   presxml = <<~OUTPUT
 <un-standard xmlns='http://riboseinc.com/isoxml'>
   <preface>
+    <foreword id="FF">
     <p>
       <xref target='B'>Box (??)</xref>
       <xref target='B1'>Box 1</xref>
       <xref target='E'>Box I.1</xref>
       <xref target='E1'>Box II.1</xref>
     </p>
+    </foreword>
   </preface>
   <sections>
     <clause id='A'>
@@ -1852,6 +1856,16 @@ OUTPUT
 
   html = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
+  <br/>
+<div id='FF'>
+  <h1 class='ForewordTitle'>Foreword</h1>
+  <p>
+    <a href='#B'>Box (??)</a>
+    <a href='#B1'>Box 1</a>
+    <a href='#E'>Box I.1</a>
+    <a href='#E1'>Box II.1</a>
+  </p>
+</div>
                <div id="A">
                <h1>I.</h1>
                <div id="B" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">First Box</p>
