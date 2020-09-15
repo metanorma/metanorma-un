@@ -108,7 +108,7 @@ module IsoDoc
         leaf_section?(clause) and
           label_annex_leaf_section(clause, num, 1) and return
         @anchors[clause["id"]] = { label: annex_name_lbl(clause, num),
-                                   type: "clause",
+                                   type: "clause", value: num,
                                    xref: "#{@labels['annex']} #{num}", level: 1 }
         if a = single_annex_special_section(clause)
           annex_names1(a, "#{num}", 1)
