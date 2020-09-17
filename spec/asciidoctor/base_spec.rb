@@ -79,7 +79,7 @@ RSpec.describe Asciidoctor::UN do
     INPUT
     output = xmlpp(<<~"OUTPUT")
     <?xml version="1.0" encoding="UTF-8"?>
-<un-standard xmlns="https://www.metanorma.org/ns/un">
+<un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
 <bibdata type="standard">
   <title type="main" language="en" format="text/plain">Main Title</title>
   <title type="subtitle" language="en" format="text/plain">Subtitle</title>
@@ -159,7 +159,7 @@ RSpec.describe Asciidoctor::UN do
       :submissionlanguage: de, jp
     INPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-           <un-standard xmlns="https://www.metanorma.org/ns/un">
+           <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
        <bibdata type="standard">
 <title type='main' language='en' format='text/plain'>Document title</title>
          <docidentifier>1000(cd)</docidentifier>
@@ -214,7 +214,7 @@ RSpec.describe Asciidoctor::UN do
       :status: draft-standard
     INPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <un-standard xmlns="https://www.metanorma.org/ns/un">
+    <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
 <bibdata type="standard">
 <title type='main' language='en' format='text/plain'>Document title</title>
   <docidentifier>1000(d)</docidentifier>

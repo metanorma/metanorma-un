@@ -1,6 +1,6 @@
 require "spec_helper"
 
-logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "isodoc", "un", "html"))
+logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib", "isodoc", "un", "html"))
 
 RSpec.describe IsoDoc::UN do
 
@@ -313,7 +313,7 @@ RSpec.describe IsoDoc::UN do
     INPUT
 
     presxml = <<~OUTPUT
-    <un-standard xmlns="http://riboseinc.com/isoxml">
+    <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <preface>
          <foreword obligation="informative">
             <title>Foreword</title>
@@ -550,7 +550,7 @@ end
     INPUT
 
     presxml = <<~OUTPUT
-          <un-standard xmlns="http://riboseinc.com/isoxml">
+          <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <preface>
          <foreword obligation="informative">
             <title>Foreword</title>
@@ -800,7 +800,7 @@ end
        INPUT
 
        presxml = <<~OUTPUT
-<un-standard xmlns="http://riboseinc.com/isoxml">
+<un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <preface>
          <foreword obligation="informative">
             <title>Foreword</title>
@@ -1261,7 +1261,7 @@ end
        </bibliography>
        </un-standard>
     INPUT
-  <un-standard xmlns='http://riboseinc.com/isoxml'>
+  <un-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword id='A' obligation='informative'>
              <title>Foreword</title>
@@ -1507,7 +1507,7 @@ end
     INPUT
 
     presxml = <<~OUTPUT
-    <un-standard xmlns="http://riboseinc.com/isoxml">
+    <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <preface>
          <foreword obligation="informative">
             <title>Foreword</title>
@@ -1810,7 +1810,7 @@ input = <<~INPUT
   INPUT
 
   presxml = <<~OUTPUT
-<un-standard xmlns='http://riboseinc.com/isoxml'>
+<un-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
     <foreword id="FF">
     <p>
@@ -2074,7 +2074,7 @@ INPUT
 </un-standard>
 INPUT
 <?xml version='1.0'?>
-<un-standard xmlns='http://riboseinc.com/isoxml'>
+<un-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <sections>
     <clause>
       <eref bibitemid='ISO712'>ISO 712</eref>
@@ -2124,7 +2124,7 @@ INPUT
 </un-standard>
 INPUT
 <?xml version='1.0'?>
-<un-standard xmlns='http://riboseinc.com/isoxml'>
+<un-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <sections>
     <clause>
       <note type='source' id='A'>
