@@ -11,6 +11,7 @@ module IsoDoc
 
       def note1(f)
         return if f.parent.name == "bibitem"
+        return if f["type"] == "title-footnote"
         n = @xrefs.get[f["id"]]
         lbl = case f["type"]
               when "source" then "Source"
