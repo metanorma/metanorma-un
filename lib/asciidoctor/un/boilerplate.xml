@@ -40,15 +40,17 @@
   </legal-statement>
   <feedback-statement>
     <clause>
-      <p id="boilerplate-feedback-name">UN Economic Commission for Europe: Information Service</p>
+      <p id="boilerplate-feedback-name">{% if subdivision %}{{subdivision}}{% else %}UN Economic Commission for Europe: Information Service{% endif %}</p>
       <p id="boilerplate-feedback-address">
+        {% if pub_address %}{{ pub_address }}{% else %}
         Palais des Nations<br />
         CH-1211 Geneva 10<br />
-        Switzerland<br />
+        Switzerland{% endif %}<br />
         <br />
-        <link target="tel:+41(0)229171234">+41 (0) 22 917 12 34 (switchboard)</link><br />
-        <link target="mailto:unece_info@un.org">unece_info@un.org</link><br />
-        <link target="https://www.unece.org/">www.unece.org/</link>
+        <link target="tel:{% if pub_phone %}{{ pub_phone }}{% else %}+41(0)229171234{% endif %}">{% if pub_phone %}{{ pub_phone }}{% else %}+41 (0) 22 917 12 34 (switchboard){% endif %}</link><br />
+        {% if pub_fax %}<link target="tel:{{pub_fax}}">{{pub_fax}}</link><br/>{% endif %}       
+        <link target="mailto:{% if pub_email %}{{ pub_email }}{% else %}unece_info@un.org{% endif %}">{% if pub_email %}{{ pub_email }}{% else %}unece_info@un.org{% endif %}</link><br />
+        <link target="{% if pub_uri %}{{pub_uri}}{% else %}https://www.unece.org/{% endif %}">{% if pub_uri %}{{pub_uri}}{% else %}www.unece.org/{% endif %}</link>
       </p>
     </clause>
   </feedback-statement>

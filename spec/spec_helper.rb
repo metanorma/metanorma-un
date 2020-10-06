@@ -64,7 +64,14 @@ BOILERPLATE =
   gsub(/\{\{ agency \}\}/, "ISO").gsub(/\{\{ docyear \}\}/, Date.today.year.to_s).
   gsub(/\{% if unpublished %\}.*\{% endif %\}/m, "").
   gsub(/<p>/, "<p id='_'>").
+  gsub(/\{% if subdivision %\}\{\{subdivision\}\}\{% else %\}/, "").
+  gsub(/\{% if pub_phone %\}\{\{ pub_phone \}\}\{% else %\}/, "").
+  gsub(/\{% if pub_address %\}\{\{ pub_address \}\}\{% else %\}/, "").
+  gsub(/\{% if pub_fax %\}.+?<\/link>\s*<br\/>/m, "").
+  gsub(/\{% if pub_email %\}\{\{ pub_email \}\}\{% else %\}/, "").
+  gsub(/\{% if pub_uri %\}\{\{pub_uri\}\}\{% else %\}/, "").
   gsub(/\{% if tc == "United Nations Centre for Trade Facilitation and Electronic Business \(UN\/CEFACT\)" %\}.*?\{% endif %\}/m, "").
+  gsub(/\{% endif %\}/, "").
   gsub(/(?<=\p{Alnum})'(?=\p{Alpha})/, "’")
 )
 
