@@ -63,13 +63,10 @@ RSpec.describe IsoDoc::UN do
     output = <<~"OUTPUT"
 {:accesseddate=>"XXX",
 :agency=>"UN",
-:authors=>[],
-:authors_affiliations=>{},
 :circulateddate=>"XXX",
 :confirmeddate=>"XXX",
 :copieddate=>"XXX",
 :createddate=>"XXX",
-:distribution=>nil,
 :docnumber=>"1000A",
 :docnumeric=>"1000",
 :docsubtitle=>"Subtitle",
@@ -82,8 +79,6 @@ RSpec.describe IsoDoc::UN do
 :formatted_docnumber=>"UN/CEFACT Recommendation 1000A",
 :implementeddate=>"XXX",
 :issueddate=>"XXX",
-:item_footnote=>nil,
-:keywords=>[],
 :logo=>"#{File.join(logoloc, "logo.jpg")}",
 :obsoleteddate=>"XXX",
 :publisheddate=>"XXX",
@@ -91,21 +86,11 @@ RSpec.describe IsoDoc::UN do
 :receiveddate=>"XXX",
 :revdate=>"2000-01-01",
 :revdate_monthyear=>"January 2000",
-:session_collaborator=>nil,
-:session_date=>nil,
-:session_id=>nil,
-:session_id_head=>nil,
-:session_id_tail=>nil,
-:session_itemname=>[],
-:session_itemnumber=>[],
-:session_number=>nil,
-:session_subitemname=>[],
 :stage=>"Working Draft",
 :stageabbr=>"wd",
 :submissionlanguage=>["German"],
 :tc=>"TC",
 :title_footnote=>["ABC"],       
-:toc=>nil,
 :transmitteddate=>"XXX",
 :unchangeddate=>"XXX",
 :unpublished=>true,
@@ -115,7 +100,7 @@ RSpec.describe IsoDoc::UN do
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
+    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
   end
 
     it "processes default metadata, plenary; six official UN languages" do
@@ -185,34 +170,23 @@ RSpec.describe IsoDoc::UN do
     output = <<~"OUTPUT"
 {:accesseddate=>"XXX",
 :agency=>"UN",
-:authors=>[],
-:authors_affiliations=>{},
 :circulateddate=>"XXX",
 :confirmeddate=>"XXX",
 :copieddate=>"XXX",
 :createddate=>"XXX",
-:distribution=>nil,
 :docnumber=>"1000(wd)",
-:docnumeric=>nil,
 :docsubtitle=>"Subtitle",
 :doctitle=>"Main Title",
 :doctype=>"Plenary",
 :docyear=>"2001",
-:draft=>nil,
-:draftinfo=>"",
-:edition=>nil,
 :formatted_docnumber=>"1000(wd)",
 :implementeddate=>"XXX",
 :issueddate=>"XXX",
-:item_footnote=>nil,
-:keywords=>[],
 :logo=>"#{File.join(logoloc, "logo.jpg")}",
 :obsoleteddate=>"XXX",
 :publisheddate=>"XXX",
 :publisher=>"United Nations",
 :receiveddate=>"XXX",
-:revdate=>nil,
-:revdate_monthyear=>nil,
 :session_collaborator=>"WHO",
 :session_date=>"2001-01-01",
 :session_id=>"ECE/WHO-UNECE-01",
@@ -225,8 +199,6 @@ RSpec.describe IsoDoc::UN do
 :stage=>"Working Draft",
 :stageabbr=>"wd",
 :tc=>"TC",
-:title_footnote=>[],    
-:toc=>nil,
 :transmitteddate=>"XXX",
 :unchangeddate=>"XXX",
 :unpublished=>true,
@@ -236,7 +208,7 @@ RSpec.describe IsoDoc::UN do
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
+    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
   end
 
   it "processes section names without paragraph content" do

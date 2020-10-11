@@ -2085,7 +2085,18 @@
 								<xsl:apply-templates select="../*[local-name()='note']" mode="process"/>
 							
 							
-							
+							<!-- <xsl:if test="$namespace = 'bipm'">
+								<xsl:choose>
+									<xsl:when test="ancestor::*[local-name()='preface']">
+										show Note under table in preface (ex. abstract) sections
+										<xsl:apply-templates select="../*[local-name()='note']" mode="process"/>
+									</xsl:when>
+									<xsl:otherwise>
+										empty, because notes show at page side in main sections
+									<fo:block/>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:if> -->
 							
 							
 							<!-- horizontal row separator -->
@@ -4164,6 +4175,7 @@
 	</xsl:template><xsl:template match="*[local-name() = 'clause']">
 		<fo:block>
 			<xsl:call-template name="setId"/>			
+			
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'definitions']">
