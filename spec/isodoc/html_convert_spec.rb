@@ -32,6 +32,7 @@ RSpec.describe IsoDoc::UN do
   <revision-date>2000-01-01</revision-date>
   <draft>3.4</draft>
 </version>
+<note type="title-footnote"><p>ABC</p></note>
   <language>en</language>
   <language>fr</language>
   <script>Latn</script>
@@ -103,6 +104,7 @@ RSpec.describe IsoDoc::UN do
 :stageabbr=>"wd",
 :submissionlanguage=>["German"],
 :tc=>"TC",
+:title_footnote=>["ABC"],       
 :toc=>nil,
 :transmitteddate=>"XXX",
 :unchangeddate=>"XXX",
@@ -223,6 +225,7 @@ RSpec.describe IsoDoc::UN do
 :stage=>"Working Draft",
 :stageabbr=>"wd",
 :tc=>"TC",
+:title_footnote=>[],    
 :toc=>nil,
 :transmitteddate=>"XXX",
 :unchangeddate=>"XXX",
@@ -2102,6 +2105,9 @@ INPUT
   it "processes note types" do
         expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to <<~"OUTPUT"
     <un-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata>
+    <note type="title-footnote"><p>ABC</p></note>       
+    </bibdata>
     <sections>
     <clause>
     <note type="source" id="A">
@@ -2125,6 +2131,16 @@ INPUT
 INPUT
 <?xml version='1.0'?>
 <un-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+<bibdata>
+  <note type='title-footnote'>
+    <p>ABC</p>
+  </note>
+</bibdata>
+<local_bibdata>
+  <note type='title-footnote'>
+    <p>ABC</p>
+  </note>
+</local_bibdata>
   <sections>
     <clause>
       <note type='source' id='A'>

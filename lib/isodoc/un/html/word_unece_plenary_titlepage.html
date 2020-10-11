@@ -9227,7 +9227,15 @@ style='font-family:"Times New Roman",serif'></span></p>
 
 </div>
 
-<p class="MsoNormal" style='margin-left:70.9pt'><b style='mso-bidi-font-weight:normal'><span lang="EN-AU" style='font-size:16.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ doctitle }}</span></b></p>
+{% assign fn_refs = "" | split: ',' %}
+{% assign txt = "" %}
+{% for item in title_footnote %}
+{% assign txt = txt | append: "*" %}
+{% assign txtarr = txt | split: "," %}
+{% assign fn_refs = fn_refs | concat: txtarr %}
+{% endfor %}
+
+<p class="MsoNormal" style='margin-left:70.9pt'><b style='mso-bidi-font-weight:normal'><span lang="EN-AU" style='font-size:16.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ doctitle }}{% if fn_refs.size > 0 %}<sup>{{ fn_refs | join: "," }}</sup>{% endif %}</span></b></p>
 
 <p class="MsoNormal" style='margin-left:70.9pt'><b style='mso-bidi-font-weight:normal'><span lang="EN-AU" style='font-family:"Times New Roman",serif'>{{ docsubtitle }}</span></b></p>
 
@@ -9292,3 +9300,11 @@ BADzAAAAsQUAAAAA
   </v:textbox>
  <w:wrap type="square"/>
  </v:shape></p>
+
+ {% if fn_refs.size > 0 %}
+<div class="title-footnote">
+{% for item in title_footnote %}
+<p><sup>{{fn_refs[forloop.index0]}}</sup> {{ item }}</p>
+{% endfor %}
+</div>
+{% endif %}

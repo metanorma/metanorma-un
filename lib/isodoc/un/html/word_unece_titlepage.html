@@ -14,13 +14,29 @@ style='font-family:"Times New Roman",serif'><span style='mso-tab-count:2'> </spa
 lang=EN-AU style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>{{ doclanguage | join: ", " }} only<o:p></o:p></span></p>
 {% endif %}
 
+{% assign fn_refs = "" | split: ',' %}
+{% assign txt = "" %}
+{% for item in title_footnote %}
+{% assign txt = txt | append: "*" %}
+{% assign txtarr = txt | split: "," %}
+{% assign fn_refs = fn_refs | concat: txtarr %}
+{% endfor %}
+
 <p class="MsoNormal" align="center" style='text-align:center;line-height:18.0pt;margin-bottom:0.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang="EN-GB" style='font-size:24.0pt'>{{ doctitle }}</span>
+style='mso-bidi-font-weight:normal'><span lang="EN-GB" style='font-size:24.0pt'>{{ doctitle }}{% if fn_refs.size > 0 %}<sup>{{ fn_refs | join: "," }}</sup>{% endif %}</span>
 </b><br/><span lang="EN-GB" style='font-size:16.0pt'>{{ docsubtitle }}</span></p>
 
 <p class="MsoNormal" align="right" style='text-align:right'><b style='mso-bidi-font-weight:
 normal'><span lang="EN-GB" style='font-size:14.0pt;mso-no-proof:yes'>{{ doctype }} No. {{ docnumber }} {{ draftinfo }}</span></b><b
 <p class="MsoNormal" style='margin-top:100.0pt'><span lang="EN-GB"><o:p>&nbsp;</o:p></span></p>
+
+{% if fn_refs.size > 0 %}
+<div class="title-footnote">
+{% for item in title_footnote %}
+<p><sup>{{fn_refs[forloop.index0]}}</sup> {{ item }}</p>
+{% endfor %}
+</div>
+{% endif %}
 
 <p class="MsoNormal" align="center" style='text-align:center'><span lang="EN-GB" style='mso-no-proof:yes'>United Nations</span><br/>
 <span lang="EN-GB"><span style='mso-no-proof:yes'>New York and Geneva, {{ docyear }}</span></p>

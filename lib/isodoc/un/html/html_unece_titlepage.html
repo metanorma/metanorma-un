@@ -22,8 +22,17 @@
       <span class="docyear">{{ draftinfo }}</span>
     </div>
 
+
+{% assign fn_refs = "" | split: ',' %}
+{% assign txt = "" %}
+{% for item in title_footnote %}
+{% assign txt = txt | append: "*" %}
+{% assign txtarr = txt | split: "," %}
+{% assign fn_refs = fn_refs | concat: txtarr %}
+{% endfor %}
+
     <div class="coverpage-title">
-      <span class="title-first">{{ doctitle }}</span>
+      <span class="title-first">{{ doctitle }}{% if fn_refs.size > 0 %}<sup>{{ fn_refs | join: "," }}</sup>{% endif %} </span>
       <!--<span class="title-second">{{ docsubtitle }}</span>-->
     </div>
   </div>
@@ -56,6 +65,16 @@
 {% if doctype == "Policy And Procedures" or doctype == "Proposal" %}
 <div  class="coverpage-stage-block" >{{ revdate }}</div>
 {% endif %}
+
+{% if fn_refs.size > 0 %}
+<div class="title-footnote">
+{% for item in title_footnote %}
+<p><sup>{{fn_refs[forloop.index0]}}</sup> {{ item }}</p>
+{% endfor %}
+</div>
+{% endif %}
+
+
 
 <div class="info-section">
 <div class="copyright">
