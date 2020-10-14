@@ -2075,7 +2075,7 @@ INPUT
   end
 
   it "processes note types" do
-        expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to <<~"OUTPUT"
+        expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to <<~"OUTPUT"
     <un-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata>
     <note type="title-footnote"><p>ABC</p></note>       
