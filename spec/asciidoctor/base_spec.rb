@@ -22,18 +22,27 @@ RSpec.describe Asciidoctor::UN do
       Author
       :docfile: test.adoc
       :novalid:
-      :no-pdf:
+
+      = Clause
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
-<sections/>
+    <sections>
+  <clause id='_' inline-header='false' obligation='normative'>
+    <title>Clause</title>
+  </clause>
+</sections>
 </un-standard>
     OUTPUT
 
     FileUtils.rm_f "test.html"
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.pdf"
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
+    expect(File.exist?("test.doc")).to be true
+    expect(File.exist?("test.pdf")).to be true
   end
 
   it "processes default metadata" do
