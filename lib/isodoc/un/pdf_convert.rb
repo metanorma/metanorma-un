@@ -19,7 +19,7 @@ module IsoDoc
           "un.plenary.xsl"
         else
           docxml&.at(ns("//bibdata/ext/session/*")) ?
-            "un.plenary-attachment.xsl" : "unece.recommendation.xsl"
+            "un.plenary-attachment.xsl" : "un.recommendation.xsl"
         end
       end
     end

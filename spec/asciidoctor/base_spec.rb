@@ -28,7 +28,11 @@ RSpec.describe Asciidoctor::UN do
 
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
-<sections/>
+    <sections>
+  <clause id='_' inline-header='false' obligation='normative'>
+    <title>Clause</title>
+  </clause>
+</sections>
 </un-standard>
     OUTPUT
 
