@@ -72,6 +72,7 @@ RSpec.describe IsoDoc::UN do
 :docsubtitle=>"Subtitle",
 :doctitle=>"Main Title",
 :doctype=>"Recommendation",
+:doctype_display=>"Recommendation",
 :docyear=>"2001",
 :draft=>"3.4",
 :draftinfo=>" (draft 3.4, 2000-01-01)",
@@ -79,6 +80,7 @@ RSpec.describe IsoDoc::UN do
 :formatted_docnumber=>"UN/CEFACT Recommendation 1000A",
 :implementeddate=>"XXX",
 :issueddate=>"XXX",
+:lang=>"en",
 :logo=>"#{File.join(logoloc, "logo.jpg")}",
 :obsoleteddate=>"XXX",
 :publisheddate=>"XXX",
@@ -86,7 +88,9 @@ RSpec.describe IsoDoc::UN do
 :receiveddate=>"XXX",
 :revdate=>"2000-01-01",
 :revdate_monthyear=>"January 2000",
+:script=>"Latn",
 :stage=>"Working Draft",
+:stage_display=>"Working Draft",
 :stageabbr=>"wd",
 :submissionlanguage=>["German"],
 :tc=>"TC",
@@ -178,15 +182,18 @@ RSpec.describe IsoDoc::UN do
 :docsubtitle=>"Subtitle",
 :doctitle=>"Main Title",
 :doctype=>"Plenary",
+:doctype_display=>"Plenary",
 :docyear=>"2001",
 :formatted_docnumber=>"1000(wd)",
 :implementeddate=>"XXX",
 :issueddate=>"XXX",
+:lang=>"en",
 :logo=>"#{File.join(logoloc, "logo.jpg")}",
 :obsoleteddate=>"XXX",
 :publisheddate=>"XXX",
 :publisher=>"United Nations",
 :receiveddate=>"XXX",
+:script=>"Latn",
 :session_collaborator=>"WHO",
 :session_date=>"2001-01-01",
 :session_id=>"ECE/WHO-UNECE-01",
@@ -197,6 +204,7 @@ RSpec.describe IsoDoc::UN do
 :session_number=>"Third",
 :session_subitemname=>["GHI", "JKL"],
 :stage=>"Working Draft",
+:stage_display=>"Working Draft",
 :stageabbr=>"wd",
 :tc=>"TC",
 :transmitteddate=>"XXX",
@@ -2075,7 +2083,7 @@ INPUT
   end
 
   it "processes note types" do
-        expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to <<~"OUTPUT"
+        expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to <<~"OUTPUT"
     <un-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata>
     <note type="title-footnote"><p>ABC</p></note>       
@@ -2108,11 +2116,6 @@ INPUT
     <p>ABC</p>
   </note>
 </bibdata>
-<local_bibdata>
-  <note type='title-footnote'>
-    <p>ABC</p>
-  </note>
-</local_bibdata>
   <sections>
     <clause>
       <note type='source' id='A'>
