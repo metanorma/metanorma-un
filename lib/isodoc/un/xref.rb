@@ -56,14 +56,14 @@ module IsoDoc
       def label_leaf_section(clause, lvl)
         @paranumber += 1
         @anchors[clause["id"]] = {label: @paranumber.to_s, 
-                                  xref: "paragraph #{@paranumber}", 
+                                  xref: l10n("paragraph #{@paranumber}"), 
                                   level: lvl, type: "paragraph" }
       end
 
       def label_annex_leaf_section(clause, num, lvl)
         @paranumber += 1
         @anchors[clause["id"]] = {label: @paranumber.to_s, 
-                                  xref: "paragraph #{num}.#{@paranumber}", 
+                                  xref: l10n("paragraph #{num}.#{@paranumber}"), 
                                   level: lvl, type: "paragraph" }
       end
 
@@ -109,7 +109,7 @@ module IsoDoc
           label_annex_leaf_section(clause, num, 1) and return
         @anchors[clause["id"]] = { label: annex_name_lbl(clause, num),
                                    type: "clause", value: num,
-                                   xref: "#{@labels['annex']} #{num}", level: 1 }
+                                   xref: l10n("#{@labels['annex']} #{num}"), level: 1 }
         if a = single_annex_special_section(clause)
           annex_names1(a, "#{num}", 1)
         else
@@ -126,7 +126,7 @@ module IsoDoc
         leaf_section?(clause) and
           label_annex_leaf_section(clause, num, level) and return
         /\.(?<leafnum>[^.]+$)/ =~ num
-        @anchors[clause["id"]] = { label: leafnum, xref: "#{@labels['annex']} #{num}",
+        @anchors[clause["id"]] = { label: leafnum, xref: l10n("#{@labels['annex']} #{num}"),
                                    level: level, type: "clause" }
         i = 1
         clause.xpath(ns("./clause | ./references")).each do |c|

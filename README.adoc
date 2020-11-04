@@ -12,7 +12,7 @@ image:https://img.shields.io/github/commits-since/metanorma/metanorma-un/latest.
 
 == Functionality
 
-This gem processes http://asciidoctor.org/[Asciidoctor] documents following
+This gem processes https://www.metanorma.com[Metanorma documents] following
 a template for generating UN International Standards.
 
 The gem currently inherits from the https://github.com/metanorma/metanorma-standoc[Metanorma-Standoc]
