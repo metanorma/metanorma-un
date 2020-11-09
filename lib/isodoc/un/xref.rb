@@ -56,14 +56,14 @@ module IsoDoc
       def label_leaf_section(clause, lvl)
         @paranumber += 1
         @anchors[clause["id"]] = {label: @paranumber.to_s, 
-                                  xref: l10n("paragraph #{@paranumber}"), 
+                                  xref: l10n("#{@labels['paragraph']} #{@paranumber}"), 
                                   level: lvl, type: "paragraph" }
       end
 
       def label_annex_leaf_section(clause, num, lvl)
         @paranumber += 1
         @anchors[clause["id"]] = {label: @paranumber.to_s, 
-                                  xref: l10n("paragraph #{num}.#{@paranumber}"), 
+                                  xref: l10n("#{@labels['paragraph']} #{num}.#{@paranumber}"), 
                                   level: lvl, type: "paragraph" }
       end
 
