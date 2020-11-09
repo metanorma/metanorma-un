@@ -1106,12 +1106,21 @@
 		<title-part lang="en">
 			
 			
+			
 		</title-part>
 		<title-part lang="fr">
 			
 			
+			
 		</title-part>		
 		<title-part lang="zh">第 # 部分:</title-part>
+		
+		<title-subpart lang="en">			
+			
+		</title-subpart>
+		<title-subpart lang="fr">		
+			
+		</title-subpart>
 		
 		<title-modified lang="en">modified</title-modified>
 		<title-modified lang="fr">modifiée</title-modified>
@@ -1556,7 +1565,9 @@
 		
 		
 		
-		
+		<!-- <xsl:if test="$namespace = 'bipm'">
+			<fo:block>&#xA0;</fo:block>				
+		</xsl:if> -->
 		
 		<!-- $namespace = 'iso' or  -->
 		
@@ -1728,6 +1739,7 @@
 	</xsl:template><xsl:template match="*[local-name()='table']/*[local-name() = 'name']"/><xsl:template match="*[local-name()='table']/*[local-name() = 'name']" mode="presentation">
 		<xsl:if test="normalize-space() != ''">
 			<fo:block xsl:use-attribute-sets="table-name-style">
+				
 				
 				<xsl:apply-templates/>				
 			</fo:block>
@@ -2082,6 +2094,7 @@
 				
 				
 				
+				
 				<!-- <xsl:if test="$namespace = 'bipm'">
 					<xsl:attribute name="height">8mm</xsl:attribute>
 				</xsl:if> -->
@@ -2189,7 +2202,8 @@
 				</xsl:attribute>
 			</xsl:if>
 			<xsl:call-template name="display-align"/>
-			<fo:block>								
+			<fo:block>
+								
 				<xsl:apply-templates/>
 			</fo:block>			
 		</fo:table-cell>
@@ -2411,7 +2425,11 @@
 			<xsl:apply-templates/>
 		</fo:inline>
 	</xsl:template><xsl:template match="*[local-name()='dl']">
-		<fo:block-container margin-left="0mm">
+		<fo:block-container>
+			
+				<xsl:attribute name="margin-left">0mm</xsl:attribute>
+			
+			
 			<xsl:if test="parent::*[local-name() = 'note']">
 				<xsl:attribute name="margin-left">
 					<xsl:choose>
@@ -2421,8 +2439,11 @@
 				</xsl:attribute>
 				
 			</xsl:if>
-			<fo:block-container margin-left="0mm">
-	
+			<fo:block-container>
+				
+					<xsl:attribute name="margin-left">0mm</xsl:attribute>
+				
+				
 				<xsl:variable name="parent" select="local-name(..)"/>
 				
 				<xsl:variable name="key_iso">
@@ -2436,9 +2457,12 @@
 							<fo:block margin-bottom="12pt" text-align="left">
 								
 								<xsl:variable name="title-where">
-									<xsl:call-template name="getTitle">
-										<xsl:with-param name="name" select="'title-where'"/>
-									</xsl:call-template>
+									
+									
+										<xsl:call-template name="getTitle">
+											<xsl:with-param name="name" select="'title-where'"/>
+										</xsl:call-template>
+									
 								</xsl:variable>
 								<xsl:value-of select="$title-where"/><xsl:text> </xsl:text>
 								<xsl:apply-templates select="*[local-name()='dt']/*"/>
@@ -2454,9 +2478,12 @@
 							
 							
 							<xsl:variable name="title-where">
-								<xsl:call-template name="getTitle">
-									<xsl:with-param name="name" select="'title-where'"/>
-								</xsl:call-template>
+								
+								
+									<xsl:call-template name="getTitle">
+										<xsl:with-param name="name" select="'title-where'"/>
+									</xsl:call-template>
+																
 							</xsl:variable>
 							<xsl:value-of select="$title-where"/>
 						</fo:block>
@@ -2467,9 +2494,12 @@
 							
 							
 							<xsl:variable name="title-key">
-								<xsl:call-template name="getTitle">
-									<xsl:with-param name="name" select="'title-key'"/>
-								</xsl:call-template>
+								
+								
+									<xsl:call-template name="getTitle">
+										<xsl:with-param name="name" select="'title-key'"/>
+									</xsl:call-template>
+								
 							</xsl:variable>
 							<xsl:value-of select="$title-key"/>
 						</fo:block>
@@ -3040,7 +3070,18 @@
 				<xsl:with-param name="previousRow" select="$newRow"/>
 		</xsl:apply-templates>
 	</xsl:template><xsl:template name="getLang">
-		<xsl:variable name="language" select="//*[local-name()='bibdata']//*[local-name()='language']"/>
+		<xsl:variable name="language_current" select="normalize-space(//*[local-name()='bibdata']//*[local-name()='language'][@current = 'true'])"/>
+		<xsl:variable name="language">
+			<xsl:choose>
+				<xsl:when test="$language_current != ''">
+					<xsl:value-of select="$language_current"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="//*[local-name()='bibdata']//*[local-name()='language']"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		
 		<xsl:choose>
 			<xsl:when test="$language = 'English'">en</xsl:when>
 			<xsl:otherwise><xsl:value-of select="$language"/></xsl:otherwise>
@@ -3075,6 +3116,7 @@
 		<xsl:value-of select="substring($str, 2)"/>		
 	</xsl:template><xsl:template match="mathml:math">
 		<fo:inline font-family="STIX Two Math"> <!--  -->
+			
 			<xsl:variable name="mathml">
 				<xsl:apply-templates select="." mode="mathml"/>
 			</xsl:variable>
@@ -3157,10 +3199,14 @@
 		</fo:inline>		
 	</xsl:template><xsl:template match="*[local-name() = 'modification']">
 		<xsl:variable name="title-modified">
-			<xsl:call-template name="getTitle">
-				<xsl:with-param name="name" select="'title-modified'"/>
-			</xsl:call-template>
+			
+			
+				<xsl:call-template name="getTitle">
+					<xsl:with-param name="name" select="'title-modified'"/>
+				</xsl:call-template>
+			
 		</xsl:variable>
+		
 		<xsl:choose>
 			<xsl:when test="$lang = 'zh'"><xsl:text>、</xsl:text><xsl:value-of select="$title-modified"/><xsl:text>—</xsl:text></xsl:when>
 			<xsl:otherwise><xsl:text>, </xsl:text><xsl:value-of select="$title-modified"/><xsl:text> — </xsl:text></xsl:otherwise>
@@ -4055,9 +4101,12 @@
 		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'deprecates']">
 		<xsl:variable name="title-deprecated">
-			<xsl:call-template name="getTitle">
-				<xsl:with-param name="name" select="'title-deprecated'"/>
-			</xsl:call-template>
+			
+			
+				<xsl:call-template name="getTitle">
+					<xsl:with-param name="name" select="'title-deprecated'"/>
+				</xsl:call-template>
+			
 		</xsl:variable>
 		<fo:block xsl:use-attribute-sets="deprecates-style">
 			<xsl:value-of select="$title-deprecated"/>: <xsl:apply-templates/>
@@ -4430,13 +4479,22 @@
 	</xsl:template><xsl:template name="split">
 		<xsl:param name="pText" select="."/>
 		<xsl:param name="sep" select="','"/>
+		<xsl:param name="normalize-space" select="'true'"/>
 		<xsl:if test="string-length($pText) &gt;0">
 		<item>
-			<xsl:value-of select="normalize-space(substring-before(concat($pText, ','), $sep))"/>
+			<xsl:choose>
+				<xsl:when test="$normalize-space = 'true'">
+					<xsl:value-of select="normalize-space(substring-before(concat($pText, $sep), $sep))"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="substring-before(concat($pText, $sep), $sep)"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</item>
 		<xsl:call-template name="split">
 			<xsl:with-param name="pText" select="substring-after($pText, $sep)"/>
 			<xsl:with-param name="sep" select="$sep"/>
+			<xsl:with-param name="normalize-space" select="$normalize-space"/>
 		</xsl:call-template>
 		</xsl:if>
 	</xsl:template><xsl:template name="getDocumentId">		
@@ -4502,4 +4560,23 @@
 				<xsl:with-param name="letter-spacing" select="$letter-spacing"/>
 			</xsl:call-template>
 		</xsl:if>
+	</xsl:template><xsl:template name="repeat">
+		<xsl:param name="char" select="'*'"/>
+		<xsl:param name="count"/>
+		<xsl:if test="$count &gt; 0">
+			<xsl:value-of select="$char"/>
+			<xsl:call-template name="repeat">
+				<xsl:with-param name="char" select="$char"/>
+				<xsl:with-param name="count" select="$count - 1"/>
+			</xsl:call-template>
+		</xsl:if>
+	</xsl:template><xsl:template name="getLocalizedString">
+		<xsl:param name="key"/>		
+		
+		<xsl:variable name="curr_lang">
+			<xsl:call-template name="getLang"/>
+		</xsl:variable>
+		
+		<xsl:value-of select="/*/*[local-name() = 'localized-strings']/*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang]"/>
+		
 	</xsl:template></xsl:stylesheet>
