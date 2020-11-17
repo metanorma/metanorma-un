@@ -26,7 +26,9 @@ module IsoDoc
             '"SimHei",sans-serif' :
             '"Times New Roman", serif'
           ),
-          monospacefont: '"Courier New",monospace'
+          monospacefont: '"Courier New",monospace',
+          normalfontsize: "15px",
+          footnotefontsize: "0.9em",
         }
       end
 
