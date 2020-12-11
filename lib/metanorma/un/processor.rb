@@ -18,6 +18,17 @@ module Metanorma
         )
       end
 
+      def fonts_manifest
+        {
+          "Arial" => nil,
+          "Arial Black" => nil,
+          "Courier" => nil,
+          "Times New Roman" => nil,
+          "STIX Two Math" => nil,
+          "Source Han Sans" => nil,
+        }
+      end
+
       def version
         "Metanorma::UN #{Metanorma::UN::VERSION}"
       end
