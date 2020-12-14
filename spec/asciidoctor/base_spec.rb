@@ -663,7 +663,7 @@ RSpec.describe Asciidoctor::UN do
     <terms id='_' obligation='normative'>
       <title>Terms and definitions</title>
       <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
-      <term id='_'>
+      <term id='term-term1'>
         <preferred>Term1</preferred>
       </term>
     </terms>
@@ -686,14 +686,14 @@ RSpec.describe Asciidoctor::UN do
         <title>Intro 4</title>
         <terms id='_' obligation='normative'>
           <title>Intro 5</title>
-          <term id='_'>
+          <term id='term-term1-1'>
             <preferred>Term1</preferred>
           </term>
         </terms>
       </clause>
       <terms id='_' obligation='normative'>
         <title>Normal Terms</title>
-        <term id='_'>
+        <term id='term-term2'>
           <preferred>Term2</preferred>
         </term>
       </terms>
@@ -867,7 +867,7 @@ OUTPUT
    <terms id='_' obligation='normative'>
      <title>Terms and definitions</title>
      <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
-     <term id='_'>
+     <term id='term-term1'>
        <preferred>Term1</preferred>
      </term>
    </terms>
@@ -890,14 +890,14 @@ OUTPUT
                <title>Intro 4</title>
                <terms id='_' obligation='normative'>
                  <title>Intro 5</title>
-                 <term id='_'>
+                 <term id='term-term1-1'>
                    <preferred>Term1</preferred>
                  </term>
                </terms>
              </clause>
              <terms id='_' obligation='normative'>
                <title>Normal Terms</title>
-               <term id='_'>
+               <term id='term-term2'>
                  <preferred>Term2</preferred>
                </term>
              </terms>
