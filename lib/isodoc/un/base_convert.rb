@@ -3,7 +3,7 @@ require "fileutils"
 module IsoDoc
   module UN
     module BaseConvert
-      def middle_clause
+      def middle_clause(_docxml)
         "//clause[parent::sections]"
       end
 
