@@ -23,8 +23,10 @@ module IsoDoc
       def clause_names(docxml, sect_num)
         q = "//clause[parent::sections]"
         @paranumber = 0
-        docxml.xpath(ns(q)).each_with_index do |c, i|
-          section_names(c, (i + sect_num), 1)
+        i = 0
+        docxml.xpath(ns(q)).each do |c|
+          section_names(c, i, 1)
+          i += 1
         end
       end
 

@@ -500,7 +500,7 @@ INPUT
     </p>
     <p class='MsoNormal'>
       <a name='_' id='_'/>
-      Copyright &#xA9; United Nations 2020
+      Copyright &#xA9; United Nations #{Time.now.year}
       <br/>
        All rights reserved worldwide
       <br/>

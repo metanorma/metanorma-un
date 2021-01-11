@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "iso-639"
 
   spec.add_dependency "metanorma-standoc", "~> 1.7.0"
-  spec.add_dependency "isodoc", "~> 1.4.0"
+  spec.add_dependency "isodoc", "~> 1.4.2"
 
   spec.add_development_dependency "byebug", "~> 9.1"
   spec.add_development_dependency "sassc", "2.4.0"
