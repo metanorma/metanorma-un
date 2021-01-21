@@ -18,12 +18,12 @@ module IsoDoc
         {
           bodyfont: (
             options[:script] == "Hans" ?
-            '"SimSun",serif' :
+            '"Source Han Sans",serif' :
             '"Times New Roman", serif'
           ),
           headerfont: (
             options[:script] == "Hans" ?
-            '"SimHei",sans-serif' :
+            '"Source Han Sans",sans-serif' :
             '"Times New Roman", serif'
           ),
           monospacefont: '"Courier New",monospace',
