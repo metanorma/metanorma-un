@@ -476,8 +476,8 @@ RSpec.describe Asciidoctor::UN do
 
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Courier New", monospace;]m)
-    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "SimSun", serif;]m)
-    expect(html).to match(%r[h1,\sh2,\sh3,\sh4,\sh5,\sh6,\s\.h2Annex \{[^}]+font-family: "SimHei", sans-serif;]m)
+    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Source Han Sans", serif;]m)
+    expect(html).to match(%r[h1,\sh2,\sh3,\sh4,\sh5,\sh6,\s\.h2Annex \{[^}]+font-family: "Source Han Sans", sans-serif;]m)
   end
 
   it "uses specified fonts" do
