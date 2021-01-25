@@ -15,6 +15,7 @@ RSpec.describe Asciidoctor::UN do
 
     it "generates error file" do
       expect do
+        mock_pdf
         Metanorma::Compile
           .new
           .compile("spec/assets/xref_error.adoc", type: "un", :"agree-to-terms" => true)
