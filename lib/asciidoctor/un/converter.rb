@@ -30,7 +30,7 @@ module Asciidoctor
       end
 
       def asciidoc_sub(text)
-        Asciidoctor::Standoc::Utils::asciidoc_sub(text)
+        Metanorma::Utils::asciidoc_sub(text)
       end
 
       def title(node, xml)
