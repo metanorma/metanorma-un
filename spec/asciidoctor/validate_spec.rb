@@ -18,7 +18,7 @@ RSpec.describe Asciidoctor::UN do
         mock_pdf
         Metanorma::Compile
           .new
-          .compile("spec/assets/xref_error.adoc", type: "un", :"agree-to-terms" => true)
+          .compile("spec/assets/xref_error.adoc", type: "un", no_install_fonts: true)
       end.to(change { File.exist?("spec/assets/xref_error.err") }
               .from(false).to(true))
     end
