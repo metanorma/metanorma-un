@@ -1,5 +1,5 @@
 module Metanorma
   module UN
-    VERSION = "0.5.13"
+    VERSION = "0.5.14"
   end
 end
