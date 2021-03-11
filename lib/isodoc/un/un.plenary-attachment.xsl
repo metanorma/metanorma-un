@@ -1451,6 +1451,7 @@
 		
 		
 		
+		
 			<xsl:attribute name="font-size">11pt</xsl:attribute>
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
@@ -4228,9 +4229,10 @@
 		</xsl:choose>
 
 	</xsl:template><xsl:template match="*[local-name() = 'example']/*[local-name() = 'p']">
-	
+		<xsl:variable name="num"><xsl:number/></xsl:variable>
 		<xsl:variable name="element">
 			block
+			
 			
 		</xsl:variable>		
 		<xsl:choose>			
