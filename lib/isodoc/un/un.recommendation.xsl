@@ -2322,6 +2322,7 @@
 			
 			
 			
+			
 				<xsl:if test="ancestor::*[local-name()='sections']">
 					<xsl:attribute name="border">solid black 0pt</xsl:attribute>
 					<xsl:attribute name="padding-top">1mm</xsl:attribute>					
