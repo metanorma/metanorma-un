@@ -1419,6 +1419,7 @@
 		
 		
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="example-body-style">
 		
 		
@@ -1435,9 +1436,7 @@
 		
 		
 		
-		
-		
-		
+				
 		
 			<xsl:attribute name="font-size">10pt</xsl:attribute>
 			<xsl:attribute name="font-weight">bold</xsl:attribute>			
@@ -4498,6 +4497,7 @@
 		<fo:inline><xsl:apply-templates/></fo:inline>
 	</xsl:template><xsl:template match="*[local-name() = 'example']">
 		<fo:block id="{@id}" xsl:use-attribute-sets="example-style">
+			
 			
 			<xsl:apply-templates select="*[local-name()='name']" mode="presentation"/>
 			
