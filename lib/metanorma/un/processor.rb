@@ -22,10 +22,11 @@ module Metanorma
         {
           "Arial" => nil,
           "Arial Black" => nil,
-          "Courier" => nil,
+          "Courier New" => nil,
           "Times New Roman" => nil,
           "STIX Two Math" => nil,
           "Source Han Sans" => nil,
+          "Source Han Sans Normal" => nil,
         }
       end
 
