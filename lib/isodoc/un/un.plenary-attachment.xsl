@@ -1276,7 +1276,7 @@
 		
 		
 		
-			<xsl:attribute name="font-family">Courier</xsl:attribute>			
+			<xsl:attribute name="font-family">Courier New</xsl:attribute>			
 			<xsl:attribute name="margin-top">6pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
 		
