@@ -717,6 +717,7 @@
 		</xsl:variable>
 		<fo:block font-size="{$font-size}" font-weight="bold" margin-top="3pt" margin-bottom="16pt" keep-with-next="always">
 			<xsl:apply-templates/>
+			<xsl:apply-templates select="following-sibling::*[1][local-name() = 'variant-title'][@type = 'sub']" mode="subtitle"/>
 		</fo:block>
 	</xsl:template>
 	
@@ -737,12 +738,14 @@
 				<fo:block font-size="{$font-size}" font-weight="bold" space-before="3pt" keep-with-next="always">					
 					<fo:block margin-bottom="12pt">
 						<xsl:apply-templates/>
+						<xsl:apply-templates select="following-sibling::*[1][local-name() = 'variant-title'][@type = 'sub']" mode="subtitle"/>
 					</fo:block>
 				</fo:block>
 			</xsl:when>
 			<xsl:otherwise>			
 				<fo:block font-size="{$font-size}" font-weight="bold" margin-left="1mm" space-before="3pt" margin-bottom="6pt" keep-with-next="always">
 					<xsl:apply-templates/>
+					<xsl:apply-templates select="following-sibling::*[1][local-name() = 'variant-title'][@type = 'sub']" mode="subtitle"/>
 				</fo:block>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -788,6 +791,7 @@
 									<fo:table-cell>
 										<fo:block>
 											<xsl:call-template name="extractTitle"/>
+											<xsl:apply-templates select="following-sibling::*[1][local-name() = 'variant-title'][@type = 'sub']" mode="subtitle"/>
 										</fo:block>
 									</fo:table-cell>
 								</fo:table-row>
@@ -816,6 +820,7 @@
 			<xsl:otherwise>
 				<fo:block font-size="{$font-size}" font-weight="bold" text-align="left" keep-with-next="always">						
 					<xsl:apply-templates/>
+					<xsl:apply-templates select="following-sibling::*[1][local-name() = 'variant-title'][@type = 'sub']" mode="subtitle"/>
 				</fo:block>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -4531,6 +4536,7 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:apply-templates/>
+								<xsl:apply-templates select="following-sibling::*[1][local-name() = 'variant-title'][@type = 'sub']" mode="subtitle"/>
 							</xsl:otherwise>
 						</xsl:choose>
 					</fo:block>
@@ -5591,6 +5597,9 @@
 		<fo:block-container border="1pt solid black" width="50%">
 			<fo:block> </fo:block>
 		</fo:block-container>
+	</xsl:template><xsl:template match="*[local-name() = 'variant-title'][@type = 'sub']"/><xsl:template match="*[local-name() = 'variant-title'][@type = 'sub']" mode="subtitle">
+		<fo:inline padding-right="5mm"> </fo:inline>
+		<fo:inline><xsl:apply-templates/></fo:inline>
 	</xsl:template><xsl:template name="convertDate">
 		<xsl:param name="date"/>
 		<xsl:param name="format" select="'short'"/>
