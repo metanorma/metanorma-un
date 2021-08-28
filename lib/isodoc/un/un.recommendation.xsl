@@ -1020,7 +1020,7 @@
 	<!-- ============================ -->	
 	
 	<xsl:template name="insertHeaderPreface">
-		<fo:static-content flow-name="header">
+		<fo:static-content flow-name="header" role="artifact">
 			<fo:block-container height="25.5mm" display-align="before" border-bottom="0.5pt solid black">
 				<fo:block font-weight="bold" padding-top="20.5mm" text-align="center">
 					<!-- <xsl:text>UN/CEFACT </xsl:text> -->
@@ -1031,7 +1031,7 @@
 	</xsl:template>
 	
 	<xsl:template name="insertHeader">
-		<fo:static-content flow-name="header">
+		<fo:static-content flow-name="header" role="artifact">
 			<fo:block-container height="28.5mm" display-align="before" border-bottom="0.5pt solid black">
 				<fo:block font-weight="bold" padding-top="20.5mm" text-align="center">
 					<!-- <xsl:text>UN/CEFACT </xsl:text> -->
@@ -1042,7 +1042,7 @@
 	</xsl:template>
 	
 	<xsl:template name="insertFooter">
-		<fo:static-content flow-name="footer">
+		<fo:static-content flow-name="footer" role="artifact">
 			<fo:block-container height="29mm" display-align="after">
 				<fo:block font-size="9pt" font-weight="bold" text-align="center" padding-bottom="24mm"><fo:page-number/></fo:block>
 			</fo:block-container>
