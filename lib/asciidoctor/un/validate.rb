@@ -13,11 +13,10 @@ module Asciidoctor
       def stage_validate(xmldoc)
         stage = xmldoc&.at("//bibdata/status/stage")&.text
         %w(proposal working-draft committee-draft draft-standard final-draft
-        published withdrawn).include? stage or
-        @log.add("Document Attributes", nil, 
-                 "#{stage} is not a recognised status")
+           published withdrawn).include? stage or
+          @log.add("Document Attributes", nil,
+                   "#{stage} is not a recognised status")
       end
     end
   end
 end
-

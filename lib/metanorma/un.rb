@@ -4,9 +4,7 @@ require "metanorma/un/version"
 
 module Metanorma
   module UN
-
-    ORGANIZATION_NAME_SHORT = "UN"
-    ORGANIZATION_NAME_LONG = "United Nations"
-
+    ORGANIZATION_NAME_SHORT = "UN".freeze
+    ORGANIZATION_NAME_LONG = "United Nations".freeze
   end
 end

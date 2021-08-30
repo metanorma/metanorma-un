@@ -23,121 +23,133 @@ RSpec.configure do |config|
   end
 end
 
-def metadata(x)
-  Hash[x.sort].delete_if{ |k, v| v.nil? || v.respond_to?(:empty?) && v.empty? }
+OPTIONS = [backend: :un, header_footer: true].freeze
+
+def metadata(xml)
+  xml.sort.to_h.delete_if do |_k, v|
+    v.nil? || v.respond_to?(:empty?) && v.empty?
+  end
 end
 
-def strip_guid(x)
-  x.gsub(%r{ id="_[^"]+"}, ' id="_"').gsub(%r{ target="_[^"]+"}, ' target="_"')
+def strip_guid(xml)
+  xml.gsub(%r{ id="_[^"]+"}, ' id="_"')
+    .gsub(%r{ target="_[^"]+"}, ' target="_"')
 end
 
-def htmlencode(x)
-  HTMLEntities.new.encode(x, :hexadecimal).gsub(/&#x3e;/, ">").gsub(/&#xa;/, "\n").
-    gsub(/&#x22;/, '"').gsub(/&#x3c;/, "<").gsub(/&#x26;/, '&').gsub(/&#x27;/, "'").
-    gsub(/\\u(....)/) { |s| "&#x#{$1.downcase};" }
+def htmlencode(xml)
+  HTMLEntities.new.encode(xml, :hexadecimal)
+    .gsub(/&#x3e;/, ">").gsub(/&#xa;/, "\n")
+    .gsub(/&#x22;/, '"').gsub(/&#x3c;/, "<")
+    .gsub(/&#x26;/, "&").gsub(/&#x27;/, "'")
+    .gsub(/\\u(....)/) do |_s|
+    "&#x#{$1.downcase};"
+  end
 end
 
-def xmlpp(x)
+def xmlpp(xml)
   s = ""
   f = REXML::Formatters::Pretty.new(2)
   f.compact = true
-  f.write(REXML::Document.new(x),s)
+  f.write(REXML::Document.new(xml), s)
   s
 end
 
-ASCIIDOC_BLANK_HDR = <<~"HDR"
-      = Document title
-      Author
-      :docfile: test.adoc
-      :nodoc:
-      :novalid:
+ASCIIDOC_BLANK_HDR = <<~"HDR".freeze
+  = Document title
+  Author
+  :docfile: test.adoc
+  :nodoc:
+  :novalid:
 
 HDR
 
-VALIDATING_BLANK_HDR = <<~"HDR"
-      = Document title
-      Author
-      :docfile: test.adoc
-      :nodoc:
+VALIDATING_BLANK_HDR = <<~"HDR".freeze
+  = Document title
+  Author
+  :docfile: test.adoc
+  :nodoc:
 
 HDR
 
 BOILERPLATE =
   HTMLEntities.new.decode(
-  File.read(File.join(File.dirname(__FILE__), "..", "lib", "asciidoctor", "un", "boilerplate.xml"), encoding: "utf-8").
-  gsub(/\{\{ agency \}\}/, "ISO").gsub(/\{\{ docyear \}\}/, Date.today.year.to_s).
-  gsub(/\{% if unpublished %\}.*\{% endif %\}/m, "").
-  gsub(/<p>/, "<p id='_'>").
-  gsub(/\{% if subdivision %\}\{\{subdivision\}\}\{% else %\}/, "").
-  gsub(/\{% if pub_phone %\}\{\{ pub_phone \}\}\{% else %\}/, "").
-  gsub(/\{% if pub_address %\}\{\{ pub_address \}\}\{% else %\}/, "").
-  gsub(/\{% if pub_fax %\}.+?<\/link>\s*<br\/>/m, "").
-  gsub(/\{% if pub_email %\}\{\{ pub_email \}\}\{% else %\}/, "").
-  gsub(/\{% if pub_uri %\}\{\{pub_uri\}\}\{% else %\}/, "").
-  gsub(/\{% if tc == "United Nations Centre for Trade Facilitation and Electronic Business \(UN\/CEFACT\)" %\}.*?\{% endif %\}/m, "").
-  gsub(/\{% endif %\}/, "").
-  gsub(/(?<=\p{Alnum})'(?=\p{Alpha})/, "’")
-)
+    File.read(File.join(
+                File.dirname(__FILE__), "..", "lib", "asciidoctor", "un", "boilerplate.xml"
+              ), encoding: "utf-8")
+    .gsub(/\{\{ agency \}\}/, "ISO")
+      .gsub(/\{\{ docyear \}\}/, Date.today.year.to_s)
+    .gsub(/\{% if unpublished %\}.*\{% endif %\}/m, "")
+    .gsub(/<p>/, "<p id='_'>")
+    .gsub(/\{% if subdivision %\}\{\{subdivision\}\}\{% else %\}/, "")
+    .gsub(/\{% if pub_phone %\}\{\{ pub_phone \}\}\{% else %\}/, "")
+    .gsub(/\{% if pub_address %\}\{\{ pub_address \}\}\{% else %\}/, "")
+    .gsub(/\{% if pub_fax %\}.+?<\/link>\s*<br\/>/m, "")
+    .gsub(/\{% if pub_email %\}\{\{ pub_email \}\}\{% else %\}/, "")
+    .gsub(/\{% if pub_uri %\}\{\{pub_uri\}\}\{% else %\}/, "")
+    .gsub(/\{% if tc == "United Nations Centre for Trade Facilitation and Electronic Business \(UN\/CEFACT\)" %\}.*?\{% endif %\}/m, "")
+    .gsub(/\{% endif %\}/, "")
+    .gsub(/(?<=\p{Alnum})'(?=\p{Alpha})/, "’"),
+  )
 
-BLANK_HDR = <<~"HDR"
-       <?xml version="1.0" encoding="UTF-8"?>
-       <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
-       <bibdata type="standard">
-        <title type='main' language='en' format='text/plain'>Document title</title>
-         <contributor>
-           <role type="author"/>
-           <organization>
-             <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
-           </organization>
-         </contributor>
-         <contributor>
-           <role type="publisher"/>
-           <organization>
-             <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
-           </organization>
-         </contributor>
-         <language>ar</language>
-        <language>ru</language>
-        <language>en</language>
-        <language>fr</language>
-        <language>zh</language>
-        <language>es</language>
-         <script>Latn</script>
+BLANK_HDR = <<~"HDR".freeze
+  <?xml version="1.0" encoding="UTF-8"?>
+  <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
+  <bibdata type="standard">
+   <title type='main' language='en' format='text/plain'>Document title</title>
+    <contributor>
+      <role type="author"/>
+      <organization>
+        <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+      </organization>
+    </contributor>
+    <contributor>
+      <role type="publisher"/>
+      <organization>
+        <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+      </organization>
+    </contributor>
+    <language>ar</language>
+   <language>ru</language>
+   <language>en</language>
+   <language>fr</language>
+   <language>zh</language>
+   <language>es</language>
+    <script>Latn</script>
 
-         <status> <stage>published</stage> </status> 
-         <copyright>
-           <from>#{Date.today.year}</from>
-           <owner>
-             <organization>
-               <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
-             </organization>
-           </owner>
-         </copyright>
-         <ext>
-         <doctype>recommendation</doctype>
-         <session/>
-         </ext>
-       </bibdata>
-       #{BOILERPLATE}
+    <status> <stage>published</stage> </status>#{' '}
+    <copyright>
+      <from>#{Date.today.year}</from>
+      <owner>
+        <organization>
+          <name>#{Metanorma::UN::ORGANIZATION_NAME_LONG}</name>
+        </organization>
+      </owner>
+    </copyright>
+    <ext>
+    <doctype>recommendation</doctype>
+    <session/>
+    </ext>
+  </bibdata>
+  #{BOILERPLATE}
 HDR
 
-HTML_HDR = <<~"HDR"
-        <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-        <head/>
-           <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
-           <div class="title-section">
-             <p>&#160;</p>
-           </div>
-           <br/>
-           <div class="prefatory-section">
-             <p>&#160;</p>
-           </div>
-           <br/>
-           <div class="main-section">
+HTML_HDR = <<~"HDR".freeze
+  <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+  <head/>
+     <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
+     <div class="title-section">
+       <p>&#160;</p>
+     </div>
+     <br/>
+     <div class="prefatory-section">
+       <p>&#160;</p>
+     </div>
+     <br/>
+     <div class="main-section">
 HDR
 
 def mock_pdf
-  allow(::Mn2pdf).to receive(:convert) do |url, output, c, d|
+  allow(::Mn2pdf).to receive(:convert) do |url, output, _c, _d|
     FileUtils.cp(url.gsub(/"/, ""), output.gsub(/"/, ""))
   end
 end

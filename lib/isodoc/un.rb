@@ -6,6 +6,5 @@ require "isodoc/un/presentation_xml_convert"
 
 module IsoDoc
   module UN
-
   end
 end

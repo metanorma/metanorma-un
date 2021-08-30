@@ -17,13 +17,14 @@ module Asciidoctor
 
       def metadata_committee(node, xml)
         return unless node.attr("committee")
+
         xml.editorialgroup do |a|
           a.committee node.attr("committee"),
-            **attr_code(type: node.attr("committee-type"))
+                      **attr_code(type: node.attr("committee-type"))
           i = 2
-          while node.attr("committee_#{i}") do
+          while node.attr("committee_#{i}")
             a.committee node.attr("committee_#{i}"),
-              **attr_code(type: node.attr("committee-type_#{i}"))
+                        **attr_code(type: node.attr("committee-type_#{i}"))
             i += 1
           end
         end
@@ -66,13 +67,13 @@ module Asciidoctor
         xml.session do |session|
           session.number node.attr("session") if node.attr("session")
           session.date node.attr("session-date") if node.attr("session-date")
-          node&.attr("item-number")&.split(/,[ ]*/)&.each do |i|
+          node&.attr("item-number")&.split(/, */)&.each do |i|
             session.item_number i
           end
-          node&.attr("item-name")&.split(/,[ ]*/)&.each do |i|
+          node&.attr("item-name")&.split(/, */)&.each do |i|
             session.item_name i
           end
-          node&.attr("subitem-name")&.split(/,[ ]*/)&.each do |i|
+          node&.attr("subitem-name")&.split(/, */)&.each do |i|
             session.subitem_name i
           end
           node.attr("collaborator") and
@@ -84,13 +85,13 @@ module Asciidoctor
       end
 
       def metadata_language(node, xml)
-        languages = node&.attr("language")&.split(/,[ ]*/) ||
+        languages = node&.attr("language")&.split(/, */) ||
           %w(ar ru en fr zh es)
         languages.each { |l| xml.language l }
       end
 
       def metadata_submission_language(node, xml)
-        languages = node&.attr("submissionlanguage")&.split(/,[ ]*/) || []
+        languages = node&.attr("submissionlanguage")&.split(/, */) || []
         languages.each { |l| xml.submissionlanguage l }
       end
 
@@ -101,7 +102,7 @@ module Asciidoctor
         metadata_submission_language(node, xml)
       end
 
-      def title_validate(root)
+      def title_validate(_root)
         nil
       end
 
@@ -114,12 +115,11 @@ module Asciidoctor
 
       def doctype(node)
         d = super
-        unless %w{plenary recommendation addendum communication corrigendum 
-          reissue agenda budgetary sec-gen-notes expert-report resolution 
-          plenary-attachment}.include? d
-          @log.add(
-            "Document Attributes", nil,
-            "#{d} is not a legal document type: reverting to 'recommendation'")
+        unless %w{plenary recommendation addendum communication corrigendum
+                  reissue agenda budgetary sec-gen-notes expert-report
+                  resolution plenary-attachment}.include? d
+          @log.add("Document Attributes", nil,
+                   "#{d} is not a legal document type: reverting to 'recommendation'")
           d = "recommendation"
         end
         d
@@ -128,11 +128,11 @@ module Asciidoctor
       def outputs(node, ret)
         File.open(@filename + ".xml", "w:UTF-8") { |f| f.write(ret) }
         presentation_xml_converter(node).convert(@filename + ".xml")
-        html_converter(node).convert(@filename + ".presentation.xml", 
+        html_converter(node).convert(@filename + ".presentation.xml",
                                      nil, false, "#{@filename}.html")
-        doc_converter(node).convert(@filename + ".presentation.xml", 
+        doc_converter(node).convert(@filename + ".presentation.xml",
                                     nil, false, "#{@filename}.doc")
-        pdf_converter(node)&.convert(@filename + ".presentation.xml", 
+        pdf_converter(node)&.convert(@filename + ".presentation.xml",
                                      nil, false, "#{@filename}.pdf")
       end
 
@@ -142,8 +142,8 @@ module Asciidoctor
                         File.join(File.dirname(__FILE__), "un.rng"))
       end
 
-      def style(n, t)
-        return
+      def style(_node, _text)
+        nil
       end
 
       def html_extract_attributes(node)
@@ -168,6 +168,7 @@ module Asciidoctor
 
       def pdf_converter(node)
         return nil if node.attr("no-pdf")
+
         IsoDoc::UN::PdfConvert.new(doc_extract_attributes(node))
       end
 
@@ -196,25 +197,24 @@ module Asciidoctor
         xmldoc.xpath("//clause/p | //annex/p").each do |p|
           cl = Nokogiri::XML::Node.new("clause", xmldoc)
           cl["id"] = p["id"]
-          cl["inline-header"]="true" 
-          p["id"] = "_" + UUIDTools::UUID.random_create
+          cl["inline-header"] = "true"
+          p["id"] = "_#{UUIDTools::UUID.random_create}"
           p.replace(cl)
           p.parent = cl
-          while n = cl.next_element and !%w(p clause).include? n.name
+          while (n = cl.next_element) && !%w(p clause).include?(n.name)
             n.parent = cl
           end
         end
       end
 
       def admonition_attrs(node)
-        attr_code(super.merge("unnumbered": node.option?("unnumbered"),
-                              "subsequence": node.attr("subsequence")))
+        attr_code(super.merge(unnumbered: node.option?("unnumbered"),
+                              subsequence: node.attr("subsequence")))
       end
 
       def sectiontype_streamline(ret)
         case ret
-        when "foreword" then "donotrecognise-foreword"
-        when "introduction" then "donotrecognise-foreword"
+        when "foreword", "introduction" then "donotrecognise-foreword"
         else
           super
         end

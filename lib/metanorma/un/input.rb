@@ -7,9 +7,7 @@ module Metanorma
         def extract_options(file)
           head = file.sub(/\n\n.*$/m, "\n")
           /\n(?<toc>:toc:)/ =~ head
-          new_options = {
-            toc: defined?(toc)
-          }.reject { |_, val| val.nil? }
+          new_options = { toc: defined?(toc) }.compact
           super.merge(new_options)
         end
       end
