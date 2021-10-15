@@ -3986,6 +3986,7 @@
 			<xsl:otherwise>
 				<fo:block xsl:use-attribute-sets="image-style">
 					
+					
 						<xsl:if test="ancestor::un:admonition">
 							<xsl:attribute name="margin-top">-12mm</xsl:attribute>
 							<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
