@@ -1162,6 +1162,8 @@
 		
 		<title-list-figures lang="en">List of Figures</title-list-figures>
 		
+		<title-table-figures lang="en">Table of Figures</title-table-figures>
+		
 		<title-list-recommendations lang="en">List of Recommendations</title-list-recommendations>
 		
 		<title-acknowledgements lang="en">Acknowledgements</title-acknowledgements>
@@ -4358,7 +4360,7 @@
 		<xsl:text> </xsl:text>
 	</xsl:template><xsl:template match="*[local-name() = 'figure' or local-name() = 'table' or local-name() = 'permission' or local-name() = 'recommendation' or local-name() = 'requirement']/*[local-name() = 'name']/text()" mode="contents" priority="2">
 		<xsl:value-of select="."/>
-	</xsl:template><xsl:template match="*[local-name() = 'figure' or local-name() = 'table' or local-name() = 'permission' or local-name() = 'recommendation' or local-name() = 'requirement']/*[local-name() = 'name']/text()" mode="bookmarks" priority="2">
+	</xsl:template><xsl:template match="*[local-name() = 'figure' or local-name() = 'table' or local-name() = 'permission' or local-name() = 'recommendation' or local-name() = 'requirement']/*[local-name() = 'name']//text()" mode="bookmarks" priority="2">
 		<xsl:value-of select="."/>
 	</xsl:template><xsl:template match="node()" mode="contents">
 		<xsl:apply-templates mode="contents"/>
@@ -4448,6 +4450,8 @@
 						<xsl:apply-templates select="xalan:nodeset($contents)/contents/item" mode="bookmark"/>				
 					</xsl:otherwise>
 				</xsl:choose>
+				
+				
 				
 				
 				
