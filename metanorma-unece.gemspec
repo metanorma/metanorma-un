@@ -30,8 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "roman-numerals"
   spec.add_dependency "twitter_cldr"
 
-  spec.add_dependency "isodoc", "~> 1.7.0"
-  spec.add_dependency "metanorma-standoc", "~> 1.10.0"
+  spec.add_dependency "metanorma-standoc", "~> 1.11.0"
 
   spec.add_development_dependency "byebug", "~> 9.1"
   spec.add_development_dependency "equivalent-xml", "~> 0.6"
