@@ -346,11 +346,12 @@ h6 {
     font-weight: 100;
   }*/
 
-.TermNum,
-.Terms,
-.AltTerms {
-  color: $un-blue;
+.TermNum {
   font-weight: 100;
+}
+
+.TermNum, .Terms, .AltTerms {
+  color: $un-blue;
 }
 
 h2.TermNum {
