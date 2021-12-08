@@ -169,7 +169,7 @@ module Asciidoctor
       def pdf_converter(node)
         return nil if node.attr("no-pdf")
 
-        IsoDoc::UN::PdfConvert.new(doc_extract_attributes(node))
+        IsoDoc::UN::PdfConvert.new(pdf_extract_attributes(node))
       end
 
       def sections_cleanup(xmldoc)
