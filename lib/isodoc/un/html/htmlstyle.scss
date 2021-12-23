@@ -268,7 +268,8 @@ h3,
 h4,
 h5,
 h6,
-.h2Annex {
+.h2Annex,
+.h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: $headerfont;
   color: $un-blue;
   font-weight: 700;
@@ -279,12 +280,12 @@ h6,
 
 h1,
 h2,
-h3 {
+h3, .h1, .h2, .h3 {
   margin-top: 18px;
   margin-bottom: 9px;
 }
 
-h1 {
+h1, .h1 {
   font-size: 33px;
   font-weight: 500;
   margin: 0.67em 0;
@@ -293,31 +294,31 @@ h1 {
 }
 
 
-h2 {
+h2, .h2 {
   font-size: 27px;
   color: $un-label;
 }
 
-h3 {
+h3, .h3 {
   font-size: 24px;
   margin-top: 26px;
   color: $un-black;
 }
 
-h4 {
+h4, .h4 {
   font-size: 18.2px;
   margin-bottom: 2px;
   color: $un-label;
   letter-spacing: 0.03em;
 }
 
-h5 {
+h5, .h5 {
   font-size: 16.25px;
   color: $un-black;
   margin-bottom: 2px;
 }
 
-h6 {
+h6, .h6 {
   font-size: 13px;
   color: $un-label;
   letter-spacing: 0.05em;
@@ -607,7 +608,7 @@ p {
   margin-top: 1em;
 }
 
-h2 p {
+h2 p, .h2 p {
   display: inline;
 }
 
@@ -791,7 +792,8 @@ To top button
   h1,
   h2,
   h3,
-  h4 {
+  h4, 
+  .h1, .h2, .h3, .h4 {
     page-break-after: avoid;
     margin-top: 1.2em;
   }
@@ -847,16 +849,16 @@ To top button
     margin-top: 2em;
   }
 
-  h1 {
+  h1, .h1 {
     font-size: 1.5em;
     line-height: 1.5;
   }
 
-  h2 {
+  h2, .h2 {
     font-size: 1.2em;
   }
 
-  h3 {
+  h3, .h3 {
     font-size: 1em;
   }
 
