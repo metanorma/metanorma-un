@@ -1,9 +1,9 @@
 require "asciidoctor"
-require "asciidoctor/standoc/converter"
+require "metanorma/standoc/converter"
 require "fileutils"
 require_relative "validate"
 
-module Asciidoctor
+module Metanorma
   module UN
     class Converter < Standoc::Converter
       XML_ROOT_TAG = "un-standard".freeze

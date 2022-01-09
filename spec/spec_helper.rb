@@ -74,7 +74,7 @@ HDR
 BOILERPLATE =
   HTMLEntities.new.decode(
     File.read(File.join(
-                File.dirname(__FILE__), "..", "lib", "asciidoctor", "un", "boilerplate.xml"
+                File.dirname(__FILE__), "..", "lib", "metanorma", "un", "boilerplate.xml"
               ), encoding: "utf-8")
     .gsub(/\{\{ agency \}\}/, "ISO")
       .gsub(/\{\{ docyear \}\}/, Date.today.year.to_s)
