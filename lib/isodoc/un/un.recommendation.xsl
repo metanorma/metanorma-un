@@ -204,8 +204,9 @@
 					</xsl:variable>
 					<fo:block font-size="14pt" margin-top="4pt" margin-bottom="8pt" role="H1"><xsl:value-of select="$title-toc"/></fo:block>
 					<xsl:variable name="title-page">
-						<xsl:call-template name="getTitle">
-							<xsl:with-param name="name" select="'title-page'"/>
+						<xsl:call-template name="getLocalizedString">
+							<xsl:with-param name="key">locality.page</xsl:with-param>
+							<xsl:with-param name="lang" select="$lang"/>
 						</xsl:call-template>
 					</xsl:variable>
 					<fo:block font-size="9pt" text-align="right" font-style="italic" margin-bottom="6pt"><xsl:value-of select="$title-page"/></fo:block>
@@ -1045,13 +1046,6 @@
 	
 <xsl:variable name="titles" select="xalan:nodeset($titles_)"/><xsl:variable name="titles_">
 				
-		<title-annex lang="en">Annex </title-annex>
-		<title-annex lang="fr">Annexe </title-annex>
-		
-			<title-annex lang="zh">Annex </title-annex>
-		
-		
-				
 		<title-edition lang="en">
 			
 				<xsl:text>Edition </xsl:text>
@@ -1065,7 +1059,8 @@
 			
 		</title-edition>
 		
-
+		
+		<!-- These titles of Table of contents renders different than determined in localized-strings -->
 		<title-toc lang="en">
 			
 				<xsl:text>Contents</xsl:text>
@@ -1077,21 +1072,11 @@
 			
 				<xsl:text>Sommaire</xsl:text>
 			
-			
-			</title-toc>
+		</title-toc>
 		
 			<title-toc lang="zh">Contents</title-toc>
 		
 		
-		
-		<title-page lang="en">Page</title-page>
-		<title-page lang="fr">Page</title-page>
-		
-		<title-key lang="en">Key</title-key>
-		<title-key lang="fr">Légende</title-key>
-			
-		<title-where lang="en">where</title-where>
-		<title-where lang="fr">où</title-where>
 					
 		<title-descriptors lang="en">Descriptors</title-descriptors>
 		
@@ -1114,25 +1099,6 @@
 			
 		</title-subpart>
 		
-		<title-modified lang="en">modified</title-modified>
-		<title-modified lang="fr">modifiée</title-modified>
-		
-			<title-modified lang="zh">modified</title-modified>
-		
-		
-		
-		<title-source lang="en">
-			
-				<xsl:text>SOURCE</xsl:text>
-						
-			 
-		</title-source>
-		
-		<title-keywords lang="en">Keywords</title-keywords>
-		
-		<title-deprecated lang="en">DEPRECATED</title-deprecated>
-		<title-deprecated lang="fr">DEPRECATED</title-deprecated>
-				
 		<title-list-tables lang="en">List of Tables</title-list-tables>
 		
 		<title-list-figures lang="en">List of Figures</title-list-figures>
@@ -1141,36 +1107,7 @@
 		
 		<title-list-recommendations lang="en">List of Recommendations</title-list-recommendations>
 		
-		<title-acknowledgements lang="en">Acknowledgements</title-acknowledgements>
-		
-		<title-abstract lang="en">Abstract</title-abstract>
-		
 		<title-summary lang="en">Summary</title-summary>
-		
-		<title-in lang="en">in </title-in>
-		
-		<title-partly-supercedes lang="en">Partly Supercedes </title-partly-supercedes>
-		<title-partly-supercedes lang="zh">部分代替 </title-partly-supercedes>
-		
-		<title-completion-date lang="en">Completion date for this manuscript</title-completion-date>
-		<title-completion-date lang="zh">本稿完成日期</title-completion-date>
-		
-		<title-issuance-date lang="en">Issuance Date: #</title-issuance-date>
-		<title-issuance-date lang="zh"># 发布</title-issuance-date>
-		
-		<title-implementation-date lang="en">Implementation Date: #</title-implementation-date>
-		<title-implementation-date lang="zh"># 实施</title-implementation-date>
-
-		<title-obligation-normative lang="en">normative</title-obligation-normative>
-		<title-obligation-normative lang="zh">规范性附录</title-obligation-normative>
-		
-		<title-caution lang="en">CAUTION</title-caution>
-		<title-caution lang="zh">注意</title-caution>
-			
-		<title-warning lang="en">WARNING</title-warning>
-		<title-warning lang="zh">警告</title-warning>
-		
-		<title-amendment lang="en">AMENDMENT</title-amendment>
 		
 		<title-continued lang="en">(continued)</title-continued>
 		<title-continued lang="fr">(continué)</title-continued>
@@ -2965,12 +2902,9 @@
 							<fo:block margin-bottom="12pt" text-align="left">
 								
 								<xsl:variable name="title-where">
-									
-									
-										<xsl:call-template name="getTitle">
-											<xsl:with-param name="name" select="'title-where'"/>
-										</xsl:call-template>
-									
+									<xsl:call-template name="getLocalizedString">
+										<xsl:with-param name="key">where</xsl:with-param>
+									</xsl:call-template>
 								</xsl:variable>
 								<xsl:value-of select="$title-where"/><xsl:text> </xsl:text>
 								<xsl:apply-templates select="*[local-name()='dt']/*"/>
@@ -2986,12 +2920,9 @@
 							
 							
 							<xsl:variable name="title-where">
-								
-								
-									<xsl:call-template name="getTitle">
-										<xsl:with-param name="name" select="'title-where'"/>
-									</xsl:call-template>
-																
+								<xsl:call-template name="getLocalizedString">
+									<xsl:with-param name="key">where</xsl:with-param>
+								</xsl:call-template>
 							</xsl:variable>
 							<xsl:value-of select="$title-where"/>
 						</fo:block>
@@ -3003,12 +2934,9 @@
 							
 							
 							<xsl:variable name="title-key">
-								
-								
-									<xsl:call-template name="getTitle">
-										<xsl:with-param name="name" select="'title-key'"/>
-									</xsl:call-template>
-								
+								<xsl:call-template name="getLocalizedString">
+									<xsl:with-param name="key">key</xsl:with-param>
+								</xsl:call-template>
 							</xsl:variable>
 							<xsl:value-of select="$title-key"/>
 						</fo:block>
@@ -5291,12 +5219,9 @@
 		</fo:basic-link>
 	</xsl:template><xsl:template match="*[local-name() = 'modification']">
 		<xsl:variable name="title-modified">
-			
-			
-				<xsl:call-template name="getTitle">
-					<xsl:with-param name="name" select="'title-modified'"/>
-				</xsl:call-template>
-			
+			<xsl:call-template name="getLocalizedString">
+				<xsl:with-param name="key">modified</xsl:with-param>
+			</xsl:call-template>
 		</xsl:variable>
 		
     <xsl:variable name="text"><xsl:apply-templates/></xsl:variable>
@@ -5485,12 +5410,9 @@
 		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'deprecates']">
 		<xsl:variable name="title-deprecated">
-			
-			
-				<xsl:call-template name="getTitle">
-					<xsl:with-param name="name" select="'title-deprecated'"/>
-				</xsl:call-template>
-			
+			<xsl:call-template name="getLocalizedString">
+				<xsl:with-param name="key">deprecated</xsl:with-param>
+			</xsl:call-template>
 		</xsl:variable>
 		<fo:block xsl:use-attribute-sets="deprecates-style">
 			<xsl:value-of select="$title-deprecated"/>: <xsl:apply-templates/>
@@ -6455,9 +6377,15 @@
 	</xsl:template><xsl:template name="getLocalizedString">
 		<xsl:param name="key"/>
 		<xsl:param name="formatted">false</xsl:param>
+		<xsl:param name="lang"/>
 		
 		<xsl:variable name="curr_lang">
-			<xsl:call-template name="getLang"/>
+			<xsl:choose>
+				<xsl:when test="$lang != ''"><xsl:value-of select="$lang"/></xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="getLang"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:variable>
 		
 		<xsl:variable name="data_value">
