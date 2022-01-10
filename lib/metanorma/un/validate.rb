@@ -1,4 +1,4 @@
-module Asciidoctor
+module Metanorma
   module UN
     class Converter < Standoc::Converter
       def content_validate(doc)

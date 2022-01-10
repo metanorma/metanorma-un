@@ -1,6 +1,7 @@
 require "metanorma/un/processor"
 require "metanorma/un/input"
 require "metanorma/un/version"
+require "metanorma/un/converter"
 
 module Metanorma
   module UN
