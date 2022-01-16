@@ -74,7 +74,7 @@ p {
     2. Responsive navigation layout
 */
 
-#toc {
+#toc, #toc > ul > :is(.h1, .h2, .h3, .h4, .h5, .h6) {
   @include toc($un-text, $un-toc, $un-text);
   @include sidebarToc();
 
@@ -102,6 +102,11 @@ p {
   }
 }
 
+#toc > ul > :is(.h1, .h2, .h3, .h4, .h5, .h6) {
+   margin-top: 0;
+   margin-bottom: 0;
+ }
+
 nav {
   @include sidebarNav(#f2f2f2, 323px, 45px);
 }
@@ -123,7 +128,7 @@ nav {
     margin-top: 1em;
   }
 
-  ul#toc-list {
+  ul#toc-list, ul#toc-list > :is(.h1, .h2, .h3, .h4, .h5, .h6) {
     margin: 0;
     padding: 0;
   }
