@@ -1104,7 +1104,7 @@
 		
 		
 	</xsl:attribute-set><xsl:attribute-set name="example-name-style">
-		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+		
 		
 		
 		
@@ -1118,6 +1118,7 @@
 		
 				
 		
+			<xsl:attribute name="keep-with-next">always</xsl:attribute>
 			<xsl:attribute name="font-size">10pt</xsl:attribute>
 			<xsl:attribute name="font-weight">bold</xsl:attribute>			
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
