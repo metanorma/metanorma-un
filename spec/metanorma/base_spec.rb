@@ -682,7 +682,7 @@ RSpec.describe Metanorma::UN do
           <terms id='_' obligation='normative'>
             <title>Terms and definitions</title>
             <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
-            <term id='term-term1'>
+            <term id='term-Term1'>
               <preferred><expression><name>Term1</name></expression></preferred>
             </term>
           </terms>
@@ -705,14 +705,14 @@ RSpec.describe Metanorma::UN do
               <title>Intro 4</title>
               <terms id='_' obligation='normative'>
                 <title>Intro 5</title>
-                <term id='term-term1-1'>
+                <term id='term-Term1-1'>
                   <preferred><expression><name>Term1</name></expression></preferred>
                 </term>
               </terms>
             </clause>
             <terms id='_' obligation='normative'>
               <title>Normal Terms</title>
-              <term id='term-term2'>
+              <term id='term-Term2'>
                 <preferred><expression><name>Term2</name></expression></preferred>
               </term>
             </terms>
@@ -889,7 +889,7 @@ RSpec.describe Metanorma::UN do
         <terms id='_' obligation='normative'>
           <title>Terms and definitions</title>
           <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
-          <term id='term-term1'>
+          <term id='term-Term1'>
             <preferred><expression><name>Term1</name></expression></preferred>
           </term>
         </terms>
@@ -912,14 +912,14 @@ RSpec.describe Metanorma::UN do
                     <title>Intro 4</title>
                     <terms id='_' obligation='normative'>
                       <title>Intro 5</title>
-                      <term id='term-term1-1'>
+                      <term id='term-Term1-1'>
                         <preferred><expression><name>Term1</name></expression></preferred>
                       </term>
                     </terms>
                   </clause>
                   <terms id='_' obligation='normative'>
                     <title>Normal Terms</title>
-                    <term id='term-term2'>
+                    <term id='term-Term2'>
                       <preferred><expression><name>Term2</name></expression></preferred>
                     </term>
                   </terms>
