@@ -126,8 +126,9 @@ module IsoDoc
         leaf_section?(clause) and
           label_annex_leaf_section(clause, num, 1) and return
         @anchors[clause["id"]] = annex_name_anchors(clause, num)
-        if a = single_annex_special_section(clause)
-          annex_names1(a, num.to_s, 1)
+        if @klass.single_term_clause?(clause)
+          annex_names1(clause.at(ns("./references | ./terms | ./definitions")),
+                       num.to_s, 1)
         else
           i = 1
           clause.xpath(ns(SUBCLAUSES)).each do |c|
