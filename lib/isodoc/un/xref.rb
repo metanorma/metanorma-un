@@ -4,21 +4,25 @@ module IsoDoc
   module UN
     class Xref < IsoDoc::Xref
       def initial_anchor_names(doc)
-        preface_names(doc.at(ns("//preface/abstract")))
-        preface_names(doc.at(ns("//foreword")))
-        preface_names(doc.at(ns("//introduction")))
-        doc.xpath(ns("//preface/clause")).each do |c|
-          preface_names(c)
+        if @parse_settings.empty? || @parse_settings[:clauses]
+          preface_names(doc.at(ns("//preface/abstract")))
+          preface_names(doc.at(ns("//foreword")))
+          preface_names(doc.at(ns("//introduction")))
+          doc.xpath(ns("//preface/clause")).each do |c|
+            preface_names(c)
+          end
+          preface_names(doc.at(ns("//acknowledgements")))
+          clause_names(doc, 0)
         end
-        preface_names(doc.at(ns("//acknowledgements")))
-        sequential_asset_names(
-          doc.xpath(ns("//preface/abstract | //foreword | //introduction | "\
-                       "//preface/clause | //acknowledgements")),
-        )
-        middle_section_asset_names(doc)
-        clause_names(doc, 0)
-        termnote_anchor_names(doc)
-        termexample_anchor_names(doc)
+        if @parse_settings.empty?
+          sequential_asset_names(
+            doc.xpath(ns("//preface/abstract | //foreword | //introduction | "\
+                         "//preface/clause | //acknowledgements")),
+          )
+          middle_section_asset_names(doc)
+          termnote_anchor_names(doc)
+          termexample_anchor_names(doc)
+        end
       end
 
       def clause_names(docxml, _sect_num)

@@ -1,6 +1,7 @@
 require "spec_helper"
 
-logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib", "isodoc", "un", "html"))
+logoloc = File.expand_path(File.join(File.dirname(__FILE__),
+                                     "..", "..", "lib", "isodoc", "un", "html"))
 
 RSpec.describe IsoDoc::UN do
   it "processes default metadata, recommendation" do
@@ -102,8 +103,10 @@ RSpec.describe IsoDoc::UN do
       :vote_starteddate=>"XXX"}
     OUTPUT
 
-    docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
+    docxml, = csdc.convert_init(input, "test", true)
+    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
+      .gsub(/, :/, ",\n:"))
+      .to be_equivalent_to output
   end
 
   it "processes default metadata, plenary; six official UN languages" do
@@ -296,78 +299,78 @@ RSpec.describe IsoDoc::UN do
     INPUT
 
     presxml = <<~OUTPUT
-       <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
-         <foreword obligation="informative" displayorder="1">
-            <title>Foreword</title>
-          </foreword>
-           <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-            <title depth="2">Introduction Subsection</title>
-          </clause>
-          </introduction>
-          <abstract obligation="informative" displayorder="3">
-          <title>Summary</title>
-          </abstract>
-          <acknowledgements obligation="informative" displayorder="4">
-          <title>Acknowledgements</title>
-          </acknowledgements>
-          </preface>
-          <sections>
-          <clause id="H" obligation="normative" displayorder="7"><title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
-            <title depth="2">A.<tab/>Normal Terms</title>
-            <term id="J"><name>1.</name>
-            <preferred>Term2</preferred>
-          </term>
-          </terms>
-          <definitions id="K"><title>B.</title>
-            <dl>
-            <dt>Symbol</dt>
-            <dd>Definition</dd>
-            </dl>
-          </definitions>
-          </clause>
-          <clause id="D" obligation="normative" displayorder="8">
-            <title depth="1">II.<tab/>Scope</title>
-          </clause>
-     
-          <clause id="M" inline-header="false" obligation="normative" displayorder="9"><title depth="1">III.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-            <title depth="2">A.<tab/>Introduction</title>
-          </clause>
-          <clause id="O" inline-header="false" obligation="normative">
-            <title depth="2">B.<tab/>Clause 4.2</title>
-            <clause id="O1" inline-header="false" obligation="normative">
-            <title depth="3">1.<tab/>Clause 4.2.1</title>
-            <clause id="O11" inline-header="false" obligation="normative">
-            <title depth="4">I.<tab/>Clause 4 Leaf</title>
-            </clause>
-            </clause>
-          </clause></clause>
-     
-          </sections><annex id="P" inline-header="false" obligation="normative" displayorder="10">
-            <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
-            <clause id="Q" inline-header="false" obligation="normative">
-            <title depth="2">1.<tab/>Annex A.1</title>
-            <clause id="Q1" inline-header="false" obligation="normative">
-            <title depth="3">I.<tab/>Annex A.1a</title>
-            <clause id="Q11" inline-header="false" obligation="normative">
-            <title depth="4">A.<tab/>Annex A Leaf</title>
-            </clause>
-            </clause>
-          </clause>
-          </annex>
-          <annex id="U" inline-header="false" obligation="normative" displayorder="11">
-          <title><strong>Annex II</strong><br/><strong>Terminal annex</strong></title>
-          </annex>
-           <bibliography><references id="R" obligation="informative" normative="true" displayorder="5">
-            <title depth="1">Normative References</title>
-          </references><clause id="S" obligation="informative" displayorder="12">
-            <title depth="1">Bibliography</title>
-            <references id="T" obligation="informative" normative="false">
-            <title depth="2">Bibliography Subsection</title>
-          </references>
-          </clause>
-          </bibliography>
-          </un-standard>
+      <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+        <foreword obligation="informative" displayorder="1">
+           <title>Foreword</title>
+         </foreword>
+          <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+           <title depth="2">Introduction Subsection</title>
+         </clause>
+         </introduction>
+         <abstract obligation="informative" displayorder="3">
+         <title>Summary</title>
+         </abstract>
+         <acknowledgements obligation="informative" displayorder="4">
+         <title>Acknowledgements</title>
+         </acknowledgements>
+         </preface>
+         <sections>
+         <clause id="H" obligation="normative" displayorder="7"><title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+           <title depth="2">A.<tab/>Normal Terms</title>
+           <term id="J"><name>1.</name>
+           <preferred>Term2</preferred>
+         </term>
+         </terms>
+         <definitions id="K"><title>B.</title>
+           <dl>
+           <dt>Symbol</dt>
+           <dd>Definition</dd>
+           </dl>
+         </definitions>
+         </clause>
+         <clause id="D" obligation="normative" displayorder="8">
+           <title depth="1">II.<tab/>Scope</title>
+         </clause>
+
+         <clause id="M" inline-header="false" obligation="normative" displayorder="9"><title depth="1">III.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+           <title depth="2">A.<tab/>Introduction</title>
+         </clause>
+         <clause id="O" inline-header="false" obligation="normative">
+           <title depth="2">B.<tab/>Clause 4.2</title>
+           <clause id="O1" inline-header="false" obligation="normative">
+           <title depth="3">1.<tab/>Clause 4.2.1</title>
+           <clause id="O11" inline-header="false" obligation="normative">
+           <title depth="4">I.<tab/>Clause 4 Leaf</title>
+           </clause>
+           </clause>
+         </clause></clause>
+
+         </sections><annex id="P" inline-header="false" obligation="normative" displayorder="10">
+           <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
+           <clause id="Q" inline-header="false" obligation="normative">
+           <title depth="2">1.<tab/>Annex A.1</title>
+           <clause id="Q1" inline-header="false" obligation="normative">
+           <title depth="3">I.<tab/>Annex A.1a</title>
+           <clause id="Q11" inline-header="false" obligation="normative">
+           <title depth="4">A.<tab/>Annex A Leaf</title>
+           </clause>
+           </clause>
+         </clause>
+         </annex>
+         <annex id="U" inline-header="false" obligation="normative" displayorder="11">
+         <title><strong>Annex II</strong><br/><strong>Terminal annex</strong></title>
+         </annex>
+          <bibliography><references id="R" obligation="informative" normative="true" displayorder="5">
+           <title depth="1">Normative References</title>
+         </references><clause id="S" obligation="informative" displayorder="12">
+           <title depth="1">Bibliography</title>
+           <references id="T" obligation="informative" normative="false">
+           <title depth="2">Bibliography Subsection</title>
+         </references>
+         </clause>
+         </bibliography>
+         </un-standard>
     OUTPUT
 
     html = xmlpp(<<~"OUTPUT")
@@ -444,8 +447,12 @@ RSpec.describe IsoDoc::UN do
              </html>
     OUTPUT
 
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+      .convert("test", input, true)))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_equivalent_to xmlpp(html)
   end
 
   it "processes unnumbered section names without paragraph content" do
@@ -523,77 +530,77 @@ RSpec.describe IsoDoc::UN do
     INPUT
 
     presxml = <<~OUTPUT
-       <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
-         <foreword obligation="informative" displayorder="1">
-            <title>Foreword</title>
-          </foreword>
-           <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative" unnumbered="true">
-            <title depth="2">Introduction Subsection</title>
-          </clause>
-          </introduction>
-          <abstract obligation="informative" displayorder="3"><title>Summary</title>
-          </abstract>
-          <acknowledgements obligation="informative" displayorder="4">
-          <title>Acknowledgements</title>
-          </acknowledgements>
-          </preface>
-          <sections>
-          <clause id="H" obligation="normative" displayorder="6"><title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
-          <definitions id="K" unnumbered="true">
-            <dl>
-            <dt>Symbol</dt>
-            <dd>Definition</dd>
-            </dl>
-          </definitions>
-          </clause>
-          <clause id="D" obligation="normative" displayorder="7">
-            <title depth="1">II.<tab/>Scope</title>
-          </clause>
-     
-          <clause id="M" inline-header="false" obligation="normative" displayorder="8"><title depth="1">III.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative" unnumbered="true">
-            <title depth="1">Introduction</title>
-          </clause>
-          <clause id="O" inline-header="false" obligation="normative" unnumbered="true">
-            <title depth="1">Clause 4.2</title>
-            <clause id="O1" inline-header="false" obligation="normative" unnumbered="true">
-            <title depth="1">Clause 4.2.1</title>
-            <clause id="O11" inline-header="false" obligation="normative">
-            <title depth="4">I.<tab/>Clause 4 Leaf</title>
-            </clause>
-            <clause id="O12" inline-header="false" obligation="normative" unnumbered="true">
-            <title depth="1">Clause 4 Leaf 2</title>
-            </clause>
-            </clause>
-          </clause>
-     
-     
-          </clause><annex id="P" inline-header="false" obligation="normative" displayorder="9">
-            <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
-            <clause id="Q" inline-header="false" obligation="normative" unnumbered="true">
-            <title depth="1">Annex A.1</title>
-            <clause id="Q1" inline-header="false" obligation="normative" unnumbered="true">
-            <title depth="1">Annex A.1a</title>
-            <clause id="Q11" inline-header="false" obligation="normative" unnumbered="true">
-            <title depth="1">Annex A Leaf</title>
-            </clause>
-            </clause>
-          </clause>
-          </annex>
-          <annex id="U" inline-header="false" obligation="normative" displayorder="10">
-          <title><strong>Annex II</strong><br/><strong>Terminal annex</strong></title>
-          </annex>
-           <bibliography><references id="R" obligation="informative" normative="true" displayorder="5">
-            <title depth="1">Normative References</title>
-          </references><clause id="S" obligation="informative" displayorder="11">
-            <title depth="1">Bibliography</title>
-            <references id="T" obligation="informative" normative="false">
-            <title depth="2">Bibliography Subsection</title>
-          </references>
-          </clause>
-          </bibliography>
-          </sections>
-       </un-standard>
+      <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+        <foreword obligation="informative" displayorder="1">
+           <title>Foreword</title>
+         </foreword>
+          <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative" unnumbered="true">
+           <title depth="2">Introduction Subsection</title>
+         </clause>
+         </introduction>
+         <abstract obligation="informative" displayorder="3"><title>Summary</title>
+         </abstract>
+         <acknowledgements obligation="informative" displayorder="4">
+         <title>Acknowledgements</title>
+         </acknowledgements>
+         </preface>
+         <sections>
+         <clause id="H" obligation="normative" displayorder="6"><title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
+         <definitions id="K" unnumbered="true">
+           <dl>
+           <dt>Symbol</dt>
+           <dd>Definition</dd>
+           </dl>
+         </definitions>
+         </clause>
+         <clause id="D" obligation="normative" displayorder="7">
+           <title depth="1">II.<tab/>Scope</title>
+         </clause>
+
+         <clause id="M" inline-header="false" obligation="normative" displayorder="8"><title depth="1">III.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative" unnumbered="true">
+           <title depth="1">Introduction</title>
+         </clause>
+         <clause id="O" inline-header="false" obligation="normative" unnumbered="true">
+           <title depth="1">Clause 4.2</title>
+           <clause id="O1" inline-header="false" obligation="normative" unnumbered="true">
+           <title depth="1">Clause 4.2.1</title>
+           <clause id="O11" inline-header="false" obligation="normative">
+           <title depth="4">I.<tab/>Clause 4 Leaf</title>
+           </clause>
+           <clause id="O12" inline-header="false" obligation="normative" unnumbered="true">
+           <title depth="1">Clause 4 Leaf 2</title>
+           </clause>
+           </clause>
+         </clause>
+
+
+         </clause><annex id="P" inline-header="false" obligation="normative" displayorder="9">
+           <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
+           <clause id="Q" inline-header="false" obligation="normative" unnumbered="true">
+           <title depth="1">Annex A.1</title>
+           <clause id="Q1" inline-header="false" obligation="normative" unnumbered="true">
+           <title depth="1">Annex A.1a</title>
+           <clause id="Q11" inline-header="false" obligation="normative" unnumbered="true">
+           <title depth="1">Annex A Leaf</title>
+           </clause>
+           </clause>
+         </clause>
+         </annex>
+         <annex id="U" inline-header="false" obligation="normative" displayorder="10">
+         <title><strong>Annex II</strong><br/><strong>Terminal annex</strong></title>
+         </annex>
+          <bibliography><references id="R" obligation="informative" normative="true" displayorder="5">
+           <title depth="1">Normative References</title>
+         </references><clause id="S" obligation="informative" displayorder="11">
+           <title depth="1">Bibliography</title>
+           <references id="T" obligation="informative" normative="false">
+           <title depth="2">Bibliography Subsection</title>
+         </references>
+         </clause>
+         </bibliography>
+         </sections>
+      </un-standard>
     OUTPUT
 
     html = <<~"OUTPUT"
@@ -686,8 +693,12 @@ RSpec.describe IsoDoc::UN do
                </body>
              </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+      .convert("test", input, true)))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_equivalent_to xmlpp(html)
   end
 
   it "processes section names with paragraph content" do
@@ -772,83 +783,83 @@ RSpec.describe IsoDoc::UN do
     INPUT
 
     presxml = <<~OUTPUT
-       <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
-         <foreword obligation="informative" displayorder="1">
-            <title>Foreword</title>
-            <p id="A1">Text</p>
-          </foreword>
-           <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-            <title depth="2">Introduction Subsection</title>
-            <p id="A2">Text</p>
-          </clause>
-          </introduction>
-          <abstract obligation="informative" displayorder="3">
-          <title>Summary</title>
-            <p id="A3">Text</p>
-          </abstract>
-          </preface>
-          <sections>
-          <clause id="H" obligation="normative" displayorder="7"><title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
-            <title depth="2">A.<tab/>Normal Terms</title>
-            <term id="J"><name>1.</name>
-            <preferred>Term2</preferred>
-          </term>
-          </terms>
-          <definitions id="K"><title>B.</title>
-            <dl>
-            <dt>Symbol</dt>
-            <dd>Definition</dd>
-            </dl>
-          </definitions>
-          </clause>
-          <clause id="D" obligation="normative" type="scope" displayorder="8">
-            <title depth="1">1.<tab/>Scope</title>
-            <p id="A4">Text</p>
-          </clause>
-     
-          <clause id="M" inline-header="false" obligation="normative" displayorder="9"><title depth="1">III.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-            <title depth="2">2.<tab/>Introduction</title>
-            <p id="A5">Text</p>
-          </clause>
-          <clause id="O" inline-header="false" obligation="normative">
-            <title depth="2">A.<tab/>Clause 4.2</title>
-            <clause id="O1" inline-header="false" obligation="normative">
-            <title depth="3">1.<tab/>Clause 4.2.1</title>
-            <clause id="O11" inline-header="false" obligation="normative">
-            <title depth="4">3.<tab/>Clause 4 Leaf</title>
-            <p id="A6">Text</p>
-            </clause>
-            </clause>
-          </clause></clause>
-     
-          </sections><annex id="P" inline-header="false" obligation="normative" displayorder="10">
-            <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
-            <clause id="Q" inline-header="false" obligation="normative">
-            <title depth="2">1.<tab/>Annex A.1</title>
-            <clause id="Q1" inline-header="false" obligation="normative">
-            <title depth="3">I.<tab/>Annex A.1a</title>
-            <clause id="Q11" inline-header="false" obligation="normative">
-            <title depth="4">1.<tab/>Annex A Leaf</title>
-            <p id="A7">Text</p>
-            </clause>
-            </clause>
-          </clause>
-          </annex>
-          <annex id="U" inline-header="false" obligation="normative" displayorder="11">
-          <title><strong>Annex II</strong><br/><strong>Terminal annex</strong></title>
-            <p id="A8">Text</p>
-          </annex>
-           <bibliography><references id="R" obligation="informative" normative="true" displayorder="5">
-            <title depth="1">Normative References</title>
-          </references><clause id="S" obligation="informative" displayorder="12">
-            <title depth="1">Bibliography</title>
-            <references id="T" obligation="informative" normative="false">
-            <title depth="2">Bibliography Subsection</title>
-          </references>
-          </clause>
-          </bibliography>
-          </un-standard>
+      <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+        <foreword obligation="informative" displayorder="1">
+           <title>Foreword</title>
+           <p id="A1">Text</p>
+         </foreword>
+          <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+           <title depth="2">Introduction Subsection</title>
+           <p id="A2">Text</p>
+         </clause>
+         </introduction>
+         <abstract obligation="informative" displayorder="3">
+         <title>Summary</title>
+           <p id="A3">Text</p>
+         </abstract>
+         </preface>
+         <sections>
+         <clause id="H" obligation="normative" displayorder="7"><title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+           <title depth="2">A.<tab/>Normal Terms</title>
+           <term id="J"><name>1.</name>
+           <preferred>Term2</preferred>
+         </term>
+         </terms>
+         <definitions id="K"><title>B.</title>
+           <dl>
+           <dt>Symbol</dt>
+           <dd>Definition</dd>
+           </dl>
+         </definitions>
+         </clause>
+         <clause id="D" obligation="normative" type="scope" displayorder="8">
+           <title depth="1">1.<tab/>Scope</title>
+           <p id="A4">Text</p>
+         </clause>
+
+         <clause id="M" inline-header="false" obligation="normative" displayorder="9"><title depth="1">III.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+           <title depth="2">2.<tab/>Introduction</title>
+           <p id="A5">Text</p>
+         </clause>
+         <clause id="O" inline-header="false" obligation="normative">
+           <title depth="2">A.<tab/>Clause 4.2</title>
+           <clause id="O1" inline-header="false" obligation="normative">
+           <title depth="3">1.<tab/>Clause 4.2.1</title>
+           <clause id="O11" inline-header="false" obligation="normative">
+           <title depth="4">3.<tab/>Clause 4 Leaf</title>
+           <p id="A6">Text</p>
+           </clause>
+           </clause>
+         </clause></clause>
+
+         </sections><annex id="P" inline-header="false" obligation="normative" displayorder="10">
+           <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
+           <clause id="Q" inline-header="false" obligation="normative">
+           <title depth="2">1.<tab/>Annex A.1</title>
+           <clause id="Q1" inline-header="false" obligation="normative">
+           <title depth="3">I.<tab/>Annex A.1a</title>
+           <clause id="Q11" inline-header="false" obligation="normative">
+           <title depth="4">1.<tab/>Annex A Leaf</title>
+           <p id="A7">Text</p>
+           </clause>
+           </clause>
+         </clause>
+         </annex>
+         <annex id="U" inline-header="false" obligation="normative" displayorder="11">
+         <title><strong>Annex II</strong><br/><strong>Terminal annex</strong></title>
+           <p id="A8">Text</p>
+         </annex>
+          <bibliography><references id="R" obligation="informative" normative="true" displayorder="5">
+           <title depth="1">Normative References</title>
+         </references><clause id="S" obligation="informative" displayorder="12">
+           <title depth="1">Bibliography</title>
+           <references id="T" obligation="informative" normative="false">
+           <title depth="2">Bibliography Subsection</title>
+         </references>
+         </clause>
+         </bibliography>
+         </un-standard>
     OUTPUT
 
     html = <<~OUTPUT
@@ -1108,13 +1119,21 @@ RSpec.describe IsoDoc::UN do
            </div>
          </div>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::UN::WordConvert.new({}).convert("test", presxml, true).sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">').sub(%r{<v:line.*$}m, "</div></div>"))).to be_equivalent_to xmlpp(word)
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+      .convert("test", input, true)))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::UN::WordConvert.new({})
+       .convert("test", presxml, true)
+       .sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">')
+       .sub(%r{<v:line.*$}m, "</div></div>")))
+      .to be_equivalent_to xmlpp(word)
   end
 
   it "processes cross-references to section names" do
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", <<~INPUT, true))).to be_equivalent_to xmlpp(<<~OUTPUT)
+    input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
         <foreword id="A" obligation="informative">
@@ -1232,123 +1251,127 @@ RSpec.describe IsoDoc::UN do
          </bibliography>
          </un-standard>
     INPUT
-       <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
-         <foreword id="A" obligation="informative" displayorder="1">
-            <title>Foreword</title>
-            <p>
-            <xref target="A">Foreword</xref>
-            <xref target="B">Introduction</xref>
-            <xref target="C">Introduction Subsection</xref>
-            <xref target="AA">Abstract</xref>
-            <xref target="H">Clause I</xref>
-            <xref target="I">Clause I.A</xref>
-            <xref target="J">Clause I.A.1</xref>
-            <xref target="K">Clause I.B</xref>
-            <xref target="D">paragraph 1</xref>
-            <xref target="M">Clause III</xref>
-            <xref target="N">paragraph 2</xref>
-            <xref target="O">Clause III.A</xref>
-            <xref target="O1">Clause III.A.1</xref>
-            <xref target="O11">paragraph 3</xref>
-            <xref target="P">Annex I</xref>
-            <xref target="Q">Annex I.1</xref>
-            <xref target="Q1">Annex I.1.I</xref>
-            <xref target="Q11">paragraph I.1.I.A.1</xref>
-            <xref target="U">Annex II</xref>
-            <xref target="R">Normative References</xref>
-            <xref target="S">Bibliography</xref>
-            <xref target="T">Bibliography Subsection</xref>
-           </p>
-          </foreword>
-           <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-            <title depth="2">Introduction Subsection</title>
-            <p id="X1"/>
-            <p id="X2"/>
-          </clause>
-          </introduction>
-          <abstract id="AA" obligation="informative" displayorder="3">
-            <p id="X3"/>
-            <p id="X4"/>
-          </abstract>
-          </preface>
-          <sections>
-          <clause id="H" obligation="normative" displayorder="6"><title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
-            <title depth="2">A.<tab/>Normal Terms</title>
-            <term id="J"><name>1.</name>
-            <preferred>Term2</preferred>
-          </term>
-          </terms>
-          <definitions id="K"><title>B.</title>
-            <dl>
-            <dt>Symbol</dt>
-            <dd>Definition</dd>
-            </dl>
-          </definitions>
-          </clause>
-          <clause id="D" obligation="normative" displayorder="7">
-            <title depth="1">1.<tab/>Scope</title>
-            <p id="X5"/>
-            <p id="X6"/>
-          </clause>
-     
-          <clause id="M" inline-header="false" obligation="normative" displayorder="8"><title depth="1">III.<tab/>Clause 4</title><p id="X6a"/><clause id="N" inline-header="false" obligation="normative">
-            <title depth="2">2.<tab/>Introduction</title>
-            <p id="X7"/>
-            <p id="X8"/>
-          </clause>
-          <clause id="O" inline-header="false" obligation="normative">
-            <title depth="2">A.<tab/>Clause 4.2</title>
-            <p id="X9"/>
-            <p id="X10"/>
-            <clause id="O1" inline-header="false" obligation="normative">
-            <title depth="3">1.<tab/>Clause 4.2.1</title>
-            <p id="X11"/>
-            <p id="X12"/>
-            <clause id="O11" inline-header="false" obligation="normative">
-            <title depth="4">3.<tab/>Clause 4 Leaf</title>
-            <p id="X13"/>
-            <p id="X14"/>
-            </clause>
-            </clause>
-          </clause></clause>
-     
-          </sections><annex id="P" inline-header="false" obligation="normative" displayorder="9">
-            <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
-            <p id="X15"/>
-            <p id="X16"/>
-            <clause id="Q" inline-header="false" obligation="normative">
-            <title depth="2">1.<tab/>Annex A.1</title>
-            <p id="X17"/>
-            <p id="X18"/>
-            <clause id="Q1" inline-header="false" obligation="normative">
-            <title depth="3">I.<tab/>Annex A.1a</title>
-            <p id="X19"/>
-            <p id="X20"/>
-            <clause id="Q11" inline-header="false" obligation="normative">
-            <title depth="4">1.<tab/>Annex A Leaf</title>
-            <p id="X21"/>
-            <p id="X22"/>
-            </clause>
-            </clause>
-          </clause>
-          </annex>
-          <annex id="U" inline-header="false" obligation="normative" displayorder="10">
-          <title><strong>Annex II</strong><br/><strong>Terminal annex</strong></title>
-            <p id="X23"/>
-            <p id="X24"/>
-          </annex>
-           <bibliography><references id="R" obligation="informative" normative="true" displayorder="4">
-            <title depth="1">Normative References</title>
-          </references><clause id="S" obligation="informative" displayorder="11">
-            <title depth="1">Bibliography</title>
-            <references id="T" obligation="informative" normative="false">
-            <title depth="2">Bibliography Subsection</title>
-          </references>
-          </clause>
-          </bibliography>
-          </un-standard>
+    output = <<~OUTPUT
+      <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+        <foreword id="A" obligation="informative" displayorder="1">
+           <title>Foreword</title>
+           <p>
+           <xref target="A">Foreword</xref>
+           <xref target="B">Introduction</xref>
+           <xref target="C">Introduction Subsection</xref>
+           <xref target="AA">Abstract</xref>
+           <xref target="H">Clause I</xref>
+           <xref target="I">Clause I.A</xref>
+           <xref target="J">Clause I.A.1</xref>
+           <xref target="K">Clause I.B</xref>
+           <xref target="D">paragraph 1</xref>
+           <xref target="M">Clause III</xref>
+           <xref target="N">paragraph 2</xref>
+           <xref target="O">Clause III.A</xref>
+           <xref target="O1">Clause III.A.1</xref>
+           <xref target="O11">paragraph 3</xref>
+           <xref target="P">Annex I</xref>
+           <xref target="Q">Annex I.1</xref>
+           <xref target="Q1">Annex I.1.I</xref>
+           <xref target="Q11">paragraph I.1.I.A.1</xref>
+           <xref target="U">Annex II</xref>
+           <xref target="R">Normative References</xref>
+           <xref target="S">Bibliography</xref>
+           <xref target="T">Bibliography Subsection</xref>
+          </p>
+         </foreword>
+          <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+           <title depth="2">Introduction Subsection</title>
+           <p id="X1"/>
+           <p id="X2"/>
+         </clause>
+         </introduction>
+         <abstract id="AA" obligation="informative" displayorder="3">
+           <p id="X3"/>
+           <p id="X4"/>
+         </abstract>
+         </preface>
+         <sections>
+         <clause id="H" obligation="normative" displayorder="6"><title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+           <title depth="2">A.<tab/>Normal Terms</title>
+           <term id="J"><name>1.</name>
+           <preferred>Term2</preferred>
+         </term>
+         </terms>
+         <definitions id="K"><title>B.</title>
+           <dl>
+           <dt>Symbol</dt>
+           <dd>Definition</dd>
+           </dl>
+         </definitions>
+         </clause>
+         <clause id="D" obligation="normative" displayorder="7">
+           <title depth="1">1.<tab/>Scope</title>
+           <p id="X5"/>
+           <p id="X6"/>
+         </clause>
+
+         <clause id="M" inline-header="false" obligation="normative" displayorder="8"><title depth="1">III.<tab/>Clause 4</title><p id="X6a"/><clause id="N" inline-header="false" obligation="normative">
+           <title depth="2">2.<tab/>Introduction</title>
+           <p id="X7"/>
+           <p id="X8"/>
+         </clause>
+         <clause id="O" inline-header="false" obligation="normative">
+           <title depth="2">A.<tab/>Clause 4.2</title>
+           <p id="X9"/>
+           <p id="X10"/>
+           <clause id="O1" inline-header="false" obligation="normative">
+           <title depth="3">1.<tab/>Clause 4.2.1</title>
+           <p id="X11"/>
+           <p id="X12"/>
+           <clause id="O11" inline-header="false" obligation="normative">
+           <title depth="4">3.<tab/>Clause 4 Leaf</title>
+           <p id="X13"/>
+           <p id="X14"/>
+           </clause>
+           </clause>
+         </clause></clause>
+
+         </sections><annex id="P" inline-header="false" obligation="normative" displayorder="9">
+           <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
+           <p id="X15"/>
+           <p id="X16"/>
+           <clause id="Q" inline-header="false" obligation="normative">
+           <title depth="2">1.<tab/>Annex A.1</title>
+           <p id="X17"/>
+           <p id="X18"/>
+           <clause id="Q1" inline-header="false" obligation="normative">
+           <title depth="3">I.<tab/>Annex A.1a</title>
+           <p id="X19"/>
+           <p id="X20"/>
+           <clause id="Q11" inline-header="false" obligation="normative">
+           <title depth="4">1.<tab/>Annex A Leaf</title>
+           <p id="X21"/>
+           <p id="X22"/>
+           </clause>
+           </clause>
+         </clause>
+         </annex>
+         <annex id="U" inline-header="false" obligation="normative" displayorder="10">
+         <title><strong>Annex II</strong><br/><strong>Terminal annex</strong></title>
+           <p id="X23"/>
+           <p id="X24"/>
+         </annex>
+          <bibliography><references id="R" obligation="informative" normative="true" displayorder="4">
+           <title depth="1">Normative References</title>
+         </references><clause id="S" obligation="informative" displayorder="11">
+           <title depth="1">Bibliography</title>
+           <references id="T" obligation="informative" normative="false">
+           <title depth="2">Bibliography Subsection</title>
+         </references>
+         </clause>
+         </bibliography>
+         </un-standard>
     OUTPUT
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+      .convert("test", input, true)))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes section names, suppressing section numbering" do
@@ -1414,64 +1437,64 @@ RSpec.describe IsoDoc::UN do
     INPUT
 
     presxml = <<~OUTPUT
-       <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
-         <foreword obligation="informative" displayorder="1">
-            <title>Foreword</title>
-            <p id="A">This is a preamble</p>
-          </foreword>
-           <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-            <title depth="2">Introduction Subsection</title>
-          </clause>
-          </introduction>
-          <abstract obligation="informative" displayorder="3">
-          <title>Summary</title>
-          <p id="AA">This is an abstract</p>
-          </abstract>
-          <clause id="H" obligation="normative" displayorder="4"><title depth="1">Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
-            <title depth="2">Normal Terms</title>
-            <term id="J">
-            <preferred>Term2</preferred>
-          </term>
-          </terms>
-          <definitions id="K">
-            <dl>
-            <dt>Symbol</dt>
-            <dd>Definition</dd>
-            </dl>
-          </definitions>
-          </clause>
-           </preface><sections>
-          <clause id="D" obligation="normative" displayorder="6">
-            <title depth="1">Scope</title>
-            <p id="E">Text</p>
-          </clause>
-     
-          <clause id="M" inline-header="false" obligation="normative" displayorder="7"><title depth="1">Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-            <title depth="2">Introduction</title>
-          </clause>
-          <clause id="O" inline-header="false" obligation="normative">
-            <title depth="2">Clause 4.2</title>
-          </clause></clause>
-     
-          </sections><annex id="P" inline-header="false" obligation="normative" displayorder="8">
-            <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
-            <clause id="Q" inline-header="false" obligation="normative">
-            <title depth="2">Annex A.1</title>
-            <clause id="Q1" inline-header="false" obligation="normative">
-            <title depth="3">Annex A.1a</title>
-            </clause>
-          </clause>
-          </annex><bibliography><references id="R" obligation="informative" normative="true" displayorder="5">
-            <title depth="1">Normative References</title>
-          </references><clause id="S" obligation="informative" displayorder="9">
-            <title depth="1">Bibliography</title>
-            <references id="T" obligation="informative" normative="false">
-            <title depth="2">Bibliography Subsection</title>
-          </references>
-          </clause>
-          </bibliography>
-          </un-standard>
+      <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+        <foreword obligation="informative" displayorder="1">
+           <title>Foreword</title>
+           <p id="A">This is a preamble</p>
+         </foreword>
+          <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+           <title depth="2">Introduction Subsection</title>
+         </clause>
+         </introduction>
+         <abstract obligation="informative" displayorder="3">
+         <title>Summary</title>
+         <p id="AA">This is an abstract</p>
+         </abstract>
+         <clause id="H" obligation="normative" displayorder="4"><title depth="1">Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+           <title depth="2">Normal Terms</title>
+           <term id="J">
+           <preferred>Term2</preferred>
+         </term>
+         </terms>
+         <definitions id="K">
+           <dl>
+           <dt>Symbol</dt>
+           <dd>Definition</dd>
+           </dl>
+         </definitions>
+         </clause>
+          </preface><sections>
+         <clause id="D" obligation="normative" displayorder="6">
+           <title depth="1">Scope</title>
+           <p id="E">Text</p>
+         </clause>
+
+         <clause id="M" inline-header="false" obligation="normative" displayorder="7"><title depth="1">Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+           <title depth="2">Introduction</title>
+         </clause>
+         <clause id="O" inline-header="false" obligation="normative">
+           <title depth="2">Clause 4.2</title>
+         </clause></clause>
+
+         </sections><annex id="P" inline-header="false" obligation="normative" displayorder="8">
+           <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
+           <clause id="Q" inline-header="false" obligation="normative">
+           <title depth="2">Annex A.1</title>
+           <clause id="Q1" inline-header="false" obligation="normative">
+           <title depth="3">Annex A.1a</title>
+           </clause>
+         </clause>
+         </annex><bibliography><references id="R" obligation="informative" normative="true" displayorder="5">
+           <title depth="1">Normative References</title>
+         </references><clause id="S" obligation="informative" displayorder="9">
+           <title depth="1">Bibliography</title>
+           <references id="T" obligation="informative" normative="false">
+           <title depth="2">Bibliography Subsection</title>
+         </references>
+         </clause>
+         </bibliography>
+         </un-standard>
     OUTPUT
 
     html = xmlpp(<<~"OUTPUT")
@@ -1641,9 +1664,20 @@ RSpec.describe IsoDoc::UN do
       </div>
     OUTPUT
 
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({ suppressheadingnumbers: true }).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({ suppressheadingnumbers: true }).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::UN::WordConvert.new({ suppressheadingnumbers: true }).convert("test", presxml, true).sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">').sub(%r{<v:line.*$}m, "</div></div>"))).to be_equivalent_to xmlpp(word)
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert
+.new({ suppressheadingnumbers: true })
+.convert("test", input, true)))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::UN::HtmlConvert
+.new({ suppressheadingnumbers: true })
+.convert("test", presxml, true)))
+      .to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::UN::WordConvert
+.new({ suppressheadingnumbers: true })
+.convert("test", presxml, true)
+.sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">')
+.sub(%r{<v:line.*$}m, "</div></div>")))
+      .to be_equivalent_to xmlpp(word)
   end
 
   it "injects JS into blank html" do
@@ -1662,7 +1696,9 @@ RSpec.describe IsoDoc::UN do
       </un-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :un, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor
+      .convert(input, backend: :un, header_footer: true))))
+      .to be_equivalent_to output
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
     expect(html).to match(%r{Roboto})
@@ -1843,13 +1879,21 @@ RSpec.describe IsoDoc::UN do
            </div>
          </div>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to presxml
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to html
-    expect(xmlpp(IsoDoc::UN::WordConvert.new({}).convert("test", presxml, true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, "</div>"))).to be_equivalent_to word
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+.convert("test", input, true)))
+      .to be_equivalent_to presxml
+    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
+.convert("test", presxml, true)))
+      .to be_equivalent_to html
+    expect(xmlpp(IsoDoc::UN::WordConvert.new({})
+  .convert("test", presxml, true)
+  .sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">')
+  .sub(%r{<v:line.*$}m, "</div>")))
+      .to be_equivalent_to word
   end
 
   it "processes inline section headers" do
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
        <clause id="M" inline-header="false" obligation="normative"><title>I.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
@@ -1862,6 +1906,7 @@ RSpec.describe IsoDoc::UN do
        </sections>
       </un-standard>
     INPUT
+    output = <<~OUTPUT
       #{HTML_HDR}
                  <div id="M">
                    <h1>I.&#160; Clause 4</h1>
@@ -1876,6 +1921,9 @@ RSpec.describe IsoDoc::UN do
              </body>
            </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
+  .convert("test", input, true)))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "does not switch plenary title page in HTML" do
@@ -1945,7 +1993,7 @@ RSpec.describe IsoDoc::UN do
   end
 
   it "processes bibliography" do
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", <<~INPUT, true))).to be_equivalent_to <<~OUTPUT
+    input = <<~INPUT
           <un-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <clause>
@@ -1968,6 +2016,7 @@ RSpec.describe IsoDoc::UN do
              </bibliography>
       </un-standard>
     INPUT
+    output = <<~OUTPUT
       <?xml version='1.0'?>
       <un-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <sections>
@@ -1979,23 +2028,20 @@ RSpec.describe IsoDoc::UN do
           <references id='R' obligation='informative' normative='true' displayorder="1">
             <title depth="1">Normative References</title>
             <bibitem id='ISO712' type='standard'>
-              <title format='text/plain'>Cereals and cereal products</title>
+              <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
               <docidentifier type='ISO'>ISO 712</docidentifier>
-              <contributor>
-                <role type='publisher'/>
-                <organization>
-                  <name>International Organization for Standardization</name>
-                </organization>
-              </contributor>
             </bibitem>
           </references>
         </bibliography>
       </un-standard>
     OUTPUT
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+      .convert("test", input, true)))
+      .to be_equivalent_to output
   end
 
   it "processes note types" do
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to <<~"OUTPUT"
+    input = <<~INPUT
           <un-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata>
           <note type="title-footnote"><p>ABC</p></note>
@@ -2021,6 +2067,7 @@ RSpec.describe IsoDoc::UN do
           </sections>
       </un-standard>
     INPUT
+    output = <<~OUTPUT
       <?xml version='1.0'?>
       <un-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata>
@@ -2054,5 +2101,9 @@ RSpec.describe IsoDoc::UN do
         </sections>
       </un-standard>
     OUTPUT
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to output
   end
 end
