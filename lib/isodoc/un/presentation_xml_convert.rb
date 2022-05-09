@@ -9,46 +9,37 @@ module IsoDoc
         @toc = options[:toc]
       end
 
-      def note1(f)
-        return if f.parent.name == "bibitem"
-        return if f["type"] == "title-footnote"
-        n = @xrefs.get[f["id"]]
-        lbl = case f["type"]
+      def note1(elem)
+        return if elem.parent.name == "bibitem"
+        return if elem["type"] == "title-footnote"
+
+        # n = @xrefs.get[f["id"]]
+        lbl = case elem["type"]
               when "source" then "Source"
               when "abbreviation" then "Abbreviations"
               else
                 @i18n.note
               end
-        prefix_name(f, "", lbl, "name")
+        prefix_name(elem, "", lbl, "name")
       end
 
-      def conversions(docxml)
-        super
-        admonition docxml
-      end
+      def admonition1(elem)
+        return if elem["notag"] == "true"
 
-      def admonition(docxml)
-        docxml.xpath(ns("//admonition")).each do |f|
-          admonition1(f)
-        end
-      end
-
-      def admonition1(f)
-        n = @xrefs.anchor(f['id'], :label) or return
+        n = @xrefs.anchor(elem["id"], :label) or return
         lbl = l10n("#{@i18n.admonition} #{n}")
-        prefix_name(f, "&nbsp;&mdash; ", lbl, "name")
+        prefix_name(elem, "&#xa0;&#x2014; ", lbl, "name")
       end
 
-      def annex1(f)
-        lbl = @xrefs.anchor(f['id'], :label)
-        if t = f.at(ns("./title"))
+      def annex1(elem)
+        lbl = @xrefs.anchor(elem["id"], :label)
+        if t = elem.at(ns("./title"))
           t.children = "<strong>#{t.children.to_xml}</strong>"
         end
-        prefix_name(f, "<br/>", lbl, "title")
+        prefix_name(elem, "<br/>", lbl, "title")
       end
 
       include Init
     end
   end
 end
-
