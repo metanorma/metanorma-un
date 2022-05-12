@@ -16,19 +16,25 @@ module IsoDoc
 
       def default_fonts(options)
         {
-          bodyfont: (options[:script] == "Hans" ? '"Source Han Sans",serif' :
-                     '"Times New Roman",serif'),
-          headerfont: (options[:script] == "Hans" ? '"Source Han Sans",sans-serif' :
-                       '"Times New Roman",serif'),
-                       monospacefont: '"Courier New",monospace',
-                       normalfontsize: "10.5pt",
-                       monospacefontsize: "10.0pt",
-                       smallerfontsize: "10.0pt",
-                       footnotefontsize: "9.0pt",
+          bodyfont: (if options[:script] == "Hans"
+                       '"Source Han Sans",serif'
+                     else
+                       '"Times New Roman",serif'
+                     end),
+          headerfont: (if options[:script] == "Hans"
+                         '"Source Han Sans",sans-serif'
+                       else
+                         '"Times New Roman",serif'
+                       end),
+          monospacefont: '"Courier New",monospace',
+          normalfontsize: "10.5pt",
+          monospacefontsize: "10.0pt",
+          smallerfontsize: "10.0pt",
+          footnotefontsize: "9.0pt",
         }
       end
 
-      def default_file_locations(options)
+      def default_file_locations(_options)
         {
           wordstylesheet: html_doc_path("wordstyle.scss"),
           standardstylesheet: html_doc_path("unece.scss"),
@@ -40,11 +46,11 @@ module IsoDoc
         }
       end
 
-      def footnotes(div)
+      def footnotes(_div)
         if @meta.get[:item_footnote]
           fn = noko do |xml|
-            xml.aside **{ id: "ftnitem" } do |div|
-              div.p @meta.get[:item_footnote]
+            xml.aside **{ id: "ftnitem" } do |d|
+              d.p @meta.get[:item_footnote]
             end
           end.join("\n")
           @footnotes.unshift fn
@@ -77,18 +83,18 @@ module IsoDoc
           introduction docxml, div2
           preface docxml, div2
           acknowledgements docxml, div2
-          div2.p { |p| p << "&nbsp;" } # placeholder
+          div2.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end
 
       ENDLINE = <<~END.freeze
-      <v:line 
- alt="" style='position:absolute;left:0;text-align:left;z-index:251662848;
- mso-wrap-edited:f;mso-width-percent:0;mso-height-percent:0;
- mso-width-percent:0;mso-height-percent:0'
- from="6.375cm,20.95pt" to="10.625cm,20.95pt"
- strokeweight="1.5pt"/>
+             <v:line
+        alt="" style='position:absolute;left:0;text-align:left;z-index:251662848;
+        mso-wrap-edited:f;mso-width-percent:0;mso-height-percent:0;
+        mso-width-percent:0;mso-height-percent:0'
+        from="6.375cm,20.95pt" to="10.625cm,20.95pt"
+        strokeweight="1.5pt"/>
       END
 
       def end_line(_isoxml, out)
@@ -138,7 +144,7 @@ module IsoDoc
         abstract.parent = (abstractbox || preface_container) if abstract &&
           (abstractbox || preface_container)
         abstractbox and abstract&.xpath(".//p/br")&.each do |a|
-          a.parent.remove if /page-break-before:always/.match(a["style"])
+          a.parent.remove if /page-break-before:always/.match?(a["style"])
         end
         docxml&.at("//p[@class = 'AbstractTitle']")&.remove if abstractbox
         foreword.parent = preface_container if foreword && preface_container
