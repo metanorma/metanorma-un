@@ -28,7 +28,7 @@ module IsoDoc
 
         n = @xrefs.anchor(elem["id"], :label) or return
         lbl = l10n("#{@i18n.admonition} #{n}")
-        prefix_name(elem, "&#xa0;&#x2014; ", lbl, "name")
+        prefix_name(elem, block_delim, lbl, "name")
       end
 
       def annex1(elem)
