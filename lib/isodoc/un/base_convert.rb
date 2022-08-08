@@ -17,17 +17,18 @@ module IsoDoc
         end
       end
 
-      def inline_header_title(out, node, title)
+      def inline_header_title(out, _node, title)
         out.span **{ class: "zzMoveToFollowing" } do |s|
           title&.children&.each { |c2| parse(c2, s) }
-          clausedelimspace(out) if /\S/.match(title&.text)
+          clausedelimspace(_node, out) if /\S/.match?(title&.text)
         end
       end
 
       def is_plenary?(docxml)
         doctype = docxml&.at(ns("//bibdata/ext/doctype"))&.text
-        return true if  %w(plenary agenda budgetary).include?(doctype)
+        return true if %w(plenary agenda budgetary).include?(doctype)
         return true if docxml&.at(ns("//bibdata/ext/session/*"))
+
         false
       end
     end
