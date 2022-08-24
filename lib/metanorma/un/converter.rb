@@ -212,6 +212,9 @@ module Metanorma
                               subsequence: node.attr("subsequence")))
       end
 
+      PREFACE_CLAUSE_NAMES = %w(donotrecognise-foreword
+                                acknowledgements).freeze
+
       def sectiontype_streamline(ret)
         case ret
         when "foreword", "introduction" then "donotrecognise-foreword"
