@@ -25,6 +25,15 @@ module IsoDoc
         end
       end
 
+      def asset_anchor_names(doc)
+        super
+        @parse_settings.empty? or return
+        sequential_asset_names(
+          doc.xpath(ns("//preface/abstract | //foreword | //introduction | "\
+                       "//preface/clause | //acknowledgements")),
+        )
+      end
+
       def clause_names(docxml, _sect_num)
         q = "//clause[parent::sections]"
         @paranumber = 0
