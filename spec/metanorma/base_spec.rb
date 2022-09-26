@@ -278,14 +278,14 @@ RSpec.describe Metanorma::UN do
 
   it "warns when type used other than recommendation or plenary" do
     input = <<~INPUT
-       = Document title
-       Author
-       :docfile: test.adoc
-       :nodoc:
-       :novalid:
-       :docnumber: 1000
-       :doctype: cheese
- INPUT
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :docnumber: 1000
+      :doctype: cheese
+    INPUT
     expect { Asciidoctor.convert(input, *OPTIONS) }
       .to output(/is not a legal document type/).to_stderr
   end
@@ -319,48 +319,48 @@ RSpec.describe Metanorma::UN do
 
   it "processes notes" do
     input = <<~INPUT
-        #{ASCIIDOC_BLANK_HDR}
+      #{ASCIIDOC_BLANK_HDR}
 
-        [NOTE]
-        .The United Nations Centre for Trade Facilitation and e-Business
-        ====
-        Only use paddy or parboiled rice for the determination of husked rice yield.
-        ====
-      INPUT
-      output = <<~OUTPUT
-        #{BLANK_HDR}
-         <sections>
-           <note id="_">
-           <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
-         </note>
-         </sections>
-         </un-standard>
-      OUTPUT
+      [NOTE]
+      .The United Nations Centre for Trade Facilitation and e-Business
+      ====
+      Only use paddy or parboiled rice for the determination of husked rice yield.
+      ====
+    INPUT
+    output = <<~OUTPUT
+      #{BLANK_HDR}
+       <sections>
+         <note id="_">
+         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+       </note>
+       </sections>
+       </un-standard>
+    OUTPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)
   end
 
   it "processes simple admonitions with Asciidoc names" do
     input = <<~INPUT
-        #{ASCIIDOC_BLANK_HDR}
+      #{ASCIIDOC_BLANK_HDR}
 
-        [IMPORTANT%unnumbered,subsequence=A]
-        .The United Nations Centre for Trade Facilitation and e-Business
-        ====
-        Only use paddy or parboiled rice for the determination of husked rice yield.
-        ====
-      INPUT
-      output = <<~OUTPUT
-        #{BLANK_HDR}
-         <sections>
-           <admonition id="_" type="important" unnumbered="true" subsequence="A">
-           <name>The United Nations Centre for Trade Facilitation and e-Business</name>
-           <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
-         </admonition>
-         </sections>
-         </un-standard>
+      [IMPORTANT%unnumbered,subsequence=A]
+      .The United Nations Centre for Trade Facilitation and e-Business
+      ====
+      Only use paddy or parboiled rice for the determination of husked rice yield.
+      ====
+    INPUT
+    output = <<~OUTPUT
+      #{BLANK_HDR}
+       <sections>
+         <admonition id="_" type="important" unnumbered="true" subsequence="A">
+         <name>The United Nations Centre for Trade Facilitation and e-Business</name>
+         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+       </admonition>
+       </sections>
+       </un-standard>
 
-      OUTPUT
+    OUTPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)
   end
@@ -433,9 +433,9 @@ RSpec.describe Metanorma::UN do
       Para 3
 
       Para 4
-  INPUT
+    INPUT
 
-  output = xmlpp(<<~"OUTPUT")
+    output = xmlpp(<<~"OUTPUT")
       #{BLANK_HDR.sub(%r{<doctype>recommendation</doctype>}, '<doctype>agenda</doctype>')}
       <sections><clause id="_" inline-header="false" obligation="normative"><title>Section 1</title><p id="_">Para 1</p><ul id="_">
            <li>
@@ -454,10 +454,10 @@ RSpec.describe Metanorma::UN do
          <p id="_">Para 4</p></annex>
          </un-standard>
 
-  OUTPUT
+    OUTPUT
 
-  expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-    .to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to output
   end
 
   it "uses default fonts" do

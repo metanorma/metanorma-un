@@ -4,9 +4,8 @@ require "iso-639"
 
 module IsoDoc
   module UN
-
     class Metadata < IsoDoc::Metadata
-      def initialize(lang, script, labels)
+      def initialize(lang, script, locale, labels)
         super
         here = File.dirname(__FILE__)
         set(:logo, File.expand_path(File.join(here, "html", "logo.jpg")))
@@ -27,8 +26,8 @@ module IsoDoc
       def extract_languages(nodeset)
         lgs = []
         nodeset.each do |l|
-          l && ISO_639&.find(l.text)&.english_name &&
-            lgs << ISO_639.find(l.text).english_name 
+          l && ISO_639.find(l.text)&.english_name and
+            lgs << ISO_639.find(l.text).english_name
         end
         lgs.map { |l| l == "Spanish; Castilian" ? "Spanish" : l }
       end
@@ -36,7 +35,7 @@ module IsoDoc
       def author(isoxml, _out)
         tc = isoxml.at(ns("//bibdata/ext/editorialgroup/committee"))
         set(:tc, tc.text) if tc
-        set(:distribution, isoxml&.at(ns("//bibdata/ext/distribution"))&.text)
+        set(:distribution, isoxml.at(ns("//bibdata/ext/distribution"))&.text)
         lgs = extract_languages(isoxml.xpath(ns("//bibdata/language")))
         lgs.sort == %w(English French Arabic Chinese Russian Spanish).sort and
           lgs = []
@@ -56,23 +55,23 @@ module IsoDoc
       end
 
       def session(isoxml, _out)
-        set(:session_number, isoxml&.at(ns("//bibdata/ext/session/number"))&.
-            text&.to_i&.localize&.
-            to_rbnf_s("SpelloutRules", "spellout-ordinal")&.capitalize)
-        set(:session_date, isoxml&.at(ns("//bibdata/ext/session/date"))&.text)
+        set(:session_number, isoxml.at(ns("//bibdata/ext/session/number"))
+            &.text&.to_i&.localize
+            &.to_rbnf_s("SpelloutRules", "spellout-ordinal")&.capitalize)
+        set(:session_date, isoxml.at(ns("//bibdata/ext/session/date"))&.text)
         set(:session_collaborator,
-            isoxml&.at(ns("//bibdata/ext/session/collaborator"))&.text)
-        sid = isoxml&.at(ns("//bibdata/ext/session/id"))&.text
+            isoxml.at(ns("//bibdata/ext/session/collaborator"))&.text)
+        sid = isoxml.at(ns("//bibdata/ext/session/id"))&.text
         set(:session_id, sid)
         set(:session_id_head, sid&.sub(%r{/.*$}, ""))
         set(:session_id_tail, sid&.sub(%r{^[^/]+}, ""))
-        set(:item_footnote, 
-            isoxml&.at(ns("//bibdata/ext/session/item-footnote"))&.text)
-        set(:session_itemnumber, 
+        set(:item_footnote,
+            isoxml.at(ns("//bibdata/ext/session/item-footnote"))&.text)
+        set(:session_itemnumber,
             multival(isoxml, "//bibdata/ext/session/item-number"))
-        set(:session_itemname, 
+        set(:session_itemname,
             multival(isoxml, "//bibdata/ext/session/item-name"))
-        set(:session_subitemname, 
+        set(:session_subitemname,
             multival(isoxml, "//bibdata/ext/session/subitem-name"))
       end
 
@@ -80,8 +79,8 @@ module IsoDoc
         dn = isoxml.at(ns("//bibdata/docidentifier"))&.text
         set(:docnumber, dn)
         type = isoxml&.at(ns("//bibdata/ext/doctype"))&.text
-        set(:formatted_docnumber, type == "recommendation" ?
-            "UN/CEFACT Recommendation #{dn}" : dn)
+        set(:formatted_docnumber,
+            type == "recommendation" ? "UN/CEFACT Recommendation #{dn}" : dn)
       end
 
       def stage_abbr(status)

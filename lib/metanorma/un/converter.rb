@@ -51,7 +51,7 @@ module Metanorma
       def metadata_id(node, xml)
         dn = node.attr("docnumber")
         if docstatus = node.attr("status")
-          abbr = IsoDoc::UN::Metadata.new("en", "Latn", @i18n)
+          abbr = IsoDoc::UN::Metadata.new("en", "Latn", "", @i18n)
             .stage_abbr(docstatus)
           dn = "#{dn}(#{abbr})" unless abbr.empty?
         end
@@ -67,13 +67,13 @@ module Metanorma
         xml.session do |session|
           session.number node.attr("session") if node.attr("session")
           session.date node.attr("session-date") if node.attr("session-date")
-          node&.attr("item-number")&.split(/, */)&.each do |i|
+          node.attr("item-number")&.split(/, */)&.each do |i|
             session.item_number i
           end
-          node&.attr("item-name")&.split(/, */)&.each do |i|
+          node.attr("item-name")&.split(/, */)&.each do |i|
             session.item_name i
           end
-          node&.attr("subitem-name")&.split(/, */)&.each do |i|
+          node.attr("subitem-name")&.split(/, */)&.each do |i|
             session.subitem_name i
           end
           node.attr("collaborator") and
