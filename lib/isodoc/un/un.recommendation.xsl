@@ -243,6 +243,9 @@
 								<fo:block role="TOCI">
 									<fo:block text-align-last="justify" margin-left="12mm" text-indent="-12mm">
 										<fo:basic-link internal-destination="{@id}" fox:alt-text="{@section}">
+											<xsl:if test="@section = ''">
+												<xsl:attribute name="fox:alt-text">Annex</xsl:attribute>
+											</xsl:if>
 											<xsl:if test="@section != ''">
 												<fo:inline padding-right="3mm">
 													<xsl:choose>
@@ -701,7 +704,19 @@
 
 		<xsl:choose>
 			<xsl:when test="ancestor::un:sections">
-				<fo:block font-size="{$font-size}" font-weight="bold" space-before="3pt" margin-bottom="12pt" margin-left="-9.5mm" line-height="108%" keep-with-next="always" role="H{$level}"> <!-- line-height="14.5pt" text-indent="-9.5mm" -->
+				<xsl:variable name="section">
+					<xsl:for-each select="..">
+						<xsl:call-template name="getSection"/>
+					</xsl:for-each>
+				</xsl:variable>
+				<xsl:variable name="margin-left">
+					<xsl:choose>
+						<xsl:when test="string-length($section) = 3">11mm</xsl:when>
+						<xsl:when test="string-length($section) &gt; 3">13mm</xsl:when>
+						<xsl:otherwise>9.5mm</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+				<fo:block font-size="{$font-size}" font-weight="bold" space-before="3pt" margin-bottom="12pt" margin-left="-{$margin-left}" line-height="108%" keep-with-next="always" role="H{$level}"> <!-- line-height="14.5pt" text-indent="-9.5mm" -->
 					<xsl:if test="$level = 1">
 						<!-- <xsl:attribute name="margin-left">-8.5mm</xsl:attribute> -->
 						<xsl:attribute name="margin-top">18pt</xsl:attribute>
@@ -713,7 +728,9 @@
 					<xsl:if test="$level = 3">
 						<xsl:attribute name="margin-top">16pt</xsl:attribute>
 					</xsl:if>
-					<xsl:call-template name="insertTitleAsListItem"/>
+					<xsl:call-template name="insertTitleAsListItem">
+						<xsl:with-param name="provisional-distance-between-starts" select="$margin-left"/>
+					</xsl:call-template>
 				</fo:block>
 			</xsl:when>
 
@@ -1327,8 +1344,6 @@
 	<xsl:attribute-set name="table-style">
 		<xsl:attribute name="table-omit-footer-at-break">true</xsl:attribute>
 		<xsl:attribute name="table-layout">fixed</xsl:attribute>
-		<xsl:attribute name="margin-left">0mm</xsl:attribute>
-		<xsl:attribute name="margin-right">0mm</xsl:attribute>
 
 	</xsl:attribute-set><!-- table-style -->
 
@@ -1687,7 +1702,7 @@
 
 	<xsl:attribute-set name="list-style">
 
-			<xsl:attribute name="provisional-distance-between-starts">3mm</xsl:attribute>
+			<xsl:attribute name="provisional-distance-between-starts">3.5mm</xsl:attribute>
 			<xsl:attribute name="margin-left">7mm</xsl:attribute>
 			<xsl:attribute name="text-indent">0mm</xsl:attribute>
 
@@ -2429,10 +2444,18 @@
 				<xsl:variable name="table_attributes">
 
 					<xsl:element name="table_attributes" use-attribute-sets="table-style">
+
+						<xsl:if test="$margin-side != 0">
+							<xsl:attribute name="margin-left">0mm</xsl:attribute>
+							<xsl:attribute name="margin-right">0mm</xsl:attribute>
+						</xsl:if>
+
 						<xsl:attribute name="width"><xsl:value-of select="normalize-space($table_width)"/></xsl:attribute>
 
-							<xsl:attribute name="margin-left"><xsl:value-of select="$margin-side"/>mm</xsl:attribute>
-							<xsl:attribute name="margin-right"><xsl:value-of select="$margin-side"/>mm</xsl:attribute>
+							<xsl:if test="$margin-side != 0">
+								<xsl:attribute name="margin-left"><xsl:value-of select="$margin-side"/>mm</xsl:attribute>
+								<xsl:attribute name="margin-right"><xsl:value-of select="$margin-side"/>mm</xsl:attribute>
+							</xsl:if>
 
 							<xsl:if test="ancestor::*[local-name()='sections']">
 								<xsl:attribute name="border-top">1.5pt solid black</xsl:attribute>
@@ -8037,6 +8060,10 @@
 
 		<fo:list-block xsl:use-attribute-sets="list-style">
 
+				<xsl:if test="local-name() = 'ol'">
+					<xsl:attribute name="provisional-distance-between-starts">6mm</xsl:attribute>
+				</xsl:if>
+
 			<xsl:if test="*[local-name() = 'name']">
 				<xsl:attribute name="margin-top">0pt</xsl:attribute>
 			</xsl:if>
@@ -9511,13 +9538,14 @@
 	</xsl:template>
 
 	<xsl:template name="setId">
+		<xsl:param name="prefix"/>
 		<xsl:attribute name="id">
 			<xsl:choose>
 				<xsl:when test="@id">
-					<xsl:value-of select="@id"/>
+					<xsl:value-of select="concat($prefix, @id)"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:value-of select="generate-id()"/>
+					<xsl:value-of select="concat($prefix, generate-id())"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:attribute>
