@@ -1821,7 +1821,7 @@ RSpec.describe IsoDoc::UN do
       </un-standard>
     OUTPUT
 
-    html = xmlpp(<<~"OUTPUT")
+    html = <<~"OUTPUT"
         #{HTML_HDR}
         <br/>
       <div id='FF'>
@@ -1863,7 +1863,7 @@ RSpec.describe IsoDoc::UN do
                </body>
              </html>
     OUTPUT
-    word = xmlpp(<<~"OUTPUT")
+    word = <<~"OUTPUT"
       <div class='WordSection3'>
            <div id='A'>
              <h1>I.</h1>
@@ -1911,15 +1911,15 @@ RSpec.describe IsoDoc::UN do
     OUTPUT
     expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
 .convert("test", input, true)))
-      .to be_equivalent_to presxml
+      .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
 .convert("test", presxml, true)))
-      .to be_equivalent_to html
+      .to be_equivalent_to xmlpp(html)
     expect(xmlpp(IsoDoc::UN::WordConvert.new({})
   .convert("test", presxml, true)
   .sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">')
   .sub(%r{<v:line.*$}m, "</div>")))
-      .to be_equivalent_to word
+      .to be_equivalent_to xmlpp(word)
   end
 
   it "processes inline section headers" do
@@ -2067,7 +2067,7 @@ RSpec.describe IsoDoc::UN do
     OUTPUT
     expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
       .convert("test", input, true)))
-      .to be_equivalent_to output
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes note types" do
@@ -2134,6 +2134,6 @@ RSpec.describe IsoDoc::UN do
     expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to output
+      .to be_equivalent_to xmlpp(output)
   end
 end
