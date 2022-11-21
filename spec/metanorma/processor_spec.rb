@@ -100,7 +100,7 @@ RSpec.describe Metanorma::UN::Processor do
       :toc:
     INPUT
     output = <<~OUTPUT
-      {:datauriimage=>true, :suppressasciimathdup=>true, :toc=>"local-variable"}
+      {:breakupurlsintables=>false, :datauriimage=>true, :hierarchicalassets=>false, :suppressasciimathdup=>true, :toc=>"local-variable", :tocfigures=>false, :tocrecommendations=>false, :toctables=>false, :usexinclude=>true}
     OUTPUT
     expect(Metanorma::UN::Input::Asciidoc.new.extract_options(input)
       .sort.to_h.to_s).to eq output.strip
