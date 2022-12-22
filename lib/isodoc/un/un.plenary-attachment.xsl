@@ -2,7 +2,7 @@
 
 	<xsl:output version="1.0" method="xml" encoding="UTF-8" indent="no"/>
 
-	<xsl:key name="kfn" match="*[local-name() = 'fn'][not(ancestor::*[(local-name() = 'table' or local-name() = 'figure' or local-name() = 'localized-strings')] and not(ancestor::*[local-name() = 'name']))]" use="@reference"/>
+	<xsl:key name="kfn" match="*[local-name() = 'fn'][not(ancestor::*[(local-name() = 'table' or local-name() = 'figure' or local-name() = 'localized-strings')] and not(ancestor::*[local-name() = 'name'])) and not(ancestor::*[local-name() = 'bibdata'] and ancestor::*[local-name() = 'abstract'])]" use="@reference"/>
 
 	<xsl:variable name="debug">false</xsl:variable>
 
@@ -1561,6 +1561,7 @@
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 			<xsl:attribute name="keep-with-next">always</xsl:attribute>
 			<xsl:attribute name="border">2pt solid black</xsl:attribute>
+			<xsl:attribute name="text-indent">0</xsl:attribute>
 
 	</xsl:attribute-set>
 
@@ -5963,7 +5964,9 @@
 
 									<xsl:variable name="scale" select="java:org.metanorma.fop.Util.getImageScale($img_src, $width_effective, $height_effective)"/>
 									<xsl:if test="number($scale) &lt; 100">
-										<xsl:attribute name="content-width"><xsl:value-of select="$scale"/>%</xsl:attribute>
+
+												<xsl:attribute name="content-width"><xsl:value-of select="$scale * 0.985"/>%</xsl:attribute><!-- 0.985 due border around image -->
+
 									</xsl:if>
 
 								</xsl:if>
