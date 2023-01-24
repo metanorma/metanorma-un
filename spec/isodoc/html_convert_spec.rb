@@ -447,7 +447,7 @@ RSpec.describe IsoDoc::UN do
              </html>
     OUTPUT
 
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
@@ -723,7 +723,7 @@ RSpec.describe IsoDoc::UN do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
@@ -1149,7 +1149,7 @@ RSpec.describe IsoDoc::UN do
            </div>
          </div>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
@@ -1399,7 +1399,7 @@ RSpec.describe IsoDoc::UN do
          </bibliography>
          </un-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))
       .to be_equivalent_to xmlpp(output)
   end
@@ -1695,7 +1695,7 @@ RSpec.describe IsoDoc::UN do
     OUTPUT
 
     expect(xmlpp(IsoDoc::UN::PresentationXMLConvert
-.new({ suppressheadingnumbers: true })
+.new({ suppressheadingnumbers: true }.merge(presxml_options))
 .convert("test", input, true)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::UN::HtmlConvert
@@ -1909,7 +1909,7 @@ RSpec.describe IsoDoc::UN do
            </div>
          </div>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
 .convert("test", input, true)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
@@ -2051,7 +2051,7 @@ RSpec.describe IsoDoc::UN do
       <un-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <sections>
           <clause displayorder="2">
-            <eref bibitemid='ISO712'>ISO 712</eref>
+            <eref bibitemid='ISO712'>ISO&#xa0;712</eref>
           </clause>
         </sections>
         <bibliography>
@@ -2059,14 +2059,14 @@ RSpec.describe IsoDoc::UN do
             <title depth="1">Normative References</title>
             <bibitem id='ISO712' type='standard'>
               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
-              <docidentifier type='ISO'>ISO 712</docidentifier>
-              <biblio-tag>ISO 712, </biblio-tag>
+              <docidentifier type='ISO'>ISO&#xa0;712</docidentifier>
+              <biblio-tag>ISO&#xa0;712, </biblio-tag>
             </bibitem>
           </references>
         </bibliography>
       </un-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))
       .to be_equivalent_to xmlpp(output)
   end
@@ -2132,7 +2132,7 @@ RSpec.describe IsoDoc::UN do
         </sections>
       </un-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(output)
