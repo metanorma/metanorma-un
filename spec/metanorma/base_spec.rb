@@ -276,6 +276,66 @@ RSpec.describe Metanorma::UN do
       .to be_equivalent_to xmlpp(output)
   end
 
+  it "processes override docidentifier" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :docnumber: 1000
+      :docidentifier: OVERRIDE
+      :status: draft-standard
+    INPUT
+    output = <<~OUTPUT
+          <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
+      <bibdata type="standard">
+      <title type='main' language='en' format='text/plain'>Document title</title>
+        <docidentifier>OVERRIDE</docidentifier>
+        <docnumber>1000</docnumber>
+        <contributor>
+          <role type="author"/>
+          <organization>
+          <name>United Nations</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+          <name>United Nations</name>
+          </organization>
+        </contributor>
+        <language>ar</language>
+      <language>ru</language>
+      <language>en</language>
+      <language>fr</language>
+      <language>zh</language>
+      <language>es</language>
+        <script>Latn</script>
+        <status>
+          <stage>draft-standard</stage>
+        </status>
+        <copyright>
+          <from>#{Date.today.year}</from>
+          <owner>
+            <organization>
+            <name>United Nations</name>
+            </organization>
+          </owner>
+        </copyright>
+               <ext>
+               <doctype>recommendation</doctype>
+               <session/>
+               </ext>
+      </bibdata>
+      #{BOILERPLATE}
+      <sections/>
+      </un-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
+
   it "warns when type used other than recommendation or plenary" do
     input = <<~INPUT
       = Document title
