@@ -2384,6 +2384,7 @@
 					<!-- for centered table always 100% (@width will be set for middle/second cell of outer table) -->
 
 							<xsl:choose>
+								<xsl:when test="@width = 'full-page-width' or @width = 'text-width'">100%</xsl:when>
 								<xsl:when test="@width"><xsl:value-of select="@width"/></xsl:when>
 								<xsl:otherwise><xsl:value-of select="$table_width_default"/></xsl:otherwise>
 							</xsl:choose>
@@ -2505,7 +2506,7 @@
 		<xsl:variable name="isDeleted" select="@deleted"/>
 
 		<xsl:choose>
-			<xsl:when test="@width">
+			<xsl:when test="@width and @width != 'full-page-width' and @width != 'text-width'">
 
 				<!-- centered table when table name is centered (see table-name-style) -->
 
@@ -6478,6 +6479,8 @@
 		<xsl:value-of select="."/>
 	</xsl:template>
 
+	<xsl:template match="*[local-name() = 'add'][starts-with(., $ace_tag)]/text()" mode="bookmarks" priority="3"/>
+
 	<xsl:template match="node()" mode="contents">
 		<xsl:apply-templates mode="contents"/>
 	</xsl:template>
@@ -6785,7 +6788,15 @@
 							<xsl:value-of select="@section"/>
 							<xsl:text> </xsl:text>
 						</xsl:if>
-						<xsl:value-of select="normalize-space(title)"/>
+						<xsl:variable name="title">
+							<xsl:for-each select="title/node()">
+								<xsl:choose>
+									<xsl:when test="local-name() = 'add' and starts-with(., $ace_tag)"><!-- skip --></xsl:when>
+									<xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+								</xsl:choose>
+							</xsl:for-each>
+						</xsl:variable>
+						<xsl:value-of select="normalize-space($title)"/>
 					</fo:bookmark-title>
 					<xsl:apply-templates mode="bookmark"/>
 				</fo:bookmark>
@@ -6964,6 +6975,10 @@
 		<xsl:for-each select="xalan:nodeset($text)/text/text()">
 			<xsl:call-template name="keep_together_standard_number"/>
 		</xsl:for-each>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'add'][starts-with(., $ace_tag)]/text()" mode="contents_item" priority="2">
+		<xsl:value-of select="."/>
 	</xsl:template>
 
 	<!-- Note: to enable the addition of character span markup with semantic styling for DIS Word output -->
