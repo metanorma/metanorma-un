@@ -154,8 +154,10 @@ RSpec.describe Metanorma::UN do
       </un-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to output
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:metanorma-extension").each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes committee-draft, languages" do
@@ -209,11 +211,13 @@ RSpec.describe Metanorma::UN do
               <submissionlanguage>jp</submissionlanguage>
                </ext>
              </bibdata>
-      #{BOILERPLATE}
              <sections/>
              </un-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:boilerplate | //xmlns:metanorma-extension")
+      .each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -268,11 +272,13 @@ RSpec.describe Metanorma::UN do
                <session/>
                </ext>
       </bibdata>
-      #{BOILERPLATE}
       <sections/>
       </un-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:boilerplate | //xmlns:metanorma-extension")
+      .each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -328,11 +334,13 @@ RSpec.describe Metanorma::UN do
                <session/>
                </ext>
       </bibdata>
-      #{BOILERPLATE}
       <sections/>
       </un-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:boilerplate | //xmlns:metanorma-extension")
+      .each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(output)
   end
 
