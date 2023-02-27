@@ -36,13 +36,12 @@ module Metanorma
 
       def title(node, xml)
         ["en"].each do |lang|
-          xml.title **{ type: "main", language: lang,
-                        format: "text/plain" } do |t|
+          xml.title type: "main", language: lang, format: "text/plain" do |t|
             t << (asciidoc_sub(node.attr("title")) || node.title)
           end
           node.attr("subtitle") and
-            xml.title **{ type: "subtitle", language: lang,
-                          format: "text/plain" } do |t|
+            xml.title type: "subtitle", language: lang,
+                      format: "text/plain" do |t|
               t << asciidoc_sub(node.attr("subtitle"))
             end
         end
@@ -55,6 +54,7 @@ module Metanorma
             .stage_abbr(docstatus)
           dn = "#{dn}(#{abbr})" unless abbr.empty?
         end
+        id = node.attr("docidentifier") and dn = id
         xml.docidentifier { |i| i << dn }
         xml.docnumber { |i| i << node.attr("docnumber") }
       end
@@ -179,7 +179,7 @@ module Metanorma
       end
 
       def no_number_subheadings(xmldoc)
-        xmldoc.xpath("//sections/clause | "\
+        xmldoc.xpath("//sections/clause | " \
                      "//sections/definitions | //annex").each do |s|
           s.xpath(".//clause | .//definitions").each do |c|
             c["unnumbered"] = true
