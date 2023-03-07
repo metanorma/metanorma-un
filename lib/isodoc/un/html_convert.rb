@@ -4,7 +4,6 @@ require "isodoc"
 
 module IsoDoc
   module UN
-
     # A {Converter} implementation that generates HTML output, and a document
     # schema encapsulation of the document for validation
     #
@@ -17,14 +16,18 @@ module IsoDoc
       def default_fonts(options)
         {
           bodyfont: (
-            options[:script] == "Hans" ?
-            '"Source Han Sans",serif' :
-            '"Times New Roman", serif'
+            if options[:script] == "Hans"
+              '"Source Han Sans",serif'
+            else
+              '"Times New Roman", serif'
+            end
           ),
           headerfont: (
-            options[:script] == "Hans" ?
-            '"Source Han Sans",sans-serif' :
-            '"Times New Roman", serif'
+            if options[:script] == "Hans"
+              '"Source Han Sans",sans-serif'
+            else
+              '"Times New Roman", serif'
+            end
           ),
           monospacefont: '"Courier New",monospace',
           normalfontsize: "15px",
@@ -40,11 +43,10 @@ module IsoDoc
         }
       end
 
-
       def googlefonts
         <<~HEAD.freeze
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
         HEAD
       end
 
@@ -64,7 +66,7 @@ module IsoDoc
       end
 
       def make_body3(body, docxml)
-        body.div **{ class: "main-section" } do |div3|
+        body.div class: "main-section" do |div3|
           boilerplate docxml, div3
           preface_block docxml, div3
           abstract docxml, div3
@@ -88,8 +90,8 @@ module IsoDoc
       def introduction(isoxml, out)
         f = isoxml.at(ns("//introduction")) || return
         page_break(out)
-        out.div **{ class: "Section3", id: f["id"] } do |div|
-          clause_name(nil, f.at(ns("./title")), div, { class: "IntroTitle" })
+        out.div class: "Section3", id: f["id"] do |div|
+          clause_name(f, f.at(ns("./title")), div, { class: "IntroTitle" })
           f.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
@@ -100,8 +102,8 @@ module IsoDoc
         f = isoxml.at(ns("//foreword")) || return
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          clause_name(nil, f.at(ns("./title")) || @i18n.foreword, s,
-                    class: "ForewordTitle")
+          clause_name(f, f.at(ns("./title")) || @i18n.foreword, s,
+                      class: "ForewordTitle")
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
@@ -111,4 +113,3 @@ module IsoDoc
     end
   end
 end
-
