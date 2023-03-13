@@ -57,7 +57,7 @@ RSpec.describe Metanorma::UN::Processor do
     output = xmlpp(<<~"OUTPUT")
       <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
         <div id="D">
-          <h1 id="toc0">1.&#xA0; Scope</h1>
+          <h1 id="_">1.&#xA0; Scope</h1>
           <p id="E">Text</p>
         </div>
       </main>
@@ -66,10 +66,10 @@ RSpec.describe Metanorma::UN::Processor do
     processor.output(input, "test.xml", "test.html", :html)
 
     expect(
-      xmlpp(File.read("test.html", encoding: "utf-8")
+      xmlpp(strip_guid(File.read("test.html", encoding: "utf-8")
       .gsub(%r{^.*<main}m, "<main")
-      .gsub(%r{</main>.*}m, "</main>")),
-    ).to be_equivalent_to output
+      .gsub(%r{</main>.*}m, "</main>"))),
+    ).to be_equivalent_to xmlpp(strip_guid(output))
   end
 
   it "generates DOC from IsoDoc XML" do
