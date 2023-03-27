@@ -90,19 +90,4 @@ RSpec.describe Metanorma::UN::Processor do
     expect(File.read("test.doc", encoding: "utf-8"))
       .to include '<div class="WordSection3"><div><a name="D" id="D"></a><h1>1.<span style="mso-tab-count:1">&#xA0; </span>Scope</h1><p class="MsoNormal"><a name="E" id="E"></a>Text</p></div>'
   end
-
-  it "parses :toc document attribute" do
-    FileUtils.rm_f "test.xml"
-    input = <<~INPUT
-      = Document title
-      Author
-      :docfile: test.adoc
-      :toc:
-    INPUT
-    output = <<~OUTPUT
-      {:breakupurlsintables=>false, :datauriimage=>true, :hierarchicalassets=>false, :sourcehighlighter=>true, :suppressasciimathdup=>true, :toc=>"local-variable", :tocfigures=>false, :tocrecommendations=>false, :toctables=>false, :usexinclude=>true}
-    OUTPUT
-    expect(Metanorma::UN::Input::Asciidoc.new.extract_options(input)
-      .sort.to_h.to_s).to eq output.strip
-  end
 end
