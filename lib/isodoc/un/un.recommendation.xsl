@@ -4681,6 +4681,7 @@
 				<fo:inline>
 					<xsl:for-each select="$styles/style">
 						<xsl:attribute name="{@name}"><xsl:value-of select="."/></xsl:attribute>
+
 					</xsl:for-each>
 					<xsl:apply-templates/>
 				</fo:inline>
