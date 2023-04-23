@@ -39,6 +39,11 @@ module IsoDoc
         prefix_name(elem, "<br/>", lbl, "title")
       end
 
+      def toc_title(docxml)
+        @toc or return
+        super
+      end
+
       include Init
     end
   end

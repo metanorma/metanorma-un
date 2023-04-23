@@ -1,6 +1,7 @@
 require "spec_helper"
 
-logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib", "isodoc", "un", "html"))
+logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib", 
+"isodoc", "un", "html"))
 
 RSpec.describe IsoDoc::UN do
   it "processes default metadata, recommendation" do
@@ -99,7 +100,8 @@ RSpec.describe IsoDoc::UN do
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
+    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s).gsub(/, :/, 
+",\n:")).to be_equivalent_to output
   end
 
   it "processes default metadata, plenary" do
@@ -201,11 +203,12 @@ RSpec.describe IsoDoc::UN do
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
+    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s).gsub(/, :/, 
+",\n:")).to be_equivalent_to output
   end
 
   it "processes inline section headers" do
-    expect(xmlpp(IsoDoc::UN::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">').sub(%r{<v:line.*$}m, "</div>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
        <clause id="M" inline-header="false" obligation="normative"><title>I.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
@@ -218,6 +221,7 @@ RSpec.describe IsoDoc::UN do
        </sections>
       </un-standard>
     INPUT
+    output = <<~OUTPUT
           <div class="WordSection3"><div id="M"><h1>I.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1><div id="N"><h2>A. <span style="mso-tab-count:1">&#160; </span>Introduction</h2>
 
        </div><div id="O"><span class="zzMoveToFollowing">B. <span style="mso-tab-count:1">&#160; </span>Clause 4.2<span style='mso-tab-count:1'>&#160; </span> </span>
@@ -225,11 +229,16 @@ RSpec.describe IsoDoc::UN do
        </div></div>
       </div>
     OUTPUT
+    expect(xmlpp(IsoDoc::UN::WordConvert.new({})
+      .convert("test", input, true)
+      .sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">')
+      .sub(%r{<v:line.*$}m, "</div>")))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "uses plenary title page in DOC for plenaries" do
     FileUtils.rm_f("test.doc")
-    input = <<~"INPUT"
+    input = <<~INPUT
       <un-standard xmlns="https://www.metanorma.org/ns/un">
       <bibdata type="standard">
         <title language="en" format="plain">Main Title</title>
@@ -238,7 +247,9 @@ RSpec.describe IsoDoc::UN do
         <sections/>
         </un-standard>
     INPUT
-    IsoDoc::UN::WordConvert.new(toc: true).convert("test", input, false)
+    presxml = IsoDoc::UN::PresentationXMLConvert.new({ toc: true })
+        .convert("test", input, true)
+    IsoDoc::UN::WordConvert.new({ toc: true }).convert("test", presxml, false)
     html = File.read("test.doc", encoding: "utf-8")
     expect(html).to include "This is a plenary page"
     expect(html).to include 'class="zzContents"'
@@ -246,7 +257,7 @@ RSpec.describe IsoDoc::UN do
 
   it "removes intro page page in DOC for plenaries with no ToC" do
     FileUtils.rm_f("test.doc")
-    input = <<~"INPUT"
+    input = <<~INPUT
       <un-standard xmlns="https://www.metanorma.org/ns/un">
       <bibdata type="standard">
         <title language="en" format="plain">Main Title</title>
@@ -263,7 +274,7 @@ RSpec.describe IsoDoc::UN do
 
   it "populates abstract box if there is an abstract" do
     FileUtils.rm_f("test.doc")
-    input = <<~"INPUT"
+    input = <<~INPUT
       <un-standard xmlns="https://www.metanorma.org/ns/un">
       <bibdata type="standard">
         <title language="en" format="plain">Main Title</title>
@@ -280,7 +291,7 @@ RSpec.describe IsoDoc::UN do
 
   it "does not populate abstract box if there is no abstract" do
     FileUtils.rm_f("test.doc")
-    input = <<~"INPUT"
+    input = <<~INPUT
       <un-standard xmlns="https://www.metanorma.org/ns/un">
       <bibdata type="standard">
         <title language="en" format="plain">Main Title</title>
@@ -296,7 +307,7 @@ RSpec.describe IsoDoc::UN do
 
   it "does not used plenary title page in DOC for recommendations" do
     FileUtils.rm_f("test.doc")
-    input = <<~"INPUT"
+    input = <<~INPUT
       <un-standard xmlns="https://www.metanorma.org/ns/un">
       <bibdata type="standard">
         <title language="en" format="plain">Main Title</title>
@@ -313,7 +324,7 @@ RSpec.describe IsoDoc::UN do
 
   it "processes plenary preface" do
     FileUtils.rm_f("test.doc")
-    input = <<~"INPUT"
+    input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata type="standard">
       <ext><doctype>plenary</doctype></ext>
@@ -347,10 +358,12 @@ RSpec.describe IsoDoc::UN do
     INPUT
     IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
     html = File.read("test.doc", encoding: "utf-8")
-    section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(%r{<div class="WordSection2">.*$}m, "")
-    section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(
+%r{<div class="WordSection2">.*$}m, "")
+    section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(
+%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(section1).to include "This is an abstract"
-    expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~OUTPUT)
                <div class="WordSection2">
 
            <div>
@@ -399,7 +412,7 @@ RSpec.describe IsoDoc::UN do
 
   it "removes WordSection2 if empty" do
     FileUtils.rm_f("test.doc")
-    input = <<~"INPUT"
+    input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata type="standard">
       <ext><doctype>plenary</doctype></ext>
@@ -414,7 +427,7 @@ RSpec.describe IsoDoc::UN do
 
   it "does not removes WordSection2 if no preface but ToC" do
     FileUtils.rm_f("test.doc")
-    input = <<~"INPUT"
+    input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata type="standard">
       <ext><doctype>plenary</doctype></ext>
@@ -466,8 +479,10 @@ RSpec.describe IsoDoc::UN do
     INPUT
     IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
     html = File.read("test.doc", encoding: "utf-8")
-    section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(%r{<div class="WordSection2">.*$}m, "")
-    section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(
+%r{<div class="WordSection2">.*$}m, "")
+    section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(
+%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(section1).not_to include "This is an abstract"
     expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~"OUTPUT")
                        <div class="WordSection2">

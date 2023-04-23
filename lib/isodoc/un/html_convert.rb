@@ -68,12 +68,7 @@ module IsoDoc
       def make_body3(body, docxml)
         body.div class: "main-section" do |div3|
           boilerplate docxml, div3
-          preface_block docxml, div3
-          abstract docxml, div3
-          foreword docxml, div3
-          introduction docxml, div3
-          preface docxml, div3
-          acknowledgements docxml, div3
+          front docxml, div3
           middle docxml, div3
           footnotes div3
           comments div3
@@ -87,24 +82,22 @@ module IsoDoc
         bibliography isoxml, out
       end
 
-      def introduction(isoxml, out)
-        f = isoxml.at(ns("//introduction")) || return
+      def introduction(clause, out)
         page_break(out)
-        out.div class: "Section3", id: f["id"] do |div|
-          clause_name(f, f.at(ns("./title")), div, { class: "IntroTitle" })
-          f.elements.each do |e|
+        out.div class: "Section3", id: clause["id"] do |div|
+          clause_name(clause, clause.at(ns("./title")), div, { class: "IntroTitle" })
+          clause.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
         end
       end
 
-      def foreword(isoxml, out)
-        f = isoxml.at(ns("//foreword")) || return
+      def foreword(clause, out)
         page_break(out)
-        out.div **attr_code(id: f["id"]) do |s|
-          clause_name(f, f.at(ns("./title")) || @i18n.foreword, s,
+        out.div **attr_code(id: clause["id"]) do |s|
+          clause_name(clause, clause.at(ns("./title")) || @i18n.foreword, s,
                       class: "ForewordTitle")
-          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+          clause.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
 

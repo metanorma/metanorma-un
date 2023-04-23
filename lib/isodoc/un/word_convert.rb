@@ -49,7 +49,7 @@ module IsoDoc
       def footnotes(_div)
         if @meta.get[:item_footnote]
           fn = noko do |xml|
-            xml.aside **{ id: "ftnitem" } do |d|
+            xml.aside id: "ftnitem" do |d|
               d.p @meta.get[:item_footnote]
             end
           end.join("\n")
@@ -74,15 +74,10 @@ module IsoDoc
       end
 
       def make_body2(body, docxml)
-        body.div **{ class: "WordSection2" } do |div2|
+        body.div class: "WordSection2" do |div2|
           info docxml, div2
           boilerplate docxml, div2
-          preface_block docxml, div2
-          abstract docxml, div2
-          foreword docxml, div2
-          introduction docxml, div2
-          preface docxml, div2
-          acknowledgements docxml, div2
+          front docxml, div2
           div2.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
@@ -109,27 +104,25 @@ module IsoDoc
         end_line(isoxml, out)
       end
 
-      def introduction(isoxml, out)
-        f = isoxml.at(ns("//introduction")) || return
-        out.div **{ class: "Section3", id: f["id"] } do |div|
+      def introduction(clause, out)
+        out.div class: "Section3", id: clause["id"] do |div|
           page_break(out)
-          div.p(**{ class: "IntroTitle" }) do |h1|
-            f&.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
+          div.p(class: "IntroTitle") do |h1|
+            clause&.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
           end
-          f.elements.each do |e|
+          clause.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
         end
       end
 
-      def foreword(isoxml, out)
-        f = isoxml.at(ns("//foreword")) || return
-        out.div **attr_code(id: f["id"]) do |s|
+      def foreword(clause, out)
+        out.div **attr_code(id: clause["id"]) do |s|
           page_break(out)
-          s.p(**{ class: "ForewordTitle" }) do |h1|
-            f&.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
+          s.p(class: "ForewordTitle") do |h1|
+            clause&.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
           end
-          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+          clause.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
 
@@ -160,14 +153,13 @@ module IsoDoc
         abstractbox.parent.remove if abstractbox && !abstract
       end
 
-      def abstract(isoxml, out)
-        f = isoxml.at(ns("//abstract")) || return
-        out.div **attr_code(id: f["id"]) do |s|
+      def abstract(clause, out)
+        out.div **attr_code(id: clause["id"]) do |s|
           page_break(out)
-          s.p(**{ class: "AbstractTitle" }) do |h1|
-            f&.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
+          s.p(class: "AbstractTitle") do |h1|
+            clause&.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
           end
-          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+          clause.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
 

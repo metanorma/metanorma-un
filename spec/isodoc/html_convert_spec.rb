@@ -300,20 +300,22 @@ RSpec.describe IsoDoc::UN do
 
     presxml = <<~OUTPUT
       <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <preface>
-        <foreword obligation="informative" displayorder="1">
-           <title>Foreword</title>
-         </foreword>
-          <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-           <title depth="2">Introduction Subsection</title>
-         </clause>
-         </introduction>
-         <abstract obligation="informative" displayorder="3">
-         <title>Summary</title>
-         </abstract>
-         <acknowledgements obligation="informative" displayorder="4">
-         <title>Acknowledgements</title>
-         </acknowledgements>
+               <preface>
+           <abstract obligation="informative" displayorder="1">
+             <title>Summary</title>
+           </abstract>
+           <foreword obligation="informative" displayorder="2">
+             <title>Foreword</title>
+           </foreword>
+           <introduction id="B" obligation="informative" displayorder="3">
+             <title>Introduction</title>
+             <clause id="C" inline-header="false" obligation="informative">
+               <title depth="2">Introduction Subsection</title>
+             </clause>
+           </introduction>
+           <acknowledgements obligation="informative" displayorder="4">
+             <title>Acknowledgements</title>
+           </acknowledgements>
          </preface>
          <sections>
          <clause id="H" obligation="normative" displayorder="7"><title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
@@ -531,20 +533,20 @@ RSpec.describe IsoDoc::UN do
 
     presxml = <<~OUTPUT
            <un-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-         <preface>
-           <foreword obligation='informative' displayorder='1'>
-             <title>Foreword</title>
-           </foreword>
-           <introduction id='B' obligation='informative' displayorder='2'>
-             <title>Introduction</title>
-             <clause id='C' inline-header='false' obligation='informative' unnumbered='true'>
-               <title depth='2'>Introduction Subsection</title>
-             </clause>
-           </introduction>
-           <abstract obligation='informative' displayorder='3'>
+                    <preface>
+           <abstract obligation="informative" displayorder="1">
              <title>Summary</title>
            </abstract>
-           <acknowledgements obligation='informative' displayorder='4'>
+           <foreword obligation="informative" displayorder="2">
+             <title>Foreword</title>
+           </foreword>
+           <introduction id="B" obligation="informative" displayorder="3">
+             <title>Introduction</title>
+             <clause id="C" inline-header="false" obligation="informative" unnumbered="true">
+               <title depth="2">Introduction Subsection</title>
+             </clause>
+           </introduction>
+           <acknowledgements obligation="informative" displayorder="4">
              <title>Acknowledgements</title>
            </acknowledgements>
          </preface>
@@ -814,20 +816,22 @@ RSpec.describe IsoDoc::UN do
 
     presxml = <<~OUTPUT
       <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <preface>
-        <foreword obligation="informative" displayorder="1">
-           <title>Foreword</title>
-           <p id="A1">Text</p>
-         </foreword>
-          <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-           <title depth="2">Introduction Subsection</title>
-           <p id="A2">Text</p>
-         </clause>
-         </introduction>
-         <abstract obligation="informative" displayorder="3">
-         <title>Summary</title>
-           <p id="A3">Text</p>
-         </abstract>
+               <preface>
+           <abstract obligation="informative" displayorder="1">
+             <title>Summary</title>
+             <p id="A3">Text</p>
+           </abstract>
+           <foreword obligation="informative" displayorder="2">
+             <title>Foreword</title>
+             <p id="A1">Text</p>
+           </foreword>
+           <introduction id="B" obligation="informative" displayorder="3">
+             <title>Introduction</title>
+             <clause id="C" inline-header="false" obligation="informative">
+               <title depth="2">Introduction Subsection</title>
+               <p id="A2">Text</p>
+             </clause>
+           </introduction>
          </preface>
          <sections>
          <clause id="H" obligation="normative" displayorder="7"><title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
@@ -1283,44 +1287,46 @@ RSpec.describe IsoDoc::UN do
     INPUT
     output = <<~OUTPUT
       <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <preface>
-        <foreword id="A" obligation="informative" displayorder="1">
-           <title>Foreword</title>
-           <p>
-           <xref target="A">Foreword</xref>
-           <xref target="B">Introduction</xref>
-           <xref target="C">Introduction Subsection</xref>
-           <xref target="AA">Abstract</xref>
-           <xref target="H">Clause I</xref>
-           <xref target="I">Clause I.A</xref>
-           <xref target="J">Clause I.A.1</xref>
-           <xref target="K">Clause I.B</xref>
-           <xref target="D">paragraph 1</xref>
-           <xref target="M">Clause III</xref>
-           <xref target="N">paragraph 2</xref>
-           <xref target="O">Clause III.A</xref>
-           <xref target="O1">Clause III.A.1</xref>
-           <xref target="O11">paragraph 3</xref>
-           <xref target="P">Annex I</xref>
-           <xref target="Q">Annex I.1</xref>
-           <xref target="Q1">Annex I.1.I</xref>
-           <xref target="Q11">paragraph I.1.I.A.1</xref>
-           <xref target="U">Annex II</xref>
-           <xref target="R">Normative References</xref>
-           <xref target="S">Bibliography</xref>
-           <xref target="T">Bibliography Subsection</xref>
-          </p>
-         </foreword>
-          <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-           <title depth="2">Introduction Subsection</title>
-           <p id="X1"/>
-           <p id="X2"/>
-         </clause>
-         </introduction>
-         <abstract id="AA" obligation="informative" displayorder="3">
-           <p id="X3"/>
-           <p id="X4"/>
-         </abstract>
+               <preface>
+           <abstract id="AA" obligation="informative" displayorder="1">
+             <p id="X3"/>
+             <p id="X4"/>
+           </abstract>
+           <foreword id="A" obligation="informative" displayorder="2">
+             <title>Foreword</title>
+             <p>
+               <xref target="A">Foreword</xref>
+               <xref target="B">Introduction</xref>
+               <xref target="C">Introduction Subsection</xref>
+               <xref target="AA">Abstract</xref>
+               <xref target="H">Clause I</xref>
+               <xref target="I">Clause I.A</xref>
+               <xref target="J">Clause I.A.1</xref>
+               <xref target="K">Clause I.B</xref>
+               <xref target="D">paragraph 1</xref>
+               <xref target="M">Clause III</xref>
+               <xref target="N">paragraph 2</xref>
+               <xref target="O">Clause III.A</xref>
+               <xref target="O1">Clause III.A.1</xref>
+               <xref target="O11">paragraph 3</xref>
+               <xref target="P">Annex I</xref>
+               <xref target="Q">Annex I.1</xref>
+               <xref target="Q1">Annex I.1.I</xref>
+               <xref target="Q11">paragraph I.1.I.A.1</xref>
+               <xref target="U">Annex II</xref>
+               <xref target="R">Normative References</xref>
+               <xref target="S">Bibliography</xref>
+               <xref target="T">Bibliography Subsection</xref>
+             </p>
+           </foreword>
+           <introduction id="B" obligation="informative" displayorder="3">
+             <title>Introduction</title>
+             <clause id="C" inline-header="false" obligation="informative">
+               <title depth="2">Introduction Subsection</title>
+               <p id="X1"/>
+               <p id="X2"/>
+             </clause>
+           </introduction>
          </preface>
          <sections>
          <clause id="H" obligation="normative" displayorder="6"><title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
@@ -1468,32 +1474,36 @@ RSpec.describe IsoDoc::UN do
 
     presxml = <<~OUTPUT
       <un-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <preface>
-        <foreword obligation="informative" displayorder="1">
-           <title>Foreword</title>
-           <p id="A">This is a preamble</p>
-         </foreword>
-          <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-           <title depth="2">Introduction Subsection</title>
-         </clause>
-         </introduction>
-         <abstract obligation="informative" displayorder="3">
-         <title>Summary</title>
-         <p id="AA">This is an abstract</p>
-         </abstract>
-         <clause id="H" obligation="normative" displayorder="4"><title depth="1">Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
-           <title depth="2">Normal Terms</title>
-           <term id="J">
-           <preferred>Term2</preferred>
-         </term>
-         </terms>
-         <definitions id="K">
-           <dl>
-           <dt>Symbol</dt>
-           <dd>Definition</dd>
-           </dl>
-         </definitions>
-         </clause>
+               <preface>
+           <abstract obligation="informative" displayorder="1">
+             <title>Summary</title>
+             <p id="AA">This is an abstract</p>
+           </abstract>
+           <foreword obligation="informative" displayorder="2">
+             <title>Foreword</title>
+             <p id="A">This is a preamble</p>
+           </foreword>
+           <introduction id="B" obligation="informative" displayorder="3">
+             <title>Introduction</title>
+             <clause id="C" inline-header="false" obligation="informative">
+               <title depth="2">Introduction Subsection</title>
+             </clause>
+           </introduction>
+           <clause id="H" obligation="normative" displayorder="4">
+             <title depth="1">Terms, Definitions, Symbols and Abbreviated Terms</title>
+             <terms id="I" obligation="normative">
+               <title depth="2">Normal Terms</title>
+               <term id="J">
+                 <preferred>Term2</preferred>
+               </term>
+             </terms>
+             <definitions id="K">
+               <dl>
+                 <dt>Symbol</dt>
+                 <dd>Definition</dd>
+               </dl>
+             </definitions>
+           </clause>
           </preface><sections>
          <clause id="D" obligation="normative" displayorder="6">
            <title depth="1">Scope</title>

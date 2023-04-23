@@ -31,6 +31,11 @@ module IsoDoc
 
         false
       end
+
+      def convert_i18n_init1(docxml)
+        super
+        docxml.xpath(ns("//bibdata/language")).size > 1 and @lang = "en"
+      end
     end
   end
 end
