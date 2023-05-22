@@ -2061,7 +2061,7 @@ RSpec.describe IsoDoc::UN do
       <un-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <sections>
           <clause displayorder="2">
-            <eref bibitemid='ISO712'>ISO&#xa0;712</eref>
+            <xref target="ISO712">ISO&#xa0;712</xref>
           </clause>
         </sections>
         <bibliography>
