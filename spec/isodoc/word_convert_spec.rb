@@ -447,7 +447,7 @@ RSpec.describe IsoDoc::UN do
       <bibdata type="standard">
       <ext><doctype>recommendation</doctype></ext>
       </bibdata>
-      #{BOILERPLATE}
+      #{boilerplate(Nokogiri::XML("#{BLANK_HDR}</un-standard>"))}
         <preface>
         <foreword obligation="informative">
            <title>Foreword</title>
@@ -485,84 +485,91 @@ RSpec.describe IsoDoc::UN do
 %r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(section1).not_to include "This is an abstract"
     expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~"OUTPUT")
-                       <div class="WordSection2">
-             <div>
-      <div class='boilerplate-legal'>
-        <div>
-          <div>
-            <p class='TitlePageSubhead'>Note</p>
-            <p class='MsoNormal'>
-              <a name='_' id='_'/>
-              The designations employed and the presentation of the material in
-              this publication do not imply the expression of any opinion
-              whatsoever on the part of the Secretariat of the United Nations
-              concerning the legal status of any country, territory, city or area,
-              or of its authorities, or concerning the delimitation of its
-              frontiers or boundaries.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class='boilerplate-copyright'>
-        <div>
-          <p class='MsoNormal'>
-            <a name='boilerplate-ECEhdr' id='boilerplate-ECEhdr'/>
-            ECE/TRADE/437
-          </p>
-          <p class='MsoNormal'>
-            <a name='_' id='_'/>
-            Copyright &#xA9; United Nations #{Time.now.year}
-            <br/>
-             All rights reserved worldwide
-            <br/>
-             United Nations publication issued by the Economic Commission for
-            Europe
-          </p>
-        </div>
-      </div>
-             </div>
-             <div><a name="preface_container" id="preface_container"></a><div>
-                     <p class="AbstractTitle">Summary</p>
-                     <p class="MsoNormal"><a name="AA" id="AA"></a>This is an abstract</p>
-                   </div><div>
-                     <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-                     <p class="ForewordTitle">Foreword</p>
-                     <p class="MsoNormal"><a name="A" id="A"></a>This is a preamble</p>
-                   </div><div class="Section3"><a name="B" id="B"></a>
-                     <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-                     <p class="IntroTitle">Introduction</p>
-                     <div><a name="C" id="C"></a><h2>Introduction Subsection</h2>
-                </div>
-                   </div>
-       </div>
-       <p class='MsoNormal'>
-         <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-       </p>
-       <div class='Section3'>
-         <a name='H' id='H'/>
-         <h1 class='IntroTitle'>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+           <div class="WordSection2">
          <div>
-           <a name='I' id='I'/>
-           <h2>Normal Terms</h2>
-           <p class='TermNum'>
-             <a name='J' id='J'/>
-           </p>
-           <p class='Terms' style='text-align:left;'>Term2</p>
+           <div class="boilerplate-legal">
+             <div>
+               <a name="_" id="_"/>
+               <div>
+                 <a name="_" id="_"/>
+                 <p class="TitlePageSubhead">Note</p>
+                 <div>
+                   <a name="_" id="_"/>
+                   <p class="MsoNormal"><a name="_" id="_"/>The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <div class="boilerplate-copyright">
+             <div>
+               <a name="_" id="_"/>
+               <div class="boilerplate-ECEhdr">
+                 <a name="boilerplate-ECEhdr" id="boilerplate-ECEhdr"/>
+                 <p class="MsoNormal"><a name="_" id="_"/>ECE/TRADE/437</p>
+               </div>
+               <div>
+                 <a name="_" id="_"/>
+                 <p class="MsoNormal"><a name="_" id="_"/>Copyright © United Nations 2023<br/>
+       All rights reserved worldwide<br/>
+       United Nations publication issued by the Economic Commission for Europe</p>
+               </div>
+             </div>
+           </div>
          </div>
          <div>
-           <a name='K' id='K'/>
-           <h2>Symbols</h2>
-           <table class='dl'>
-             <tr>
-               <td valign='top' align='left'>
-                 <p align='left' style='margin-left:0pt;text-align:left;' class='MsoNormal'>Symbol</p>
-               </td>
-               <td valign='top'>Definition</td>
-             </tr>
-           </table>
-                   </div></div>
-                   <p class="MsoNormal">&#xA0;</p>
-                 </div>
+           <a name="preface_container" id="preface_container"/>
+           <div>
+             <p class="AbstractTitle">Summary</p>
+             <p class="MsoNormal"><a name="AA" id="AA"/>This is an abstract</p>
+           </div>
+           <div>
+             <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <p class="ForewordTitle">Foreword</p>
+             <p class="MsoNormal"><a name="A" id="A"/>This is a preamble</p>
+           </div>
+           <div class="Section3">
+             <a name="B" id="B"/>
+             <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <p class="IntroTitle">Introduction</p>
+             <div>
+               <a name="C" id="C"/>
+               <h2>Introduction Subsection</h2>
+             </div>
+           </div>
+         </div>
+         <p class="MsoNormal">
+           <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+         </p>
+         <div class="Section3">
+           <a name="H" id="H"/>
+           <h1 class="IntroTitle">Terms, Definitions, Symbols and Abbreviated Terms</h1>
+           <div>
+             <a name="I" id="I"/>
+             <h2>Normal Terms</h2>
+             <p class="TermNum">
+               <a name="J" id="J"/>
+             </p>
+             <p class="Terms" style="text-align:left;">Term2</p>
+           </div>
+           <div>
+             <a name="K" id="K"/>
+             <h2>Symbols</h2>
+             <table class="dl">
+               <tr>
+                 <td valign="top" align="left">
+                   <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Symbol</p>
+                 </td>
+                 <td valign="top">Definition</td>
+               </tr>
+             </table>
+           </div>
+         </div>
+         <p class="MsoNormal"> </p>
+       </div>
     OUTPUT
   end
 end

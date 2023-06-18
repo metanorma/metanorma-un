@@ -15,6 +15,10 @@ module Metanorma
         "United Nations"
       end
 
+      def boilerplate_file(_xmldoc)
+        File.join(@libdir, "boilerplate.adoc")
+      end
+
       def metadata_committee(node, xml)
         return unless node.attr("committee")
 

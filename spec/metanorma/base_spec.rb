@@ -8,7 +8,7 @@ RSpec.describe Metanorma::UN do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-          #{BLANK_HDR}
+          #{blank_hdr_gen}
       <sections/>
       </un-standard>
     OUTPUT
@@ -28,7 +28,7 @@ RSpec.describe Metanorma::UN do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-          #{BLANK_HDR}
+          #{blank_hdr_gen}
           <sections>
         <clause id='_' inline-header='false' obligation='normative'>
           <title>Clause</title>
@@ -149,7 +149,7 @@ RSpec.describe Metanorma::UN do
       </session>
       </ext>
       </bibdata>
-          #{BOILERPLATE.sub(/United Nations #{Date.today.year}/, 'United Nations 2001')}
+          #{boilerplate(Nokogiri::XML("#{BLANK_HDR}</un-standard>")).sub(/United Nations #{Date.today.year}/, 'United Nations 2001')}
       <sections/>
       </un-standard>
     OUTPUT
@@ -396,7 +396,7 @@ RSpec.describe Metanorma::UN do
       ====
     INPUT
     output = <<~OUTPUT
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
        <sections>
          <note id="_">
          <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -419,7 +419,7 @@ RSpec.describe Metanorma::UN do
       ====
     INPUT
     output = <<~OUTPUT
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
        <sections>
          <admonition id="_" type="important" unnumbered="true" subsequence="A">
          <name>The United Nations Centre for Trade Facilitation and e-Business</name>
@@ -454,7 +454,7 @@ RSpec.describe Metanorma::UN do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
       <sections><clause id="_" inline-header="false" obligation="normative"><title>Section 1</title><clause id="_" inline-header="true" obligation="normative"><p id="_">Para 1</p><ul id="_">
            <li>
              <p id="_">A</p>
@@ -504,7 +504,7 @@ RSpec.describe Metanorma::UN do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-      #{BLANK_HDR.sub(%r{<doctype>recommendation</doctype>}, '<doctype>agenda</doctype>')}
+      #{blank_hdr_gen.sub(%r{<doctype>recommendation</doctype>}, '<doctype>agenda</doctype>')}
       <sections><clause id="_" inline-header="false" obligation="normative"><title>Section 1</title><p id="_">Para 1</p><ul id="_">
            <li>
              <p id="_">A</p>
@@ -668,7 +668,7 @@ RSpec.describe Metanorma::UN do
       === Bibliography Subsection
     INPUT
     output = <<~OUTPUT
-          #{BLANK_HDR.sub(/<status>/, '<abstract> <p>Text</p> </abstract> <status>')}
+          #{blank_hdr_gen.sub(/<status>/, '<abstract> <p>Text</p> </abstract> <status>')}
               <preface>
           <abstract id='_'>
           <title>Summary</title>
@@ -875,7 +875,7 @@ RSpec.describe Metanorma::UN do
       === Bibliography Subsection
     INPUT
     output = <<~OUTPUT
-         #{BLANK_HDR.sub(/<status>/, '<abstract> <p>Text</p> </abstract> <status>')}
+         #{blank_hdr_gen.sub(/<status>/, '<abstract> <p>Text</p> </abstract> <status>')}
          <preface>
         <abstract id='_'>
         <title>Summary</title>
