@@ -14,7 +14,7 @@ RSpec.describe Metanorma::UN::Processor do
   end
 
   it "registers output formats against metanorma" do
-    output = <<~"OUTPUT"
+    output = <<~OUTPUT
       [[:doc, "doc"], [:html, "html"], [:pdf, "pdf"], [:presentation, "presentation.xml"], [:rxl, "rxl"], [:xml, "xml"]]
     OUTPUT
 
@@ -31,7 +31,7 @@ RSpec.describe Metanorma::UN::Processor do
     INPUT
 
     output = xmlpp(strip_guid(<<~"OUTPUT"))
-          #{BLANK_HDR}
+          #{blank_hdr_gen}
       <sections/>
       </un-standard>
     OUTPUT
@@ -43,7 +43,7 @@ RSpec.describe Metanorma::UN::Processor do
   it "generates HTML from IsoDoc XML" do
     FileUtils.rm_f "test.xml"
     FileUtils.rm_f "test.html"
-    input = <<~"INPUT"
+    input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
       <clause id="D" obligation="normative">
@@ -54,7 +54,7 @@ RSpec.describe Metanorma::UN::Processor do
       </un-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = xmlpp(<<~OUTPUT)
       <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
         <div id="D">
           <h1 id="_">1.&#xA0; Scope</h1>
@@ -75,7 +75,7 @@ RSpec.describe Metanorma::UN::Processor do
   it "generates DOC from IsoDoc XML" do
     FileUtils.rm_f "test.xml"
     FileUtils.rm_f "test.doc"
-    input = <<~"INPUT"
+    input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
       <clause id="D" obligation="normative">

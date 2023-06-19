@@ -89,25 +89,28 @@ VALIDATING_BLANK_HDR = <<~"HDR".freeze
 
 HDR
 
-BOILERPLATE =
-  HTMLEntities.new.decode(
-    File.read(File.join(
-                File.dirname(__FILE__), "..", "lib", "metanorma", "un", "boilerplate.xml"
-              ), encoding: "utf-8")
-    .gsub(/\{\{ agency \}\}/, "ISO")
-      .gsub(/\{\{ docyear \}\}/, Date.today.year.to_s)
-    .gsub(/\{% if unpublished %\}.*\{% endif %\}/m, "")
-    .gsub(/<p>/, "<p id='_'>")
-    .gsub(/\{% if subdivision %\}\{\{subdivision\}\}\{% else %\}/, "")
-    .gsub(/\{% if pub_phone %\}\{\{ pub_phone \}\}\{% else %\}/, "")
-    .gsub(/\{% if pub_address %\}\{\{ pub_address \}\}\{% else %\}/, "")
-    .gsub(/\{% if pub_fax %\}.+?<\/link>\s*<br\/>/m, "")
-    .gsub(/\{% if pub_email %\}\{\{ pub_email \}\}\{% else %\}/, "")
-    .gsub(/\{% if pub_uri %\}\{\{pub_uri\}\}\{% else %\}/, "")
-    .gsub(/\{% if tc == "United Nations Centre for Trade Facilitation and Electronic Business \(UN\/CEFACT\)" %\}.*?\{% endif %\}/m, "")
-    .gsub(/\{% endif %\}/, "")
-    .gsub(/(?<=\p{Alnum})'(?=\p{Alpha})/, "’"),
-  )
+def boilerplate_read(file, xmldoc)
+  conv = Metanorma::UN::Converter.new(:un, {})
+  conv.init(Asciidoctor::Document.new([]))
+  x = conv.boilerplate_isodoc(xmldoc).populate_template(file, nil)
+  ret = conv.boilerplate_file_restructure(x)
+  ret.to_xml(encoding: "UTF-8", indent: 2,
+             save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
+    .gsub(/<(\/)?sections>/, "<\\1boilerplate>")
+    .gsub(/ id="_[^"]+"/, " id='_'")
+end
+
+def boilerplate(xmldoc)
+  file = File.join(File.dirname(__FILE__), "..", "lib", "metanorma", "un",
+                   "boilerplate.adoc")
+  ret = Nokogiri::XML(boilerplate_read(
+                        File.read(file, encoding: "utf-8")
+                        .gsub(/<\/?membership>/, ""), xmldoc
+                      ))
+  ret.xpath("//passthrough").each(&:remove)
+  strip_guid(ret.root.to_xml(encoding: "UTF-8", indent: 2,
+                             save_with: Nokogiri::XML::Node::SaveOptions::AS_XML))
+end
 
 BLANK_HDR = <<~"HDR".freeze
   <?xml version="1.0" encoding="UTF-8"?>
@@ -162,8 +165,14 @@ BLANK_HDR = <<~"HDR".freeze
               <value>2</value>
             </presentation-metadata>
           </metanorma-extension>
-  #{BOILERPLATE}
 HDR
+
+def blank_hdr_gen
+  <<~"HDR"
+    #{BLANK_HDR}
+    #{boilerplate(Nokogiri::XML("#{BLANK_HDR}</un-standard>"))}
+  HDR
+end
 
 HTML_HDR = <<~"HDR".freeze
   <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">

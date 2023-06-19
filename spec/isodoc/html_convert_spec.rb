@@ -1731,7 +1731,7 @@ RSpec.describe IsoDoc::UN do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-        #{BLANK_HDR}
+        #{blank_hdr_gen}
       <sections/>
       </un-standard>
     OUTPUT

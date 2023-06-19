@@ -1,0 +1,56 @@
+== copyright-statement
+=== {blank}
+
+[[boilerplate-ECEhdr]]
+ECE/TRADE/437
+
+Copyright © United Nations {{ docyear }} +
+All rights reserved worldwide +
+United Nations publication issued by the Economic Commission for Europe
+
+== license-statement
+=== {blank}
+None of the materials provided on this web site may be used,
+reproduced or transmitted, in whole or in part, in any form or by any
+means, electronic or mechanical, including photocopying, recording or
+the use of any information storage and retrieval system, except as
+provided for in the Terms and Conditions of Use of United Nations Web
+Sites, without permission in writing from the publisher.
+
+News-related material can be used as long as the appropriate credit is given and the United Nations is advised.
+
+To request such permission or for further enquires, please visit:
+https://shop.un.org/rights-permissions[United Nations Publications: Rights and Permissions.]
+
+== legal-statement
+=== {blank}
+==== Note
+The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.
+
+{% if tc == "United Nations Centre for Trade Facilitation and Electronic Business (UN/CEFACT)" %}
+==== <title>{{tc}}pass:[<br/>]Simple, Transparent and Effective Processes for Global Commerce
+
+UN/CEFACT's mission is to improve the ability of business, trade and administrative organizations, from developed, developing and transitional economies, to exchange products and relevant services effectively. Its principal focus is on facilitating national and international transactions, through the simplification and harmonization of processes, procedures and information flows, and so contribute to the growth of global commerce.
+
+Participation in UN/CEFACT is open to experts from United Nations Member States, Intergovernmental Organizations and Non-Governmental Organizations recognised by the United Nations Economic and Social Council (ECOSOC). Through this participation of government and business representatives from around the world, UN/CEFACT has developed a range of trade facilitation and e-business standards, recommendations and tools that are approved within a broad intergovernmental process and implemented globally.
+
+[align="center"]
+*www.unece.org/cefact*
+{% endif %}
+
+== feedback-statement
+[[boilerplate-feedback-name]]
+{% if subdivision %}{{subdivision}}{% else %}UN Economic Commission for Europe: Information Service{% endif %}
+
+[[boilerplate-feedback-address]]
+{% if pub_address %}{{ pub_address }}{% else %}
+Palais des Nations +
+CH-1211 Geneva 10 +
+Switzerland{% endif %} +
+ +
++++<link target="tel:{% if pub_phone %}{{ pub_phone }}{% else %}+41(0)229171234{% endif %}">{% if pub_phone %}{{ pub_phone }}{% else %}+41 (0) 22 917 12 34 (switchboard){% endif %}</link>+++ +
+{% if pub_fax %}+++<link target="tel:{{pub_fax}}">{{pub_fax}}+++ +{% endif %}       
++++<link target="mailto:{% if pub_email %}{{ pub_email }}{% else %}unece_info@un.org{% endif %}">{% if pub_email %}{{ pub_email }}{% else %}unece_info@un.org{% endif %}+++ +
++++<link target="{% if pub_uri %}{{pub_uri}}{% else %}https://www.unece.org/{% endif %}">{% if pub_uri %}{{pub_uri}}{% else %}www.unece.org/{% endif %}</link>+++
+
+
