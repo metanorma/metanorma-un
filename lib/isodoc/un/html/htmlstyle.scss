@@ -424,7 +424,7 @@ ol ul > li:first-child {
   list-style-type: none;
 }
 
-#toc li:before {
+#toc li::before {
   content: " ";
   display: none;
 }
