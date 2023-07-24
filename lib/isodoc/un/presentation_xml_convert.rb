@@ -9,6 +9,8 @@ module IsoDoc
         @toc = options[:toc]
       end
 
+      def middle_title(docxml); end
+
       def note1(elem)
         return if elem.parent.name == "bibitem"
         return if elem["type"] == "title-footnote"

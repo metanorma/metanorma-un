@@ -65,23 +65,6 @@ module IsoDoc
         end
       end
 
-      def make_body3(body, docxml)
-        body.div class: "main-section" do |div3|
-          boilerplate docxml, div3
-          front docxml, div3
-          middle docxml, div3
-          footnotes div3
-          comments div3
-        end
-      end
-
-      def middle(isoxml, out)
-        middle_admonitions(isoxml, out)
-        clause isoxml, out
-        annex isoxml, out
-        bibliography isoxml, out
-      end
-
       def introduction(clause, out)
         page_break(out)
         out.div class: "Section3", id: clause["id"] do |div|
