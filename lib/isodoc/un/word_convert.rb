@@ -86,7 +86,7 @@ module IsoDoc
         out.parent.add_child(ENDLINE)
       end
 
-      def content(out, isoxml, xpath)
+      def make_body3(out, isoxml)
         super
         end_line(isoxml, out)
       end
