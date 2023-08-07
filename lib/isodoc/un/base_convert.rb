@@ -7,6 +7,15 @@ module IsoDoc
         "//clause[parent::sections]"
       end
 
+      def norm_ref_xpath
+        "//null"
+      end
+
+      def bibliography_xpath
+        "//bibliography/clause[.//references] | " \
+          "//bibliography/references"
+      end
+
       def admonition_parse(node, out)
         name = node.at(ns("./name"))
         out.div **admonition_attrs(node) do |t|
@@ -18,7 +27,7 @@ module IsoDoc
       end
 
       def inline_header_title(out, _node, title)
-        out.span **{ class: "zzMoveToFollowing" } do |s|
+        out.span class: "zzMoveToFollowing" do |s|
           title&.children&.each { |c2| parse(c2, s) }
           clausedelimspace(_node, out) if /\S/.match?(title&.text)
         end
@@ -30,6 +39,10 @@ module IsoDoc
         return true if docxml&.at(ns("//bibdata/ext/session/*"))
 
         false
+      end
+
+      def norm_ref(node, out)
+        bibliography(node, out)
       end
 
       def convert_i18n_init1(docxml)

@@ -1,7 +1,7 @@
 require "spec_helper"
 
-logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib", 
-"isodoc", "un", "html"))
+logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib",
+                                     "isodoc", "un", "html"))
 
 RSpec.describe IsoDoc::UN do
   it "processes default metadata, recommendation" do
@@ -99,9 +99,10 @@ RSpec.describe IsoDoc::UN do
       :vote_starteddate=>"XXX"}
     OUTPUT
 
-    docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s).gsub(/, :/, 
-",\n:")).to be_equivalent_to output
+    docxml, _filename, _dir = csdc.convert_init(input, "test", true)
+    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
+      .gsub(", :", ",\n:"))
+      .to be_equivalent_to output
   end
 
   it "processes default metadata, plenary" do
@@ -202,16 +203,18 @@ RSpec.describe IsoDoc::UN do
       :vote_starteddate=>"XXX"}
     OUTPUT
 
-    docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s).gsub(/, :/, 
-",\n:")).to be_equivalent_to output
+    docxml, _filename, _dir = csdc.convert_init(input, "test", true)
+    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
+      .gsub(", :", ",\n:"))
+      .to be_equivalent_to output
   end
 
   it "processes inline section headers" do
     input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
-       <clause id="M" inline-header="false" obligation="normative"><title>I.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+       <clause id="M" inline-header="false" obligation="normative" displayorder="1">
+         <title>I.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>A.<tab/>Introduction</title>
        </clause>
        <clause id="O" inline-header="true" obligation="normative">
@@ -248,7 +251,7 @@ RSpec.describe IsoDoc::UN do
         </un-standard>
     INPUT
     presxml = IsoDoc::UN::PresentationXMLConvert.new({ toc: true })
-        .convert("test", input, true)
+      .convert("test", input, true)
     IsoDoc::UN::WordConvert.new({ toc: true }).convert("test", presxml, false)
     html = File.read("test.doc", encoding: "utf-8")
     expect(html).to include "This is a plenary page"
@@ -280,7 +283,7 @@ RSpec.describe IsoDoc::UN do
         <title language="en" format="plain">Main Title</title>
         <ext><doctype>plenary</doctype></ext>
         </bibdata>
-        <preface><abstract><title>Abstract</title><p>123</p></abstract></preface>
+        <preface><abstract displayorder="1"><title>Abstract</title><p>123</p></abstract></preface>
         <sections/>
         </un-standard>
     INPUT
@@ -330,18 +333,18 @@ RSpec.describe IsoDoc::UN do
       <ext><doctype>plenary</doctype></ext>
       </bibdata>
         <preface>
-        <foreword obligation="informative">
+        <foreword obligation="informative" displayorder="1">
            <title>Foreword</title>
            <p id="A">This is a preamble</p>
          </foreword>
-          <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+          <introduction id="B" obligation="informative" displayorder="2"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
            <title>Introduction Subsection</title>
          </clause>
          </introduction>
-         <abstract obligation="informative">
+         <abstract obligation="informative" displayorder="3">
          <p id="AA">This is an abstract</o>
          </abstract>
-         <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+         <clause id="H" obligation="normative" displayorder="4"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
            <title>Normal Terms</title>
            <term id="J">
            <preferred>Term2</preferred>
@@ -358,10 +361,12 @@ RSpec.describe IsoDoc::UN do
     INPUT
     IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
     html = File.read("test.doc", encoding: "utf-8")
-    section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(
-%r{<div class="WordSection2">.*$}m, "")
-    section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(
-%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    section1 = html
+      .sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">')
+      .sub(%r{<div class="WordSection2">.*$}m, "")
+    section2 = html
+      .sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">')
+      .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(section1).to include "This is an abstract"
     expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~OUTPUT)
                <div class="WordSection2">
@@ -418,7 +423,8 @@ RSpec.describe IsoDoc::UN do
       <ext><doctype>plenary</doctype></ext>
       </bibdata>
         <preface>
-          </preface><sections>
+          </preface><sections/>
+          </un-standard>
     INPUT
     IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
     html = File.read("test.doc", encoding: "utf-8")
@@ -433,7 +439,8 @@ RSpec.describe IsoDoc::UN do
       <ext><doctype>plenary</doctype></ext>
       </bibdata>
         <preface>
-          </preface><sections>
+          </preface><sections/>
+          </un-standard>
     INPUT
     IsoDoc::UN::WordConvert.new({ toc: true }).convert("test", input, false)
     html = File.read("test.doc", encoding: "utf-8")
@@ -449,19 +456,20 @@ RSpec.describe IsoDoc::UN do
       </bibdata>
       #{boilerplate(Nokogiri::XML("#{BLANK_HDR}</un-standard>"))}
         <preface>
-        <foreword obligation="informative">
+        <foreword obligation="informative" displayorder="1">
            <title>Foreword</title>
            <p id="A">This is a preamble</p>
          </foreword>
-          <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+          <introduction id="B" obligation="informative" displayorder="1">
+           <title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
            <title>Introduction Subsection</title>
          </clause>
          </introduction>
-         <abstract obligation="informative">
+         <abstract obligation="informative" displayorder="3">
          <title>Summary</title>
          <p id="AA">This is an abstract</o>
          </abstract>
-         <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+         <clause id="H" obligation="normative" displayorder="4"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
            <title>Normal Terms</title>
            <term id="J">
            <preferred>Term2</preferred>
@@ -479,97 +487,99 @@ RSpec.describe IsoDoc::UN do
     INPUT
     IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
     html = File.read("test.doc", encoding: "utf-8")
-    section1 = html.sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">').sub(
-%r{<div class="WordSection2">.*$}m, "")
-    section2 = html.sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">').sub(
-%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    section1 = html
+      .sub(%r{^.*<div class="WordSection1">}m, '<div class="WordSection1">')
+      .sub(%r{<div class="WordSection2">.*$}m, "")
+    section2 = html
+      .sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">')
+      .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(section1).not_to include "This is an abstract"
-    expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~"OUTPUT")
-           <div class="WordSection2">
-         <div>
-           <div class="boilerplate-legal">
-             <div>
-               <a name="_" id="_"/>
-               <div>
-                 <a name="_" id="_"/>
-                 <p class="TitlePageSubhead">Note</p>
-                 <div>
-                   <a name="_" id="_"/>
-                   <p class="MsoNormal"><a name="_" id="_"/>The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="boilerplate-copyright">
-             <div>
-               <a name="_" id="_"/>
-               <div class="boilerplate-ECEhdr">
-                 <a name="boilerplate-ECEhdr" id="boilerplate-ECEhdr"/>
-                 <p class="MsoNormal"><a name="_" id="_"/>ECE/TRADE/437</p>
-               </div>
-               <div>
-                 <a name="_" id="_"/>
-                 <p class="MsoNormal"><a name="_" id="_"/>Copyright © United Nations 2023<br/>
-       All rights reserved worldwide<br/>
-       United Nations publication issued by the Economic Commission for Europe</p>
-               </div>
-             </div>
-           </div>
-         </div>
-         <div>
-           <a name="preface_container" id="preface_container"/>
-           <div>
-             <p class="AbstractTitle">Summary</p>
-             <p class="MsoNormal"><a name="AA" id="AA"/>This is an abstract</p>
-           </div>
-           <div>
-             <p class="MsoNormal">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-             </p>
-             <p class="ForewordTitle">Foreword</p>
-             <p class="MsoNormal"><a name="A" id="A"/>This is a preamble</p>
-           </div>
-           <div class="Section3">
-             <a name="B" id="B"/>
-             <p class="MsoNormal">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-             </p>
-             <p class="IntroTitle">Introduction</p>
-             <div>
-               <a name="C" id="C"/>
-               <h2>Introduction Subsection</h2>
-             </div>
-           </div>
-         </div>
-         <p class="MsoNormal">
-           <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-         </p>
-         <div class="Section3">
-           <a name="H" id="H"/>
-           <h1 class="IntroTitle">Terms, Definitions, Symbols and Abbreviated Terms</h1>
-           <div>
-             <a name="I" id="I"/>
-             <h2>Normal Terms</h2>
-             <p class="TermNum">
-               <a name="J" id="J"/>
-             </p>
-             <p class="Terms" style="text-align:left;">Term2</p>
-           </div>
-           <div>
-             <a name="K" id="K"/>
-             <h2>Symbols</h2>
-             <table class="dl">
-               <tr>
-                 <td valign="top" align="left">
-                   <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Symbol</p>
-                 </td>
-                 <td valign="top">Definition</td>
-               </tr>
-             </table>
-           </div>
-         </div>
-         <p class="MsoNormal"> </p>
-       </div>
+    expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~OUTPUT)
+          <div class="WordSection2">
+        <div>
+          <div class="boilerplate-legal">
+            <div>
+              <a name="_" id="_"/>
+              <div>
+                <a name="_" id="_"/>
+                <p class="TitlePageSubhead">Note</p>
+                <div>
+                  <a name="_" id="_"/>
+                  <p class="MsoNormal"><a name="_" id="_"/>The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="boilerplate-copyright">
+            <div>
+              <a name="_" id="_"/>
+              <div class="boilerplate-ECEhdr">
+                <a name="boilerplate-ECEhdr" id="boilerplate-ECEhdr"/>
+                <p class="MsoNormal"><a name="_" id="_"/>ECE/TRADE/437</p>
+              </div>
+              <div>
+                <a name="_" id="_"/>
+                <p class="MsoNormal"><a name="_" id="_"/>Copyright © United Nations 2023<br/>
+      All rights reserved worldwide<br/>
+      United Nations publication issued by the Economic Commission for Europe</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <a name="preface_container" id="preface_container"/>
+          <div>
+            <p class="AbstractTitle">Summary</p>
+            <p class="MsoNormal"><a name="AA" id="AA"/>This is an abstract</p>
+          </div>
+          <div>
+            <p class="MsoNormal">
+              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <p class="ForewordTitle">Foreword</p>
+            <p class="MsoNormal"><a name="A" id="A"/>This is a preamble</p>
+          </div>
+          <div class="Section3">
+            <a name="B" id="B"/>
+            <p class="MsoNormal">
+              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <p class="IntroTitle">Introduction</p>
+            <div>
+              <a name="C" id="C"/>
+              <h2>Introduction Subsection</h2>
+            </div>
+          </div>
+        </div>
+        <p class="MsoNormal">
+          <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+        </p>
+        <div class="Section3">
+          <a name="H" id="H"/>
+          <h1 class="IntroTitle">Terms, Definitions, Symbols and Abbreviated Terms</h1>
+          <div>
+            <a name="I" id="I"/>
+            <h2>Normal Terms</h2>
+            <p class="TermNum">
+              <a name="J" id="J"/>
+            </p>
+            <p class="Terms" style="text-align:left;">Term2</p>
+          </div>
+          <div>
+            <a name="K" id="K"/>
+            <h2>Symbols</h2>
+            <table class="dl">
+              <tr>
+                <td valign="top" align="left">
+                  <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Symbol</p>
+                </td>
+                <td valign="top">Definition</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <p class="MsoNormal"> </p>
+      </div>
     OUTPUT
   end
 end

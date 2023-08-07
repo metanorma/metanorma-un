@@ -46,7 +46,7 @@ RSpec.describe Metanorma::UN::Processor do
     input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
-      <clause id="D" obligation="normative">
+      <clause id="D" obligation="normative" displayorder="1">
            <title>1.<tab/>Scope</title>
            <p id="E">Text</p>
          </clause>
@@ -78,7 +78,7 @@ RSpec.describe Metanorma::UN::Processor do
     input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
-      <clause id="D" obligation="normative">
+      <clause id="D" obligation="normative" displayorder="1">
            <title>1.<tab/>Scope</title>
            <p id="E">Text</p>
          </clause>

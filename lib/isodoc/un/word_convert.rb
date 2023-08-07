@@ -73,34 +73,21 @@ module IsoDoc
         end
       end
 
-      def make_body2(body, docxml)
-        body.div class: "WordSection2" do |div2|
-          info docxml, div2
-          boilerplate docxml, div2
-          front docxml, div2
-          div2.p { |p| p << "&#xa0;" } # placeholder
-        end
-        section_break(body)
-      end
-
-      ENDLINE = <<~END.freeze
+      ENDLINE = <<~ENDLINE.freeze
              <v:line
         alt="" style='position:absolute;left:0;text-align:left;z-index:251662848;
         mso-wrap-edited:f;mso-width-percent:0;mso-height-percent:0;
         mso-width-percent:0;mso-height-percent:0'
         from="6.375cm,20.95pt" to="10.625cm,20.95pt"
         strokeweight="1.5pt"/>
-      END
+      ENDLINE
 
       def end_line(_isoxml, out)
         out.parent.add_child(ENDLINE)
       end
 
-      def middle(isoxml, out)
-        middle_admonitions(isoxml, out)
-        clause isoxml, out
-        annex isoxml, out
-        bibliography isoxml, out
+      def make_body3(out, isoxml)
+        super
         end_line(isoxml, out)
       end
 
@@ -108,7 +95,7 @@ module IsoDoc
         out.div class: "Section3", id: clause["id"] do |div|
           page_break(out)
           div.p(class: "IntroTitle") do |h1|
-            clause&.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
+            clause.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
           end
           clause.elements.each do |e|
             parse(e, div) unless e.name == "title"
@@ -120,7 +107,7 @@ module IsoDoc
         out.div **attr_code(id: clause["id"]) do |s|
           page_break(out)
           s.p(class: "ForewordTitle") do |h1|
-            clause&.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
+            clause.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
           end
           clause.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
@@ -137,7 +124,7 @@ module IsoDoc
         abstract.parent = (abstractbox || preface_container) if abstract &&
           (abstractbox || preface_container)
         abstractbox and abstract&.xpath(".//p/br")&.each do |a|
-          a.parent.remove if /page-break-before:always/.match?(a["style"])
+          a.parent.remove if a["style"].include?("page-break-before:always")
         end
         docxml&.at("//p[@class = 'AbstractTitle']")&.remove if abstractbox
         foreword.parent = preface_container if foreword && preface_container
@@ -157,7 +144,7 @@ module IsoDoc
         out.div **attr_code(id: clause["id"]) do |s|
           page_break(out)
           s.p(class: "AbstractTitle") do |h1|
-            clause&.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
+            clause.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
           end
           clause.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
@@ -167,7 +154,7 @@ module IsoDoc
         super
         a = docxml.at("//div[@id = 'boilerplate-ECEhdr']") and
           a["class"] = "boilerplate-ECEhdr"
-        docxml&.at("//div[@class = 'authority']")&.remove
+        docxml.at("//div[@class = 'authority']")&.remove
       end
 
       include BaseConvert
