@@ -318,7 +318,7 @@ RSpec.describe IsoDoc::UN do
            </acknowledgements>
          </preface>
          <sections>
-         <clause id="H" obligation="normative" displayorder="6">
+         <clause id="H" obligation="normative" displayorder="5">
           <title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
            <title depth="2">A.<tab/>Normal Terms</title>
            <term id="J"><name>1.</name>
@@ -332,11 +332,11 @@ RSpec.describe IsoDoc::UN do
            </dl>
          </definitions>
          </clause>
-         <clause id="D" obligation="normative" displayorder="7">
+         <clause id="D" obligation="normative" displayorder="6">
            <title depth="1">II.<tab/>Scope</title>
          </clause>
 
-         <clause id="M" inline-header="false" obligation="normative" displayorder="8">
+         <clause id="M" inline-header="false" obligation="normative" displayorder="7">
           <title depth="1">III.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
            <title depth="2">A.<tab/>Introduction</title>
          </clause>
@@ -349,7 +349,7 @@ RSpec.describe IsoDoc::UN do
            </clause>
            </clause>
          </clause></clause>
-         </sections><annex id="P" inline-header="false" obligation="normative" displayorder="9">
+         </sections><annex id="P" inline-header="false" obligation="normative" displayorder="8">
            <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
            <clause id="Q" inline-header="false" obligation="normative">
            <title depth="2">1.<tab/>Annex A.1</title>
@@ -361,14 +361,14 @@ RSpec.describe IsoDoc::UN do
            </clause>
          </clause>
          </annex>
-         <annex id="U" inline-header="false" obligation="normative" displayorder="10">
+         <annex id="U" inline-header="false" obligation="normative" displayorder="9">
          <title><strong>Annex II</strong><br/><strong>Terminal annex</strong></title>
          </annex>
           <bibliography>
-         <references id="R" obligation="informative" normative="true" displayorder="11">
+         <references id="R" obligation="informative" normative="true" displayorder="10">
            <title depth="1">Normative References</title>
          </references>
-         <clause id="S" obligation="informative" displayorder="12">
+         <clause id="S" obligation="informative" displayorder="11">
            <title depth="1">Bibliography</title>
            <references id="T" obligation="informative" normative="false">
            <title depth="2">Bibliography Subsection</title>
@@ -845,7 +845,7 @@ RSpec.describe IsoDoc::UN do
            </introduction>
          </preface>
          <sections>
-         <clause id="H" obligation="normative" displayorder="6">
+         <clause id="H" obligation="normative" displayorder="4">
           <title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
            <title depth="2">A.<tab/>Normal Terms</title>
            <term id="J"><name>1.</name>
@@ -859,13 +859,13 @@ RSpec.describe IsoDoc::UN do
            </dl>
          </definitions>
          </clause>
-         <clause id="D" obligation="normative" type="scope" displayorder="7">
+         <clause id="D" obligation="normative" type="scope" displayorder="5">
            <title depth="1">1.<tab/>Scope</title>
            <p id="A4">Text</p>
          </clause>
 
-         <clause id="M" inline-header="false" obligation="normative" displayorder="8">
-          <title depth="1">III.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+         <clause id="M" inline-header="false" obligation="normative" displayorder="6">
+          <title depth="1">II.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
            <title depth="2">2.<tab/>Introduction</title>
            <p id="A5">Text</p>
          </clause>
@@ -879,7 +879,7 @@ RSpec.describe IsoDoc::UN do
            </clause>
            </clause>
          </clause></clause>
-         </sections><annex id="P" inline-header="false" obligation="normative" displayorder="9">
+         </sections><annex id="P" inline-header="false" obligation="normative" displayorder="7">
            <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
            <clause id="Q" inline-header="false" obligation="normative">
            <title depth="2">1.<tab/>Annex A.1</title>
@@ -892,15 +892,15 @@ RSpec.describe IsoDoc::UN do
            </clause>
          </clause>
          </annex>
-         <annex id="U" inline-header="false" obligation="normative" displayorder="10">
+         <annex id="U" inline-header="false" obligation="normative" displayorder="8">
          <title><strong>Annex II</strong><br/><strong>Terminal annex</strong></title>
            <p id="A8">Text</p>
          </annex>
           <bibliography>
-          <references id="R" obligation="informative" normative="true" displayorder="11">
+          <references id="R" obligation="informative" normative="true" displayorder="9">
               <title depth="1">Normative References</title>
               </references>
-         <clause id="S" obligation="informative" displayorder="12">
+         <clause id="S" obligation="informative" displayorder="10">
            <title depth="1">Bibliography</title>
            <references id="T" obligation="informative" normative="false">
            <title depth="2">Bibliography Subsection</title>
@@ -952,7 +952,7 @@ RSpec.describe IsoDoc::UN do
               <p id='A4'>Text</p>
             </div>
             <div id='M'>
-              <h1>III.&#160; Clause 4</h1>
+              <h1>II.&#160; Clause 4</h1>
               <div id='N'>
                 <h2>2.&#160; Introduction</h2>
                 <p id='A5'>Text</p>
@@ -1081,7 +1081,7 @@ RSpec.describe IsoDoc::UN do
              </div>
              <div id='M'>
                <h1>
-                 III.
+                 II.
                  <span style='mso-tab-count:1'>&#160; </span>
                  Clause 4
                </h1>
@@ -1328,10 +1328,10 @@ RSpec.describe IsoDoc::UN do
                <xref target="J">Clause I.A.1</xref>
                <xref target="K">Clause I.B</xref>
                <xref target="D">paragraph 1</xref>
-               <xref target="M">Clause III</xref>
+               <xref target="M">Clause II</xref>
                <xref target="N">paragraph 2</xref>
-               <xref target="O">Clause III.A</xref>
-               <xref target="O1">Clause III.A.1</xref>
+               <xref target="O">Clause II.A</xref>
+               <xref target="O1">Clause II.A.1</xref>
                <xref target="O11">paragraph 3</xref>
                <xref target="P">Annex I</xref>
                <xref target="Q">Annex I.1</xref>
@@ -1353,8 +1353,9 @@ RSpec.describe IsoDoc::UN do
            </introduction>
          </preface>
          <sections>
-         <clause id="H" obligation="normative" displayorder="5">
-            <title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+         <clause id="H" obligation="normative" displayorder="4">
+            <title depth="1">I.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
+          <terms id="I" obligation="normative">
            <title depth="2">A.<tab/>Normal Terms</title>
            <term id="J"><name>1.</name>
            <preferred>Term2</preferred>
@@ -1367,14 +1368,14 @@ RSpec.describe IsoDoc::UN do
            </dl>
          </definitions>
          </clause>
-         <clause id="D" obligation="normative" displayorder="6">
+         <clause id="D" obligation="normative" displayorder="5">
            <title depth="1">1.<tab/>Scope</title>
            <p id="X5"/>
            <p id="X6"/>
          </clause>
 
-         <clause id="M" inline-header="false" obligation="normative" displayorder="7">
-          <title depth="1">III.<tab/>Clause 4</title><p id="X6a"/><clause id="N" inline-header="false" obligation="normative">
+         <clause id="M" inline-header="false" obligation="normative" displayorder="6">
+          <title depth="1">II.<tab/>Clause 4</title><p id="X6a"/><clause id="N" inline-header="false" obligation="normative">
            <title depth="2">2.<tab/>Introduction</title>
            <p id="X7"/>
            <p id="X8"/>
@@ -1394,7 +1395,7 @@ RSpec.describe IsoDoc::UN do
            </clause>
            </clause>
          </clause></clause>
-         </sections><annex id="P" inline-header="false" obligation="normative" displayorder="8">
+         </sections><annex id="P" inline-header="false" obligation="normative" displayorder="7">
            <title><strong>Annex I</strong><br/><strong>Annex</strong></title>
            <p id="X15"/>
            <p id="X16"/>
@@ -1414,16 +1415,16 @@ RSpec.describe IsoDoc::UN do
            </clause>
          </clause>
          </annex>
-         <annex id="U" inline-header="false" obligation="normative" displayorder="9">
+         <annex id="U" inline-header="false" obligation="normative" displayorder="8">
          <title><strong>Annex II</strong><br/><strong>Terminal annex</strong></title>
            <p id="X23"/>
            <p id="X24"/>
          </annex>
           <bibliography>
-         <references id="R" obligation="informative" normative="true" displayorder="10">
+         <references id="R" obligation="informative" normative="true" displayorder="9">
            <title depth="1">Normative References</title>
          </references>
-         <clause id="S" obligation="informative" displayorder="11">
+         <clause id="S" obligation="informative" displayorder="10">
            <title depth="1">Bibliography</title>
            <references id="T" obligation="informative" normative="false">
            <title depth="2">Bibliography Subsection</title>
