@@ -46,6 +46,8 @@ module IsoDoc
         super
       end
 
+      def move_norm_ref_to_sections(docxml); end
+
       include Init
     end
   end
