@@ -14,11 +14,11 @@ module IsoDoc
       end
 
       def pdf_stylesheet(docxml)
-        case doctype = docxml&.at(ns("//bibdata/ext/doctype"))&.text
+        case @doctype
         when "plenary", "agenda", "budgetary" 
           "un.plenary.xsl"
         else
-          docxml&.at(ns("//bibdata/ext/session/*")) ?
+          docxml.at(ns("//bibdata/ext/session/*")) ?
             "un.plenary-attachment.xsl" : "un.recommendation.xsl"
         end
       end

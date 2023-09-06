@@ -192,8 +192,7 @@ module Metanorma
       end
 
       def para_to_clause(xmldoc)
-        doctype = xmldoc&.at("//bibdata/ext/doctype")&.text
-        %w(plenary agenda budgetary).include?(doctype) or
+        %w(plenary agenda budgetary).include?(@doctype) or
           para_to_clause1(xmldoc)
       end
 

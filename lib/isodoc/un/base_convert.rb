@@ -34,8 +34,7 @@ module IsoDoc
       end
 
       def is_plenary?(docxml)
-        doctype = docxml&.at(ns("//bibdata/ext/doctype"))&.text
-        return true if %w(plenary agenda budgetary).include?(doctype)
+        return true if %w(plenary agenda budgetary).include?(@doctype)
         return true if docxml&.at(ns("//bibdata/ext/session/*"))
 
         false
