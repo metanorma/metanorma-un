@@ -739,17 +739,17 @@ RSpec.describe Metanorma::UN do
               </term>
             </terms>
             <definitions id='_' obligation='normative'>
-              <title>Symbols and abbreviated terms</title>
+              <title>Symbols and Abbreviated Terms</title>
               <clause id='_' inline-header='false' obligation='normative'>
                 <title>General</title>
               </clause>
               <definitions id='_' obligation='normative'>
-                <title>Symbols and abbreviated terms</title>
+                <title>Symbols 1</title>
               </definitions>
             </definitions>
           </clause>
           <definitions id='_' obligation='normative' type="abbreviated_terms">
-            <title>Abbreviated terms</title>
+            <title>Abbreviated Terms</title>
           </definitions>
           <clause id='_' inline-header='false' obligation='normative'>
             <title>Clause 4</title>
@@ -946,17 +946,17 @@ RSpec.describe Metanorma::UN do
                     </term>
                   </terms>
                   <definitions id='_' obligation='normative'>
-                    <title>Symbols and abbreviated terms</title>
+                    <title>Symbols and Abbreviated Terms</title>
                     <clause id='_' inline-header='false' obligation='normative'>
                       <title>General</title>
                     </clause>
                     <definitions id='_' obligation='normative'>
-                      <title>Symbols and abbreviated terms</title>
+                      <title>Symbols 1</title>
                     </definitions>
                   </definitions>
                 </clause>
                 <definitions id='_' obligation='normative' type="abbreviated_terms">
-                  <title>Abbreviated terms</title>
+                  <title>Abbreviated Terms</title>
                 </definitions>
         <clause id='_' inline-header='false' obligation='normative'>
           <title>Clause 4</title>
