@@ -159,11 +159,12 @@ module IsoDoc
         ]
       end
 
-      def sequential_admonition_names(clause)
+      def sequential_admonition_names(clause, container: false)
         i = 0
         clause.xpath(ns(".//admonition")).noblank.each do |t|
           i += 1 unless t["unnumbered"] == "true"
-          @anchors[t["id"]] = anchor_struct(i.to_s, nil, @labels["admonition"],
+          @anchors[t["id"]] =
+            anchor_struct(i.to_s, container ? t : nil, @labels["admonition"],
                                             "box", t["unnumbered"])
         end
       end
@@ -178,9 +179,9 @@ module IsoDoc
         end
       end
 
-      def sequential_asset_names(clause)
+      def sequential_asset_names(clause, container: false)
         super
-        sequential_admonition_names(clause)
+        sequential_admonition_names(clause, container: container)
       end
 
       def hierarchical_asset_names(clause, num)
