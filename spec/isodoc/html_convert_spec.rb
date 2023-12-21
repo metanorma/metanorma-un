@@ -62,7 +62,9 @@ RSpec.describe IsoDoc::UN do
 
     output = <<~"OUTPUT"
       {:accesseddate=>"XXX",
+      :adapteddate=>"XXX",
       :agency=>"UN",
+      :announceddate=>"XXX",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -90,6 +92,7 @@ RSpec.describe IsoDoc::UN do
       :revdate=>"2000-01-01",
       :revdate_monthyear=>"January 2000",
       :script=>"Latn",
+      :stable_untildate=>"XXX",
       :stage=>"Working Draft",
       :stage_display=>"Working Draft",
       :stageabbr=>"wd",
@@ -176,7 +179,9 @@ RSpec.describe IsoDoc::UN do
 
     output = <<~"OUTPUT"
       {:accesseddate=>"XXX",
+      :adapteddate=>"XXX",
       :agency=>"UN",
+      :announceddate=>"XXX",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -207,6 +212,7 @@ RSpec.describe IsoDoc::UN do
       :session_itemnumber=>["5", "6"],
       :session_number=>"Third",
       :session_subitemname=>["GHI", "JKL"],
+      :stable_untildate=>"XXX",
       :stage=>"Working Draft",
       :stage_display=>"Working Draft",
       :stageabbr=>"wd",
