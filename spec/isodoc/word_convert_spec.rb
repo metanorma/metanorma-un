@@ -527,7 +527,7 @@ RSpec.describe IsoDoc::UN do
               </div>
               <div>
                 <a name="_" id="_"/>
-                <p class="MsoNormal"><a name="_" id="_"/>Copyright © United Nations 2023<br/>
+                <p class="MsoNormal"><a name="_" id="_"/>Copyright © United Nations #{Date.today.year}<br/>
       All rights reserved worldwide<br/>
       United Nations publication issued by the Economic Commission for Europe</p>
               </div>
