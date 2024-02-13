@@ -12,22 +12,20 @@ module IsoDoc
       end
 
       def title(isoxml, _out)
-        main = isoxml&.at(ns("//bibdata/title"\
-                             "[@language='en' and @type='main']"))&.text
+        main = isoxml.at(ns("//bibdata/title[@language='en' and @type='main']"))
+          &.children&.to_xml
         set(:doctitle, main)
       end
 
       def subtitle(isoxml, _out)
-        main = isoxml&.at(ns("//bibdata/title"\
-                             "[@language='en' and @type='subtitle']"))&.text
+        main = isoxml.at(ns("//bibdata/title[@language='en' and @type='subtitle']"))
+          &.children&.to_xml
         set(:docsubtitle, main)
       end
 
       def extract_languages(nodeset)
-        lgs = []
-        nodeset.each do |l|
-          l && ISO_639.find(l.text)&.english_name and
-            lgs << ISO_639.find(l.text).english_name
+        lgs = nodeset.compact.each_with_object([]) do |l, m|
+          lg = ISO_639.find(l.text)&.english_name and m << lg
         end
         lgs.map { |l| l == "Spanish; Castilian" ? "Spanish" : l }
       end
@@ -61,10 +59,7 @@ module IsoDoc
         set(:session_date, isoxml.at(ns("//bibdata/ext/session/date"))&.text)
         set(:session_collaborator,
             isoxml.at(ns("//bibdata/ext/session/collaborator"))&.text)
-        sid = isoxml.at(ns("//bibdata/ext/session/id"))&.text
-        set(:session_id, sid)
-        set(:session_id_head, sid&.sub(%r{/.*$}, ""))
-        set(:session_id_tail, sid&.sub(%r{^[^/]+}, ""))
+        session_id(isoxml)
         set(:item_footnote,
             isoxml.at(ns("//bibdata/ext/session/item-footnote"))&.text)
         set(:session_itemnumber,
@@ -73,6 +68,13 @@ module IsoDoc
             multival(isoxml, "//bibdata/ext/session/item-name"))
         set(:session_subitemname,
             multival(isoxml, "//bibdata/ext/session/subitem-name"))
+      end
+
+      def session_id(isoxml)
+        sid = isoxml.at(ns("//bibdata/ext/session/id"))&.text
+        set(:session_id, sid)
+        set(:session_id_head, sid&.sub(%r{/.*$}, ""))
+        set(:session_id_tail, sid&.sub(%r{^[^/]+}, ""))
       end
 
       def docid(isoxml, _out)
