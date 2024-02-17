@@ -60,7 +60,6 @@ module Metanorma
         end
         id = node.attr("docidentifier") and dn = id
         xml.docidentifier { |i| i << dn }
-        xml.docnumber { |i| i << node.attr("docnumber") }
       end
 
       def metadata_distribution(node, xml)
