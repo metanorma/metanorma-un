@@ -24,10 +24,10 @@ module IsoDoc
       end
 
       def extract_languages(nodeset)
-        lgs = nodeset.compact.each_with_object([]) do |l, m|
-          lg = ISO_639.find(l.text)&.english_name and m << lg
+        lgs = nodeset.each_with_object([]) do |l, m|
+          l and lg = ISO_639.find(l.text) and m << lg.english_name
         end
-        lgs.map { |l| l == "Spanish; Castilian" ? "Spanish" : l }
+        lgs.compact.map { |l| l == "Spanish; Castilian" ? "Spanish" : l }
       end
 
       def author(isoxml, _out)
