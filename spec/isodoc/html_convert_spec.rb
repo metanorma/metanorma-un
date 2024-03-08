@@ -2119,6 +2119,7 @@ RSpec.describe IsoDoc::UN do
             <bibitem id='ISO712' type='standard'>
               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
               <docidentifier type='ISO'>ISO&#xa0;712</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
               <biblio-tag>ISO&#xa0;712, </biblio-tag>
             </bibitem>
           </references>
