@@ -59,7 +59,9 @@ module Metanorma
           dn = "#{dn}(#{abbr})" unless abbr.empty?
         end
         id = node.attr("docidentifier") and dn = id
-        xml.docidentifier { |i| i << dn }
+        xml.docidentifier primary: "true" do |i|
+          i << dn
+        end
       end
 
       def metadata_distribution(node, xml)
