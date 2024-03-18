@@ -94,7 +94,7 @@ RSpec.describe Metanorma::UN do
       <bibdata type="standard">
         <title type="main" language="en" format="text/plain">Main Title</title>
         <title type="subtitle" language="en" format="text/plain">Subtitle</title>
-        <docidentifier>1000(wd)</docidentifier>
+        <docidentifier primary="true">1000(wd)</docidentifier>
         <docnumber>1000</docnumber>
         <contributor>
           <role type="author"/>
@@ -176,7 +176,7 @@ RSpec.describe Metanorma::UN do
                  <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
              <bibdata type="standard">
       <title type='main' language='en' format='text/plain'>Document title</title>
-               <docidentifier>1000(cd)</docidentifier>
+               <docidentifier primary="true">1000(cd)</docidentifier>
                <docnumber>1000</docnumber>
                <contributor>
                  <role type="author"/>
@@ -235,7 +235,7 @@ RSpec.describe Metanorma::UN do
           <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
       <bibdata type="standard">
       <title type='main' language='en' format='text/plain'>Document title</title>
-        <docidentifier>1000(d)</docidentifier>
+        <docidentifier primary="true">1000(d)</docidentifier>
         <docnumber>1000</docnumber>
         <contributor>
           <role type="author"/>
@@ -297,7 +297,7 @@ RSpec.describe Metanorma::UN do
           <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
       <bibdata type="standard">
       <title type='main' language='en' format='text/plain'>Document title</title>
-        <docidentifier>OVERRIDE</docidentifier>
+        <docidentifier primary="true">OVERRIDE</docidentifier>
         <docnumber>1000</docnumber>
         <contributor>
           <role type="author"/>
