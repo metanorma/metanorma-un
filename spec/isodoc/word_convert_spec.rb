@@ -330,7 +330,7 @@ RSpec.describe IsoDoc::UN do
     IsoDoc::UN::WordConvert.new(toc: true).convert("test", input, false)
     html = File.read("test.doc", encoding: "utf-8")
     expect(html).not_to include '<a name="abstractbox" id="abstractbox">'
-    expect(html).to include "preface_container"
+    expect(html).not_to include "<v:shapetype"
   end
 
   it "processes plenary preface" do
@@ -375,6 +375,7 @@ RSpec.describe IsoDoc::UN do
     section2 = html
       .sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    expect(html).to include "<v:shapetype"
     expect(section1).to include "This is an abstract"
     expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~OUTPUT)
                <div class="WordSection2">
@@ -434,7 +435,9 @@ RSpec.describe IsoDoc::UN do
           </preface><sections/>
           </un-standard>
     INPUT
-    IsoDoc::UN::WordConvert.new({}).convert("test", input, false)
+    presxml = IsoDoc::UN::PresentationXMLConvert.new({ toc: true })
+      .convert("test", input, true)
+    IsoDoc::UN::WordConvert.new({}).convert("test", presxml, false)
     html = File.read("test.doc", encoding: "utf-8")
     expect(html).not_to include '<div class="WordSection2"'
   end
@@ -444,13 +447,15 @@ RSpec.describe IsoDoc::UN do
     input = <<~INPUT
       <un-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata type="standard">
-      <ext><doctype>plenary</doctype></ext>
+      <ext><doctype>recommendation</doctype></ext>
       </bibdata>
-        <preface>
-          </preface><sections/>
+      <metanorma-extension><presentation-metadata><name>TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>HTML TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>DOC TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>PDF TOC Heading Levels</name><value>2</value></presentation-metadata></metanorma-extension>
+          <sections><clause id="A"><title depth="1">A</title></clause></sections>
           </un-standard>
     INPUT
-    IsoDoc::UN::WordConvert.new({ toc: true }).convert("test", input, false)
+    presxml = IsoDoc::UN::PresentationXMLConvert.new({ toc: true })
+      .convert("test", input, true)
+    IsoDoc::UN::WordConvert.new({ toc: true }).convert("test", presxml, false)
     html = File.read("test.doc", encoding: "utf-8")
     expect(html).to include '<div class="WordSection2"'
   end
