@@ -2002,7 +2002,7 @@ RSpec.describe IsoDoc::UN do
                    <div id="N"><h2>A.&#160; Introduction</h2>
 
             </div>
-                   <div id="O"><span class="zzMoveToFollowing">B.&#160; Clause 4.2&#160; </span>
+                   <div id="O"><span class="zzMoveToFollowing inline-header">B.&#160; Clause 4.2&#160; </span>
 
             </div>
                  </div>

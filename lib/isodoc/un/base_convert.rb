@@ -27,13 +27,13 @@ module IsoDoc
       end
 
       def inline_header_title(out, _node, title)
-        out.span class: "zzMoveToFollowing" do |s|
+        out.span class: "zzMoveToFollowing inline-header" do |s|
           title&.children&.each { |c2| parse(c2, s) }
           clausedelimspace(_node, out) if /\S/.match?(title&.text)
         end
       end
 
-      def is_plenary?(docxml)
+      def plenary?(docxml)
         return true if %w(plenary agenda budgetary).include?(@doctype)
         return true if docxml&.at(ns("//bibdata/ext/session/*"))
 

@@ -59,7 +59,7 @@ module IsoDoc
       end
 
       def make_body(xml, docxml)
-        plenary = is_plenary?(docxml)
+        plenary = plenary?(docxml)
         if plenary &&
             @wordcoverpage == html_doc_path("word_unece_titlepage.html")
           @wordcoverpage = html_doc_path("word_unece_plenary_titlepage.html")

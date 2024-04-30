@@ -235,7 +235,7 @@ RSpec.describe IsoDoc::UN do
     output = <<~OUTPUT
           <div class="WordSection3"><div id="M"><h1>I.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1><div id="N"><h2>A. <span style="mso-tab-count:1">&#160; </span>Introduction</h2>
 
-       </div><div id="O"><span class="zzMoveToFollowing">B. <span style="mso-tab-count:1">&#160; </span>Clause 4.2<span style='mso-tab-count:1'>&#160; </span> </span>
+       </div><div id="O"><span class="zzMoveToFollowing inline-header">B. <span style="mso-tab-count:1">&#160; </span>Clause 4.2<span style='mso-tab-count:1'>&#160; </span> </span>
 
        </div></div>
       </div>

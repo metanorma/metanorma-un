@@ -51,7 +51,7 @@ module IsoDoc
       end
 
       def make_body(xml, docxml)
-        plenary = is_plenary?(docxml)
+        plenary = plenary?(docxml)
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72",
                       "xml:lang": "EN-US", class: "container" }
         if plenary &&
