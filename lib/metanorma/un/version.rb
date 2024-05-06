@@ -1,5 +1,5 @@
 module Metanorma
   module UN
-    VERSION = "0.12.8".freeze
+    VERSION = "0.12.9".freeze
   end
 end

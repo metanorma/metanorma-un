@@ -413,7 +413,9 @@ RSpec.describe IsoDoc::UN do
                   <p class="Terms" style="text-align:left;">Term2</p>
                 </div>
                      <div id="K"><h2>B.</h2>
+                     <div class="figdl">
                   <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
+                  </div>
                 </div>
                    </div>
                    <div id="D">
@@ -675,12 +677,14 @@ RSpec.describe IsoDoc::UN do
                <h1> I. &#xa0; Terms, Definitions, Symbols and Abbreviated Terms </h1>
                <div id='K'>
                  <h2>Symbols</h2>
+                 <div class="figdl">
                  <dl>
                    <dt>
                      <p>Symbol</p>
                    </dt>
                    <dd>Definition</dd>
                  </dl>
+                 </div>
                </div>
              </div>
              <div id='D'>
@@ -947,12 +951,14 @@ RSpec.describe IsoDoc::UN do
               </div>
               <div id='K'>
                 <h2>B.</h2>
+                <div class="figdl">
                 <dl>
                   <dt>
                     <p>Symbol</p>
                   </dt>
                   <dd>Definition</dd>
                 </dl>
+                </div>
               </div>
             </div>
             <div id='D'>
@@ -1603,12 +1609,14 @@ RSpec.describe IsoDoc::UN do
             </div>
             <div id='K'>
               <h2>Symbols</h2>
+              <div class="figdl">
               <dl>
                 <dt>
                   <p>Symbol</p>
                 </dt>
                 <dd>Definition</dd>
               </dl>
+              </div>
                 </div>
                    </div>
                    <div id="D">

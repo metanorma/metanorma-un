@@ -57,7 +57,7 @@ RSpec.describe Metanorma::UN::Processor do
     output = xmlpp(<<~OUTPUT)
       <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
         <div id="D">
-          <h1 id="_">1.&#xA0; Scope</h1>
+          <h1 id="_"><a class="anchor" href="#D"/><a class="header" href="#D">1.&#xA0; Scope</a></h1>
           <p id="E">Text</p>
         </div>
       </main>
