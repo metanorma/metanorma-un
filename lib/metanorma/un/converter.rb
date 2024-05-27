@@ -118,14 +118,19 @@ module Metanorma
         super
       end
 
+      def init_misc(node)
+        super
+        @default_doctype = "recommendation"
+      end
+
       def doctype(node)
         d = super
         unless %w{plenary recommendation addendum communication corrigendum
                   reissue agenda budgetary sec-gen-notes expert-report
                   resolution plenary-attachment}.include? d
           @log.add("Document Attributes", nil,
-                   "#{d} is not a legal document type: reverting to 'recommendation'")
-          d = "recommendation"
+                   "#{d} is not a legal document type: reverting to '#{@default_doctype}'")
+          d = @default_doctype
         end
         d
       end
