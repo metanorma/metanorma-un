@@ -386,7 +386,7 @@ RSpec.describe IsoDoc::UN do
          </un-standard>
     OUTPUT
 
-    html = xmlpp(<<~"OUTPUT")
+    html = Xml::C14n.format(<<~"OUTPUT")
               #{HTML_HDR}
                            <br/>
                    <div>
@@ -466,12 +466,12 @@ RSpec.describe IsoDoc::UN do
              </html>
     OUTPUT
 
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::UN::HtmlConvert.new({})
       .convert("test", presxml, true)))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes unnumbered section names without paragraph content" do
@@ -748,12 +748,12 @@ RSpec.describe IsoDoc::UN do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::UN::HtmlConvert.new({})
       .convert("test", presxml, true)))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes section names with paragraph content" do
@@ -1025,7 +1025,7 @@ RSpec.describe IsoDoc::UN do
       </html>
     OUTPUT
 
-    word = xmlpp(<<~OUTPUT)
+    word = Xml::C14n.format(<<~OUTPUT)
       <div>
            <div class='WordSection2'>
              <div>
@@ -1191,17 +1191,17 @@ RSpec.describe IsoDoc::UN do
          </div>
        </div>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::UN::HtmlConvert.new({})
       .convert("test", presxml, true)))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::UN::WordConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::UN::WordConvert.new({})
        .convert("test", presxml, true)
        .sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">')
        .sub(%r{<v:line.*$}m, "</div></div>")))
-      .to be_equivalent_to xmlpp(word)
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes cross-references to section names" do
@@ -1447,9 +1447,9 @@ RSpec.describe IsoDoc::UN do
          </bibliography>
          </un-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes section names, suppressing section numbering" do
@@ -1581,7 +1581,7 @@ RSpec.describe IsoDoc::UN do
          </un-standard>
     OUTPUT
 
-    html = xmlpp(<<~"OUTPUT")
+    html = Xml::C14n.format(<<~"OUTPUT")
               #{HTML_HDR}
                    <br/>
                    <div>
@@ -1658,7 +1658,7 @@ RSpec.describe IsoDoc::UN do
              </html>
     OUTPUT
 
-    word = xmlpp(<<~OUTPUT)
+    word = Xml::C14n.format(<<~OUTPUT)
        <div>
         <div class='WordSection2'>
           <div>
@@ -1760,20 +1760,20 @@ RSpec.describe IsoDoc::UN do
       </div>
     OUTPUT
 
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert
+    expect(Xml::C14n.format(IsoDoc::UN::PresentationXMLConvert
 .new({ suppressheadingnumbers: true }.merge(presxml_options))
 .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::UN::HtmlConvert
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::UN::HtmlConvert
 .new({ suppressheadingnumbers: true })
 .convert("test", presxml, true)))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::UN::WordConvert
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::UN::WordConvert
 .new({ suppressheadingnumbers: true })
 .convert("test", presxml, true)
 .sub(%r{^.*<div class="WordSection2">}m, '<div><div class="WordSection2">')
 .sub(%r{<v:line.*$}m, "</div></div>")))
-      .to be_equivalent_to xmlpp(word)
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "injects JS into blank html" do
@@ -1786,13 +1786,13 @@ RSpec.describe IsoDoc::UN do
       :no-pdf:
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = Xml::C14n.format(<<~"OUTPUT")
         #{blank_hdr_gen}
       <sections/>
       </un-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor
+    expect(Xml::C14n.format(strip_guid(Asciidoctor
       .convert(input, backend: :un, header_footer: true))))
       .to be_equivalent_to output
     html = File.read("test.html", encoding: "utf-8")
@@ -1975,17 +1975,17 @@ RSpec.describe IsoDoc::UN do
            </div>
          </div>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
 .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::UN::HtmlConvert.new({})
 .convert("test", presxml, true)))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::UN::WordConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::UN::WordConvert.new({})
   .convert("test", presxml, true)
   .sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">')
   .sub(%r{<v:line.*$}m, "</div>")))
-      .to be_equivalent_to xmlpp(word)
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes inline section headers" do
@@ -2018,9 +2018,9 @@ RSpec.describe IsoDoc::UN do
              </body>
            </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::HtmlConvert.new({})
+    expect(Xml::C14n.format(IsoDoc::UN::HtmlConvert.new({})
   .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "does not switch plenary title page in HTML" do
@@ -2135,9 +2135,9 @@ RSpec.describe IsoDoc::UN do
         </bibliography>
       </un-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes note types" do
@@ -2201,9 +2201,9 @@ RSpec.describe IsoDoc::UN do
         </sections>
       </un-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 end

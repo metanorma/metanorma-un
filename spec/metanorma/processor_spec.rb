@@ -30,13 +30,13 @@ RSpec.describe Metanorma::UN::Processor do
       #{ASCIIDOC_BLANK_HDR}
     INPUT
 
-    output = xmlpp(strip_guid(<<~"OUTPUT"))
+    output = Xml::C14n.format(strip_guid(<<~"OUTPUT"))
           #{blank_hdr_gen}
       <sections/>
       </un-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(processor
+    expect(Xml::C14n.format(strip_guid(processor
       .input_to_isodoc(input, nil)))).to be_equivalent_to output
   end
 
@@ -54,7 +54,7 @@ RSpec.describe Metanorma::UN::Processor do
       </un-standard>
     INPUT
 
-    output = xmlpp(<<~OUTPUT)
+    output = Xml::C14n.format(<<~OUTPUT)
       <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
         <div id="D">
           <h1 id="_"><a class="anchor" href="#D"/><a class="header" href="#D">1.&#xA0; Scope</a></h1>
@@ -66,10 +66,10 @@ RSpec.describe Metanorma::UN::Processor do
     processor.output(input, "test.xml", "test.html", :html)
 
     expect(
-      xmlpp(strip_guid(File.read("test.html", encoding: "utf-8")
+      Xml::C14n.format(strip_guid(File.read("test.html", encoding: "utf-8")
       .gsub(%r{^.*<main}m, "<main")
       .gsub(%r{</main>.*}m, "</main>"))),
-    ).to be_equivalent_to xmlpp(strip_guid(output))
+    ).to be_equivalent_to Xml::C14n.format(strip_guid(output))
   end
 
   it "generates DOC from IsoDoc XML" do

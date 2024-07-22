@@ -240,11 +240,11 @@ RSpec.describe IsoDoc::UN do
        </div></div>
       </div>
     OUTPUT
-    expect(xmlpp(IsoDoc::UN::WordConvert.new({})
+    expect(Xml::C14n.format(IsoDoc::UN::WordConvert.new({})
       .convert("test", input, true)
       .sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">')
       .sub(%r{<v:line.*$}m, "</div>")))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "uses plenary title page in DOC for plenaries" do
@@ -377,7 +377,7 @@ RSpec.describe IsoDoc::UN do
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(html).to include "<v:shapetype"
     expect(section1).to include "This is an abstract"
-    expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~OUTPUT)
+    expect(Xml::C14n.format(section2)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
                <div class="WordSection2">
 
            <div>
@@ -507,7 +507,7 @@ RSpec.describe IsoDoc::UN do
       .sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(section1).not_to include "This is an abstract"
-    expect(xmlpp(section2)).to be_equivalent_to xmlpp(<<~OUTPUT)
+    expect(Xml::C14n.format(section2)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
           <div class="WordSection2">
         <div>
           <div class="boilerplate-legal">
