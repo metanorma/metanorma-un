@@ -603,8 +603,6 @@ RSpec.describe IsoDoc::UN do
                 <title depth='3'>Clause 4.2.1</title>
                 <clause id='O11' inline-header='false' obligation='normative'>
                   <title depth='4'>
-                    I.
-                    <tab/>
                     Clause 4 Leaf
                   </title>
                 </clause>
@@ -700,7 +698,7 @@ RSpec.describe IsoDoc::UN do
                  <div id='O1'>
                    <h3>Clause 4.2.1</h3>
                    <div id='O11'>
-                     <h4> I. &#xa0; Clause 4 Leaf </h4>
+                     <h4>Clause 4 Leaf </h4>
                    </div>
                    <div id='O12'>
                      <h4>Clause 4 Leaf 2</h4>
@@ -748,7 +746,8 @@ RSpec.describe IsoDoc::UN do
          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::UN::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(IsoDoc::UN::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::UN::HtmlConvert.new({})
