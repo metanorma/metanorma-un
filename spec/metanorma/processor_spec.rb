@@ -88,6 +88,6 @@ RSpec.describe Metanorma::UN::Processor do
 
     processor.output(input, "test.xml", "test.doc", :doc)
     expect(File.read("test.doc", encoding: "utf-8"))
-      .to include '<div class="WordSection3"><div><a name="D" id="D"></a><h1>1.<span style="mso-tab-count:1">&#xA0; </span>Scope</h1><p class="MsoNormal"><a name="E" id="E"></a>Text</p></div>'
+      .to include('<div class="WordSection3"><div><a name="D" id="D"></a><h1>1.<span style="mso-tab-count:1">&#xA0; </span>Scope</h1><p class="MsoNormal"><a name="E" id="E"></a>Text</p></div>')
   end
 end

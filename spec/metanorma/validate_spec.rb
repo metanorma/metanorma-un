@@ -18,7 +18,8 @@ RSpec.describe Metanorma::UN do
         mock_pdf
         Metanorma::Compile
           .new
-          .compile("spec/assets/xref_error.adoc", type: "un", install_fonts: false)
+          .compile("spec/assets/xref_error.adoc", type: "un",
+                   install_fonts: false)
       end.to(change { File.exist?("spec/assets/xref_error.err.html") }
               .from(false).to(true))
     end
@@ -36,7 +37,8 @@ RSpec.describe Metanorma::UN do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include "pizza is not a legal document type"
+    expect(File.read("test.err.html"))
+      .to include("pizza is not a legal document type")
   end
 
   it "Warns of illegal status" do
@@ -51,6 +53,7 @@ RSpec.describe Metanorma::UN do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include "pizza is not a recognised status"
+    expect(File.read("test.err.html"))
+      .to include("pizza is not a recognised status")
   end
 end

@@ -262,8 +262,8 @@ RSpec.describe IsoDoc::UN do
       .convert("test", input, true)
     IsoDoc::UN::WordConvert.new({ toc: true }).convert("test", presxml, false)
     html = File.read("test.doc", encoding: "utf-8")
-    expect(html).to include "This is a plenary page"
-    expect(html).to include 'class="zzContents"'
+    expect(html).to include("This is a plenary page")
+    expect(html).to include('class="zzContents"')
   end
 
   it "removes intro page page in DOC for plenaries with no ToC" do
@@ -279,8 +279,8 @@ RSpec.describe IsoDoc::UN do
     INPUT
     IsoDoc::UN::WordConvert.new(toc: false).convert("test", input, false)
     html = File.read("test.doc", encoding: "utf-8")
-    expect(html).to include "This is a plenary page"
-    expect(html).not_to include 'class="zzContents"'
+    expect(html).to include("This is a plenary page")
+    expect(html).not_to include('class="zzContents"')
   end
 
   it "populates abstract box if there is an abstract" do
@@ -297,7 +297,7 @@ RSpec.describe IsoDoc::UN do
     INPUT
     IsoDoc::UN::WordConvert.new(toc: false).convert("test", input, false)
     html = File.read("test.doc", encoding: "utf-8")
-    expect(html).to include '<a name="abstractbox" id="abstractbox">'
+    expect(html).to include('<a name="abstractbox" id="abstractbox">')
   end
 
   it "does not populate abstract box if there is no abstract" do
@@ -313,7 +313,7 @@ RSpec.describe IsoDoc::UN do
     INPUT
     IsoDoc::UN::WordConvert.new(toc: false).convert("test", input, false)
     html = File.read("test.doc", encoding: "utf-8")
-    expect(html).not_to include '<a name="abstractbox" id="abstractbox">'
+    expect(html).not_to include('<a name="abstractbox" id="abstractbox">')
   end
 
   it "does not used plenary title page in DOC for recommendations" do
@@ -329,8 +329,8 @@ RSpec.describe IsoDoc::UN do
     INPUT
     IsoDoc::UN::WordConvert.new(toc: true).convert("test", input, false)
     html = File.read("test.doc", encoding: "utf-8")
-    expect(html).not_to include '<a name="abstractbox" id="abstractbox">'
-    expect(html).not_to include "<v:shapetype"
+    expect(html).not_to include('<a name="abstractbox" id="abstractbox">')
+    expect(html).not_to include("<v:shapetype")
   end
 
   it "processes plenary preface" do
@@ -375,8 +375,8 @@ RSpec.describe IsoDoc::UN do
     section2 = html
       .sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(html).to include "<v:shapetype"
-    expect(section1).to include "This is an abstract"
+    expect(html).to include("<v:shapetype")
+    expect(section1).to include("This is an abstract")
     expect(Xml::C14n.format(section2)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
                <div class="WordSection2">
 
@@ -439,7 +439,7 @@ RSpec.describe IsoDoc::UN do
       .convert("test", input, true)
     IsoDoc::UN::WordConvert.new({}).convert("test", presxml, false)
     html = File.read("test.doc", encoding: "utf-8")
-    expect(html).not_to include '<div class="WordSection2"'
+    expect(html).not_to include('<div class="WordSection2"')
   end
 
   it "does not removes WordSection2 if no preface but ToC" do
@@ -457,7 +457,7 @@ RSpec.describe IsoDoc::UN do
       .convert("test", input, true)
     IsoDoc::UN::WordConvert.new({ toc: true }).convert("test", presxml, false)
     html = File.read("test.doc", encoding: "utf-8")
-    expect(html).to include '<div class="WordSection2"'
+    expect(html).to include('<div class="WordSection2"')
   end
 
   it "processes recommendation preface" do
@@ -506,93 +506,94 @@ RSpec.describe IsoDoc::UN do
     section2 = html
       .sub(%r{^.*<div class="WordSection2">}m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(section1).not_to include "This is an abstract"
-    expect(Xml::C14n.format(section2)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-          <div class="WordSection2">
-        <div>
-          <div class="boilerplate-legal">
-            <div>
-              <a name="_" id="_"/>
+    expect(section1).not_to include("This is an abstract")
+    expect(Xml::C14n.format(section2))
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+        <div class="WordSection2">
+          <div>
+            <div class="boilerplate-legal">
               <div>
                 <a name="_" id="_"/>
-                <p class="TitlePageSubhead">Note</p>
                 <div>
                   <a name="_" id="_"/>
-                  <p class="MsoNormal"><a name="_" id="_"/>The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+                  <p class="TitlePageSubhead">Note</p>
+                  <div>
+                    <a name="_" id="_"/>
+                    <p class="MsoNormal"><a name="_" id="_"/>The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="boilerplate-copyright">
+              <div>
+                <a name="_" id="_"/>
+                <div class="boilerplate-ECEhdr">
+                  <a name="boilerplate-ECEhdr" id="boilerplate-ECEhdr"/>
+                  <p class="MsoNormal"><a name="_" id="_"/>ECE/TRADE/437</p>
+                </div>
+                <div>
+                  <a name="_" id="_"/>
+                  <p class="MsoNormal"><a name="_" id="_"/>Copyright © United Nations #{Date.today.year}<br/>
+        All rights reserved worldwide<br/>
+        United Nations publication issued by the Economic Commission for Europe</p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="boilerplate-copyright">
+          <div>
+            <a name="preface_container" id="preface_container"/>
             <div>
-              <a name="_" id="_"/>
-              <div class="boilerplate-ECEhdr">
-                <a name="boilerplate-ECEhdr" id="boilerplate-ECEhdr"/>
-                <p class="MsoNormal"><a name="_" id="_"/>ECE/TRADE/437</p>
-              </div>
+              <p class="AbstractTitle">Summary</p>
+              <p class="MsoNormal"><a name="AA" id="AA"/>This is an abstract</p>
+            </div>
+            <div>
+              <p class="MsoNormal">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+              </p>
+              <p class="ForewordTitle">Foreword</p>
+              <p class="MsoNormal"><a name="A" id="A"/>This is a preamble</p>
+            </div>
+            <div class="Section3">
+              <a name="B" id="B"/>
+              <p class="MsoNormal">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+              </p>
+              <p class="IntroTitle">Introduction</p>
               <div>
-                <a name="_" id="_"/>
-                <p class="MsoNormal"><a name="_" id="_"/>Copyright © United Nations #{Date.today.year}<br/>
-      All rights reserved worldwide<br/>
-      United Nations publication issued by the Economic Commission for Europe</p>
+                <a name="C" id="C"/>
+                <h2>Introduction Subsection</h2>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <a name="preface_container" id="preface_container"/>
-          <div>
-            <p class="AbstractTitle">Summary</p>
-            <p class="MsoNormal"><a name="AA" id="AA"/>This is an abstract</p>
-          </div>
-          <div>
-            <p class="MsoNormal">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <p class="ForewordTitle">Foreword</p>
-            <p class="MsoNormal"><a name="A" id="A"/>This is a preamble</p>
-          </div>
+          <p class="MsoNormal">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
           <div class="Section3">
-            <a name="B" id="B"/>
-            <p class="MsoNormal">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <p class="IntroTitle">Introduction</p>
+            <a name="H" id="H"/>
+            <h1 class="IntroTitle">Terms, Definitions, Symbols and Abbreviated Terms</h1>
             <div>
-              <a name="C" id="C"/>
-              <h2>Introduction Subsection</h2>
+              <a name="I" id="I"/>
+              <h2>Normal Terms</h2>
+              <p class="TermNum">
+                <a name="J" id="J"/>
+              </p>
+              <p class="Terms" style="text-align:left;">Term2</p>
+            </div>
+            <div>
+              <a name="K" id="K"/>
+              <h2>Symbols</h2>
+              <table class="dl">
+                <tr>
+                  <td valign="top" align="left">
+                    <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Symbol</p>
+                  </td>
+                  <td valign="top">Definition</td>
+                </tr>
+              </table>
             </div>
           </div>
+          <p class="MsoNormal"> </p>
         </div>
-        <p class="MsoNormal">
-          <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-        </p>
-        <div class="Section3">
-          <a name="H" id="H"/>
-          <h1 class="IntroTitle">Terms, Definitions, Symbols and Abbreviated Terms</h1>
-          <div>
-            <a name="I" id="I"/>
-            <h2>Normal Terms</h2>
-            <p class="TermNum">
-              <a name="J" id="J"/>
-            </p>
-            <p class="Terms" style="text-align:left;">Term2</p>
-          </div>
-          <div>
-            <a name="K" id="K"/>
-            <h2>Symbols</h2>
-            <table class="dl">
-              <tr>
-                <td valign="top" align="left">
-                  <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Symbol</p>
-                </td>
-                <td valign="top">Definition</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <p class="MsoNormal"> </p>
-      </div>
-    OUTPUT
+      OUTPUT
   end
 end
