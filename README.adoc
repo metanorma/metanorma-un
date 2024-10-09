@@ -2,6 +2,8 @@
 
 (Formerly known as metanorma-unece)
 
+THIS GEM IS NO LONGER MAINTAINED AS OF 20241009
+
 image:https://img.shields.io/gem/v/metanorma-un.svg["Gem Version", link="https://rubygems.org/gems/metanorma-un"]::
 image:https://github.com/metanorma/metanorma-un/workflows/rake/badge.svg["Build Status", link="https://github.com/metanorma/metanorma-un/actions?workflow=rake"]
 image:https://codeclimate.com/github/metanorma/metanorma-unece/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/metanorma-unece"]
