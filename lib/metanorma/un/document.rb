@@ -19,6 +19,9 @@ module Metanorma
   end
 end
 
+require "metanorma/un/registers"
+Metanorma::Un::Registers.setup
+
 # OCP adoption: ONE registration in the metanorma-core flavor table
 require "metanorma-core"
 
