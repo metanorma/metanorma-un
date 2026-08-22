@@ -5,7 +5,7 @@ gemspec
 
 # Latest plurimath (org directive): old 0.10.0 pairs badly with mml 2.x
 # (requires the removed mml/configuration). Latest pairs with mml 2.x.
-gem "plurimath"
+gem "plurimath", "~> 0.11.6"
 gem "mml", ">= 2.0"
 
 # TEMPORARY: cross-PR branch pins so CI can resolve the in-flight
