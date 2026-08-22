@@ -7,6 +7,7 @@ gemspec
 # (requires the removed mml/configuration). Latest pairs with mml 2.x.
 gem "plurimath", "~> 0.11.6"
 gem "mml", ">= 2.0"
+gem "rubocop", "~> 1"
 
 # TEMPORARY: cross-PR branch pins so CI can resolve the in-flight
 # metanorma-standoc namespace rename (Metanorma::Standoc::Document)
