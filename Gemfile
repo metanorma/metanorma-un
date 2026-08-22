@@ -3,6 +3,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}" }
 
 gemspec
 
+# plurimath >= 0.10 requires mml at load time but failed to
+declare it in 0.10.0 — explicit so bundler installs it (cf.
+metanorma-document, metanorma-oiml).
+gem "mml"
+
 # TEMPORARY: cross-PR branch pins so CI can resolve the in-flight
 # metanorma-standoc namespace rename (Metanorma::Standoc::Document)
 # and the pubid-2 / relaton-bib 2.2 / metanorma-document 0.5 chain.
