@@ -3,9 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}" }
 
 gemspec
 
-# plurimath >= 0.10 requires mml at load time but failed to
-declare it in 0.10.0 — explicit so bundler installs it (cf.
-metanorma-document, metanorma-oiml).
+# plurimath >= 0.10 loads mml at runtime; 0.10.0 failed to declare it
 gem "mml", ">= 2.0"
 
 # TEMPORARY: cross-PR branch pins so CI can resolve the in-flight
