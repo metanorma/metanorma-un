@@ -17,8 +17,8 @@ module Metanorma
       # introduction keep the isodoc Content-Section model.
       class UnPreface < Lutaml::Model::Serializable
         attribute :abstract, UnAbstractSection
-        attribute :foreword, Metanorma::StandardDocument::Sections::ContentSection
-        attribute :introduction, Metanorma::StandardDocument::Sections::ContentSection
+        attribute :foreword, Metanorma::Standoc::Document::Sections::ContentSection
+        attribute :introduction, Metanorma::Standoc::Document::Sections::ContentSection
 
         # Presentation-specific attributes
         attribute :semx_id, :string
@@ -32,7 +32,7 @@ module Metanorma
           map_element "foreword",      to: :foreword
           map_element "introduction",  to: :introduction
 
-          Metanorma::StandardDocument::SectionXmlMapping.apply_preface_attributes(self)
+          Metanorma::Standoc::Document::SectionXmlMapping.apply_preface_attributes(self)
         end
       end
     end

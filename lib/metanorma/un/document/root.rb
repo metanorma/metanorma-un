@@ -3,7 +3,7 @@
 module Metanorma
   module Un::Document
     class Root < Lutaml::Model::Serializable
-      include Metanorma::StandardDocument::RootAttributes
+      include Metanorma::Standoc::Document::RootAttributes
 
       def self.lutaml_default_register
         :un_document
@@ -15,7 +15,7 @@ module Metanorma
       attribute :sections,
                 UnDocument::Sections::UnSections
       attribute :annex,
-                Metanorma::StandardDocument::Sections::AnnexSection,
+                Metanorma::Standoc::Document::Sections::AnnexSection,
                 collection: true
 
       # Validates the parsed document against the UN grammar restrictions
@@ -28,9 +28,9 @@ module Metanorma
 
       xml do
         element "metanorma"
-        namespace Metanorma::StandardDocument::Namespace
+        namespace Metanorma::Standoc::Document::Namespace
 
-        Metanorma::StandardDocument::RootXmlMapping.apply(self)
+        Metanorma::Standoc::Document::RootXmlMapping.apply(self)
       end
     end
   end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "metanorma/standoc"
+require "metanorma/iso/document/models"
 module Metanorma
   module Un
   end
@@ -8,6 +9,11 @@ end
 
 module Metanorma
   module Un::Document
+    autoload :Blocks, "metanorma/un/document/blocks"
+    autoload :Metadata, "metanorma/un/document/metadata"
+    autoload :Root, "metanorma/un/document/root"
+    autoload :Sections, "metanorma/un/document/sections"
+    autoload :Un_text_element, "metanorma/un/document/un_text_element"
   end
 end
 
@@ -30,5 +36,7 @@ Metanorma::Core::Flavors.register(Metanorma::Core::Flavor.new(
   gem: "metanorma-un",
   model_root: Metanorma::Un::Document::Root,
   pubid_module: nil,
-  renderers: { html: Metanorma::Html::StandardRenderer },
+  renderers: { html: lambda do |_document, **_options|
+    Metanorma::Html::StandardRenderer
+  end },
 ))

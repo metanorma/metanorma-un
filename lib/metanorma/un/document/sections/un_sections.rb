@@ -8,7 +8,7 @@ module Metanorma
       #   sections = element sections { (clause | floating-title)+ }
       #
       # UN does not allow terms/definitions at top level of sections.
-      class UnSections < Metanorma::StandardDocument::Sections::Sections
+      class UnSections < Metanorma::Standoc::Document::Sections::Sections
         xml do
           element "sections"
           ordered
@@ -16,7 +16,7 @@ module Metanorma
           map_element "clause",         to: :clause
           map_element "floating-title", to: :floating_title
 
-          Metanorma::StandardDocument::SectionXmlMapping.apply_sections_attributes(self)
+          Metanorma::Standoc::Document::SectionXmlMapping.apply_sections_attributes(self)
         end
       end
     end

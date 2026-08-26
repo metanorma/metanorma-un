@@ -13,8 +13,8 @@ module Metanorma
       # lutaml-model deep-duplicates a parent's XML mappings into subclasses
       # (inheriting would keep the Content-Section `clause` mapping).
       class UnAbstractSection < Lutaml::Model::Serializable
-        include Metanorma::StandardDocument::BlockAttributes
-        include Metanorma::StandardDocument::PresentationAttributes
+        include Metanorma::Standoc::Document::BlockAttributes
+        include Metanorma::Standoc::Document::PresentationAttributes
 
         attribute :id, :string
         attribute :obligation, :string
@@ -37,7 +37,7 @@ module Metanorma
           map_element "fmt-title",            to: :fmt_title
           map_element "fmt-xref-label",       to: :fmt_xref_label
 
-          Metanorma::StandardDocument::BlockXmlMapping.apply_block_mappings(self)
+          Metanorma::Standoc::Document::BlockXmlMapping.apply_block_mappings(self)
 
           map_element "fmt-annotation-start", to: :fmt_annotation_start
           map_element "fmt-annotation-end",   to: :fmt_annotation_end

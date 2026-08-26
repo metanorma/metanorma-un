@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "roman-numerals"
   spec.add_dependency "twitter_cldr"
 
-  spec.add_dependency "metanorma-standoc", "~> 2.9.3"
+  spec.add_dependency "metanorma-standoc", "~> 3.5.0"
 
   spec.add_development_dependency "debug"
   spec.add_development_dependency "equivalent-xml", "~> 0.6"
@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-rspec", "~> 4.7"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.6"
-  spec.add_development_dependency "rubocop", "~> 1.5.2"
+  spec.add_development_dependency "rubocop", "~> 1"
   spec.add_development_dependency "sassc", "2.4.0"
   spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_development_dependency "timecop", "~> 0.9"
