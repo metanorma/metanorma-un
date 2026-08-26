@@ -1,0 +1,37 @@
+# frozen_string_literal: true
+
+module Metanorma
+  module Un::Document
+    class Root < Lutaml::Model::Serializable
+      include Metanorma::Standoc::Document::RootAttributes
+
+      def self.lutaml_default_register
+        :un_document
+      end
+
+      attribute :bibdata, Metadata::UnBibliographicItem
+      attribute :preface,
+                UnDocument::Sections::UnPreface
+      attribute :sections,
+                UnDocument::Sections::UnSections
+      attribute :annex,
+                Metanorma::Standoc::Document::Sections::AnnexSection,
+                collection: true
+
+      # Validates the parsed document against the UN grammar restrictions
+      # the model does not enforce structurally (currently: the UN
+      # TextElement inline subset). Walks the model graph and returns an
+      # array of error strings; empty when the document is valid.
+      def grammar_errors
+        Metanorma::Un::Document::UnTextElement.validate(self)
+      end
+
+      xml do
+        element "metanorma"
+        namespace Metanorma::Standoc::Document::Namespace
+
+        Metanorma::Standoc::Document::RootXmlMapping.apply(self)
+      end
+    end
+  end
+end
