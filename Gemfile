@@ -7,3 +7,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}" }
 gemspec
 
 eval_gemfile("Gemfile.devel") rescue nil
+
+# isodoc main carries the lazy sassc load that the released 3.7.3 lacks
+gem "isodoc", github: "metanorma/isodoc", branch: "main"
