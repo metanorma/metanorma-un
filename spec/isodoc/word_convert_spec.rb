@@ -62,7 +62,7 @@ RSpec.describe IsoDoc::UN do
     OUTPUT
 
     docxml, _filename, _dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
+    expect(htmlencode(metadata_str(csdc.info(docxml, nil)))
       .gsub(", :", ",\n:"))
       .to be_equivalent_to output
   end
@@ -127,7 +127,7 @@ RSpec.describe IsoDoc::UN do
     OUTPUT
 
     docxml, _filename, _dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
+    expect(htmlencode(metadata_str(csdc.info(docxml, nil)))
       .gsub(", :", ",\n:"))
       .to be_equivalent_to output
   end
