@@ -1,7 +1,6 @@
 require "asciidoctor"
-require "metanorma/standoc"
+require "metanorma-standoc"
 require "fileutils"
-require_relative "validate"
 
 module Metanorma
   module UN
@@ -11,12 +10,20 @@ module Metanorma
 
       register_for "un"
 
-      def default_publisher
-        "United Nations"
+      UN_LOG_MESSAGES = {
+        UN_1: { category: "Document Attributes",
+                error: "%s is not a legal document type: reverting to '%s'",
+                severity: 2 },
+        UN_2: { category: "Document Attributes",
+                error: "%s is not a recognised status", severity: 2 },
+      }.freeze
+
+      def log_messages
+        super.merge(UN_LOG_MESSAGES)
       end
 
-      def boilerplate_file(_xmldoc)
-        File.join(@libdir, "boilerplate.adoc")
+      def default_publisher
+        "United Nations"
       end
 
       def metadata_committee(node, xml)
@@ -128,8 +135,7 @@ module Metanorma
         unless %w{plenary recommendation addendum communication corrigendum
                   reissue agenda budgetary sec-gen-notes expert-report
                   resolution plenary-attachment}.include? d
-          @log.add("Document Attributes", nil,
-                   "#{d} is not a legal document type: reverting to '#{@default_doctype}'")
+          @log.add(:UN_1, nil, params: [d, @default_doctype])
           d = @default_doctype
         end
         d

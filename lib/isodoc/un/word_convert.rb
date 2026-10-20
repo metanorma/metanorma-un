@@ -46,7 +46,7 @@ module IsoDoc
         }
       end
 
-      def footnotes(_div)
+      def footnotes(docxml, div)
         if @meta.get[:item_footnote]
           fn = noko do |xml|
             xml.aside id: "ftnitem" do |d|
@@ -91,46 +91,24 @@ module IsoDoc
         end_line(isoxml, out)
       end
 
-      def introduction(clause, out)
-        out.div class: "Section3", id: clause["id"] do |div|
-          page_break(out)
-          div.p(class: "IntroTitle") do |h1|
-            clause.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
-          end
-          clause.elements.each do |e|
-            parse(e, div) unless e.name == "title"
-          end
-        end
-      end
-
-      def foreword(clause, out)
-        out.div **attr_code(id: clause["id"]) do |s|
-          page_break(out)
-          s.p(class: "ForewordTitle") do |h1|
-            clause.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
-          end
-          clause.elements.each { |e| parse(e, s) unless e.name == "title" }
-        end
-      end
-
       def word_preface(docxml)
         super
         preface_container =
           docxml.at("//div[@id = 'preface_container']") # recommendation
         abstractbox = docxml.at("//div[@id = 'abstractbox']") # plenary
-        foreword = docxml.at("//p[@class = 'ForewordTitle']/..")
-        intro = docxml.at("//p[@class = 'IntroTitle']/..")
-        abstract = docxml.at("//p[@class = 'AbstractTitle']/..")
+        foreword = docxml.at("//*[@class = 'ForewordTitle']/..")
+        intro = docxml.at("//*[@class = 'IntroTitle']/..")
+        abstract = docxml.at("//*[@class = 'AbstractTitle']/..")
         abstract.parent = (abstractbox || preface_container) if abstract &&
           (abstractbox || preface_container)
         abstractbox and abstract&.xpath(".//p/br")&.each do |a|
           a.parent.remove if a["style"].include?("page-break-before:always")
         end
-        docxml&.at("//p[@class = 'AbstractTitle']")&.remove if abstractbox
+        docxml&.at("//*[@class = 'AbstractTitle']")&.remove if abstractbox
         foreword.parent = preface_container if foreword && preface_container
         intro.parent = preface_container if intro && preface_container
         if preface_container && (foreword || intro)
-          preface_container.at("./div/p[br]").remove # remove initial page break
+          preface_container.at("./div/p[br]")&.remove # remove initial page break
         end
         if abstractbox && !intro && !foreword && !@toc
           sect2 = docxml.at("//div[@class='WordSection2']")
@@ -138,16 +116,6 @@ module IsoDoc
           sect2.remove # pagebreak
         end
         abstractbox.parent.remove if abstractbox && !abstract
-      end
-
-      def abstract(clause, out)
-        out.div **attr_code(id: clause["id"]) do |s|
-          page_break(out)
-          s.p(class: "AbstractTitle") do |h1|
-            clause.at(ns("./title"))&.children&.each { |n| parse(n, h1) }
-          end
-          clause.elements.each { |e| parse(e, s) unless e.name == "title" }
-        end
       end
 
       def authority_cleanup(docxml)

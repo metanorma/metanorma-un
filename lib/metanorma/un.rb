@@ -5,6 +5,9 @@ require "metanorma/un/converter"
 
 module Metanorma
   module UN
+    autoload :Cleanup, "metanorma/un/cleanup"
+    autoload :Validate, "metanorma/un/validate"
+
     ORGANIZATION_NAME_SHORT = "UN".freeze
     ORGANIZATION_NAME_LONG = "United Nations".freeze
   end
