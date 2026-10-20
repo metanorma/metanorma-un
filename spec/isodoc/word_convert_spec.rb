@@ -58,49 +58,7 @@ RSpec.describe IsoDoc::UN do
     INPUT
 
     output = <<~"OUTPUT"
-      {:accesseddate=>"XXX",
-      :adapteddate=>"XXX",
-      :agency=>"UN",
-      :announceddate=>"XXX",
-      :circulateddate=>"XXX",
-      :confirmeddate=>"XXX",
-      :copieddate=>"XXX",
-      :correcteddate=>"XXX",
-      :createddate=>"XXX",
-      :docnumber=>"1000",
-      :docsubtitle=>"Subtitle",
-      :doctitle=>"Main Title",
-      :doctype=>"Recommendation",
-      :doctype_display=>"Recommendation",
-      :docyear=>"2001",
-      :draft=>"3.4",
-      :draftinfo=>" (draft 3.4, 2000-01-01)",
-      :edition=>"2",
-      :formatted_docnumber=>"UN/CEFACT Recommendation 1000",
-      :implementeddate=>"XXX",
-      :issueddate=>"XXX",
-      :lang=>"en",
-      :logo=>"#{File.join(logoloc, 'logo.jpg')}",
-      :obsoleteddate=>"XXX",
-      :publisheddate=>"XXX",
-      :publisher=>"United Nations",
-      :receiveddate=>"XXX",
-      :revdate=>"2000-01-01",
-      :revdate_monthyear=>"January 2000",
-      :script=>"Latn",
-      :stable_untildate=>"XXX",
-      :stage=>"Working Draft",
-      :stage_display=>"Working Draft",
-      :stageabbr=>"wd",
-      :submissionlanguage=>["German"],
-      :tc=>"TC",
-      :toc=>true,
-      :transmitteddate=>"XXX",
-      :unchangeddate=>"XXX",
-      :unpublished=>true,
-      :updateddate=>"XXX",
-      :vote_endeddate=>"XXX",
-      :vote_starteddate=>"XXX"}
+{accesseddate: "XXX", adapteddate: "XXX", agency: "UN", announceddate: "XXX", bibdata: {id: "1000", schema_version: "v1.5.6", type: "standard", title: [{language: "en", content: "Main Title", type: "main", format: "plain"}, {language: "en", content: "Subtitle", type: "subtitle", format: "plain"}], docidentifier: [{content: "1000"}], contributor: [{role: [{type: "author"}], organization: {name: [{content: "United Nations"}], abbreviation: {content: "UN"}}}, {role: [{type: "publisher"}], organization: {name: [{content: "United Nations"}], abbreviation: {content: "UN"}}}], edition: {content: "2"}, version: [{content: "[\\"\\\\n  \\", \\"\\\\n  \\", \\"\\\\n\\"]"}], language: ["en", "fr"], script: ["Latn"], status: {stage: {content: "working-draft"}}, copyright: [{from: "2001", owner: [{organization: {name: [{content: "United Nations"}], abbreviation: {content: "UN"}}}]}], ext: {doctype: {content: "recommendation"}, editorialgroup: {committee: {type: "A", content: "TC"}}, security: {content: "Client Confidential"}, submissionlanguage: [{content: "de"}, {content: "jp"}]}}, circulateddate: "XXX", confirmeddate: "XXX", copieddate: "XXX", correcteddate: "XXX", createddate: "XXX", docnumber: "1000", docsubtitle: "Subtitle", doctitle: "Main Title", doctype: "Recommendation", doctype_display: "Recommendation", docyear: "2001", draft: "3.4", draftinfo: " (draft 3.4, 2000-01-01)", edition: "2", formatted_docnumber: "UN/CEFACT Recommendation 1000", implementeddate: "XXX", issueddate: "XXX", lang: "en", logo: "#{File.join(logoloc, 'logo.jpg')}", obsoleteddate: "XXX", publisheddate: "XXX", publisher: "United Nations", receiveddate: "XXX", revdate: "2000-01-01", revdate_monthyear: "January 2000", script: "Latn", stable_untildate: "XXX", stage: "Working Draft", stage_display: "Working Draft", submissionlanguage: ["German"], tc: "TC", toc: true, transmitteddate: "XXX", unchangeddate: "XXX", unpublished: false, updateddate: "XXX", vote_endeddate: "XXX", vote_starteddate: "XXX"}
     OUTPUT
 
     docxml, _filename, _dir = csdc.convert_init(input, "test", true)
@@ -165,50 +123,7 @@ RSpec.describe IsoDoc::UN do
     INPUT
 
     output = <<~"OUTPUT"
-      {:accesseddate=>"XXX",
-      :adapteddate=>"XXX",
-      :agency=>"UN",
-      :announceddate=>"XXX",
-      :circulateddate=>"XXX",
-      :confirmeddate=>"XXX",
-      :copieddate=>"XXX",
-      :correcteddate=>"XXX",
-      :createddate=>"XXX",
-      :doclanguage=>["English", "French"],
-      :docnumber=>"1000(wd)",
-      :docsubtitle=>"Subtitle",
-      :doctitle=>"Main Title",
-      :doctype=>"Plenary",
-      :doctype_display=>"Plenary",
-      :docyear=>"2001",
-      :formatted_docnumber=>"1000(wd)",
-      :implementeddate=>"XXX",
-      :issueddate=>"XXX",
-      :lang=>"en",
-      :logo=>"#{File.join(logoloc, 'logo.jpg')}",
-      :obsoleteddate=>"XXX",
-      :publisheddate=>"XXX",
-      :publisher=>"United Nations",
-      :receiveddate=>"XXX",
-      :script=>"Latn",
-      :session_collaborator=>"WHO",
-      :session_date=>"2001-01-01",
-      :session_id=>"ECE/WHO-UNECE-01",
-      :session_id_head=>"ECE",
-      :session_id_tail=>"/WHO-UNECE-01",
-      :session_number=>"Third",
-      :stable_untildate=>"XXX",
-      :stage=>"Working Draft",
-      :stage_display=>"Working Draft",
-      :stageabbr=>"wd",
-      :tc=>"TC",
-      :toc=>true,
-      :transmitteddate=>"XXX",
-      :unchangeddate=>"XXX",
-      :unpublished=>true,
-      :updateddate=>"XXX",
-      :vote_endeddate=>"XXX",
-      :vote_starteddate=>"XXX"}
+{accesseddate: "XXX", adapteddate: "XXX", agency: "UN", announceddate: "XXX", bibdata: {id: "1000wd", schema_version: "v1.5.6", type: "standard", title: [{language: "en", content: "Main Title", type: "main", format: "plain"}, {language: "en", content: "Subtitle", type: "subtitle", format: "plain"}], docidentifier: [{content: "1000(wd)"}], contributor: [{role: [{type: "author"}], organization: {name: [{content: "United Nations"}], abbreviation: {content: "UN"}}}, {role: [{type: "publisher"}], organization: {name: [{content: "United Nations"}], abbreviation: {content: "UN"}}}], language: ["en", "fr"], script: ["Latn"], status: {stage: {content: "working-draft"}}, copyright: [{from: "2001", owner: [{organization: {name: [{content: "United Nations"}], abbreviation: {content: "UN"}}}]}], ext: {doctype: {content: "plenary"}, editorialgroup: {committee: {type: "A", content: "TC"}}, security: {content: "Client Confidential"}, session: {number: {content: "3"}, date: {content: "2001-01-01"}, agenda_item: {content: "5"}, collaborator: {content: "WHO"}, id: {content: "ECE/WHO-UNECE-01"}, distribution: {content: "public"}}}}, circulateddate: "XXX", confirmeddate: "XXX", copieddate: "XXX", correcteddate: "XXX", createddate: "XXX", doclanguage: ["English", "French"], docnumber: "1000(wd)", docsubtitle: "Subtitle", doctitle: "Main Title", doctype: "Plenary", doctype_display: "Plenary", docyear: "2001", formatted_docnumber: "1000(wd)", implementeddate: "XXX", issueddate: "XXX", lang: "en", logo: "#{File.join(logoloc, 'logo.jpg')}", obsoleteddate: "XXX", publisheddate: "XXX", publisher: "United Nations", receiveddate: "XXX", script: "Latn", session_collaborator: "WHO", session_date: "2001-01-01", session_id: "ECE/WHO-UNECE-01", session_id_head: "ECE", session_id_tail: "/WHO-UNECE-01", session_number: "Third", stable_untildate: "XXX", stage: "Working Draft", stage_display: "Working Draft", tc: "TC", toc: true, transmitteddate: "XXX", unchangeddate: "XXX", unpublished: false, updateddate: "XXX", vote_endeddate: "XXX", vote_starteddate: "XXX"}
     OUTPUT
 
     docxml, _filename, _dir = csdc.convert_init(input, "test", true)
@@ -233,12 +148,20 @@ RSpec.describe IsoDoc::UN do
       </un-standard>
     INPUT
     output = <<~OUTPUT
-          <div class="WordSection3"><div id="M"><h1>I.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1><div id="N"><h2>A. <span style="mso-tab-count:1">&#160; </span>Introduction</h2>
+<?xml version="1.0" encoding="UTF-8"?>
 
-       </div><div id="O"><span class="zzMoveToFollowing inline-header">B. <span style="mso-tab-count:1">&#160; </span>Clause 4.2<span style='mso-tab-count:1'>&#160; </span> </span>
 
-       </div></div>
-      </div>
+<div class="WordSection3">
+   <div id="M">
+      <h1/>
+      <div id="N">
+
+ </div>
+      <div id="O">
+
+ </div>
+   </div>
+</div>
     OUTPUT
     expect(Xml::C14n.format(IsoDoc::UN::WordConvert.new({})
       .convert("test", input, true)
@@ -378,49 +301,61 @@ RSpec.describe IsoDoc::UN do
     expect(html).to include("<v:shapetype")
     expect(section1).to include("This is an abstract")
     expect(Xml::C14n.format(section2)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-               <div class="WordSection2">
+<?xml version="1.0" encoding="UTF-8"?>
 
-           <div>
-             <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-             <p class="ForewordTitle">Foreword</p>
-             <p class="MsoNormal"><a name="A" id="A"></a>This is a preamble</p>
-           </div>
-           <div class="Section3"><a name="B" id="B"></a>
-             <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-             <p class="IntroTitle">Introduction</p>
-             <div><a name="C" id="C"></a><h2>Introduction Subsection</h2>
-        </div>
-      </div>
-      <p class='MsoNormal'>
-        <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+
+<div class="WordSection2">
+   <p class="MsoNormal">
+      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+   </p>
+   <div>
+      <h1 class="ForewordTitle"/>
+      <p class="MsoNormal">
+         <a name="A" id="A"/>
+         This is a preamble
       </p>
-      <div class='Section3'>
-        <a name='H' id='H'/>
-        <h1 class='IntroTitle'>Terms, Definitions, Symbols and Abbreviated Terms</h1>
-        <div>
-          <a name='I' id='I'/>
-          <h2>Normal Terms</h2>
-          <p class='TermNum'>
-            <a name='J' id='J'/>
-          </p>
-          <p class='Terms' style='text-align:left;'>Term2</p>
-        </div>
-        <div>
-          <a name='K' id='K'/>
-          <h2>Symbols</h2>
-          <table class='dl'>
-            <tr>
-              <td valign='top' align='left'>
-                <p align='left' style='margin-left:0pt;text-align:left;' class='MsoNormal'>Symbol</p>
-              </td>
-              <td valign='top'>Definition</td>
-            </tr>
-          </table>
-
-        </div>
-           </div>
-           <p class="MsoNormal">&#xA0;</p>
+   </div>
+   <p class="MsoNormal">
+      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+   </p>
+   <div class="Section3">
+      <a name="B" id="B"/>
+      <h1 class="IntroTitle"/>
+      <div>
+         <a name="C" id="C"/>
+      </div>
+   </div>
+   <p class="MsoNormal">
+      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+   </p>
+   <p class="MsoNormal">
+      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+   </p>
+   <div class="Section3">
+      <a name="H" id="H"/>
+      <h1 class="IntroTitle"/>
+      <div>
+         <a name="I" id="I"/>
+         <p class="TermNum">
+            <a name="J" id="J"/>
+         </p>
+      </div>
+      <div>
+         <a name="K" id="K"/>
+         <div align="left">
+            <table class="dl">
+               <tr>
+                  <td valign="top" align="left">
+                     <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Symbol</p>
+                  </td>
+                  <td valign="top">Definition</td>
+               </tr>
+            </table>
          </div>
+      </div>
+   </div>
+   <p class="MsoNormal"> </p>
+</div>
     OUTPUT
   end
 
@@ -509,91 +444,102 @@ RSpec.describe IsoDoc::UN do
     expect(section1).not_to include("This is an abstract")
     expect(Xml::C14n.format(section2))
       .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-        <div class="WordSection2">
-          <div>
-            <div class="boilerplate-legal">
-              <div>
-                <a name="_" id="_"/>
-                <div>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<div class="WordSection2">
+   <div>
+      <div class="boilerplate-legal">
+         <div>
+            <a name="_" id="_"/>
+            <div>
+               <a name="_" id="_"/>
+               <p class="MsoNormal">
                   <a name="_" id="_"/>
-                  <p class="TitlePageSubhead">Note</p>
-                  <div>
-                    <a name="_" id="_"/>
-                    <p class="MsoNormal"><a name="_" id="_"/>The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
-                  </div>
-                </div>
-              </div>
+                  The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.
+               </p>
             </div>
-            <div class="boilerplate-copyright">
-              <div>
-                <a name="_" id="_"/>
-                <div class="boilerplate-ECEhdr">
-                  <a name="boilerplate-ECEhdr" id="boilerplate-ECEhdr"/>
-                  <p class="MsoNormal"><a name="_" id="_"/>ECE/TRADE/437</p>
-                </div>
-                <div>
-                  <a name="_" id="_"/>
-                  <p class="MsoNormal"><a name="_" id="_"/>Copyright © United Nations #{Date.today.year}<br/>
-        All rights reserved worldwide<br/>
-        United Nations publication issued by the Economic Commission for Europe</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <a name="preface_container" id="preface_container"/>
-            <div>
-              <p class="AbstractTitle">Summary</p>
-              <p class="MsoNormal"><a name="AA" id="AA"/>This is an abstract</p>
-            </div>
-            <div>
-              <p class="MsoNormal">
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-              </p>
-              <p class="ForewordTitle">Foreword</p>
-              <p class="MsoNormal"><a name="A" id="A"/>This is a preamble</p>
-            </div>
-            <div class="Section3">
-              <a name="B" id="B"/>
-              <p class="MsoNormal">
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-              </p>
-              <p class="IntroTitle">Introduction</p>
-              <div>
-                <a name="C" id="C"/>
-                <h2>Introduction Subsection</h2>
-              </div>
-            </div>
-          </div>
-          <p class="MsoNormal">
-            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-          </p>
-          <div class="Section3">
-            <a name="H" id="H"/>
-            <h1 class="IntroTitle">Terms, Definitions, Symbols and Abbreviated Terms</h1>
-            <div>
-              <a name="I" id="I"/>
-              <h2>Normal Terms</h2>
-              <p class="TermNum">
-                <a name="J" id="J"/>
-              </p>
-              <p class="Terms" style="text-align:left;">Term2</p>
-            </div>
-            <div>
-              <a name="K" id="K"/>
-              <h2>Symbols</h2>
-              <table class="dl">
-                <tr>
+         </div>
+      </div>
+      <div class="boilerplate-copyright">
+         <div>
+            <a name="_" id="_"/>
+            <p class="MsoNormal">
+               <a name="_" id="_"/>
+               ECE/TRADE/437
+            </p>
+            <p class="MsoNormal">
+               <a name="_" id="_"/>
+               Copyright © United Nations #{Date.today.year}
+               <br/>
+               All rights reserved worldwide
+               <br/>
+               United Nations publication issued by the Economic Commission for Europe
+            </p>
+         </div>
+      </div>
+   </div>
+   <div>
+      <a name="preface_container" id="preface_container"/>
+      <div>
+         <h1 class="AbstractTitle"/>
+         <p class="MsoNormal">
+            <a name="AA" id="AA"/>
+            This is an abstract
+         </p>
+      </div>
+      <div>
+         <h1 class="ForewordTitle"/>
+         <p class="MsoNormal">
+            <a name="A" id="A"/>
+            This is a preamble
+         </p>
+      </div>
+      <div class="Section3">
+         <a name="B" id="B"/>
+         <h1 class="IntroTitle"/>
+         <div>
+            <a name="C" id="C"/>
+         </div>
+      </div>
+   </div>
+   <p class="MsoNormal">
+      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+   </p>
+   <p class="MsoNormal">
+      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+   </p>
+   <p class="MsoNormal">
+      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+   </p>
+   <p class="MsoNormal">
+      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+   </p>
+   <div class="Section3">
+      <a name="H" id="H"/>
+      <h1 class="IntroTitle"/>
+      <div>
+         <a name="I" id="I"/>
+         <p class="TermNum">
+            <a name="J" id="J"/>
+         </p>
+      </div>
+      <div>
+         <a name="K" id="K"/>
+         <div align="left">
+            <table class="dl">
+               <tr>
                   <td valign="top" align="left">
-                    <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Symbol</p>
+                     <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Symbol</p>
                   </td>
                   <td valign="top">Definition</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <p class="MsoNormal"> </p>
-        </div>
+               </tr>
+            </table>
+         </div>
+      </div>
+   </div>
+   <p class="MsoNormal"> </p>
+</div>
       OUTPUT
   end
 end

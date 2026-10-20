@@ -8,9 +8,115 @@ RSpec.describe Metanorma::UN do
     INPUT
 
     output = Xml::C14n.format(<<~"OUTPUT")
-          #{blank_hdr_gen}
-      <sections/>
-      </un-standard>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Document title</title>
+      <contributor>
+         <role type="author"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <language>ar</language>
+      <language>ru</language>
+      <language>en</language>
+      <language>fr</language>
+      <language>zh</language>
+      <language>es</language>
+      <script>Latn</script>
+      <status>
+         <stage>published</stage>
+      </status>
+      <copyright>
+         <from>#{Date.today.year}</from>
+         <owner>
+            <organization>
+               <name>United Nations</name>
+            </organization>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>standard</doctype>
+         <flavor>un</flavor>
+         <session/>
+      </ext>
+   </bibdata>
+   <metanorma-extension>
+      <semantic-metadata>
+         <stage-published>true</stage-published>
+      </semantic-metadata>
+      <presentation-metadata>
+         <toc-heading-levels>2</toc-heading-levels>
+         <html-toc-heading-levels>2</html-toc-heading-levels>
+         <doc-toc-heading-levels>2</doc-toc-heading-levels>
+         <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+      </presentation-metadata>
+   </metanorma-extension>
+   <boilerplate>
+      <copyright-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_" anchor="boilerplate-ECEhdr">ECE/TRADE/437</p>
+            <p id="_">
+               Copyright © United Nations #{Date.today.year}
+               <br/>
+               All rights reserved worldwide
+               <br/>
+               United Nations publication issued by the Economic Commission for Europe
+            </p>
+         </clause>
+      </copyright-statement>
+      <license-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_">None of the materials provided on this web site may be used, reproduced or transmitted, in whole or in part, in any form or by any means, electronic or mechanical, including photocopying, recording or the use of any information storage and retrieval system, except as provided for in the Terms and Conditions of Use of United Nations Web Sites, without permission in writing from the publisher.</p>
+            <p id="_">News-related material can be used as long as the appropriate credit is given and the United Nations is advised.</p>
+            <p id="_">
+               To request such permission or for further enquires, please visit:
+               <link target="https://shop.un.org/rights-permissions">United Nations Publications: Rights and Permissions.</link>
+            </p>
+         </clause>
+      </license-statement>
+      <legal-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Note</title>
+               <p id="_">The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+            </clause>
+         </clause>
+      </legal-statement>
+      <feedback-statement>
+         <p id="_" anchor="boilerplate-feedback-name">UN Economic Commission for Europe: Information Service</p>
+         <p id="_" anchor="boilerplate-feedback-address">
+            Palais des Nations
+            <br/>
+            CH-1211 Geneva 10
+            <br/>
+            Switzerland
+            <br/>
+            <br/>
+            <link target="tel:+41(0)229171234">+41 (0) 22 917 12 34 (switchboard)</link>
+            <br/>
+         </p>
+         <p id="_">
+            <link target="mailto:unece_info@un.org">
+               unece_info@un.org
+               <br/>
+               <link target="link:++https://www.unece.org/">www.unece.org/</link>
+               ++[]
+            </link>
+         </p>
+      </feedback-statement>
+   </boilerplate>
+   <sections> </sections>
+</metanorma>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
@@ -28,13 +134,119 @@ RSpec.describe Metanorma::UN do
     INPUT
 
     output = Xml::C14n.format(<<~"OUTPUT")
-          #{blank_hdr_gen}
-          <sections>
-        <clause id='_' inline-header='false' obligation='normative'>
-          <title>Clause</title>
-        </clause>
-      </sections>
-      </un-standard>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Document title</title>
+      <contributor>
+         <role type="author"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <language>ar</language>
+      <language>ru</language>
+      <language>en</language>
+      <language>fr</language>
+      <language>zh</language>
+      <language>es</language>
+      <script>Latn</script>
+      <status>
+         <stage>published</stage>
+      </status>
+      <copyright>
+         <from>#{Date.today.year}</from>
+         <owner>
+            <organization>
+               <name>United Nations</name>
+            </organization>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>standard</doctype>
+         <flavor>un</flavor>
+         <session/>
+      </ext>
+   </bibdata>
+   <metanorma-extension>
+      <semantic-metadata>
+         <stage-published>true</stage-published>
+      </semantic-metadata>
+      <presentation-metadata>
+         <toc-heading-levels>2</toc-heading-levels>
+         <html-toc-heading-levels>2</html-toc-heading-levels>
+         <doc-toc-heading-levels>2</doc-toc-heading-levels>
+         <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+      </presentation-metadata>
+   </metanorma-extension>
+   <boilerplate>
+      <copyright-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_" anchor="boilerplate-ECEhdr">ECE/TRADE/437</p>
+            <p id="_">
+               Copyright © United Nations #{Date.today.year}
+               <br/>
+               All rights reserved worldwide
+               <br/>
+               United Nations publication issued by the Economic Commission for Europe
+            </p>
+         </clause>
+      </copyright-statement>
+      <license-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_">None of the materials provided on this web site may be used, reproduced or transmitted, in whole or in part, in any form or by any means, electronic or mechanical, including photocopying, recording or the use of any information storage and retrieval system, except as provided for in the Terms and Conditions of Use of United Nations Web Sites, without permission in writing from the publisher.</p>
+            <p id="_">News-related material can be used as long as the appropriate credit is given and the United Nations is advised.</p>
+            <p id="_">
+               To request such permission or for further enquires, please visit:
+               <link target="https://shop.un.org/rights-permissions">United Nations Publications: Rights and Permissions.</link>
+            </p>
+         </clause>
+      </license-statement>
+      <legal-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Note</title>
+               <p id="_">The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+            </clause>
+         </clause>
+      </legal-statement>
+      <feedback-statement>
+         <p id="_" anchor="boilerplate-feedback-name">UN Economic Commission for Europe: Information Service</p>
+         <p id="_" anchor="boilerplate-feedback-address">
+            Palais des Nations
+            <br/>
+            CH-1211 Geneva 10
+            <br/>
+            Switzerland
+            <br/>
+            <br/>
+            <link target="tel:+41(0)229171234">+41 (0) 22 917 12 34 (switchboard)</link>
+            <br/>
+         </p>
+         <p id="_">
+            <link target="mailto:unece_info@un.org">
+               unece_info@un.org
+               <br/>
+               <link target="link:++https://www.unece.org/">www.unece.org/</link>
+               ++[]
+            </link>
+         </p>
+      </feedback-statement>
+   </boilerplate>
+   <sections>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Clause</title>
+      </clause>
+   </sections>
+</metanorma>
     OUTPUT
 
     FileUtils.rm_f "test.html"
@@ -89,69 +301,121 @@ RSpec.describe Metanorma::UN do
       :distribution: public
     INPUT
     output = Xml::C14n.format(<<~"OUTPUT")
-          <?xml version="1.0" encoding="UTF-8"?>
-      <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
-      <bibdata type="standard">
-        <title type="main" language="en" format="text/plain">Main Title</title>
-        <title type="subtitle" language="en" format="text/plain">Subtitle</title>
-        <docidentifier primary="true">1000(wd)</docidentifier>
-        <docnumber>1000</docnumber>
-        <contributor>
-          <role type="author"/>
-          <organization>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Main Title</title>
+      <title type="subtitle" language="en" format="text/plain">Subtitle</title>
+      <docidentifier primary="true">1000(wd)</docidentifier>
+      <docnumber>1000</docnumber>
+      <date type="updated">
+         <on>2000-01-01</on>
+      </date>
+      <contributor>
+         <role type="author"/>
+         <organization>
             <name>United Nations</name>
-          </organization>
-        </contributor>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
             <name>United Nations</name>
-          </organization>
-        </contributor>
-        <edition>2</edition>
-      <version>
-        <revision-date>2000-01-01</revision-date>
-        <draft>3.4</draft>
-      </version>
-        <language>en</language>
-        <script>Latn</script>
-        <status>
-          <stage>working-draft</stage>
-          <iteration>3</iteration>
-        </status>
-        <copyright>
-          <from>2001</from>
-          <owner>
+         </organization>
+      </contributor>
+      <edition>2</edition>
+      <version>3.4</version>
+      <language>en</language>
+      <script>Latn</script>
+      <status>
+         <stage>working-draft</stage>
+         <iteration>3</iteration>
+      </status>
+      <copyright>
+         <from>2001</from>
+         <owner>
             <organization>
-            <name>United Nations</name>
+               <name>United Nations</name>
             </organization>
-          </owner>
-        </copyright>
-        <ext>
-        <doctype>recommendation</doctype>
-        <editorialgroup>
-          <committee type="A">TC</committee>
-          <committee type="B">TC1</committee>
-        </editorialgroup>
-        <distribution>public</distribution>
-        <session>
-        <number>Session</number>
-        <date>2000-01-01</date>
-        <item-number>123</item-number>
-      <item-number>456</item-number>
-      <item-name>ABC</item-name>
-      <item-name>DEF</item-name>
-      <subitem-name>EGH</subitem-name>
-      <subitem-name>IJK</subitem-name>
-        <collaborator>WHO</collaborator>
-        <id>WHO 1</id>
-        <item-footnote>A/123</item-footnote>
-      </session>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>standard</doctype>
+         <flavor>un</flavor>
+         <distribution>public</distribution>
+         <session>
+            <number>Session</number>
+            <date>2000-01-01</date>
+            <item-number>123</item-number>
+            <item-number>456</item-number>
+            <item-name>ABC</item-name>
+            <item-name>DEF</item-name>
+            <subitem-name>EGH</subitem-name>
+            <subitem-name>IJK</subitem-name>
+            <collaborator>WHO</collaborator>
+            <id>WHO 1</id>
+            <item-footnote>A/123</item-footnote>
+         </session>
       </ext>
-      </bibdata>
-          #{boilerplate(Nokogiri::XML("#{BLANK_HDR}</un-standard>")).sub(/United Nations #{Date.today.year}/, 'United Nations 2001')}
-      <sections/>
-      </un-standard>
+   </bibdata>
+   <boilerplate>
+      <copyright-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_" anchor="boilerplate-ECEhdr">ECE/TRADE/437</p>
+            <p id="_">
+               Copyright © United Nations 2001
+               <br/>
+               All rights reserved worldwide
+               <br/>
+               United Nations publication issued by the Economic Commission for Europe
+            </p>
+         </clause>
+      </copyright-statement>
+      <license-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_">None of the materials provided on this web site may be used, reproduced or transmitted, in whole or in part, in any form or by any means, electronic or mechanical, including photocopying, recording or the use of any information storage and retrieval system, except as provided for in the Terms and Conditions of Use of United Nations Web Sites, without permission in writing from the publisher.</p>
+            <p id="_">News-related material can be used as long as the appropriate credit is given and the United Nations is advised.</p>
+            <p id="_">
+               To request such permission or for further enquires, please visit:
+               <link target="https://shop.un.org/rights-permissions">United Nations Publications: Rights and Permissions.</link>
+            </p>
+         </clause>
+      </license-statement>
+      <legal-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Note</title>
+               <p id="_">The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+            </clause>
+         </clause>
+      </legal-statement>
+      <feedback-statement>
+         <p id="_" anchor="boilerplate-feedback-name">UN Economic Commission for Europe: Information Service</p>
+         <p id="_" anchor="boilerplate-feedback-address">
+            Palais des Nations
+            <br/>
+            CH-1211 Geneva 10
+            <br/>
+            Switzerland
+            <br/>
+            <br/>
+            <link target="tel:+41(0)229171234">+41 (0) 22 917 12 34 (switchboard)</link>
+            <br/>
+         </p>
+         <p id="_">
+            <link target="mailto:unece_info@un.org">
+               unece_info@un.org
+               <br/>
+               <link target="link:++https://www.unece.org/">www.unece.org/</link>
+               ++[]
+            </link>
+         </p>
+      </feedback-statement>
+   </boilerplate>
+   <sections> </sections>
+</metanorma>
     OUTPUT
 
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
@@ -173,46 +437,50 @@ RSpec.describe Metanorma::UN do
       :submissionlanguage: de, jp
     INPUT
     output = <<~OUTPUT
-                 <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
-             <bibdata type="standard">
-      <title type='main' language='en' format='text/plain'>Document title</title>
-               <docidentifier primary="true">1000(cd)</docidentifier>
-               <docnumber>1000</docnumber>
-               <contributor>
-                 <role type="author"/>
-                 <organization>
-                 <name>United Nations</name>
-                 </organization>
-               </contributor>
-               <contributor>
-                 <role type="publisher"/>
-                 <organization>
-                 <name>United Nations</name>
-                 </organization>
-               </contributor>
-               <language>eo</language>
-              <language>tlh</language>
-               <script>Latn</script>
-               <status>
-                 <stage>committee-draft</stage>
-               </status>
-               <copyright>
-                 <from>#{Date.today.year}</from>
-                 <owner>
-                   <organization>
-                   <name>United Nations</name>
-                   </organization>
-                 </owner>
-               </copyright>
-               <ext>
-               <doctype>recommendation</doctype>
-               <session/>
-              <submissionlanguage>de</submissionlanguage>
-              <submissionlanguage>jp</submissionlanguage>
-               </ext>
-             </bibdata>
-             <sections/>
-             </un-standard>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Document title</title>
+      <docidentifier primary="true">1000(cd)</docidentifier>
+      <docnumber>1000</docnumber>
+      <contributor>
+         <role type="author"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <language>eo</language>
+      <language>tlh</language>
+      <script>Latn</script>
+      <status>
+         <stage>committee-draft</stage>
+      </status>
+      <copyright>
+         <from>#{Date.today.year}</from>
+         <owner>
+            <organization>
+               <name>United Nations</name>
+            </organization>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>standard</doctype>
+         <flavor>un</flavor>
+         <session/>
+         <submissionlanguage>de</submissionlanguage>
+         <submissionlanguage>jp</submissionlanguage>
+      </ext>
+   </bibdata>
+   <sections> </sections>
+</metanorma>
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:boilerplate | //xmlns:metanorma-extension")
@@ -232,48 +500,52 @@ RSpec.describe Metanorma::UN do
       :status: draft-standard
     INPUT
     output = <<~OUTPUT
-          <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
-      <bibdata type="standard">
-      <title type='main' language='en' format='text/plain'>Document title</title>
-        <docidentifier primary="true">1000(d)</docidentifier>
-        <docnumber>1000</docnumber>
-        <contributor>
-          <role type="author"/>
-          <organization>
-          <name>United Nations</name>
-          </organization>
-        </contributor>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-          <name>United Nations</name>
-          </organization>
-        </contributor>
-        <language>ar</language>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Document title</title>
+      <docidentifier primary="true">1000(d)</docidentifier>
+      <docnumber>1000</docnumber>
+      <contributor>
+         <role type="author"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <language>ar</language>
       <language>ru</language>
       <language>en</language>
       <language>fr</language>
       <language>zh</language>
       <language>es</language>
-        <script>Latn</script>
-        <status>
-          <stage>draft-standard</stage>
-        </status>
-        <copyright>
-          <from>#{Date.today.year}</from>
-          <owner>
+      <script>Latn</script>
+      <status>
+         <stage>draft-standard</stage>
+      </status>
+      <copyright>
+         <from>#{Date.today.year}</from>
+         <owner>
             <organization>
-            <name>United Nations</name>
+               <name>United Nations</name>
             </organization>
-          </owner>
-        </copyright>
-               <ext>
-               <doctype>recommendation</doctype>
-               <session/>
-               </ext>
-      </bibdata>
-      <sections/>
-      </un-standard>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>standard</doctype>
+         <flavor>un</flavor>
+         <session/>
+      </ext>
+   </bibdata>
+   <sections> </sections>
+</metanorma>
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:boilerplate | //xmlns:metanorma-extension")
@@ -294,48 +566,52 @@ RSpec.describe Metanorma::UN do
       :status: draft-standard
     INPUT
     output = <<~OUTPUT
-          <un-standard xmlns="https://www.metanorma.org/ns/un" type="semantic" version="#{Metanorma::UN::VERSION}">
-      <bibdata type="standard">
-      <title type='main' language='en' format='text/plain'>Document title</title>
-        <docidentifier primary="true">OVERRIDE</docidentifier>
-        <docnumber>1000</docnumber>
-        <contributor>
-          <role type="author"/>
-          <organization>
-          <name>United Nations</name>
-          </organization>
-        </contributor>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-          <name>United Nations</name>
-          </organization>
-        </contributor>
-        <language>ar</language>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Document title</title>
+      <docidentifier primary="true">OVERRIDE</docidentifier>
+      <docnumber>1000</docnumber>
+      <contributor>
+         <role type="author"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <language>ar</language>
       <language>ru</language>
       <language>en</language>
       <language>fr</language>
       <language>zh</language>
       <language>es</language>
-        <script>Latn</script>
-        <status>
-          <stage>draft-standard</stage>
-        </status>
-        <copyright>
-          <from>#{Date.today.year}</from>
-          <owner>
+      <script>Latn</script>
+      <status>
+         <stage>draft-standard</stage>
+      </status>
+      <copyright>
+         <from>#{Date.today.year}</from>
+         <owner>
             <organization>
-            <name>United Nations</name>
+               <name>United Nations</name>
             </organization>
-          </owner>
-        </copyright>
-               <ext>
-               <doctype>recommendation</doctype>
-               <session/>
-               </ext>
-      </bibdata>
-      <sections/>
-      </un-standard>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>standard</doctype>
+         <flavor>un</flavor>
+         <session/>
+      </ext>
+   </bibdata>
+   <sections> </sections>
+</metanorma>
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:boilerplate | //xmlns:metanorma-extension")
@@ -370,13 +646,19 @@ RSpec.describe Metanorma::UN do
     INPUT
 
     output = Xml::C14n.format(<<~"OUTPUT")
-          <preface><abstract id="_">
-          <title>Summary</title>
-        <p id="_">Abstract</p>
-      </abstract><foreword id="_" obligation="informative">
-        <title>Foreword</title>
-        <p id="_">Preamble</p>
-      </foreword></preface>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<preface>
+   <abstract id="_">
+      <title id="_">Summary</title>
+      <p id="_">Abstract</p>
+   </abstract>
+   <foreword id="_" obligation="informative">
+      <title id="_">Foreword</title>
+      <p id="_">Preamble</p>
+   </foreword>
+</preface>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))
@@ -396,13 +678,119 @@ RSpec.describe Metanorma::UN do
       ====
     INPUT
     output = <<~OUTPUT
-      #{blank_hdr_gen}
-       <sections>
-         <note id="_">
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Document title</title>
+      <contributor>
+         <role type="author"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <language>ar</language>
+      <language>ru</language>
+      <language>en</language>
+      <language>fr</language>
+      <language>zh</language>
+      <language>es</language>
+      <script>Latn</script>
+      <status>
+         <stage>published</stage>
+      </status>
+      <copyright>
+         <from>#{Date.today.year}</from>
+         <owner>
+            <organization>
+               <name>United Nations</name>
+            </organization>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>standard</doctype>
+         <flavor>un</flavor>
+         <session/>
+      </ext>
+   </bibdata>
+   <metanorma-extension>
+      <semantic-metadata>
+         <stage-published>true</stage-published>
+      </semantic-metadata>
+      <presentation-metadata>
+         <toc-heading-levels>2</toc-heading-levels>
+         <html-toc-heading-levels>2</html-toc-heading-levels>
+         <doc-toc-heading-levels>2</doc-toc-heading-levels>
+         <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+      </presentation-metadata>
+   </metanorma-extension>
+   <boilerplate>
+      <copyright-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_" anchor="boilerplate-ECEhdr">ECE/TRADE/437</p>
+            <p id="_">
+               Copyright © United Nations #{Date.today.year}
+               <br/>
+               All rights reserved worldwide
+               <br/>
+               United Nations publication issued by the Economic Commission for Europe
+            </p>
+         </clause>
+      </copyright-statement>
+      <license-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_">None of the materials provided on this web site may be used, reproduced or transmitted, in whole or in part, in any form or by any means, electronic or mechanical, including photocopying, recording or the use of any information storage and retrieval system, except as provided for in the Terms and Conditions of Use of United Nations Web Sites, without permission in writing from the publisher.</p>
+            <p id="_">News-related material can be used as long as the appropriate credit is given and the United Nations is advised.</p>
+            <p id="_">
+               To request such permission or for further enquires, please visit:
+               <link target="https://shop.un.org/rights-permissions">United Nations Publications: Rights and Permissions.</link>
+            </p>
+         </clause>
+      </license-statement>
+      <legal-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Note</title>
+               <p id="_">The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+            </clause>
+         </clause>
+      </legal-statement>
+      <feedback-statement>
+         <p id="_" anchor="boilerplate-feedback-name">UN Economic Commission for Europe: Information Service</p>
+         <p id="_" anchor="boilerplate-feedback-address">
+            Palais des Nations
+            <br/>
+            CH-1211 Geneva 10
+            <br/>
+            Switzerland
+            <br/>
+            <br/>
+            <link target="tel:+41(0)229171234">+41 (0) 22 917 12 34 (switchboard)</link>
+            <br/>
+         </p>
+         <p id="_">
+            <link target="mailto:unece_info@un.org">
+               unece_info@un.org
+               <br/>
+               <link target="link:++https://www.unece.org/">www.unece.org/</link>
+               ++[]
+            </link>
+         </p>
+      </feedback-statement>
+   </boilerplate>
+   <sections>
+      <note id="_">
          <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
-       </note>
-       </sections>
-       </un-standard>
+      </note>
+   </sections>
+</metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -419,15 +807,120 @@ RSpec.describe Metanorma::UN do
       ====
     INPUT
     output = <<~OUTPUT
-      #{blank_hdr_gen}
-       <sections>
-         <admonition id="_" type="important" unnumbered="true" subsequence="A">
-         <name>The United Nations Centre for Trade Facilitation and e-Business</name>
-         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
-       </admonition>
-       </sections>
-       </un-standard>
+<?xml version="1.0" encoding="UTF-8"?>
 
+
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Document title</title>
+      <contributor>
+         <role type="author"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <language>ar</language>
+      <language>ru</language>
+      <language>en</language>
+      <language>fr</language>
+      <language>zh</language>
+      <language>es</language>
+      <script>Latn</script>
+      <status>
+         <stage>published</stage>
+      </status>
+      <copyright>
+         <from>#{Date.today.year}</from>
+         <owner>
+            <organization>
+               <name>United Nations</name>
+            </organization>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>standard</doctype>
+         <flavor>un</flavor>
+         <session/>
+      </ext>
+   </bibdata>
+   <metanorma-extension>
+      <semantic-metadata>
+         <stage-published>true</stage-published>
+      </semantic-metadata>
+      <presentation-metadata>
+         <toc-heading-levels>2</toc-heading-levels>
+         <html-toc-heading-levels>2</html-toc-heading-levels>
+         <doc-toc-heading-levels>2</doc-toc-heading-levels>
+         <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+      </presentation-metadata>
+   </metanorma-extension>
+   <boilerplate>
+      <copyright-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_" anchor="boilerplate-ECEhdr">ECE/TRADE/437</p>
+            <p id="_">
+               Copyright © United Nations #{Date.today.year}
+               <br/>
+               All rights reserved worldwide
+               <br/>
+               United Nations publication issued by the Economic Commission for Europe
+            </p>
+         </clause>
+      </copyright-statement>
+      <license-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_">None of the materials provided on this web site may be used, reproduced or transmitted, in whole or in part, in any form or by any means, electronic or mechanical, including photocopying, recording or the use of any information storage and retrieval system, except as provided for in the Terms and Conditions of Use of United Nations Web Sites, without permission in writing from the publisher.</p>
+            <p id="_">News-related material can be used as long as the appropriate credit is given and the United Nations is advised.</p>
+            <p id="_">
+               To request such permission or for further enquires, please visit:
+               <link target="https://shop.un.org/rights-permissions">United Nations Publications: Rights and Permissions.</link>
+            </p>
+         </clause>
+      </license-statement>
+      <legal-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Note</title>
+               <p id="_">The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+            </clause>
+         </clause>
+      </legal-statement>
+      <feedback-statement>
+         <p id="_" anchor="boilerplate-feedback-name">UN Economic Commission for Europe: Information Service</p>
+         <p id="_" anchor="boilerplate-feedback-address">
+            Palais des Nations
+            <br/>
+            CH-1211 Geneva 10
+            <br/>
+            Switzerland
+            <br/>
+            <br/>
+            <link target="tel:+41(0)229171234">+41 (0) 22 917 12 34 (switchboard)</link>
+            <br/>
+         </p>
+         <p id="_">
+            <link target="mailto:unece_info@un.org">
+               unece_info@un.org
+               <br/>
+               <link target="link:++https://www.unece.org/">www.unece.org/</link>
+               ++[]
+            </link>
+         </p>
+      </feedback-statement>
+   </boilerplate>
+   <sections>
+      <admonition id="_" type="important" unnumbered="true" subsequence="A">
+         <name id="_">The United Nations Centre for Trade Facilitation and e-Business</name>
+         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+      </admonition>
+   </sections>
+</metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -454,24 +947,137 @@ RSpec.describe Metanorma::UN do
     INPUT
 
     output = Xml::C14n.format(<<~"OUTPUT")
-      #{blank_hdr_gen}
-      <sections><clause id="_" inline-header="false" obligation="normative"><title>Section 1</title><clause id="_" inline-header="true" obligation="normative"><p id="_">Para 1</p><ul id="_">
-           <li>
-             <p id="_">A</p>
-           </li>
-           <li>
-             <p id="_">B</p>
-           </li>
-           <li>
-             <p id="_">C</p>
-           </li>
-         </ul></clause>
+<?xml version="1.0" encoding="UTF-8"?>
 
-         <clause id="_" inline-header="true" obligation="normative"><p id="_">Para 2</p></clause></clause>
-         </sections><annex id="_" inline-header="false" obligation="normative"><title>Annex</title><clause id="_" inline-header="true" obligation="normative"><p id="_">Para 3</p></clause>
-         <clause id="_" inline-header="true" obligation="normative"><p id="_">Para 4</p></clause></annex>
-         </un-standard>
 
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Document title</title>
+      <contributor>
+         <role type="author"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <language>ar</language>
+      <language>ru</language>
+      <language>en</language>
+      <language>fr</language>
+      <language>zh</language>
+      <language>es</language>
+      <script>Latn</script>
+      <status>
+         <stage>published</stage>
+      </status>
+      <copyright>
+         <from>#{Date.today.year}</from>
+         <owner>
+            <organization>
+               <name>United Nations</name>
+            </organization>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>standard</doctype>
+         <flavor>un</flavor>
+         <session/>
+      </ext>
+   </bibdata>
+   <metanorma-extension>
+      <semantic-metadata>
+         <stage-published>true</stage-published>
+      </semantic-metadata>
+      <presentation-metadata>
+         <toc-heading-levels>2</toc-heading-levels>
+         <html-toc-heading-levels>2</html-toc-heading-levels>
+         <doc-toc-heading-levels>2</doc-toc-heading-levels>
+         <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+      </presentation-metadata>
+   </metanorma-extension>
+   <boilerplate>
+      <copyright-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_" anchor="boilerplate-ECEhdr">ECE/TRADE/437</p>
+            <p id="_">
+               Copyright © United Nations #{Date.today.year}
+               <br/>
+               All rights reserved worldwide
+               <br/>
+               United Nations publication issued by the Economic Commission for Europe
+            </p>
+         </clause>
+      </copyright-statement>
+      <license-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_">None of the materials provided on this web site may be used, reproduced or transmitted, in whole or in part, in any form or by any means, electronic or mechanical, including photocopying, recording or the use of any information storage and retrieval system, except as provided for in the Terms and Conditions of Use of United Nations Web Sites, without permission in writing from the publisher.</p>
+            <p id="_">News-related material can be used as long as the appropriate credit is given and the United Nations is advised.</p>
+            <p id="_">
+               To request such permission or for further enquires, please visit:
+               <link target="https://shop.un.org/rights-permissions">United Nations Publications: Rights and Permissions.</link>
+            </p>
+         </clause>
+      </license-statement>
+      <legal-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Note</title>
+               <p id="_">The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+            </clause>
+         </clause>
+      </legal-statement>
+      <feedback-statement>
+         <p id="_" anchor="boilerplate-feedback-name">UN Economic Commission for Europe: Information Service</p>
+         <p id="_" anchor="boilerplate-feedback-address">
+            Palais des Nations
+            <br/>
+            CH-1211 Geneva 10
+            <br/>
+            Switzerland
+            <br/>
+            <br/>
+            <link target="tel:+41(0)229171234">+41 (0) 22 917 12 34 (switchboard)</link>
+            <br/>
+         </p>
+         <p id="_">
+            <link target="mailto:unece_info@un.org">
+               unece_info@un.org
+               <br/>
+               <link target="link:++https://www.unece.org/">www.unece.org/</link>
+               ++[]
+            </link>
+         </p>
+      </feedback-statement>
+   </boilerplate>
+   <sections>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Section 1</title>
+         <p id="_">Para 1</p>
+         <ul id="_">
+            <li>
+               <p id="_">A</p>
+            </li>
+            <li>
+               <p id="_">B</p>
+            </li>
+            <li>
+               <p id="_">C</p>
+            </li>
+         </ul>
+         <p id="_">Para 2</p>
+      </clause>
+   </sections>
+   <annex id="_" inline-header="false" obligation="normative">
+      <title id="_">Annex</title>
+      <p id="_">Para 3</p>
+      <p id="_">Para 4</p>
+   </annex>
+</metanorma>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
@@ -504,24 +1110,137 @@ RSpec.describe Metanorma::UN do
     INPUT
 
     output = Xml::C14n.format(<<~"OUTPUT")
-      #{blank_hdr_gen.sub(%r{<doctype>recommendation</doctype>}, '<doctype>agenda</doctype>')}
-      <sections><clause id="_" inline-header="false" obligation="normative"><title>Section 1</title><p id="_">Para 1</p><ul id="_">
-           <li>
-             <p id="_">A</p>
-           </li>
-           <li>
-             <p id="_">B</p>
-           </li>
-           <li>
-             <p id="_">C</p>
-           </li>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Document title</title>
+      <contributor>
+         <role type="author"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <language>ar</language>
+      <language>ru</language>
+      <language>en</language>
+      <language>fr</language>
+      <language>zh</language>
+      <language>es</language>
+      <script>Latn</script>
+      <status>
+         <stage>published</stage>
+      </status>
+      <copyright>
+         <from>#{Date.today.year}</from>
+         <owner>
+            <organization>
+               <name>United Nations</name>
+            </organization>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>agenda</doctype>
+         <flavor>un</flavor>
+         <session/>
+      </ext>
+   </bibdata>
+   <metanorma-extension>
+      <semantic-metadata>
+         <stage-published>true</stage-published>
+      </semantic-metadata>
+      <presentation-metadata>
+         <toc-heading-levels>2</toc-heading-levels>
+         <html-toc-heading-levels>2</html-toc-heading-levels>
+         <doc-toc-heading-levels>2</doc-toc-heading-levels>
+         <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+      </presentation-metadata>
+   </metanorma-extension>
+   <boilerplate>
+      <copyright-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_" anchor="boilerplate-ECEhdr">ECE/TRADE/437</p>
+            <p id="_">
+               Copyright © United Nations #{Date.today.year}
+               <br/>
+               All rights reserved worldwide
+               <br/>
+               United Nations publication issued by the Economic Commission for Europe
+            </p>
+         </clause>
+      </copyright-statement>
+      <license-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_">None of the materials provided on this web site may be used, reproduced or transmitted, in whole or in part, in any form or by any means, electronic or mechanical, including photocopying, recording or the use of any information storage and retrieval system, except as provided for in the Terms and Conditions of Use of United Nations Web Sites, without permission in writing from the publisher.</p>
+            <p id="_">News-related material can be used as long as the appropriate credit is given and the United Nations is advised.</p>
+            <p id="_">
+               To request such permission or for further enquires, please visit:
+               <link target="https://shop.un.org/rights-permissions">United Nations Publications: Rights and Permissions.</link>
+            </p>
+         </clause>
+      </license-statement>
+      <legal-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Note</title>
+               <p id="_">The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+            </clause>
+         </clause>
+      </legal-statement>
+      <feedback-statement>
+         <p id="_" anchor="boilerplate-feedback-name">UN Economic Commission for Europe: Information Service</p>
+         <p id="_" anchor="boilerplate-feedback-address">
+            Palais des Nations
+            <br/>
+            CH-1211 Geneva 10
+            <br/>
+            Switzerland
+            <br/>
+            <br/>
+            <link target="tel:+41(0)229171234">+41 (0) 22 917 12 34 (switchboard)</link>
+            <br/>
+         </p>
+         <p id="_">
+            <link target="mailto:unece_info@un.org">
+               unece_info@un.org
+               <br/>
+               <link target="link:++https://www.unece.org/">www.unece.org/</link>
+               ++[]
+            </link>
+         </p>
+      </feedback-statement>
+   </boilerplate>
+   <sections>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Section 1</title>
+         <p id="_">Para 1</p>
+         <ul id="_">
+            <li>
+               <p id="_">A</p>
+            </li>
+            <li>
+               <p id="_">B</p>
+            </li>
+            <li>
+               <p id="_">C</p>
+            </li>
          </ul>
-
-         <p id="_">Para 2</p></clause>
-         </sections><annex id="_" inline-header="false" obligation="normative"><title>Annex</title><p id="_">Para 3</p>
-         <p id="_">Para 4</p></annex>
-         </un-standard>
-
+         <p id="_">Para 2</p>
+      </clause>
+   </sections>
+   <annex id="_" inline-header="false" obligation="normative">
+      <title id="_">Annex</title>
+      <p id="_">Para 3</p>
+      <p id="_">Para 4</p>
+   </annex>
+</metanorma>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
@@ -668,121 +1387,240 @@ RSpec.describe Metanorma::UN do
       === Bibliography Subsection
     INPUT
     output = <<~OUTPUT
-          #{blank_hdr_gen.sub(/<status>/, '<abstract> <p>Text</p> </abstract> <status>')}
-              <preface>
-          <abstract id='_'>
-          <title>Summary</title>
-            <p id='_'>Text</p>
-          </abstract>
-          <foreword id='_' obligation='informative'>
-            <title>Foreword</title>
-            <p id='_'>Text</p>
-          </foreword>
-          <clause id='_' inline-header='false' obligation='informative'>
-            <title>Dedication</title>
-          </clause>
-          <acknowledgements id='_' obligation='informative'>
-            <title>Acknowledgements</title>
-          </acknowledgements>
-        </preface>
-        <sections>
-          <clause id='_' inline-header='false' obligation='normative'>
-            <title>Foreword</title>
-          </clause>
-          <clause id='_' inline-header='false' obligation='normative'>
-            <title>Introduction</title>
-            <clause id='_' inline-header='false' obligation='normative'>
-              <title>Introduction Subsection</title>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Document title</title>
+      <contributor>
+         <role type="author"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <language>ar</language>
+      <language>ru</language>
+      <language>en</language>
+      <language>fr</language>
+      <language>zh</language>
+      <language>es</language>
+      <script>Latn</script>
+      <abstract>
+         <p>Text</p>
+      </abstract>
+      <status>
+         <stage>published</stage>
+      </status>
+      <copyright>
+         <from>#{Date.today.year}</from>
+         <owner>
+            <organization>
+               <name>United Nations</name>
+            </organization>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>standard</doctype>
+         <flavor>un</flavor>
+         <session/>
+      </ext>
+   </bibdata>
+   <metanorma-extension>
+      <semantic-metadata>
+         <stage-published>true</stage-published>
+      </semantic-metadata>
+      <presentation-metadata>
+         <toc-heading-levels>2</toc-heading-levels>
+         <html-toc-heading-levels>2</html-toc-heading-levels>
+         <doc-toc-heading-levels>2</doc-toc-heading-levels>
+         <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+      </presentation-metadata>
+   </metanorma-extension>
+   <boilerplate>
+      <copyright-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_" anchor="boilerplate-ECEhdr">ECE/TRADE/437</p>
+            <p id="_">
+               Copyright © United Nations #{Date.today.year}
+               <br/>
+               All rights reserved worldwide
+               <br/>
+               United Nations publication issued by the Economic Commission for Europe
+            </p>
+         </clause>
+      </copyright-statement>
+      <license-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_">None of the materials provided on this web site may be used, reproduced or transmitted, in whole or in part, in any form or by any means, electronic or mechanical, including photocopying, recording or the use of any information storage and retrieval system, except as provided for in the Terms and Conditions of Use of United Nations Web Sites, without permission in writing from the publisher.</p>
+            <p id="_">News-related material can be used as long as the appropriate credit is given and the United Nations is advised.</p>
+            <p id="_">
+               To request such permission or for further enquires, please visit:
+               <link target="https://shop.un.org/rights-permissions">United Nations Publications: Rights and Permissions.</link>
+            </p>
+         </clause>
+      </license-statement>
+      <legal-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Note</title>
+               <p id="_">The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
             </clause>
-          </clause>
-          <clause id='_' inline-header='false' obligation='normative' type="scope">
-            <title>Scope</title>
-            <clause id='_' inline-header='true' obligation='normative'>
-              <p id='_'>Text</p>
+         </clause>
+      </legal-statement>
+      <feedback-statement>
+         <p id="_" anchor="boilerplate-feedback-name">UN Economic Commission for Europe: Information Service</p>
+         <p id="_" anchor="boilerplate-feedback-address">
+            Palais des Nations
+            <br/>
+            CH-1211 Geneva 10
+            <br/>
+            Switzerland
+            <br/>
+            <br/>
+            <link target="tel:+41(0)229171234">+41 (0) 22 917 12 34 (switchboard)</link>
+            <br/>
+         </p>
+         <p id="_">
+            <link target="mailto:unece_info@un.org">
+               unece_info@un.org
+               <br/>
+               <link target="link:++https://www.unece.org/">www.unece.org/</link>
+               ++[]
+            </link>
+         </p>
+      </feedback-statement>
+   </boilerplate>
+   <preface>
+      <abstract id="_">
+         <title id="_">Summary</title>
+         <p id="_">Text</p>
+      </abstract>
+      <foreword id="_" obligation="informative">
+         <title id="_">Foreword</title>
+         <p id="_">Text</p>
+      </foreword>
+      <clause id="_" inline-header="false" obligation="informative">
+         <title id="_">Dedication</title>
+      </clause>
+      <acknowledgements id="_" obligation="informative">
+         <title id="_">Acknowledgements</title>
+      </acknowledgements>
+   </preface>
+   <sections>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Foreword</title>
+      </clause>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Introduction</title>
+         <clause id="_" inline-header="false" obligation="normative">
+            <title id="_">Introduction Subsection</title>
+         </clause>
+      </clause>
+      <clause id="_" type="scope" inline-header="false" obligation="normative">
+         <title id="_">Scope</title>
+         <p id="_">Text</p>
+      </clause>
+      <terms id="_" obligation="normative">
+         <title id="_">Terms and definitions</title>
+         <p id="_">For the purposes of this document, the following terms and definitions apply.</p>
+         <term id="_" anchor="term-Term1">
+            <preferred>
+               <expression>
+                  <name>Term1</name>
+               </expression>
+            </preferred>
+         </term>
+      </terms>
+      <clause id="_" obligation="normative" type="terms">
+         <title id="_">Terms, definitions, symbols and abbreviated terms</title>
+         <p id="_">For the purposes of this document, the following terms and definitions apply.</p>
+         <clause id="_" inline-header="false" obligation="normative">
+            <title id="_">Introduction</title>
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Intro 1</title>
             </clause>
-          </clause>
-          <terms id='_' obligation='normative'>
-            <title>Terms and definitions</title>
-            <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
-            <term id='term-Term1'>
-              <preferred><expression><name>Term1</name></expression></preferred>
+         </clause>
+         <terms id="_" obligation="normative">
+            <title id="_">Intro 2</title>
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Intro 3</title>
+            </clause>
+         </terms>
+         <clause id="_" obligation="normative" type="terms">
+            <title id="_">Intro 4</title>
+            <terms id="_" obligation="normative">
+               <title id="_">Intro 5</title>
+               <term id="_" anchor="term-Term1-1">
+                  <preferred>
+                     <expression>
+                        <name>Term1</name>
+                     </expression>
+                  </preferred>
+               </term>
+            </terms>
+         </clause>
+         <terms id="_" obligation="normative">
+            <title id="_">Normal Terms</title>
+            <term id="_" anchor="term-Term2">
+               <preferred>
+                  <expression>
+                     <name>Term2</name>
+                  </expression>
+               </preferred>
             </term>
-          </terms>
-          <clause id='_' obligation='normative' type="terms">
-            <title>Terms, definitions, symbols and abbreviated terms</title>
-            <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
-            <clause id='_' inline-header='false' obligation='normative'>
-              <title>Introduction</title>
-              <clause id='_' inline-header='false' obligation='normative'>
-                <title>Intro 1</title>
-              </clause>
+         </terms>
+         <definitions id="_" obligation="normative">
+            <title id="_">Symbols and Abbreviated Terms</title>
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">General</title>
             </clause>
-            <terms id='_' obligation='normative'>
-              <title>Intro 2</title>
-              <clause id='_' inline-header='false' obligation='normative'>
-                <title>Intro 3</title>
-              </clause>
-            </terms>
-            <clause id='_' obligation='normative' type="terms">
-              <title>Intro 4</title>
-              <terms id='_' obligation='normative'>
-                <title>Intro 5</title>
-                <term id='term-Term1-1'>
-                  <preferred><expression><name>Term1</name></expression></preferred>
-                </term>
-              </terms>
-            </clause>
-            <terms id='_' obligation='normative'>
-              <title>Normal Terms</title>
-              <term id='term-Term2'>
-                <preferred><expression><name>Term2</name></expression></preferred>
-              </term>
-            </terms>
-            <definitions id='_' obligation='normative'>
-              <title>Symbols and Abbreviated Terms</title>
-              <clause id='_' inline-header='false' obligation='normative'>
-                <title>General</title>
-              </clause>
-              <definitions id='_' obligation='normative'>
-                <title>Symbols 1</title>
-              </definitions>
+            <definitions id="_" obligation="normative">
+               <title id="_">Symbols 1</title>
             </definitions>
-          </clause>
-          <definitions id='_' obligation='normative' type="abbreviated_terms">
-            <title>Abbreviated Terms</title>
-          </definitions>
-          <clause id='_' inline-header='false' obligation='normative'>
-            <title>Clause 4</title>
-            <clause id='_' inline-header='false' obligation='normative'>
-              <title>Introduction</title>
-            </clause>
-            <clause id='_' inline-header='false' obligation='normative'>
-              <title>Clause 4.2</title>
-            </clause>
-          </clause>
-          <clause id='_' inline-header='false' obligation='normative'>
-            <title>Terms and Definitions</title>
-          </clause>
-        </sections>
-        <annex id='_' inline-header='false' obligation='normative'>
-          <title>Annex</title>
-          <clause id='_' inline-header='false' obligation='normative'>
-            <title>Annex A.1</title>
-          </clause>
-        </annex>
-        <bibliography>
-          <references id='_' obligation='informative' normative="true">
-            <title>Normative references</title>
-            <p id='_'>There are no normative references in this document.</p>
-          </references>
-          <clause id='_' obligation='informative'>
-            <title>Bibliography</title>
-            <references id='_' obligation='informative' normative="false">
-              <title>Bibliography Subsection</title>
-            </references>
-          </clause>
-        </bibliography>
-      </un-standard>
+         </definitions>
+      </clause>
+      <definitions id="_" type="abbreviated_terms" obligation="normative">
+         <title id="_">Abbreviated Terms</title>
+      </definitions>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Clause 4</title>
+         <clause id="_" inline-header="false" obligation="normative">
+            <title id="_">Introduction</title>
+         </clause>
+         <clause id="_" inline-header="false" obligation="normative">
+            <title id="_">Clause 4.2</title>
+         </clause>
+      </clause>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Terms and Definitions</title>
+      </clause>
+   </sections>
+   <annex id="_" inline-header="false" obligation="normative">
+      <title id="_">Annex</title>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Annex A.1</title>
+      </clause>
+   </annex>
+   <bibliography>
+      <references id="_" normative="true" obligation="informative">
+         <title id="_">Normative references</title>
+         <p id="_">There are no normative references in this document.</p>
+      </references>
+      <clause id="_" obligation="informative">
+         <title id="_">Bibliography</title>
+         <references id="_" normative="false" obligation="informative">
+            <title id="_">Bibliography Subsection</title>
+         </references>
+      </clause>
+   </bibliography>
+</metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -875,121 +1713,240 @@ RSpec.describe Metanorma::UN do
       === Bibliography Subsection
     INPUT
     output = <<~OUTPUT
-         #{blank_hdr_gen.sub(/<status>/, '<abstract> <p>Text</p> </abstract> <status>')}
-         <preface>
-        <abstract id='_'>
-        <title>Summary</title>
-          <p id='_'>Text</p>
-        </abstract>
-        <foreword id='_' obligation='informative'>
-          <title>Foreword</title>
-          <p id='_'>Text</p>
-        </foreword>
-        <clause id='_' inline-header='false' obligation='informative'>
-          <title>Dedication</title>
-        </clause>
-        <acknowledgements id='_' obligation='informative'>
-          <title>Acknowledgements</title>
-        </acknowledgements>
-      </preface>
-      <sections>
-        <clause id='_' inline-header='false' obligation='normative'>
-          <title>Foreword</title>
-        </clause>
-        <clause id='_' inline-header='false' obligation='normative'>
-          <title>Introduction</title>
-          <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
-            <title>Introduction Subsection</title>
-          </clause>
-        </clause>
-        <clause id='_' inline-header='false' obligation='normative' type="scope">
-          <title>Scope</title>
-          <clause id='_' inline-header='true' obligation='normative'>
-            <p id='_'>Text</p>
-          </clause>
-        </clause>
-        <terms id='_' obligation='normative'>
-          <title>Terms and definitions</title>
-          <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
-          <term id='term-Term1'>
-            <preferred><expression><name>Term1</name></expression></preferred>
-          </term>
-        </terms>
-         <clause id='_' obligation='normative' type="terms">
-                  <title>Terms, definitions, symbols and abbreviated terms</title>
-                  <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
-                  <clause id='_' inline-header='false' obligation='normative'>
-                    <title>Introduction</title>
-                    <clause id='_' inline-header='false' obligation='normative'>
-                      <title>Intro 1</title>
-                    </clause>
-                  </clause>
-                  <terms id='_' obligation='normative'>
-                    <title>Intro 2</title>
-                    <clause id='_' inline-header='false' obligation='normative'>
-                      <title>Intro 3</title>
-                    </clause>
-                  </terms>
-                  <clause id='_' obligation='normative' type="terms">
-                    <title>Intro 4</title>
-                    <terms id='_' obligation='normative'>
-                      <title>Intro 5</title>
-                      <term id='term-Term1-1'>
-                        <preferred><expression><name>Term1</name></expression></preferred>
-                      </term>
-                    </terms>
-                  </clause>
-                  <terms id='_' obligation='normative'>
-                    <title>Normal Terms</title>
-                    <term id='term-Term2'>
-                      <preferred><expression><name>Term2</name></expression></preferred>
-                    </term>
-                  </terms>
-                  <definitions id='_' obligation='normative'>
-                    <title>Symbols and Abbreviated Terms</title>
-                    <clause id='_' inline-header='false' obligation='normative'>
-                      <title>General</title>
-                    </clause>
-                    <definitions id='_' obligation='normative'>
-                      <title>Symbols 1</title>
-                    </definitions>
-                  </definitions>
-                </clause>
-                <definitions id='_' obligation='normative' type="abbreviated_terms">
-                  <title>Abbreviated Terms</title>
-                </definitions>
-        <clause id='_' inline-header='false' obligation='normative'>
-          <title>Clause 4</title>
-          <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
-            <title>Introduction</title>
-          </clause>
-          <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
-            <title>Clause 4.2</title>
-          </clause>
-        </clause>
-        <clause id='_' inline-header='false' obligation='normative'>
-          <title>Terms and Definitions</title>
-        </clause>
-      </sections>
-      <annex id='_' inline-header='false' obligation='normative'>
-        <title>Annex</title>
-        <clause id='_' inline-header='false' obligation='normative' unnumbered='true'>
-          <title>Annex A.1</title>
-        </clause>
-      </annex>
-      <bibliography>
-        <references id='_' normative='true' obligation='informative'>
-          <title>Normative references</title>
-          <p id='_'>There are no normative references in this document.</p>
-        </references>
-        <clause id='_' obligation='informative'>
-          <title>Bibliography</title>
-          <references id='_' normative='false' obligation='informative'>
-            <title>Bibliography Subsection</title>
-          </references>
-        </clause>
-      </bibliography>
-         </un-standard>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+   <bibdata type="standard">
+      <title type="main" language="en" format="text/plain">Document title</title>
+      <contributor>
+         <role type="author"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>United Nations</name>
+         </organization>
+      </contributor>
+      <language>ar</language>
+      <language>ru</language>
+      <language>en</language>
+      <language>fr</language>
+      <language>zh</language>
+      <language>es</language>
+      <script>Latn</script>
+      <abstract>
+         <p>Text</p>
+      </abstract>
+      <status>
+         <stage>published</stage>
+      </status>
+      <copyright>
+         <from>#{Date.today.year}</from>
+         <owner>
+            <organization>
+               <name>United Nations</name>
+            </organization>
+         </owner>
+      </copyright>
+      <ext>
+         <doctype>standard</doctype>
+         <flavor>un</flavor>
+         <session/>
+      </ext>
+   </bibdata>
+   <metanorma-extension>
+      <semantic-metadata>
+         <stage-published>true</stage-published>
+      </semantic-metadata>
+      <presentation-metadata>
+         <toc-heading-levels>2</toc-heading-levels>
+         <html-toc-heading-levels>2</html-toc-heading-levels>
+         <doc-toc-heading-levels>2</doc-toc-heading-levels>
+         <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+      </presentation-metadata>
+   </metanorma-extension>
+   <boilerplate>
+      <copyright-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_" anchor="boilerplate-ECEhdr">ECE/TRADE/437</p>
+            <p id="_">
+               Copyright © United Nations #{Date.today.year}
+               <br/>
+               All rights reserved worldwide
+               <br/>
+               United Nations publication issued by the Economic Commission for Europe
+            </p>
+         </clause>
+      </copyright-statement>
+      <license-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <p id="_">None of the materials provided on this web site may be used, reproduced or transmitted, in whole or in part, in any form or by any means, electronic or mechanical, including photocopying, recording or the use of any information storage and retrieval system, except as provided for in the Terms and Conditions of Use of United Nations Web Sites, without permission in writing from the publisher.</p>
+            <p id="_">News-related material can be used as long as the appropriate credit is given and the United Nations is advised.</p>
+            <p id="_">
+               To request such permission or for further enquires, please visit:
+               <link target="https://shop.un.org/rights-permissions">United Nations Publications: Rights and Permissions.</link>
+            </p>
+         </clause>
+      </license-statement>
+      <legal-statement>
+         <clause id="_" inline-header="false" obligation="normative">
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Note</title>
+               <p id="_">The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area, or of its authorities, or concerning the delimitation of its frontiers or boundaries.</p>
+            </clause>
+         </clause>
+      </legal-statement>
+      <feedback-statement>
+         <p id="_" anchor="boilerplate-feedback-name">UN Economic Commission for Europe: Information Service</p>
+         <p id="_" anchor="boilerplate-feedback-address">
+            Palais des Nations
+            <br/>
+            CH-1211 Geneva 10
+            <br/>
+            Switzerland
+            <br/>
+            <br/>
+            <link target="tel:+41(0)229171234">+41 (0) 22 917 12 34 (switchboard)</link>
+            <br/>
+         </p>
+         <p id="_">
+            <link target="mailto:unece_info@un.org">
+               unece_info@un.org
+               <br/>
+               <link target="link:++https://www.unece.org/">www.unece.org/</link>
+               ++[]
+            </link>
+         </p>
+      </feedback-statement>
+   </boilerplate>
+   <preface>
+      <abstract id="_">
+         <title id="_">Summary</title>
+         <p id="_">Text</p>
+      </abstract>
+      <foreword id="_" obligation="informative">
+         <title id="_">Foreword</title>
+         <p id="_">Text</p>
+      </foreword>
+      <clause id="_" inline-header="false" obligation="informative">
+         <title id="_">Dedication</title>
+      </clause>
+      <acknowledgements id="_" obligation="informative">
+         <title id="_">Acknowledgements</title>
+      </acknowledgements>
+   </preface>
+   <sections>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Foreword</title>
+      </clause>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Introduction</title>
+         <clause id="_" inline-header="false" obligation="normative">
+            <title id="_">Introduction Subsection</title>
+         </clause>
+      </clause>
+      <clause id="_" type="scope" inline-header="false" obligation="normative">
+         <title id="_">Scope</title>
+         <p id="_">Text</p>
+      </clause>
+      <terms id="_" obligation="normative">
+         <title id="_">Terms and definitions</title>
+         <p id="_">For the purposes of this document, the following terms and definitions apply.</p>
+         <term id="_" anchor="term-Term1">
+            <preferred>
+               <expression>
+                  <name>Term1</name>
+               </expression>
+            </preferred>
+         </term>
+      </terms>
+      <clause id="_" obligation="normative" type="terms">
+         <title id="_">Terms, definitions, symbols and abbreviated terms</title>
+         <p id="_">For the purposes of this document, the following terms and definitions apply.</p>
+         <clause id="_" inline-header="false" obligation="normative">
+            <title id="_">Introduction</title>
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Intro 1</title>
+            </clause>
+         </clause>
+         <terms id="_" obligation="normative">
+            <title id="_">Intro 2</title>
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">Intro 3</title>
+            </clause>
+         </terms>
+         <clause id="_" obligation="normative" type="terms">
+            <title id="_">Intro 4</title>
+            <terms id="_" obligation="normative">
+               <title id="_">Intro 5</title>
+               <term id="_" anchor="term-Term1-1">
+                  <preferred>
+                     <expression>
+                        <name>Term1</name>
+                     </expression>
+                  </preferred>
+               </term>
+            </terms>
+         </clause>
+         <terms id="_" obligation="normative">
+            <title id="_">Normal Terms</title>
+            <term id="_" anchor="term-Term2">
+               <preferred>
+                  <expression>
+                     <name>Term2</name>
+                  </expression>
+               </preferred>
+            </term>
+         </terms>
+         <definitions id="_" obligation="normative">
+            <title id="_">Symbols and Abbreviated Terms</title>
+            <clause id="_" inline-header="false" obligation="normative">
+               <title id="_">General</title>
+            </clause>
+            <definitions id="_" obligation="normative">
+               <title id="_">Symbols 1</title>
+            </definitions>
+         </definitions>
+      </clause>
+      <definitions id="_" type="abbreviated_terms" obligation="normative">
+         <title id="_">Abbreviated Terms</title>
+      </definitions>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Clause 4</title>
+         <clause id="_" inline-header="false" obligation="normative">
+            <title id="_">Introduction</title>
+         </clause>
+         <clause id="_" inline-header="false" obligation="normative">
+            <title id="_">Clause 4.2</title>
+         </clause>
+      </clause>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Terms and Definitions</title>
+      </clause>
+   </sections>
+   <annex id="_" inline-header="false" obligation="normative">
+      <title id="_">Annex</title>
+      <clause id="_" inline-header="false" obligation="normative">
+         <title id="_">Annex A.1</title>
+      </clause>
+   </annex>
+   <bibliography>
+      <references id="_" normative="true" obligation="informative">
+         <title id="_">Normative references</title>
+         <p id="_">There are no normative references in this document.</p>
+      </references>
+      <clause id="_" obligation="informative">
+         <title id="_">Bibliography</title>
+         <references id="_" normative="false" obligation="informative">
+            <title id="_">Bibliography Subsection</title>
+         </references>
+      </clause>
+   </bibliography>
+</metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)

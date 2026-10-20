@@ -16,16 +16,6 @@ module IsoDoc
           "//bibliography/references"
       end
 
-      def admonition_parse(node, out)
-        name = node.at(ns("./name"))
-        out.div **admonition_attrs(node) do |t|
-          admonition_name_parse(node, t, name) if name
-          node.children.each do |n|
-            parse(n, t) unless n.name == "name"
-          end
-        end
-      end
-
       def inline_header_title(out, _node, title)
         out.span class: "zzMoveToFollowing inline-header" do |s|
           title&.children&.each { |c2| parse(c2, s) }

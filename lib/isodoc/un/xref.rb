@@ -164,8 +164,8 @@ module IsoDoc
         clause.xpath(ns(".//admonition")).noblank.each do |t|
           i += 1 unless t["unnumbered"] == "true"
           @anchors[t["id"]] =
-            anchor_struct(i.to_s, container ? t : nil, @labels["admonition"],
-                                            "box", t["unnumbered"])
+            anchor_struct(i.to_s, t, @labels["box"], "admonition",
+                          { container: container, unnumb: t["unnumbered"] })
         end
       end
 
@@ -174,8 +174,8 @@ module IsoDoc
         clause.xpath(ns(".//admonition")).noblank.each do |t|
           i += 1 unless t["unnumbered"] == "true"
           @anchors[t["id"]] =
-            anchor_struct("#{num}.#{i}", nil, @labels["admonition"], "box",
-                          t["unnumbered"])
+            anchor_struct("#{num}.#{i}", t, @labels["box"], "admonition",
+                          { unnumb: t["unnumbered"] })
         end
       end
 

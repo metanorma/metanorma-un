@@ -34,6 +34,8 @@ end
 def strip_guid(xml)
   xml.gsub(%r{ id="_[^"]+"}, ' id="_"')
     .gsub(%r{ target="_[^"]+"}, ' target="_"')
+    .gsub(%r{ source="_[^"]+"}, ' source="_"')
+    .gsub(%r{ container="_[^"]+"}, ' container="_"')
     .gsub(%r{<fetched>[^<]+</fetched>}, "<fetched/>")
     .gsub(%r{ schema-version="[^"]+"}, "")
 end
@@ -72,8 +74,10 @@ HDR
 def boilerplate_read(file, xmldoc)
   conv = Metanorma::UN::Converter.new(:un, {})
   conv.init(Asciidoctor::Document.new([]))
-  x = conv.boilerplate_isodoc(xmldoc).populate_template(file, nil)
-  ret = conv.boilerplate_file_restructure(x)
+  cleanup = Metanorma::Standoc::Cleanup.new(conv)
+  isodoc = cleanup.boilerplate_isodoc(xmldoc)
+  x = isodoc.populate_template(file, nil)
+  ret = cleanup.boilerplate_file_restructure(x)
   ret.to_xml(encoding: "UTF-8", indent: 2,
              save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
     .gsub(/<(\/)?sections>/, "<\\1boilerplate>")
