@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "roman-numerals"
   spec.add_dependency "twitter_cldr"
 
+  spec.add_dependency "metanorma-iso", ">= 3.4.2" # relaxed until the model-migration wave releases
   spec.add_dependency "metanorma-standoc", "~> 3.5"
 
   spec.add_development_dependency "debug"

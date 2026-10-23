@@ -1,4 +1,5 @@
 require "metanorma/un/processor"
+require "metanorma/un/document"
 require "metanorma/un/input"
 require "metanorma/un/version"
 require "metanorma/un/converter"
