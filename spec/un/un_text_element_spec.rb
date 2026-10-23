@@ -4,7 +4,6 @@ require "bundler/setup"
 require "rspec/matchers"
 require "metanorma/un/document"
 
-require "metanorma/un_document"
 
 RSpec.describe Metanorma::Un::Document::UnTextElement do
   it "allows exactly the UN grammar inline subset" do

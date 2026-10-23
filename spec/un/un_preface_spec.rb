@@ -4,7 +4,6 @@ require "bundler/setup"
 require "rspec/matchers"
 require "metanorma/un/document"
 
-require "metanorma/un_document"
 
 RSpec.describe "UN preface and abstract sections" do
   describe Metanorma::Un::Document::Sections::UnPreface do

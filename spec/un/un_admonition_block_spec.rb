@@ -4,7 +4,6 @@ require "bundler/setup"
 require "rspec/matchers"
 require "metanorma/un/document"
 
-require "metanorma/un_document"
 
 RSpec.describe Metanorma::Un::Document::Blocks::UnAdmonitionBlock do
   let(:register) { Lutaml::Model::GlobalRegister.lookup(:un_document) }

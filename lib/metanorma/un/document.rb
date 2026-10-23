@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "metanorma/standoc"
+require "metanorma/iso/document"
 # Forward-declare parent namespace so this file is safe to require
 # directly (without first requiring metanorma/un.rb).
 module Metanorma
@@ -30,9 +31,8 @@ module Metanorma
   end
 end
 
-if defined?(Metanorma::Registers::Setup.setup_un_register)
-  Metanorma::Registers::Setup.setup_un_register
-end
+require "metanorma/un/registers"
+Metanorma::Un::Registers.setup
 
 module Metanorma
   deprecate_constant :UnDocument

@@ -3,7 +3,7 @@
 module Metanorma
   module Un::Document
     module Metadata
-      class UnBibliographicItem < Metanorma::IsoDocument::Metadata::IsoBibliographicItem
+      class UnBibliographicItem < Metanorma::Iso::Document::Metadata::IsoBibliographicItem
         attribute :ext, UnBibDataExtensionType
 
         xml do
