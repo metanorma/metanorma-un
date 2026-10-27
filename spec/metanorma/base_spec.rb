@@ -11,7 +11,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <contributor>
@@ -137,7 +137,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <contributor>
@@ -304,7 +304,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Main Title</title>
       <title type="subtitle" language="en" format="text/plain">Subtitle</title>
@@ -440,7 +440,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <docidentifier primary="true">1000(cd)</docidentifier>
@@ -503,7 +503,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <docidentifier primary="true">1000(d)</docidentifier>
@@ -569,7 +569,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <docidentifier primary="true">OVERRIDE</docidentifier>
@@ -681,7 +681,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <contributor>
@@ -810,7 +810,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <contributor>
@@ -950,7 +950,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <contributor>
@@ -1113,7 +1113,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <contributor>
@@ -1390,7 +1390,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <contributor>
@@ -1716,7 +1716,7 @@ RSpec.describe Metanorma::UN do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <contributor>

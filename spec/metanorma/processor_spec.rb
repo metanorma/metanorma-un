@@ -34,7 +34,7 @@ RSpec.describe Metanorma::UN::Processor do
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="0.12.19" flavor="un">
+<metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::UN::VERSION}" flavor="un">
    <bibdata type="standard">
       <title type="main" language="en" format="text/plain">Document title</title>
       <contributor>
