@@ -64,7 +64,7 @@ RSpec.describe IsoDoc::UN do
     docxml, _filename, _dir = csdc.convert_init(input, "test", true)
     expect(htmlencode(metadata_str(csdc.info(docxml, nil)))
       .gsub(", :", ",\n:"))
-      .to be_equivalent_to output
+      .to eq output.strip
   end
 
   it "processes default metadata, plenary" do
@@ -129,7 +129,7 @@ RSpec.describe IsoDoc::UN do
     docxml, _filename, _dir = csdc.convert_init(input, "test", true)
     expect(htmlencode(metadata_str(csdc.info(docxml, nil)))
       .gsub(", :", ",\n:"))
-      .to be_equivalent_to output
+      .to eq output.strip
   end
 
   it "processes inline section headers" do
@@ -167,7 +167,7 @@ RSpec.describe IsoDoc::UN do
       .convert("test", input, true)
       .sub(%r{^.*<div class="WordSection3">}m, '<div class="WordSection3">')
       .sub(%r{<v:line.*$}m, "</div>")))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_xml_equivalent_to Xml::C14n.format(output)
   end
 
   it "uses plenary title page in DOC for plenaries" do
@@ -300,7 +300,7 @@ RSpec.describe IsoDoc::UN do
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(html).to include("<v:shapetype")
     expect(section1).to include("This is an abstract")
-    expect(Xml::C14n.format(section2)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+    expect(Xml::C14n.format(section2)).to be_xml_equivalent_to Xml::C14n.format(<<~OUTPUT)
 <?xml version="1.0" encoding="UTF-8"?>
 
 
@@ -443,7 +443,7 @@ RSpec.describe IsoDoc::UN do
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(section1).not_to include("This is an abstract")
     expect(Xml::C14n.format(section2))
-      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+      .to be_xml_equivalent_to Xml::C14n.format(<<~OUTPUT)
 <?xml version="1.0" encoding="UTF-8"?>
 
 
