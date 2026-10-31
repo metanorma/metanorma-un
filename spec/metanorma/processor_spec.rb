@@ -18,7 +18,7 @@ RSpec.describe Metanorma::UN::Processor do
 [[:doc, "doc"], [:html, "html"], [:pdf, "pdf"], [:presentation, "presentation.xml"], [:rxl, "rxl"], [:xml, "xml"]]
     OUTPUT
 
-    expect(processor.output_formats.sort.to_s).to be_equivalent_to output
+    expect(processor.output_formats.sort).to eq [[:doc, "doc"], [:html, "html"], [:pdf, "pdf"], [:presentation, "presentation.xml"], [:rxl, "rxl"], [:xml, "xml"]]
   end
 
   it "registers version against metanorma" do
@@ -143,7 +143,7 @@ RSpec.describe Metanorma::UN::Processor do
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(processor
-      .input_to_isodoc(input, nil)))).to be_equivalent_to output
+      .input_to_isodoc(input, nil)))).to be_xml_equivalent_to output
   end
 
   it "generates HTML from IsoDoc XML" do
@@ -182,7 +182,7 @@ RSpec.describe Metanorma::UN::Processor do
       Xml::C14n.format(strip_guid(File.read("test.html", encoding: "utf-8")
       .gsub(%r{^.*<main}m, "<main")
       .gsub(%r{</main>.*}m, "</main>"))),
-    ).to be_equivalent_to Xml::C14n.format(strip_guid(output))
+    ).to be_xml_equivalent_to Xml::C14n.format(strip_guid(output))
   end
 
   it "generates DOC from IsoDoc XML" do

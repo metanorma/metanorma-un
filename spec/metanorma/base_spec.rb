@@ -120,7 +120,7 @@ RSpec.describe Metanorma::UN do
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to output
+      .to be_xml_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -253,7 +253,7 @@ RSpec.describe Metanorma::UN do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.pdf"
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to output
+      .to be_xml_equivalent_to output
     expect(File.exist?("test.html")).to be true
     expect(File.exist?("test.doc")).to be true
     expect(File.exist?("test.pdf")).to be true
@@ -421,7 +421,7 @@ RSpec.describe Metanorma::UN do
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:metanorma-extension").each(&:remove)
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_xml_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes committee-draft, languages" do
@@ -486,7 +486,7 @@ RSpec.describe Metanorma::UN do
     xml.xpath("//xmlns:boilerplate | //xmlns:metanorma-extension")
       .each(&:remove)
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_xml_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes draft-standard" do
@@ -551,7 +551,7 @@ RSpec.describe Metanorma::UN do
     xml.xpath("//xmlns:boilerplate | //xmlns:metanorma-extension")
       .each(&:remove)
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_xml_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes override docidentifier" do
@@ -617,7 +617,7 @@ RSpec.describe Metanorma::UN do
     xml.xpath("//xmlns:boilerplate | //xmlns:metanorma-extension")
       .each(&:remove)
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_xml_equivalent_to Xml::C14n.format(output)
   end
 
   it "warns when type used other than recommendation or plenary" do
@@ -664,7 +664,7 @@ RSpec.describe Metanorma::UN do
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))
       .sub(/^.*<preface/m, "<preface")
       .sub(%r{</preface>.*$}m, "</preface>")))
-      .to be_equivalent_to output
+      .to be_xml_equivalent_to output
   end
 
   it "processes notes" do
@@ -793,7 +793,7 @@ RSpec.describe Metanorma::UN do
 </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_xml_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes simple admonitions with Asciidoc names" do
@@ -923,7 +923,7 @@ RSpec.describe Metanorma::UN do
 </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_xml_equivalent_to Xml::C14n.format(output)
   end
 
   it "adds paragraph numbering" do
@@ -1081,7 +1081,7 @@ RSpec.describe Metanorma::UN do
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to output
+      .to be_xml_equivalent_to output
   end
 
   it "does not add paragraph numbering to an agenda" do
@@ -1244,7 +1244,7 @@ RSpec.describe Metanorma::UN do
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to output
+      .to be_xml_equivalent_to output
   end
 
   it "uses default fonts" do
@@ -1623,7 +1623,7 @@ RSpec.describe Metanorma::UN do
 </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_xml_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes sections with do-not-number-subheadings" do
@@ -1949,6 +1949,6 @@ RSpec.describe Metanorma::UN do
 </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_xml_equivalent_to Xml::C14n.format(output)
   end
 end
