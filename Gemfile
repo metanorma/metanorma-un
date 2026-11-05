@@ -9,11 +9,11 @@ gemspec
 eval_gemfile("Gemfile.devel") rescue nil
 
 # Canonical line: the relaton 3 finals over the α engine line.
-gem "metanorma", "~> 2.5.6.pre.alpha"
-gem "metanorma-standoc", "~> 3.5.1.pre.alpha"
-gem "metanorma-document", "~> 0.5.2.pre.alpha"
+gem "metanorma", "~> 2.5.14"
+gem "metanorma-standoc", "~> 3.5.7"
+gem "metanorma-document", "~> 0.5.3"
 gem "metanorma-core", github: "metanorma/metanorma-core", branch: "main"
-gem "isodoc", "~> 3.7.4.pre.alpha"
+gem "isodoc", "~> 3.7.9"
 gem "relaton", "~> 3.0"
 gem "pubid", "~> 2.0"
 gem "sassc-embedded", "~> 1.80"
